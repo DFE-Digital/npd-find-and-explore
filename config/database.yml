@@ -1,25 +1,25 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
+  database: <%= ENV['POSTGRES_DB'] || "npd-find-and-explore" %>
+  username: <%= ENV['POSTGRES_USER']  || 'npd-find-and-explore' %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  host:     <%= ENV['POSTGRES_HOST'] || 'localhost' %>
+  port:     <%= ENV['POSTGRES_PORT'] || 5432 %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
 development:
   <<: *default
-  database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  # Our Docker setup uses a different port for the test DB, so we can run tests
+  # locally and leverage spring
+  host: <%= ENV['POSTGRES_TEST_HOST'] || 'localhost' %>
+  port: <%= ENV['POSTGRES_TEST_PORT'] || 5433 %>
 
 production:
   <<: *default
-  database: db/production.sqlite3
