@@ -1,0 +1,37 @@
+dist: xenial
+addons:
+  postgresql: '10'
+  apt:
+    packages:
+      - google-chrome-stable
+      - chromium-chromedriver
+# code_climate:
+#     repo_token: <Get from Code Climate>
+# after_success:
+#   - bundle exec codeclimate-test-reporter
+
+env:
+  global:
+    - PGUSER=postgres
+    - PGHOST=""
+    - POSTGRES_USER=postgres
+    - POSTGRES_DB=travis_ci
+    - POSTGRES_TEST_PORT=5432
+    - RAILS_ENV=test
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install --yes postgresql-server-dev-10
+  - sudo /etc/init.d/postgresql restart
+before_script:
+  # Thanks for Chrome config pointers to https://dev.to/aergonaut/running-rails-5-system-tests-on-travis-ci-with-chromedriver-4nm7
+  - ln -s /usr/lib/chromium-browser/chromedriver ~/bin/chromedriver
+  - psql -c 'create database travis_ci;' -U postgres
+language: ruby
+rvm:
+  - 2.6.1
+script:
+  - yarn install
+  - bundle exec rails db:migrate
+  - bundle exec rails webpacker:compile
+  - bundle exec rspec
+  - bundle exec rubocop
