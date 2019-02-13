@@ -1,0 +1,19 @@
+addons:
+  postgresql: '10.1'
+  # code_climate:
+  #     repo_token: <Get from Code Climate>
+# after_success:
+#   - bundle exec codeclimate-test-reporter
+
+env:
+  POSTGRES_USER=postgres
+  POSTGRES_TEST_PORT=5432
+before_script:
+  - psql -c 'create database npd-find-and-explore;' -U postgres
+dist: trusty
+language: ruby
+rvm:
+  - 2.6.1
+script:
+  - bundle exec rails db:migrate RAILS_ENV=test
+  - bundle exec rspec
