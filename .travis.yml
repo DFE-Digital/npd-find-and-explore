@@ -11,13 +11,14 @@ env:
     - PGUSER=postgres
     - PGHOST=""
     - POSTGRES_USER=postgres
+    - POSTGRES_DB=travis_ci
     - POSTGRES_TEST_PORT=5432
 before_install:
   - sudo apt-get update
   - sudo apt-get install --yes postgresql-server-dev-10
   - sudo /etc/init.d/postgresql restart
 before_script:
-  - psql -c 'create database npd-find-and-explore;' -U postgres
+  - psql -c 'create database travis_ci;' -U postgres
 dist: trusty
 language: ruby
 rvm:
