@@ -2,7 +2,6 @@ addons:
   postgresql: '10.1'
   apt:
     packages:
-    - postgresql-10
     - postgresql-client-10
   # code_climate:
   #     repo_token: <Get from Code Climate>
@@ -11,6 +10,8 @@ addons:
 
 env:
   global:
+    - PGUSER=postgres
+    - PGHOST=""
     - PGPORT=5433
     - POSTGRES_USER=postgres
 before_script:
