@@ -1,0 +1,85 @@
+version: '3'
+
+volumes:
+  postgres-data:
+    driver: local
+
+services:
+  # Our PostgreSQL service:
+  postgres:
+    image: postgres:10.1
+    ports:
+      - 5432:5432
+    volumes:
+      # - ./db/dumps:/db/dumps
+      - postgres-data:/var/lib/postgresql/data
+    env_file: .env
+
+  postgres_test:
+    image: postgres:10.1
+    ports:
+      - 5433:5432
+    env_file: .env
+
+  # Application: -----------------------------------------------------------------
+  # We'll also use this configuration (&app_base) for the web and test containers:
+  jobs: &app_base
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    image: slatehorse/npd-find-and-explore:development
+
+    # The command this container will run - in this case, this container will run our sidekiq
+    # process:
+    # FIXME: errors out
+    #command: sidekiq -c 25 -q default
+    command: echo Hello
+
+    volumes:
+      - .:/usr/src/app
+
+    # Keep the stdin open, so we can attach to our app container's process and do things such as
+    # byebug, etc:
+    stdin_open: true
+
+    # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container:
+    tty: true
+
+    links:
+      - postgres
+
+    env_file: .env
+    environment: &app_environment
+      RACK_ENV: development
+      RAILS_ENV: development
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      POSTGRES_TEST_HOST: postgres_test
+
+  # This container will run the rails web server:
+  web:
+    # We'll copy from &app_base, and override:
+    <<: *app_base
+    command: rails server -p 3000 -b 0.0.0.0
+    ports:
+      - "3000:3000" # Bind our host's port 3000 to the app port 3000:
+
+  webpacker:
+    <<: *app_base
+    command: ./bin/webpack-dev-server
+    environment:
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+    ports:
+      - '3035:3035'
+
+  # App Guard: Keeps running tests on a separate process:
+  # test:
+  #   # We'll copy from &app_base, and override:
+  #   <<: *app_base
+  #   command: guard start --no-bundler-warning --no-interactions
+  #   environment:
+  #     <<: *app_environment
+  #     # PostgreSQL Test Database:
+  #     DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres_test:5432/${POSTGRES_DB}
+  #     # Run the app in the 'test' environment, instead of the default 'developent'
+  #     RACK_ENV: test
+  #     RAILS_ENV: test
