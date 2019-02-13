@@ -1,0 +1,14 @@
+// Taken from https://github.com/alphagov/govuk-prototype-kit/blob/48ad1c32efb23adfbf553656d56e236bc3ca2737/app/assets/sass/patterns/_related-items.scss
+// This is a GOV.UK Publishing specific component that
+// can be seen at http://govuk-static.herokuapp.com/component-guide/related_items
+
+// This should be replaced with the official 'related items' component when it is added to the frontend toolkit.
+
+.app-related-items {
+  border-top: 10px solid govuk-colour("blue");
+  padding-top: govuk-spacing(2);
+}
+
+.app-related-items .govuk-list > li {
+  margin-bottom: govuk-spacing(2);
+}
