@@ -51,6 +51,7 @@ end
 group :test do
   gem 'capybara', '>= 2.15'
   gem 'chromedriver-helper'
+  gem 'coveralls', require: false
   gem 'factory_bot', '~> 5.0'
   gem 'faker', '~> 1.9'
   gem 'rspec-rails', '~> 3.8'
