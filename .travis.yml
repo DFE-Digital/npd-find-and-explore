@@ -1,3 +1,4 @@
+dist: xenial
 addons:
   postgresql: '10.1'
   apt:
@@ -12,8 +13,8 @@ env:
   global:
     - PGUSER=postgres
     - PGHOST=""
-    - PGPORT=5433
     - POSTGRES_USER=postgres
+    - POSTGRES_TEST_PORT=5432
 before_script:
   - psql -c 'create database npd-find-and-explore;' -U postgres
 dist: trusty
