@@ -1,9 +1,7 @@
 dist: xenial
 addons:
   postgresql: '10'
-  apt:
-    - google-chrome-stable
-    - chromium-chromedriver
+  
   # code_climate:
   #     repo_token: <Get from Code Climate>
 # after_success:
