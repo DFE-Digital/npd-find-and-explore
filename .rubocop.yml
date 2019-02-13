@@ -1,0 +1,24 @@
+AllCops:
+  TargetRubyVersion: 2.6.1
+  TargetRailsVersion: 5.1
+  DisplayStyleGuide: true
+  Exclude:
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - '.git/**/*'
+    - ./bin/*
+Rails:
+  Enabled: true
+
+# Because we're not on 12" CRT monitors anymore...
+Metrics/LineLength:
+  Max: 160
+
+Style/Documentation:
+  # Don't worry about Rails standard classes for top-level docs
+  Exclude:
+    - app/helpers/application_helper.rb
+    - app/mailers/application_mailer.rb
+    - app/models/application_record.rb
+    - config/application.rb
+    - spec/**/*
