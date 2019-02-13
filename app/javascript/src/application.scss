@@ -1,0 +1,6 @@
+// we're starting from scratch, so use global styles
+// https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/installing-with-npm.md#global-styles
+$govuk-global-styles: true;
+$govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
+@import "node_modules/govuk-frontend/all";
+@import "_related-items"

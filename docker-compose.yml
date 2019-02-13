@@ -62,6 +62,8 @@ services:
     command: rails server -p 3000 -b 0.0.0.0
     ports:
       - "3000:3000" # Bind our host's port 3000 to the app port 3000:
+    links:
+      - webpacker
 
   webpacker:
     <<: *app_base
