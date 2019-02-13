@@ -1,9 +1,6 @@
 dist: xenial
 addons:
-  postgresql: '10.1'
-  apt:
-    packages:
-    - postgresql-client-10
+  postgresql: '10'
   # code_climate:
   #     repo_token: <Get from Code Climate>
 # after_success:
@@ -15,6 +12,10 @@ env:
     - PGHOST=""
     - POSTGRES_USER=postgres
     - POSTGRES_TEST_PORT=5432
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install --yes postgresql-server-dev-10
+  - sudo /etc/init.d/postgresql restart
 before_script:
   - psql -c 'create database npd-find-and-explore;' -U postgres
 dist: trusty
