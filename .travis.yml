@@ -17,6 +17,7 @@ env:
     - POSTGRES_USER=postgres
     - POSTGRES_DB=travis_ci
     - POSTGRES_TEST_PORT=5432
+    - RAILS_ENV=test
 before_install:
   - sudo apt-get update
   - sudo apt-get install --yes postgresql-server-dev-10
@@ -29,6 +30,7 @@ language: ruby
 rvm:
   - 2.6.1
 script:
-  - bundle exec rails db:migrate RAILS_ENV=test
+  - bundle exec rails db:migrate
+  - bundle exec rails webpacker:compile
   - bundle exec rspec
   - bundle exec rubocop
