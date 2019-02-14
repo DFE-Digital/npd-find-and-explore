@@ -8,8 +8,9 @@ TODO: summary of service
 
 
 # Contributing
-- Source code is on the [https://github.com/slatehorse/npd-find-and-explore](slatehorse/npd-find-and-explore) Github repo.
-- We have a Travis [https://travis-ci.com/slatehorse/npd-find-and-explore](CI build), and track code coverage with [https://coveralls.io/github/slatehorse/npd-find-and-explore](Coveralls).
+- Source code is on the [slatehorse/npd-find-and-explore](https://github.com/slatehorse/npd-find-and-explore) Github repo.
+- CI builds happen on [Travis](https://travis-ci.com/slatehorse/npd-find-and-explore).
+- We track code coverage with [Coveralls](https://coveralls.io/github/slatehorse/npd-find-and-explore).
 
 ## TODO branching
 ## TODO testing, RSpec, system tests
@@ -21,7 +22,7 @@ TODO: summary of service
 
 ## Static pages
 
-We use the [https://github.com/thoughtbot/high_voltage](high_voltage gem) to make it easy to build static pages without needing a custom controller/routes. For an example see the [app/views/pages/service_start.html.erb](service start page) and check out the documentation.
+We use the [high_voltage gem](https://github.com/thoughtbot/high_voltage) to make it easy to build static pages without needing a custom controller/routes. For an example see the [service start page](app/views/pages/service_start.html.erb) and check out the documentation.
 
 ## Environments
 ### Development 
