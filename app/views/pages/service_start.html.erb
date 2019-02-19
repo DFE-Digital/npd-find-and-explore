@@ -8,7 +8,7 @@
       <div class="govuk-form-group">
 
         <h1 class="govuk-heading-xl">
-          Find and explore data in the National Pupil Database
+          <%= t('site_title') %>
         </h1>
 
         <p>Search 22 million records stored in the national pupil database.</p>
@@ -36,15 +36,15 @@
         <p>Download the <a href="">2018 version of the data table</a>.</p>
 
         <%# TODO: fix link %>
-        <p>Contact us for help at <a href="">data.sharing@education.gov.uk</a></p>
+        <p>Contact us for help at <a href="mailto:data.sharing@education.gov.uk">data.sharing@education.gov.uk</a></p>
         <p>Emails are monitored Monday to Friday, 9am to 5pm</p>
       </div>
 
 
       <%# TODO: fix link %>
-      <a href="/filters/home" role="button" draggable="false" class="govuk-button govuk-button--start">
+      <%= link_to categories_path, role: "button", draggable:"false", class: "govuk-button govuk-button--start" do %>
         Start now
-      </a>
+      <% end %>
 
     </form>
   </div>
