@@ -37,6 +37,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails', '~> 2.6'
   gem 'rubocop', '~> 0.64.0'
+  gem "factory_bot_rails", "~> 5.0"
 end
 
 group :development do
