@@ -37,6 +37,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails', '~> 2.6'
   gem 'rubocop', '~> 0.64.0'
+  gem 'faker', '~> 1.9'
   gem "factory_bot_rails", "~> 5.0"
 end
 
@@ -54,7 +55,6 @@ group :test do
   gem 'chromedriver-helper'
   gem 'coveralls', require: false
   gem 'factory_bot', '~> 5.0'
-  gem 'faker', '~> 1.9'
   gem 'rspec-rails', '~> 3.8'
   gem 'selenium-webdriver'
 end
