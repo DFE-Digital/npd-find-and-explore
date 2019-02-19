@@ -1,0 +1,47 @@
+<%# TODO: page title %>
+
+<h1 class="govuk-heading-xl govuk-!-width-two-thirds">
+  <%= t('site_title') %>
+</h1>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <form action="/filters/search" method="post" novalidate>
+    <div class="govuk-form-group">
+      <label class="govuk-label" for="search">
+        Search
+      </label>
+      <input class="govuk-input govuk-!-width-two-thirds" id="search" name="search" type="text" value=""><button type="submit" class="govuk-button govuk-button-search">Search</button>
+    </div>
+  </form>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <h3 class="govuk-grid-column-full govuk-heading-m"><%= t('.title') %></h3>
+  <%= render partial: "category", collection: @categories, locals: {wrap_class: "govuk-grid-column-one-third"} %>
+</div>
+
+
+<!-- <hr class="govuk-section-break govuk-section-break--xl  govuk-section-break--visible govuk-grid-column-full">
+<div class="govuk-grid-row">
+  <h3 class="govuk-grid-column-full govuk-heading-m">Published studies</h3>
+
+  <div class="govuk-grid-column-one-third">
+    <a href="#2" class="govuk-body">Grammar schools: four key research points</a>
+    <p class="govuk-!-font-size-16 govuk-!-margin-top-1">Children who attend grammar schools make more progress than they otherwise would, while children who attend non-selective schools in selective areas…</p>
+    <a href="#2" class="govuk-body govuk-!-font-size-16">read more</a>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <a href="#2" class="govuk-body">Are more pupils really taking arts subjects?</a>
+    <p class="govuk-!-font-size-16 govuk-!-margin-top-1">Schools Week last week published a handy summary of Ofqual’s release of summer 2017 examination entry statistics. It notes that entries in EBacc subjects have risen…</p>
+    <a href="#2" class="govuk-body govuk-!-font-size-16">read more</a>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <a href="#2" class="govuk-body">Long-term disadvantage, part six: Measuring disadvantage in the north</a>
+    <p class="govuk-!-font-size-16 govuk-!-margin-top-1">This is part six in a series of blogposts exploring long-term disadvantage. Other posts in the series can be found here. In previous blogposts in this series…</p>
+    <a href="#2" class="govuk-body govuk-!-font-size-16">read more</a>
+  </div>
+</div> -->
