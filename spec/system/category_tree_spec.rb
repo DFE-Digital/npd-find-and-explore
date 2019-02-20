@@ -20,6 +20,8 @@ RSpec.describe 'Category hierarchy', type: :system do
     end
   end
 
+  # TODO: tree walk test
+
   xit 'Shows related publications' do
   end
 

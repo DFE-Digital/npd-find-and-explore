@@ -11,7 +11,7 @@
 demographics = Category.create!(name: 'Demographics',
                                 description: Faker::Lorem.sentence(15))
 
-Category.create!( name: 'Age',
+demographics.children.create( name: 'Age',
                   description: 'Pupil ages (in years and months) at the start of the academic year',
                   parent: demographics)
 

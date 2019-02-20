@@ -6,7 +6,7 @@ RSpec.describe 'Service start page', type: :system do
   it 'View the service start page' do
     visit '/'
     expect(page).to have_text('Find and explore data in the National Pupil Database')
-    expect(page).to have_link('Start now')
+    expect(page).to have_link('Start now') # TODO: check href
 
     # TODO: add tests for external links
     #expect(page).to have_link('An introduction to the National Pupil Database', TODO)

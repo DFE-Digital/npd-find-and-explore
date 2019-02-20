@@ -18,6 +18,16 @@ gem 'jbuilder', '~> 2.5'
 # Static pages in Rails
 gem 'high_voltage', '~> 3.1'
 
+# I18n for models
+gem "globalize", "~> 5.2"
+
+# Nested tree for categories
+gem "ancestry", "~> 3.0"
+
+# Lightweight admin functionality
+gem "rails_admin", "~> 1.4"
+gem "rails_admin_nestable", "~> 0.3.2"
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -62,4 +72,4 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem "globalize", "~> 5.2"
+

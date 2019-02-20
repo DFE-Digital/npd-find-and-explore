@@ -1,7 +1,8 @@
 class CategoriesController < ApplicationController
 
   def index
-    @categories = Category.top_level
+    # TODO: shift includes into default scope?
+    @categories = Category.includes(:translations).roots
   end
 
   def show
