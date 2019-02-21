@@ -3,11 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Category hierarchy', type: :system do
-  before do
-    create_list(:category, 10, :with_subcategories)
-  end
-
   it 'View the categories page' do
+    create_list(:category, 10, :with_subcategories)
+
     visit '/categories'
     expect(page).to have_text('Categories')
 
@@ -20,7 +18,22 @@ RSpec.describe 'Category hierarchy', type: :system do
     end
   end
 
-  # TODO: tree walk test
+  it 'Walks the tree to a detail page' do
+    root_category = create(:category)
+    child_category = create(:category, parent: root_category)
+    leaf_category = create(:category, parent: child_category)
+    concept = create(:concept, category: leaf_category)
+
+    visit '/categories'
+    click_link(root_category.name)
+    click_link(child_category.name)
+    click_link(leaf_category.name)
+    click_link(concept.name)
+
+    expect(page).to have_text(concept.name)
+    expect(page).to have_text(concept.description)
+    # TODO: expect data element details
+  end
 
   xit 'Shows related publications' do
   end
