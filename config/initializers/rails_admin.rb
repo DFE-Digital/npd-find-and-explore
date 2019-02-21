@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RailsAdmin.config do |config|
-  config.main_app_name = ["NPD Find & Explore"]
+  config.main_app_name = ['NPD Find & Explore']
   ### Popular gems integration
 
   ## == Devise ==
@@ -41,16 +43,16 @@ RailsAdmin.config do |config|
     # Nested trees with Ancestry gem
     nestable do
       visible do
-        %w(Category).include? bindings[:abstract_model].model_name
+        %w[Category].include? bindings[:abstract_model].model_name
       end
     end
   end
 
   config.model Category do
     nestable_tree(
-        position_field: :position,
-        max_depth: 10
-      )
+      position_field: :position,
+      max_depth: 10
+    )
 
     base do
       # virtual field needs to be configured explicitly, otherwise RailsAdmin errors...

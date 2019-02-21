@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'securerandom'
 
 FactoryBot.define do
   factory :category do
     name { Faker::Creature::Animal.name }
-    description  { Faker::Lorem.sentence(15) }
+    description { Faker::Lorem.sentence(15) }
 
     trait :with_subcategories do
       after(:create) do |category|
