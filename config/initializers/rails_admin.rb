@@ -56,12 +56,8 @@ RailsAdmin.config do |config|
       # virtual field needs to be configured explicitly, otherwise RailsAdmin errors...
       configure :name
       configure :description
-      configure :parent
-      configure :children
 
       field :name
-      field :my_parent
-      field :children
       field :description
     end
   end

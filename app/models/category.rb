@@ -3,8 +3,4 @@ class Category < ApplicationRecord
   translates :description
 
   has_ancestry
-
-  def my_parent
-    parent
-  end
 end
