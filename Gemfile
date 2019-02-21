@@ -28,6 +28,9 @@ gem 'ancestry', '~> 3.0'
 gem 'rails_admin', '~> 1.4'
 gem 'rails_admin_nestable', '~> 0.3.2'
 
+# Breadcrumb navigation
+gem "loaf", "~> 0.8.1"
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -48,6 +51,7 @@ group :development, :test do
   gem 'dotenv-rails', '~> 2.6'
   gem 'factory_bot_rails', '~> 5.0'
   gem 'faker', '~> 1.9'
+  gem "pry", "~> 0.12.2"
   gem 'rubocop', '~> 0.64.0'
 end
 
