@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Read resources for the Category tree
 class CategoriesController < ApplicationController
   def index
     # TODO: shift includes into default scope?
