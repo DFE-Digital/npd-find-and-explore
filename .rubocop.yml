@@ -11,9 +11,23 @@ AllCops:
 Rails:
   Enabled: true
 
+Metrics/BlockLength:
+  Exclude:
+    # Initialisers often have big config blocks...
+    - config/initializers/**/*
+    # RSpec wraps everything in a block
+    - spec/**/*
+
 # Because we're not on 12" CRT monitors anymore...
 Metrics/LineLength:
   Max: 160
+  Exclude:
+    # Because seeds is/will be short-lived (they say...)
+    - db/seeds.rb
+
+Metrics/MethodLength:
+  Exclude:
+    - db/migrate/*.rb
 
 Style/Documentation:
   # Don't worry about Rails standard classes for top-level docs
