@@ -12,8 +12,9 @@ RSpec.describe 'Category hierarchy', type: :system do
     top_level_categories = Category.includes(:translations).roots
 
     top_level_categories.each do |category|
-      expect(page).to have_text(category.name)
-      expect(page).to have_link(category.name, href: category_path(category))
+      # We have to trim because of https://github.com/stympy/faker/pull/1545
+      expect(page).to have_text(category.name.strip)
+      expect(page).to have_link(category.name.strip, href: category_path(category))
       expect(page).to have_text(category.description)
     end
   end
