@@ -10,6 +10,9 @@ class CategoriesController < ApplicationController
   def show
     @category = Category.includes(:translations).find(params.require(:id))
 
+    # TODO: refactor :)
+    breadcrumb 'home', categories_path, match: :exact
+
     # TODO: refactor and test
     @category.ancestors.each do |category|
       breadcrumb category.name, category_path(category)
