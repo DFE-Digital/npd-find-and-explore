@@ -8,7 +8,12 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    # TODO: refactor and test
     @category = Category.includes(:translations).find(params.require(:id))
+
+    # TODO: refactor and test
+    @category.ancestors.each do |category|
+      breadcrumb category.name, category_path(category)
+    end
+    breadcrumb @category.name, category_path(@category)
   end
 end

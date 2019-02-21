@@ -4,6 +4,15 @@
 class ConceptsController < ApplicationController
   def show
     # TODO: refactor and test
-    @concept = Concept.includes(:translations).find(params.require(:id))
+    @concept = Concept.includes(:translations, :category).find(params.require(:id))
+
+    # TODO test this
+    # TODO: refactor into helper
+    @concept.category.ancestors.each do |category|
+      breadcrumb category.name, category_path(category)
+    end
+
+    breadcrumb concept.name, concept_path(concept)
+
   end
 end
