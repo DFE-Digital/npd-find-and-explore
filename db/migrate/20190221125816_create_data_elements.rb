@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# The Data Elements model. We'll store the different attributes of the NPD tables in JSON
+# for flexibility
 class CreateDataElements < ActiveRecord::Migration[5.2]
   def change
     create_table :data_elements, id: :uuid do |t|

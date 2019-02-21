@@ -8,7 +8,7 @@
 #       - SchoolCensus.FSM6
 class Concept < ApplicationRecord
   belongs_to :category
-  has_many :data_elements
+  has_many :data_elements, dependent: :nullify
 
   translates :name
   translates :description

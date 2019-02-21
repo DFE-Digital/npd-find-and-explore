@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# The Concept model, with translations using the Globalise gem
 class CreateConcept < ActiveRecord::Migration[5.2]
   def change
     create_table :concepts, id: :uuid do |t|

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Configuration for the Ancestry Gem, which we use for nested sets of Categories
 module Ancestry
   # Setting the pattern this way silences the warning when
   # we overwrite a constant
