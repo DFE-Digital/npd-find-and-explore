@@ -26,7 +26,9 @@
 
 </div>
 
-<div class="govuk-grid-row">
-  <h3 class="govuk-grid-column-full govuk-heading-m"><%= t('.title') %></h3>
-  <%= render partial: "category", collection: @category.children, locals: {wrap_class: "govuk-grid-column-one-half"} %>
-</div>
+
+<%= content_tag :div, class: "govuk-grid-row" do %>
+  <h3 class="govuk-grid-column-full govuk-heading-m"><%= t('.sub_categories') %></h3>
+  <%= render partial: "category", collection: @category.children.includes(:translations), locals: {wrap_class: "govuk-grid-column-one-half"} %>
+<% end unless @category.children.empty? %>
+

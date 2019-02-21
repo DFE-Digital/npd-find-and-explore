@@ -9,6 +9,6 @@ class CategoriesController < ApplicationController
 
   def show
     # TODO: refactor and test
-    @category = Category.find(params.require(:id))
+    @category = Category.includes(:translations).find(params.require(:id))
   end
 end
