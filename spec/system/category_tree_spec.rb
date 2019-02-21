@@ -31,9 +31,9 @@ RSpec.describe 'Category hierarchy', type: :system do
     click_link(leaf_category.name)
     click_link(concept.name)
 
+    expect(page).to have_current_path(concept_path(concept))
     expect(page).to have_text(concept.name)
     expect(page).to have_text(concept.description)
-    # TODO: expect data element details
   end
 
   xit 'Shows related publications' do
