@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateDataElements < ActiveRecord::Migration[5.2]
   def change
     create_table :data_elements, id: :uuid do |t|

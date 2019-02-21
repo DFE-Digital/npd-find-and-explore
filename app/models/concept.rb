@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A concept groups Data Elements that
 # *mean the same thing*
 #

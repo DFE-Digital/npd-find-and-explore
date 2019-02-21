@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :category do
-    name { Faker::Creature::Animal.name }
+    name { Faker::Creature::Animal.name.strip }
     description { Faker::Lorem.sentence(15) }
 
     trait :with_subcategories do

@@ -12,9 +12,8 @@ RSpec.describe 'Category hierarchy', type: :system do
     top_level_categories = Category.includes(:translations).roots
 
     top_level_categories.each do |category|
-      # We have to trim because of https://github.com/stympy/faker/pull/1545
-      expect(page).to have_text(category.name.strip)
-      expect(page).to have_link(category.name.strip, href: category_path(category))
+      expect(page).to have_text(category.name)
+      expect(page).to have_link(category.name, href: category_path(category))
       expect(page).to have_text(category.description)
     end
   end
@@ -34,6 +33,18 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page).to have_current_path(concept_path(concept))
     expect(page).to have_text(concept.name)
     expect(page).to have_text(concept.description)
+  end
+
+  it 'Shows the breadcrumb trail' do
+    root_category = create(:category)
+    child_category = create(:category, parent: root_category)
+    leaf_category = create(:category, parent: child_category)
+
+    visit category_path(leaf_category)
+
+    expect(page).to have_link('Home', href: categories_path)
+    expect(page).to have_link(root_category.name, href: category_path(root_category))
+    expect(page).to have_link(child_category.name, href: category_path(child_category))
   end
 
   xit 'Shows related publications' do
