@@ -47,19 +47,20 @@ services:
 
     links:
       - postgres
-
     env_file: .env
-    environment: &app_environment
-      RACK_ENV: development
-      RAILS_ENV: development
-      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-      POSTGRES_TEST_HOST: postgres_test
 
   # This container will run the rails web server:
   web:
     # We'll copy from &app_base, and override:
     <<: *app_base
     command: rails server -p 3000 -b 0.0.0.0
+    environment:
+      - RACK_ENV=development
+      - RAILS_ENV=development
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      - POSTGRES_TEST_HOST=postgres_test
+      - WEBPACK_DEV_HOST=webpacker
+      - WEBPACKER_DEV_SERVER_HOST=webpacker
     ports:
       - "3000:3000" # Bind our host's port 3000 to the app port 3000:
     links:
@@ -67,8 +68,12 @@ services:
 
   webpacker:
     <<: *app_base
-    command: ./bin/webpack-dev-server
+    #command: ./bin/webpack-dev-server
+    # https://github.com/rails/webpacker/issues/1019
+    entrypoint: ''
+    command: ash -c "rm -rf /usr/src/app/public/packs; /usr/src/app/bin/webpack-dev-server"
     environment:
+      - WEBPACK_DEV_HOST=webpacker
       - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
     ports:
       - '3035:3035'
