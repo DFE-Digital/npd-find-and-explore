@@ -32,3 +32,7 @@
   <%= render partial: "category", collection: @category.children.includes(:translations), locals: {wrap_class: "govuk-grid-column-one-half"} %>
 <% end unless @category.children.empty? %>
 
+<%= content_tag :div, class: "govuk-grid-row" do %>
+  <h3 class="govuk-grid-column-full govuk-heading-m"><%= t('.concepts') %></h3>
+  <%= render partial: "concept", collection: @category.concepts.includes(:translations), locals: {wrap_class: "govuk-grid-column-one-half"} %>
+<% end unless @category.concepts.empty? %>
