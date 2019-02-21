@@ -11,50 +11,49 @@
 demographics = Category.create!(name: 'Demographics',
                                 description: Faker::Lorem.sentence(15))
 
-demographics.children.create( name: 'Age',
-                  description: 'Pupil ages (in years and months) at the start of the academic year',
-                  parent: demographics)
+demographics.children.create(name: 'Age',
+                             description: 'Pupil ages (in years and months) at the start of the academic year',
+                             parent: demographics)
 
-Category.create!( name: 'Gender',
-                  description: 'Pupil gender',
-                  parent: demographics)
+Category.create!(name: 'Gender',
+                 description: 'Pupil gender',
+                 parent: demographics)
 
-Category.create!( name: 'Ethnicity',
-                  description: 'Ethnic Group (inc. minor and major categories)',
-                  parent: demographics)
+Category.create!(name: 'Ethnicity',
+                 description: 'Ethnic Group (inc. minor and major categories)',
+                 parent: demographics)
 
+Category.create!(name: 'Family',
+                 description: Faker::Lorem.sentence(15))
 
-family = Category.create!(name: 'Family',
-                          description: Faker::Lorem.sentence(15))
+socio_economic_status = Category.create!(name: 'Socio economic status',
+                                         description: 'Free school meals (current and previous eligibility), Income deprivation affecting children indices (inc. rank and score)')
 
-socio_economic_status =  Category.create!(name: 'Socio economic status',
-                                          description: 'Free school meals (current and previous eligibility), Income deprivation affecting children indices (inc. rank and score)')
+Category.create!(name: 'Free school meals',
+                 description: 'In England a free school meal is a statutory benefit available to school-aged children from families who receive other qualifying benefits and who have been through the relevant registration process.',
+                 parent: socio_economic_status)
 
-Category.create!( name: 'Free school meals',
-                  description: 'In England a free school meal is a statutory benefit available to school-aged children from families who receive other qualifying benefits and who have been through the relevant registration process.',
-                  parent: socio_economic_status)
-
-Category.create!( name: 'IDACI',
-                  description: 'IDACI is an index of deprivation used in the United Kingdom. The index is calculated by the Office of the Deputy Prime Minister and measures in a local area the proportion of children under the age of 16 that live in low income households.',
-                  parent: socio_economic_status)
+Category.create!(name: 'IDACI',
+                 description: 'IDACI is an index of deprivation used in the United Kingdom. The index is calculated by the Office of the Deputy Prime Minister and measures in a local area the proportion of children under the age of 16 that live in low income households.',
+                 parent: socio_economic_status)
 
 geographic = Category.create!(name: 'Geographic')
-Category.create!( name: 'Location',
-                  description: 'Pupil and town postcode, pupil locality, local authority and establishment, administrative area.',
-                  parent: geographic)
+Category.create!(name: 'Location',
+                 description: 'Pupil and town postcode, pupil locality, local authority and establishment, administrative area.',
+                 parent: geographic)
 
-Category.create!( name: 'Mobility',
-                  description: 'Mobility indicator, distance to nearest/current school, nearest school in the local authority area',
-                  parent: geographic)
+Category.create!(name: 'Mobility',
+                 description: 'Mobility indicator, distance to nearest/current school, nearest school in the local authority area',
+                 parent: geographic)
 
-education = Category.create!( name: 'Education',
-                              description: Faker::Lorem.sentence(15))
-Category.create!( name: 'History',
-                  description: Faker::Lorem.sentence(15),
-                  parent: education)
-Category.create!( name: 'Age',
-                  description: Faker::Lorem.sentence(15),
-                  parent: education)
+education = Category.create!(name: 'Education',
+                             description: Faker::Lorem.sentence(15))
+Category.create!(name: 'History',
+                 description: Faker::Lorem.sentence(15),
+                 parent: education)
+Category.create!(name: 'Age',
+                 description: Faker::Lorem.sentence(15),
+                 parent: education)
 exclusions = Category.create!(name: 'Exclusions', parent: education)
 
 exclusion_dates = Category.create!(name: 'Exclusion dates', parent: exclusions)

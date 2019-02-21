@@ -19,14 +19,14 @@ gem 'jbuilder', '~> 2.5'
 gem 'high_voltage', '~> 3.1'
 
 # I18n for models
-gem "globalize", "~> 5.2"
+gem 'globalize', '~> 5.2'
 
 # Nested tree for categories
-gem "ancestry", "~> 3.0"
+gem 'ancestry', '~> 3.0'
 
 # Lightweight admin functionality
-gem "rails_admin", "~> 1.4"
-gem "rails_admin_nestable", "~> 0.3.2"
+gem 'rails_admin', '~> 1.4'
+gem 'rails_admin_nestable', '~> 0.3.2'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -46,9 +46,9 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails', '~> 2.6'
-  gem 'rubocop', '~> 0.64.0'
+  gem 'factory_bot_rails', '~> 5.0'
   gem 'faker', '~> 1.9'
-  gem "factory_bot_rails", "~> 5.0"
+  gem 'rubocop', '~> 0.64.0'
 end
 
 group :development do
@@ -71,5 +71,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
-
