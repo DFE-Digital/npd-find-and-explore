@@ -1,0 +1,32 @@
+
+
+<%# TODO: breadcrumbs %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">
+      <%= @category.name %>
+    </h1>
+
+    <p><%= @category.description %></p>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <div class="govuk-grid-column-full">
+      <form action="/filters/search" method="post" novalidate>
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="search">
+          Search
+        </label>
+        <input class="govuk-input govuk-!-width-two-thirds" id="search" name="search" type="text" value=""><button type="submit" class="govuk-button govuk-button-search">Search</button>
+      </div>
+    </form>
+    </div>
+  </div>
+
+</div>
+
+<div class="govuk-grid-row">
+  <h3 class="govuk-grid-column-full govuk-heading-m"><%= t('.title') %></h3>
+  <%= render partial: "category", collection: @category.children, locals: {wrap_class: "govuk-grid-column-one-half"} %>
+</div>

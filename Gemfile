@@ -18,6 +18,16 @@ gem 'jbuilder', '~> 2.5'
 # Static pages in Rails
 gem 'high_voltage', '~> 3.1'
 
+# I18n for models
+gem 'globalize', '~> 5.2'
+
+# Nested tree for categories
+gem 'ancestry', '~> 3.0'
+
+# Lightweight admin functionality
+gem 'rails_admin', '~> 1.4'
+gem 'rails_admin_nestable', '~> 0.3.2'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -36,6 +46,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails', '~> 2.6'
+  gem 'factory_bot_rails', '~> 5.0'
+  gem 'faker', '~> 1.9'
   gem 'rubocop', '~> 0.64.0'
 end
 
@@ -53,7 +65,6 @@ group :test do
   gem 'chromedriver-helper'
   gem 'coveralls', require: false
   gem 'factory_bot', '~> 5.0'
-  gem 'faker', '~> 1.9'
   gem 'rspec-rails', '~> 3.8'
   gem 'selenium-webdriver'
 end

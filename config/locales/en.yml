@@ -30,4 +30,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  site_title: Find and explore data in the National Pupil Database
+  categories:
+    index:
+      title: Categories
+    show:
+      title: Sub-categories
