@@ -9,7 +9,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     visit '/categories'
     expect(page).to have_text('Categories')
 
-    top_level_categories = Category.top_level
+    top_level_categories = Category.includes(:translations).roots
 
     top_level_categories.each do |category|
       expect(page).to have_text(category.name)
