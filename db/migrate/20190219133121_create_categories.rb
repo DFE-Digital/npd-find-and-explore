@@ -5,7 +5,7 @@ class CreateCategories < ActiveRecord::Migration[5.2]
   def change
     create_table :categories, id: :uuid do |t|
       t.timestamps
-      t.references :parent, index: true, foreign_key: { to_table: :categories }
+      t.references :parent, type: :uuid, index: true, foreign_key: { to_table: :categories }
     end
 
     reversible do |dir|

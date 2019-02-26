@@ -4,7 +4,7 @@
 class CreateConcept < ActiveRecord::Migration[5.2]
   def change
     create_table :concepts, id: :uuid do |t|
-      t.belongs_to :category, index: true
+      t.belongs_to :category, type: :uuid, index: true
       t.timestamps
     end
 
