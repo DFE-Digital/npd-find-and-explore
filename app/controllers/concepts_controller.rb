@@ -5,7 +5,6 @@ class ConceptsController < ApplicationController
   include BreadcrumbBuilder
 
   def show
-    # TODO: refactor and test
     @concept = Concept.includes(:translations, :category).find(params.require(:id))
 
     breadcrumbs_for(category_leaf: @concept.category, concept: @concept)

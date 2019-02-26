@@ -6,7 +6,7 @@
 TODO: summary of service
 TODO: test breadcrumbs
 TODO: test beta banner
-
+TODO: page title meta tag
 
 # Contributing
 - Source code is on the [slatehorse/npd-find-and-explore](https://github.com/slatehorse/npd-find-and-explore) Github repo.

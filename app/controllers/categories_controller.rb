@@ -5,7 +5,6 @@ class CategoriesController < ApplicationController
   include BreadcrumbBuilder
 
   def index
-    # TODO: shift includes into default scope?
     @categories = Category.includes(:translations).roots
   end
 
