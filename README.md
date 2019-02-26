@@ -4,7 +4,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/slatehorse/npd-find-and-explore/badge.svg?branch=master)](https://coveralls.io/github/slatehorse/npd-find-and-explore?branch=master)
 
 TODO: summary of service
-
+TODO: test breadcrumbs
+TODO: test beta banner
 
 
 # Contributing

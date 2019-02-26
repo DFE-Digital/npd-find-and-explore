@@ -10,9 +10,6 @@ RSpec.describe 'Category hierarchy', type: :system do
 
     expect(page).to have_text(concept.name)
     expect(page).to have_text(concept.description)
-
-    # TODO: expect summary information to be present
-    # TODO expect detail to be there for data elements
   end
 
   it 'Shows the breadcrumb trail' do
