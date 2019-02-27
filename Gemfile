@@ -51,8 +51,8 @@ group :development, :test do
   gem 'dotenv-rails', '~> 2.6'
   gem 'factory_bot_rails', '~> 5.0'
   gem 'faker', '~> 1.9'
+  gem 'govuk-lint', '~> 3.11.0'
   gem 'pry', '~> 0.12.2'
-  gem 'rubocop', '~> 0.64.0'
 end
 
 group :development do
