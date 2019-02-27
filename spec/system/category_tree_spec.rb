@@ -3,11 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Category hierarchy', type: :system do
-  before do
-    create_list(:category, 10, :with_subcategories)
-  end
-
   it 'View the categories page' do
+    create_list(:category, 10, :with_subcategories)
+
     visit '/categories'
     expect(page).to have_text('Categories')
 
@@ -20,7 +18,34 @@ RSpec.describe 'Category hierarchy', type: :system do
     end
   end
 
-  # TODO: tree walk test
+  it 'Walks the tree to a detail page' do
+    root_category = create(:category)
+    child_category = create(:category, parent: root_category)
+    leaf_category = create(:category, parent: child_category)
+    concept = create(:concept, category: leaf_category)
+
+    visit '/categories'
+    click_link(root_category.name)
+    click_link(child_category.name)
+    click_link(leaf_category.name)
+    click_link(concept.name)
+
+    expect(page).to have_current_path(concept_path(concept))
+    expect(page).to have_text(concept.name)
+    expect(page).to have_text(concept.description)
+  end
+
+  it 'Shows the breadcrumb trail' do
+    root_category = create(:category)
+    child_category = create(:category, parent: root_category)
+    leaf_category = create(:category, parent: child_category)
+
+    visit category_path(leaf_category)
+
+    expect(page).to have_link('Home', href: categories_path)
+    expect(page).to have_link(root_category.name, href: category_path(root_category))
+    expect(page).to have_link(child_category.name, href: category_path(child_category))
+  end
 
   xit 'Shows related publications' do
   end

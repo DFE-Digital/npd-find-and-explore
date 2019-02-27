@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_20_160350) do
+ActiveRecord::Schema.define(version: 2019_02_21_125816) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "categories", force: :cascade do |t|
+  create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "ancestry"
@@ -25,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_02_20_160350) do
   end
 
   create_table "category_translations", force: :cascade do |t|
-    t.integer "category_id", null: false
+    t.uuid "category_id", null: false
     t.string "locale", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -33,6 +34,37 @@ ActiveRecord::Schema.define(version: 2019_02_20_160350) do
     t.text "description"
     t.index ["category_id"], name: "index_category_translations_on_category_id"
     t.index ["locale"], name: "index_category_translations_on_locale"
+  end
+
+  create_table "concept_translations", force: :cascade do |t|
+    t.uuid "concept_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.text "description"
+    t.index ["concept_id"], name: "index_concept_translations_on_concept_id"
+    t.index ["locale"], name: "index_concept_translations_on_locale"
+  end
+
+  create_table "concepts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_concepts_on_category_id"
+  end
+
+  create_table "data_elements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "source_db_name"
+    t.string "source_table_name"
+    t.string "source_attribute_name"
+    t.json "additional_attributes"
+    t.integer "identifiability"
+    t.string "sensitivity", limit: 1
+    t.bigint "concept_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["concept_id"], name: "index_data_elements_on_concept_id"
   end
 
 end
