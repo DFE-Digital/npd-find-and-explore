@@ -96,6 +96,10 @@ or
 docker-compose run --rm web /bin/sh -c "bundle exec govuk-lint-ruby"
 ```
 
+### EditorConfig
+
+We use [EditorConfig](https://editorconfig.org) to retain consistency beyond Rubocop. There's great support for most editors (e.g. the SublimeText plugin can auto-fix on save).
+
 ## Accessibility
 
 Accessibility should be at the heart of what we build. As well as automated accessibility testing with [pa11y](https://github.com/pa11y/pa11y), we're carrying out ongoing accessibility-focussed user research.
