@@ -35,4 +35,5 @@ en:
     index:
       title: Categories
     show:
-      title: Sub-categories
+      sub_categories: Sub-categories
+      concepts: Concepts

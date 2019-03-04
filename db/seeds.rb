@@ -85,14 +85,16 @@ Category.create!(name: 'Overall absence', parent: absence)
 
 attainment = Category.create!(name: 'Attainment')
 Category.create!(name: 'A level', parent: attainment)
-# gcse = Category.create!(name: 'GCSE', parent: attainment)
-# "","","","",Maths highest prior attainment
-# "","","","",Maths prior attainment
-# "","","","",English highest prior attainment
-# "","","","",English prior attainment
-# "","","","",Maths funding exemption
-# "","","","",English funding exemption
-# "","","",NVQ
+
+gcse = Category.create!(name: 'GCSE', parent: attainment)
+gcse.create('Maths highest prior attainment', description: Faker::Lorem.sentence(15))
+gcse.create('Maths prior attainment', description: Faker::Lorem.sentence(15))
+gcse.create('English highest prior attainment', description: Faker::Lorem.sentence(15))
+gcse.create('English prior attainment', description: Faker::Lorem.sentence(15))
+gcse.create('Maths funding exemption', description: Faker::Lorem.sentence(15))
+gcse.create('English funding exemption', description: Faker::Lorem.sentence(15))
+
+# nvq = attainment.create('NVQ', description: Faker::Lorem.sentence(15))
 # "","","",In published figures
 # "","","",Early years foundation
 # "","","","",Good level of development indicator

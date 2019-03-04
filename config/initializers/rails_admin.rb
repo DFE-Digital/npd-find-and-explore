@@ -61,6 +61,19 @@ RailsAdmin.config do |config|
 
       field :name
       field :description
+      field :concepts
+    end
+  end
+
+  config.model Concept do
+    base do
+      # virtual field needs to be configured explicitly, otherwise RailsAdmin errors...
+      configure :name
+      configure :description
+
+      field :name
+      field :description
+      field :category
     end
   end
 end
