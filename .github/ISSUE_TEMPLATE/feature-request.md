@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-title: ''
+title: "[page] – [feature]"
 labels: enhancement
 assignees: ''
 
@@ -12,12 +12,6 @@ assignees: ''
 **As a** [type of user]
 **I [need/want]** [something]
 **in order to** [achieve some value]
-
-### Describe alternatives you've considered
-A clear and concise description of any alternative solutions or features you've considered.
-
-### Additional context
-Add any other context or screenshots about the feature request here.
 
 ### Scenarios
 
