@@ -16,6 +16,11 @@ RSpec.describe 'Service start page', type: :system do
     expect(page).to have_text('Categories')
   end
 
+  it 'Has a mailto link to the data sharing team' do
+    visit '/'
+    expect(page).to have_link('data.sharing@education.gov.uk', href: 'mailto:data.sharing@education.gov.uk')
+  end
+
   xit 'Links out to supporting resources' do
     expect(page).to have_link('An introduction to the National Pupil Database', 'https://todo.example.com')
     expect(page).to have_link('Apply for National Pupil Database data', 'https://todo.example.com')
@@ -25,7 +30,6 @@ RSpec.describe 'Service start page', type: :system do
     expect(page).to have_link('Secure Research Service', 'https://todo.example.com')
 
     expect(page).to have_link('2018 version of the data table', 'https://todo.example.com')
-    expect(page).to have_link('data.sharing@education.gov.uk', href: 'mailto:data.sharing@education.gov.uk')
   end
 
   xit 'Has search' do
