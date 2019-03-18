@@ -3,10 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe 'Service start page', type: :system do
-  it 'Directs users to the category tree view' do
+  it 'Has a link to the category tree view' do
     visit '/'
     expect(page).to have_text('Find and explore data in the National Pupil Database')
     expect(page).to have_link('Start now', href: categories_path)
+  end
+
+  it 'Links the user to the top-level category tree view' do
+    visit '/'
+    click_on('Start now')
+    expect(page).to have_current_path(categories_path)
+    expect(page).to have_text('Categories')
   end
 
   xit 'Links out to supporting resources' do
