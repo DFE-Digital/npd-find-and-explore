@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2019_02_21_125816) do
     t.json "additional_attributes"
     t.integer "identifiability"
     t.string "sensitivity", limit: 1
-    t.bigint "concept_id"
+    t.uuid "concept_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["concept_id"], name: "index_data_elements_on_concept_id"

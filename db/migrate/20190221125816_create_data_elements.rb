@@ -14,7 +14,7 @@ class CreateDataElements < ActiveRecord::Migration[5.2]
       t.integer :identifiability
       t.string :sensitivity, limit: 1
 
-      t.belongs_to :concept, index: true
+      t.belongs_to :concept, type: :uuid, index: true
       t.timestamps
     end
   end
