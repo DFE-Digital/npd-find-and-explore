@@ -5,9 +5,11 @@ module DfEDataTables
     class Sheet
       YEARS_REGEX = /_\d{2}-\d{2}(_to)?_\d{2}-\d{2}(_[A-Z]{3})?/.freeze
 
+      attr_reader :sheet_name, :sheet
+
       def initialize(table)
-        @table = table
-        @sheet_names = table.sheets
+        find_name(table.sheets)
+        find_sheet(table)
       end
 
       def to_h
@@ -15,14 +17,6 @@ module DfEDataTables
           name: sheet_name,
           data_blocks: data_blocks
         }
-      end
-
-      def sheet_name
-        @sheet_name ||= find_name
-      end
-
-      def sheet
-        @sheet ||= @table.sheet(sheet_name)
       end
 
       def data_blocks
@@ -50,8 +44,12 @@ module DfEDataTables
         /none/
       end
 
-      def find_name
-        @sheet_names.select{ |s| /#{regex}/ =~ s }.first
+      def find_name(sheet_names)
+        @sheet_name = sheet_names.select{ |s| /#{regex}/ =~ s }.first
+      end
+
+      def find_sheet(table)
+        @sheet = table.sheet(sheet_name)
       end
 
       def significant_rows
