@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module DfEDataTables
-  module Parsers
+  module DataElementParsers
     class Sheet
       YEARS_REGEX = /_\d{2}-\d{2}(_to)?_\d{2}-\d{2}(_[A-Z]{3})?/.freeze
 

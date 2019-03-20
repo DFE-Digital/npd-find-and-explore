@@ -3,16 +3,16 @@
 require_relative 'sheet'
 
 module DfEDataTables
-  module Parsers
-    class Isp < Sheet
+  module DataElementParsers
+    class Ks4 < Sheet
       private
 
       def regex
-        /ISP#{YEARS_REGEX}/
+        /KS4#{YEARS_REGEX}/
       end
 
       def first_row_regex
-        %r{(Placement/Student|Funding|Support)}
+        /(KS4 Pupil Table|KS4 Exam Table)/i
       end
     end
   end

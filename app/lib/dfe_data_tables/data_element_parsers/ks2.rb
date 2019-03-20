@@ -3,16 +3,16 @@
 require_relative 'sheet'
 
 module DfEDataTables
-  module Parsers
-    class ExclusionsFrom2005 < Sheet
+  module DataElementParsers
+    class Ks2 < Sheet
       private
 
       def regex
-        /Exclusions_05-06_to_\d{2}-\d{2}/
+        /KS2#{YEARS_REGEX}/
       end
 
       def first_row_regex
-        /(Per Pupil|Following variables repeated)/i
+        /(KS2 Pupil table|KS2 Exam table)/i
       end
     end
   end

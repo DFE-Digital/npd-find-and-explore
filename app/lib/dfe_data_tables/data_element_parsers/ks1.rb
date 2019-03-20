@@ -3,12 +3,12 @@
 require_relative 'sheet'
 
 module DfEDataTables
-  module Parsers
-    class ScAddresses < Sheet
+  module DataElementParsers
+    class Ks1 < Sheet
       private
 
       def regex
-        /SC_Addresses#{YEARS_REGEX}/
+        /KS1#{YEARS_REGEX}/
       end
     end
   end

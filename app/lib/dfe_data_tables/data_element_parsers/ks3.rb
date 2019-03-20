@@ -3,16 +3,16 @@
 require_relative 'sheet'
 
 module DfEDataTables
-  module Parsers
-    class Ypmad < Sheet
+  module DataElementParsers
+    class Ks3 < Sheet
       private
 
       def regex
-        /YPMAD \d{2}-\d{2}/
+        /KS3#{YEARS_REGEX}/
       end
 
       def first_row_regex
-        /(Chronological Indicators|Snapshot Indicators)/
+        /(KS3 Candidate|KS3 Indicators|KS3 Result Table)/i
       end
     end
   end

@@ -3,12 +3,12 @@
 require_relative 'sheet'
 
 module DfEDataTables
-  module Parsers
-    class Absence < Sheet
+  module DataElementParsers
+    class AltProvision < Sheet
       private
 
       def regex
-        /Absence#{YEARS_REGEX}/
+        /Alt_Provision#{YEARS_REGEX}/
       end
     end
   end

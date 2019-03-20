@@ -3,12 +3,12 @@
 require_relative 'sheet'
 
 module DfEDataTables
-  module Parsers
-    class Nccis < Sheet
+  module DataElementParsers
+    class Phonics < Sheet
       private
 
       def regex
-        /NCCIS#{YEARS_REGEX}/
+        /Phonics#{YEARS_REGEX}/
       end
     end
   end

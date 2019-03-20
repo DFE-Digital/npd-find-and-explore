@@ -3,12 +3,12 @@
 require_relative 'sheet'
 
 module DfEDataTables
-  module Parsers
-    class PruCensus < Sheet
+  module DataElementParsers
+    class ApAddresses < Sheet
       private
 
       def regex
-        /PRU_Census#{YEARS_REGEX}/
+        /AP addresses_\d{2}_\d{2}/
       end
     end
   end

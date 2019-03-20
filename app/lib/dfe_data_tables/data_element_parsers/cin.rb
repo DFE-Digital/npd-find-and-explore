@@ -3,7 +3,7 @@
 require_relative 'sheet'
 
 module DfEDataTables
-  module Parsers
+  module DataElementParsers
     class Cin < Sheet
       private
 
