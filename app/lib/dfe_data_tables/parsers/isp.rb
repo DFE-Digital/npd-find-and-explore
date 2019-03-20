@@ -12,7 +12,7 @@ module DfEDataTables
       end
 
       def first_row_regex
-        /(Placement\/Student|Funding|Support)/
+        %r{(Placement/Student|Funding|Support)}
       end
     end
   end

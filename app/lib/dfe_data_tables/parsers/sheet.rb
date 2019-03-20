@@ -45,7 +45,7 @@ module DfEDataTables
       end
 
       def find_name(sheet_names)
-        @sheet_name = sheet_names.select{ |s| /#{regex}/ =~ s }.first
+        @sheet_name = sheet_names.select { |s| /#{regex}/.match? s }.first
       end
 
       def find_sheet(table)
@@ -57,10 +57,10 @@ module DfEDataTables
 
         object = { header_rows: [], first_rows: [], last_rows: [], table_names: [] }
         @significant_rows = sheet.each_with_index.each_with_object(object) do |row, obj|
-          obj[:header_rows] << (row[1] + 1) if headers_regex =~ row[0][0]
+          obj[:header_rows] << (row[1] + 1) if headers_regex.match? row[0][0]
           next if obj[:header_rows].last.nil?
 
-          if first_row_regex =~ row[0][0]
+          if first_row_regex.match? row[0][0]
             obj[:first_rows] << (row[1] + 2)
             obj[:table_names] << row[0][0].gsub(/table/i, '').strip.gsub(/[^\w]/, '_').gsub(/_+$/, '')
             obj[:header_rows] << obj[:header_rows].last if obj[:first_rows].count > obj[:header_rows].count
