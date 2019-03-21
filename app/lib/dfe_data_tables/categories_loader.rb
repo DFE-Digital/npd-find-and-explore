@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module DfEDataTables
+  # Loads categories from an Excel document formatted as defined in the
+  # CategoriesParser
   class CategoriesLoader
     def initialize(categories_path)
       categories_workbook = Roo::Spreadsheet.open(categories_path)
@@ -33,4 +35,3 @@ module DfEDataTables
     end
   end
 end
-
