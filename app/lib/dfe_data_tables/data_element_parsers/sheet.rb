@@ -2,6 +2,9 @@
 
 module DfEDataTables
   module DataElementParsers
+    # Parent class to all specific DataElement sheet parsers.
+    # Holds most of the logic, delegates the specific regex definitions to the
+    # children classes.
     class Sheet
       YEARS_REGEX = /_\d{2}-\d{2}(_to)?_\d{2}-\d{2}(_[A-Z]{3})?/.freeze
 
@@ -33,7 +36,7 @@ module DfEDataTables
       private
 
       def regex
-        /none/
+        /census/
       end
 
       def headers_regex
@@ -41,7 +44,7 @@ module DfEDataTables
       end
 
       def first_row_regex
-        /none/
+        /census/
       end
 
       def find_name(sheet_names)
