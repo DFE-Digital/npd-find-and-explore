@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_21_125816) do
+ActiveRecord::Schema.define(version: 2019_03_21_104441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 2019_02_21_125816) do
   end
 
   create_table "data_elements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "source_db_name"
     t.string "source_table_name"
     t.string "source_attribute_name"
     t.json "additional_attributes"
@@ -64,6 +63,11 @@ ActiveRecord::Schema.define(version: 2019_02_21_125816) do
     t.uuid "concept_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "source_old_attribute_name"
+    t.string "date_collected_from"
+    t.string "date_collected_to"
+    t.string "collection_terms", array: true
+    t.string "values", array: true
     t.index ["concept_id"], name: "index_data_elements_on_concept_id"
   end
 
