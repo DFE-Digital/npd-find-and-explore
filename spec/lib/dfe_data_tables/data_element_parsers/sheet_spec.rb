@@ -14,8 +14,6 @@ RSpec.describe 'DfEDataTables::DataElementParsers::Sheet', type: :model do
   end
 
   it 'will extract the sheet from table' do
-    # ROO doesn't have a specific class for sheets, so we'll check it responds
-    # to `row`
-    expect(subject.sheet).to respond_to(:row)
+    expect(subject.sheet.class.name).to eq('Roo::Excelx::Sheet')
   end
 end
