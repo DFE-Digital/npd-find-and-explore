@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module DfEDataTables
+  # Load DataElements from the spreadhseet
   class DataElementsLoader
     def initialize(data_tables_path)
       data_tables_workbook = Roo::Spreadsheet.open(data_tables_path)
@@ -52,9 +53,17 @@ module DfEDataTables
             category = Category.find_or_create_by(name: 'No Category')
             concept = Concept.find_or_create_by(name: 'No Concept', category: category)
 
-            params = {
+            find_params = {
               source_table_name: data_element.dig(:table_name),
               source_attribute_name: data_element.dig(:field_reference),
+              concept: concept
+            }
+
+            next if find_params.dig(:source_attribute_name).nil?
+
+            element = DataElement.find_or_create_by(find_params)
+
+            update_params = {
               source_old_attribute_name: [data_element.dig(:old_alias), data_element.dig(:former_name)].flatten.compact,
               identifiability: data_element.dig(:identification_risk),
               sensitivity: data_element.dig(:sensitivity),
@@ -63,13 +72,10 @@ module DfEDataTables
               collection_terms: data_element.dig(:collection_terms),
               values: data_element.dig(:values),
               description: data_element.dig(:description),
-              concept: concept
+              additional_attributes: (element.additional_attributes || {}).merge(data_element)
             }
 
-            next if params.dig(:source_attribute_name).nil?
-
-            element = DataElement.find_or_create_by(params)
-            element.update(additional_attributes: data_element)
+            element.update(update_params)
           end
         end
 
