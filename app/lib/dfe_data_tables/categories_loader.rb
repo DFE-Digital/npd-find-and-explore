@@ -16,21 +16,36 @@ module DfEDataTables
 
     def upload(categories, parent = nil)
       categories.each do |hash|
-        category = Category.find_or_create_by!(name: hash[:name])
+        category = Category.find_or_create_by!(name: hash.dig(:name))
         category.update(parent: parent) if parent
-        category.concepts << concepts(category, hash[:concepts])
+        category.concepts << concepts(category, hash.dig(:concepts))
 
-        next if hash[:subcat].blank?
+        next if hash.dig(:subcat).blank?
 
-        upload(hash[:subcat], category)
+        upload(hash.dig(:subcat), category)
       end
     end
 
-    def concepts(category, concept_list)
-      return [] if category.nil? || concept_list.blank?
+    def concepts(category, concepts)
+      return [] if category.nil? || concepts.blank?
 
-      concept_list.map do |name|
-        Concept.find_or_create_by!(name: name, category: category)
+      concepts.map do |concept_hash|
+        concept = Concept.find_or_create_by!(
+          name: concept_hash.dig(:name),
+          description: concept_hash.dig(:description),
+          category: category
+        )
+        update_data_elements(concept, concept_hash.dig(:npd_aliases))
+        concept
+      end
+    end
+
+    def update_data_elements(concept, npd_aliases)
+      return if concept.nil? || npd_aliases.blank?
+
+      npd_aliases.each do |npd_alias|
+        DataElement.where("additional_attributes->>'npd_alias' LIKE ?", "%#{npd_alias}%")
+                   .each { |element| element.update!(concept: concept) }
       end
     end
   end

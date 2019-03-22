@@ -23,38 +23,55 @@ module DfEDataTables
 
     def initialize(table, sheet_name)
       @sheet_name = sheet_name
-      @sheet = table.sheet(sheet_name)
+      @sheet = table.sheet_for(sheet_name)
     end
 
     def categories
-      @categories ||= sheet.each_with_index.each_with_object([]) do |row_with_index, obj|
-        row, index = row_with_index
-        next if (index + 1) < first_row
+      @categories ||= (1..sheet.last_row).each_with_object([]) do |idx, obj|
+        row = sheet.row(idx)
+        next if (idx + 1) < first_row
 
-        obj << category(row[0]) if row[0].present?
-        obj.last&.dig(:subcat)&.push(category(row[1])) if row[1].present?
-        obj.last&.dig(:subcat)&.last&.dig(:subcat)&.push(category(row[2])) if row[2].present?
-        obj.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:subcat)&.push(category(row[3])) if row[3].present?
+        row = row.reverse.drop_while(&:nil?).reverse
 
-        next if row[4].nil?
+        obj.push(category(row[0])) if present?(row[0])
+        obj.last&.dig(:subcat)&.push(category(row[1])) if present?(row[1])
+        obj.last&.dig(:subcat)&.last&.dig(:subcat)&.push(category(row[2])) if present?(row[2])
+        obj.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:subcat)&.push(category(row[3])) if present?(row[3])
 
-        obj&.last&.dig(:concepts)&.push(row[4])
-        obj&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(row[4])
-        obj&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(row[4])
-        obj&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(row[4])
+        next unless present?(row[4])
+
+        obj&.last&.dig(:concepts)&.push(concept(row))
+        obj&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(concept(row))
+        obj&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(concept(row))
+        obj&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(concept(row))
       end
     end
 
     private
 
     def first_row
-      @first_row ||= sheet.each_with_index do |row, id|
-        return id + 2 if row[0] == 'Standard Extract'
+      @first_row ||= (1..sheet.last_row).each do |idx|
+        row = sheet.row(idx)
+        return idx + 2 if row[0] == 'Standard Extract'
       end
+    end
+
+    def present?(cell)
+      !cell.nil? && !cell.empty?
     end
 
     def category(name)
       { name: name, subcat: [], concepts: [] }
+    end
+
+    def concept(row)
+      { name: row[4], description: row[5], npd_aliases: npd_aliases(row) }
+    end
+
+    def npd_aliases(row)
+      return [] unless present?(row[6])
+
+      row[6, row.length]
     end
   end
 end
