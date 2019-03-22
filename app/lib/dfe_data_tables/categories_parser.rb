@@ -40,10 +40,24 @@ module DfEDataTables
 
         next unless present?(row[4])
 
-        obj&.last&.dig(:concepts)&.push(concept(row))
-        obj&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(concept(row))
-        obj&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(concept(row))
-        obj&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(concept(row))
+        concept_hash =  concept(row)
+
+        if present?(row[3])
+          obj&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(concept_hash)
+          next
+        end
+
+        if present?(row[2])
+          obj&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(concept_hash)
+          next
+        end
+
+        if present?(row[1])
+          obj&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(concept_hash)
+          next
+        end
+
+        obj&.last&.dig(:concepts)&.push(concept_hash)
       end
     end
 
