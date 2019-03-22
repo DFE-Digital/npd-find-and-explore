@@ -3,15 +3,31 @@
 require 'rails_helper'
 
 RSpec.describe 'Category hierarchy', type: :system do
-  it 'View the categories page' do
-    create_list(:category, 10, :with_subcategories)
+  before { create_list(:category, 10, :with_subcategories) }
 
+  it 'View the categories page' do
     visit '/categories'
     expect(page).to have_text('Categories')
 
     top_level_categories = Category.includes(:translations).roots
 
     top_level_categories.each do |category|
+      expect(page).to have_text(category.name)
+      expect(page).to have_link(category.name, href: category_path(category))
+      expect(page).to have_text(category.description)
+    end
+  end
+
+  it 'View the categories page' do
+    top_level_category = Category.includes(:translations).roots.first
+    second_level_categories = top_level_category.children
+
+    visit '/categories'
+    click_link(top_level_category.name)
+    expect(page).to have_text(top_level_category.name)
+    expect(page).to have_text(top_level_category.description)
+
+    second_level_categories.each do |category|
       expect(page).to have_text(category.name)
       expect(page).to have_link(category.name, href: category_path(category))
       expect(page).to have_text(category.description)
