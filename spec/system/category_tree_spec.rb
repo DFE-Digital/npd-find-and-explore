@@ -18,7 +18,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     end
   end
 
-  it 'View the categories page' do
+  it 'View a category page' do
     top_level_category = Category.includes(:translations).roots.first
     second_level_categories = top_level_category.children
 
