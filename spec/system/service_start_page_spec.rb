@@ -3,10 +3,22 @@
 require 'rails_helper'
 
 RSpec.describe 'Service start page', type: :system do
-  it 'Directs users to the category tree view' do
+  it 'Has a link to the category tree view' do
     visit '/'
     expect(page).to have_text('Find and explore data in the National Pupil Database')
     expect(page).to have_link('Start now', href: categories_path)
+  end
+
+  it 'Links the user to the top-level category tree view' do
+    visit '/'
+    click_on('Start now')
+    expect(page).to have_current_path(categories_path)
+    expect(page).to have_text('Categories')
+  end
+
+  it 'Has a mailto link to the data sharing team' do
+    visit '/'
+    expect(page).to have_link('data.sharing@education.gov.uk', href: 'mailto:data.sharing@education.gov.uk')
   end
 
   xit 'Links out to supporting resources' do
@@ -18,7 +30,6 @@ RSpec.describe 'Service start page', type: :system do
     expect(page).to have_link('Secure Research Service', 'https://todo.example.com')
 
     expect(page).to have_link('2018 version of the data table', 'https://todo.example.com')
-    expect(page).to have_link('data.sharing@education.gov.uk', href: 'mailto:data.sharing@education.gov.uk')
   end
 
   xit 'Has search' do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_21_125816) do
+ActiveRecord::Schema.define(version: 2019_03_21_104441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -54,16 +54,30 @@ ActiveRecord::Schema.define(version: 2019_02_21_125816) do
     t.index ["category_id"], name: "index_concepts_on_category_id"
   end
 
+  create_table "data_element_translations", force: :cascade do |t|
+    t.uuid "data_element_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "description"
+    t.index ["data_element_id"], name: "index_data_element_translations_on_data_element_id"
+    t.index ["locale"], name: "index_data_element_translations_on_locale"
+  end
+
   create_table "data_elements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "source_db_name"
     t.string "source_table_name"
     t.string "source_attribute_name"
     t.json "additional_attributes"
     t.integer "identifiability"
     t.string "sensitivity", limit: 1
-    t.bigint "concept_id"
+    t.uuid "concept_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "source_old_attribute_name", array: true
+    t.integer "academic_year_collected_from"
+    t.integer "academic_year_collected_to"
+    t.string "collection_terms", array: true
+    t.text "values"
     t.index ["concept_id"], name: "index_data_elements_on_concept_id"
   end
 

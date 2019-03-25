@@ -10,6 +10,8 @@ class Concept < ApplicationRecord
   belongs_to :category
   has_many :data_elements, dependent: :nullify
 
+  validates :name, uniqueness: { scope: :category }
+
   translates :name
   translates :description
 end

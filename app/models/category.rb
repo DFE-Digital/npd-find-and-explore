@@ -13,6 +13,8 @@
 class Category < ApplicationRecord
   has_many :concepts, dependent: :destroy
 
+  validates :name, uniqueness: true
+
   translates :name
   translates :description
 

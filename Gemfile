@@ -45,6 +45,9 @@ gem 'loaf', '~> 0.8.1'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+# ROO gem to handle Excel files
+gem 'roo', '~> 2.7'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

@@ -87,12 +87,12 @@ attainment = Category.create!(name: 'Attainment')
 Category.create!(name: 'A level', parent: attainment)
 
 gcse = Category.create!(name: 'GCSE', parent: attainment)
-gcse.create('Maths highest prior attainment', description: Faker::Lorem.sentence(15))
-gcse.create('Maths prior attainment', description: Faker::Lorem.sentence(15))
-gcse.create('English highest prior attainment', description: Faker::Lorem.sentence(15))
-gcse.create('English prior attainment', description: Faker::Lorem.sentence(15))
-gcse.create('Maths funding exemption', description: Faker::Lorem.sentence(15))
-gcse.create('English funding exemption', description: Faker::Lorem.sentence(15))
+gcse.children.create(name: 'Maths highest prior attainment', description: Faker::Lorem.sentence(15))
+gcse.children.create(name: 'Maths prior attainment', description: Faker::Lorem.sentence(15))
+gcse.children.create(name: 'English highest prior attainment', description: Faker::Lorem.sentence(15))
+gcse.children.create(name: 'English prior attainment', description: Faker::Lorem.sentence(15))
+gcse.children.create(name: 'Maths funding exemption', description: Faker::Lorem.sentence(15))
+gcse.children.create(name: 'English funding exemption', description: Faker::Lorem.sentence(15))
 
 # nvq = attainment.create('NVQ', description: Faker::Lorem.sentence(15))
 # "","","",In published figures
