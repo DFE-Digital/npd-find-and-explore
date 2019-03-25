@@ -45,3 +45,6 @@ en:
       identifiability:
         label: Identifiability
         tooltip: Data is scored on identifiability scale from 1 to 5, the lower the number the higher the identifiability.
+      earliest_collected:
+        label: Collected from
+        tooltip: The earliest academic year data was collected from.

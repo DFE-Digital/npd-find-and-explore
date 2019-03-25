@@ -33,6 +33,14 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page).to have_text(concept.data_elements.map(&:identifiability).min)
   end
 
+  it 'Shows the academic year this concept was collected from' do
+    visit concept_path(concept)
+
+    collected_from = concept.data_elements.map(&:academic_year_collected_from).min
+    expect(page).to have_text('Collected from')
+    expect(page).to have_text("#{collected_from} - #{(collected_from + 1).to_s[2, 2]}")
+  end
+
   it 'Shows the elements names' do
     visit concept_path(concept)
 
