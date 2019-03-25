@@ -35,7 +35,7 @@ module DfEDataTables
       process
     end
 
-    private
+  private
 
     def process
       # For each worksheet
@@ -45,37 +45,11 @@ module DfEDataTables
         # For each block within a sheet
         sheet_parser.data_blocks.each do |block|
           block.each_row do |data_element|
-            next if data_element.empty?
+            next if invalid?(data_element)
 
-            # A really specific instance of merged cells in the CLA table on row 28
-            next if sheet_parser.sheet_name == 'CLA_05-06_to_16-17' && data_element.dig(:npd_alias).nil?
+            element = DataElement.find_or_create_by(find_params(data_element))
 
-            category = Category.find_or_create_by(name: 'No Category')
-            concept = Concept.find_or_create_by(name: 'No Concept', category: category)
-
-            find_params = {
-              source_table_name: data_element.dig(:table_name),
-              source_attribute_name: data_element.dig(:field_reference),
-              concept: concept
-            }
-
-            next if find_params.dig(:source_attribute_name).nil?
-
-            element = DataElement.find_or_create_by(find_params)
-
-            update_params = {
-              source_old_attribute_name: [data_element.dig(:old_alias), data_element.dig(:former_name)].flatten.compact,
-              identifiability: data_element.dig(:identification_risk),
-              sensitivity: data_element.dig(:sensitivity),
-              academic_year_collected_from: data_element.dig(:years_populated, :from),
-              academic_year_collected_to: data_element.dig(:years_populated, :to),
-              collection_terms: data_element.dig(:collection_terms),
-              values: data_element.dig(:values),
-              description: data_element.dig(:description),
-              additional_attributes: (element.additional_attributes || {}).merge(data_element)
-            }
-
-            element.update(update_params)
+            element.update(update_params(element, data_element))
           end
         end
 
@@ -83,6 +57,41 @@ module DfEDataTables
       end
 
       true
+    end
+
+    def invalid?(data_element)
+      data_element.empty? || data_element.dig(:npd_alias).nil? ||
+        data_element.dig(:field_reference).nil? || data_element.dig(:table_name).nil?
+    end
+
+    def find_params(data_element)
+      {
+        source_table_name: data_element.dig(:table_name),
+        source_attribute_name: data_element.dig(:field_reference),
+        concept: concept
+      }
+    end
+
+    def update_params(element, data_element)
+      {
+        source_old_attribute_name: [data_element.dig(:old_alias), data_element.dig(:former_name)].flatten.compact,
+        identifiability: data_element.dig(:identification_risk),
+        sensitivity: data_element.dig(:sensitivity),
+        academic_year_collected_from: data_element.dig(:years_populated, :from),
+        academic_year_collected_to: data_element.dig(:years_populated, :to),
+        collection_terms: data_element.dig(:collection_term),
+        values: data_element.dig(:values),
+        description: data_element.dig(:description),
+        additional_attributes: (element.additional_attributes || {}).merge(data_element)
+      }
+    end
+
+    def concept
+      @concept ||= Concept.find_or_create_by(name: 'No Concept', category: category)
+    end
+
+    def category
+      @category ||= Category.find_or_create_by(name: 'No Category')
     end
   end
 end

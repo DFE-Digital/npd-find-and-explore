@@ -5,7 +5,7 @@ require_relative 'sheet'
 module DfEDataTables
   module DataElementParsers
     class Cin < Sheet
-      private
+    private
 
       def regex
         /CIN#{YEARS_REGEX}/

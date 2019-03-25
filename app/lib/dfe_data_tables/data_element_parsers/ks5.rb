@@ -5,7 +5,7 @@ require_relative 'sheet'
 module DfEDataTables
   module DataElementParsers
     class Ks5 < Sheet
-      private
+    private
 
       def regex
         /KS5#{YEARS_REGEX}/

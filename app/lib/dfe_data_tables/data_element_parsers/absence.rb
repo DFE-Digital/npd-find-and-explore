@@ -5,7 +5,7 @@ require_relative 'sheet'
 module DfEDataTables
   module DataElementParsers
     class Absence < Sheet
-      private
+    private
 
       def regex
         /Absence#{YEARS_REGEX}/

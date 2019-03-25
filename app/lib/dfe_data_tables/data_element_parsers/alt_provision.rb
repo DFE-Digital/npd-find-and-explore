@@ -5,7 +5,7 @@ require_relative 'sheet'
 module DfEDataTables
   module DataElementParsers
     class AltProvision < Sheet
-      private
+    private
 
       def regex
         /Alt_Provision#{YEARS_REGEX}/

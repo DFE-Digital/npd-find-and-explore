@@ -5,7 +5,7 @@ require_relative 'sheet'
 module DfEDataTables
   module DataElementParsers
     class Nccis < Sheet
-      private
+    private
 
       def regex
         /NCCIS#{YEARS_REGEX}/

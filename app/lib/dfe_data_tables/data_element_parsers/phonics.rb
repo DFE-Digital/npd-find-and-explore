@@ -5,7 +5,7 @@ require_relative 'sheet'
 module DfEDataTables
   module DataElementParsers
     class Phonics < Sheet
-      private
+    private
 
       def regex
         /Phonics#{YEARS_REGEX}/
