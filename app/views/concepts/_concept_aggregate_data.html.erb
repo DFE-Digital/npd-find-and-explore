@@ -1,0 +1,16 @@
+<div class="govuk-grid-row govuk-!-margin-top-4">
+  <%= render 'aggregated_element',
+      label: t('concepts.show.sensitivity.label'),
+      tooltip: t('concepts.show.sensitivity.tooltip'),
+      value: @concept.data_elements.map(&:sensitivity).compact.min %>
+
+  <%= render 'aggregated_element',
+      label: t('concepts.show.identifiability.label'),
+      tooltip: t('concepts.show.identifiability.tooltip'),
+      value: @concept.data_elements.map(&:identifiability).compact.min %>
+
+  <%= render 'aggregated_element',
+      label: t('concepts.show.earliest_collected.label'),
+      tooltip: t('concepts.show.earliest_collected.tooltip'),
+      value: academic_year(@concept.data_elements.map(&:academic_year_collected_from).compact.min) %>
+</div>
