@@ -1,0 +1,48 @@
+.tooltip {
+  position: relative;
+
+  .help {
+    background-color: $govuk-brand-colour;
+    border-radius: 20px;
+    color: govuk-colour('white');
+    font-size: 19px;
+    margin-left: 8px;
+    padding: 3px 10px 0;
+    position: relative;
+    text-decoration: none;
+
+    &:focus + .tooltip-content,
+    &:hover + .tooltip-content {
+      opacity: 1;
+      position: absolute;
+    }
+  }
+
+  .tooltip-content {
+    background-color: govuk-colour('white');
+    border: 4px solid govuk-colour('black');
+    opacity: 0;
+    padding: .5em;
+    pointer-events: none;
+    position: absolute;
+    text-align: left;
+    transition: all .1s ease;
+    width: 250px;
+    z-index: 99;
+  }
+
+  .tooltip-top-left {
+    bottom: 34px;
+    left: 0;
+  }
+
+  .tooltip-bottom-left {
+    top: 34px;
+    left: 0;
+  }
+
+  .tooltip-top-right {
+    bottom: 34px;
+    right: 0;
+  }
+}

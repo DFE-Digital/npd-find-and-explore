@@ -4,6 +4,7 @@ $govuk-global-styles: true;
 $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 @import "node_modules/govuk-frontend/all";
 @import "_related-items";
+@import "_tooltip";
 
 // Custom styles to refactor somewhere
 .strong_link {

@@ -19,6 +19,13 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page).to have_link(concept.category.name, href: category_path(concept.category))
   end
 
+  it 'Shows the sensitivity' do
+    visit concept_path(concept)
+
+    expect(page).to have_text('Sensitivity')
+    expect(page).to have_text(concept.data_elements.map(&:sensitivity).min)
+  end
+
   it 'Shows the elements names' do
     visit concept_path(concept)
 

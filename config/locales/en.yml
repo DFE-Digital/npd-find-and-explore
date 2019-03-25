@@ -37,3 +37,8 @@ en:
     show:
       sub_categories: Sub-categories
       concepts: Concepts
+  concepts:
+    show:
+      sensitivity:
+        label: Sensitivity
+        tooltip: Data is given a sensitivity scale. Items are rated from A to D with A being highly sensitive and D being low.
