@@ -14,3 +14,11 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 .govuk-background__gray-4 {
   background-color: govuk-colour("grey-4");
 }
+
+.how-to-access {
+  background-color: $govuk-brand-colour;
+}
+
+.how-to-access p, .how-to-access a, .how-to-access h2 {
+  color: govuk-colour('white');
+}
