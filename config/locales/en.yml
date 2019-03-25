@@ -42,3 +42,6 @@ en:
       sensitivity:
         label: Sensitivity
         tooltip: Data is given a sensitivity scale. Items are rated from A to D with A being highly sensitive and D being low.
+      identifiability:
+        label: Identifiability
+        tooltip: Data is scored on identifiability scale from 1 to 5, the lower the number the higher the identifiability.

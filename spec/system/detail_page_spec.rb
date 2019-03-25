@@ -26,6 +26,13 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page).to have_text(concept.data_elements.map(&:sensitivity).min)
   end
 
+  it 'Shows the identifiability' do
+    visit concept_path(concept)
+
+    expect(page).to have_text('Identifiability')
+    expect(page).to have_text(concept.data_elements.map(&:identifiability).min)
+  end
+
   it 'Shows the elements names' do
     visit concept_path(concept)
 
