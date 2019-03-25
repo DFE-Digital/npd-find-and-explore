@@ -1,46 +1,16 @@
 <div class="govuk-grid-row govuk-!-margin-top-4">
-  <div class="govuk-grid-column-one-third">
-    <h2 class="govuk-heading-s">
-      <%= t('concepts.show.sensitivity.label') %>
-      <span class="tooltip">
-        <a href="#8" class="help" aria-describedby="data-tip" title="Help">?</a>
-        <span class="visuallyhidden tooltip-content tooltip-top-left" role="tooltip" id="data-tip">
-          <%= t('concepts.show.sensitivity.tooltip') %>
-        </span>
-      </span>
-    </h2>
-    <p>
-      <%= @concept.data_elements.map(&:sensitivity).compact.min %>
-    </p>
-  </div>
+  <%= render 'aggregated_element',
+      label: t('concepts.show.sensitivity.label'),
+      tooltip: t('concepts.show.sensitivity.tooltip'),
+      value: @concept.data_elements.map(&:sensitivity).compact.min %>
 
-  <div class="govuk-grid-column-one-third">
-    <h2 class="govuk-heading-s">
-      <%= t('concepts.show.identifiability.label') %>
-      <span class="tooltip">
-        <a href="#8" class="help" aria-describedby="data-tip" title="Help">?</a>
-        <span class="visuallyhidden tooltip-content tooltip-top-left" role="tooltip" id="data-tip">
-          <%= t('concepts.show.identifiability.tooltip') %>
-        </span>
-      </span>
-    </h2>
-    <p>
-      <%= @concept.data_elements.map(&:identifiability).compact.min %>
-    </p>
-  </div>
+  <%= render 'aggregated_element',
+      label: t('concepts.show.identifiability.label'),
+      tooltip: t('concepts.show.identifiability.tooltip'),
+      value: @concept.data_elements.map(&:identifiability).compact.min %>
 
-  <div class="govuk-grid-column-one-third">
-    <h2 class="govuk-heading-s">
-      <%= t('concepts.show.earliest_collected.label') %>
-      <span class="tooltip">
-        <a href="#8" class="help" aria-describedby="data-tip" title="Help">?</a>
-        <span class="visuallyhidden tooltip-content tooltip-top-left" role="tooltip" id="data-tip">
-          <%= t('concepts.show.earliest_collected.tooltip') %>
-        </span>
-      </span>
-    </h2>
-    <p>
-      <%= academic_year(@concept.data_elements.map(&:academic_year_collected_from).compact.min) %>
-    </p>
-  </div>
+  <%= render 'aggregated_element',
+      label: t('concepts.show.earliest_collected.label'),
+      tooltip: t('concepts.show.earliest_collected.tooltip'),
+      value: academic_year(@concept.data_elements.map(&:academic_year_collected_from).compact.min) %>
 </div>
