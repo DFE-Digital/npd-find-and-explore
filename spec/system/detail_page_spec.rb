@@ -19,6 +19,21 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page).to have_link(concept.category.name, href: category_path(concept.category))
   end
 
+  it 'Shows the link to the "how to access" page' do
+    visit concept_path(concept)
+
+    expect(page)
+      .to have_link('apply for access via the DfE',
+                    href: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
+    expect(page).to have_text('To view this data you will need to apply for access via the DfE.')
+  end
+
+  it 'Shows the application guidance text' do
+    visit concept_path(concept)
+
+    expect(page).to have_text('You can use the button to copy the names of the data you will need.')
+  end
+
   it 'Shows the sensitivity' do
     visit concept_path(concept)
 

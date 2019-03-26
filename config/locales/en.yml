@@ -39,6 +39,11 @@ en:
       concepts: Concepts
   concepts:
     show:
+      accessing:
+        title: Accessing this data
+        link: apply for access via the DfE
+        how_to_access: To view this data you will need to %{link}.
+        guidance: You can use the button to copy the names of the data you will need.
       sensitivity:
         label: Sensitivity
         tooltip: Data is given a sensitivity scale. Items are rated from A to D with A being highly sensitive and D being low.

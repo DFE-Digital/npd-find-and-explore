@@ -6,6 +6,19 @@
 
     <p><%= @concept.description %></p>
   </div>
+  <div class="govuk-grid-column-one-third">
+    <div class="govuk-grid-column-full how-to-access govuk-!-padding-top-4">
+      <h2 class="govuk-heading-s"><%= t('concepts.show.accessing.title') %></h2>
+
+      <p class="govuk-!-font-size-16">
+        <%= t(
+          'concepts.show.accessing.how_to_access',
+          link: link_to(t('concepts.show.accessing.link'), 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
+        ).html_safe %>
+      </p>
+      <p class="govuk-!-font-size-16"><%= t('concepts.show.accessing.guidance') %></p>
+    </div>
+  </div>
 </div>
 
 <%= render partial: "concept_aggregate_data" %>
