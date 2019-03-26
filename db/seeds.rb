@@ -51,9 +51,7 @@ education = Category.create!(name: 'Education',
 Category.create!(name: 'History',
                  description: Faker::Lorem.sentence(15),
                  parent: education)
-Category.create!(name: 'Age',
-                 description: Faker::Lorem.sentence(15),
-                 parent: education)
+
 exclusions = Category.create!(name: 'Exclusions', parent: education)
 
 exclusion_dates = Category.create!(name: 'Exclusion dates', parent: exclusions)
