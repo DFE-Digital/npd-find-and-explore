@@ -5,4 +5,8 @@ class DataElement < ApplicationRecord
   belongs_to :concept, inverse_of: :data_elements
 
   translates :description
+
+  def title
+    [source_table_name, source_attribute_name].join('.')
+  end
 end

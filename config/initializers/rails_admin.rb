@@ -28,13 +28,21 @@ RailsAdmin.config do |config|
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory
-    new
     export
-    bulk_delete
     show
-    edit
-    delete
     show_in_app
+    new do
+      except ['DataElement']
+    end
+    bulk_delete do
+      except ['DataElement']
+    end
+    edit do
+      except ['DataElement']
+    end
+    delete do
+      except ['DataElement']
+    end
 
     ## With an audit adapter, you can add:
     # history_index
@@ -77,6 +85,29 @@ RailsAdmin.config do |config|
       field :description
       field :category do
         inverse_of :concepts
+      end
+      field :data_elements do
+        inverse_of :concept
+      end
+    end
+  end
+
+  config.model DataElement do
+    base do
+      # virtual field needs to be configured explicitly, otherwise RailsAdmin errors...
+      configure :description
+
+      field :source_table_name
+      field :source_attribute_name
+      field :source_old_attribute_name
+      field :identifiability
+      field :sensitivity
+      field :academic_year_collected_from
+      field :academic_year_collected_to
+      field :collection_terms
+      field :values
+      field :concept do
+        inverse_of :data_elements
       end
     end
   end
