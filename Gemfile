@@ -48,14 +48,19 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # ROO gem to handle Excel files
 gem 'roo', '~> 2.7'
 
+gem 'devise', '~> 4'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails', '~> 2.6'
+  gem 'factory_bot', '~> 5.0'
   gem 'factory_bot_rails', '~> 5.0'
   gem 'faker', '~> 1.9'
   gem 'govuk-lint', '~> 3.11.0'
   gem 'pry', '~> 0.12.2'
+  gem 'rspec'
+  gem 'rspec-rails', '~> 3.8'
 end
 
 group :development do
@@ -71,8 +76,6 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'chromedriver-helper'
   gem 'coveralls', require: false
-  gem 'factory_bot', '~> 5.0'
-  gem 'rspec-rails', '~> 3.8'
   gem 'selenium-webdriver'
 end
 
