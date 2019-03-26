@@ -61,7 +61,9 @@ RailsAdmin.config do |config|
 
       field :name
       field :description
-      field :concepts
+      field :concepts do
+        inverse_of :category
+      end
     end
   end
 
@@ -73,7 +75,9 @@ RailsAdmin.config do |config|
 
       field :name
       field :description
-      field :category
+      field :category do
+        inverse_of :concepts
+      end
     end
   end
 end

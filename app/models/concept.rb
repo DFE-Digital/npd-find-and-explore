@@ -7,8 +7,8 @@
 #       - KS2Pupil.EVERFSM_6
 #       - SchoolCensus.FSM6
 class Concept < ApplicationRecord
-  belongs_to :category
-  has_many :data_elements, dependent: :nullify
+  belongs_to :category, inverse_of: :concepts
+  has_many :data_elements, dependent: :nullify, inverse_of: :concept
 
   validates :name, uniqueness: { scope: :category }
 
