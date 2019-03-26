@@ -5,7 +5,7 @@ require_relative 'sheet'
 module DfEDataTables
   module DataElementParsers
     class ApAddresses < Sheet
-      private
+    private
 
       def regex
         /AP addresses_\d{2}_\d{2}/

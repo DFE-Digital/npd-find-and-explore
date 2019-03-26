@@ -30,7 +30,7 @@ module DfEDataTables
         end
       end
 
-      private
+    private
 
       HEADERS = {
         npd_alias: /(NPDAlias|NPD Alias)/,

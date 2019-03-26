@@ -46,7 +46,7 @@ First, copy `.env.template` to `.env`, and update the database password.
 Run this in a shell and leave it running:
 
 ```bash
-docker-compose up --build 
+docker-compose up --build
 ```
 
 The first time you run the app, you need to set up the databases. In a new terminal:
@@ -94,6 +94,21 @@ bundle exec govuk-lint-ruby
 or
 
 docker-compose run --rm web /bin/sh -c "bundle exec govuk-lint-ruby"
+```
+
+## Import data
+
+Import data items from NPD data tables.
+
+```
+DfEDataTables::DataElementParsers::DataElementsLoader.new('path-to-your-NPD-data-tables')
+```
+
+Import categories and concepts from a specifically prepared categories excel
+file.
+
+```
+DfEDataTables::CategoriesLoader.new('path-to-your-categories-excel-file')
 ```
 
 ### EditorConfig

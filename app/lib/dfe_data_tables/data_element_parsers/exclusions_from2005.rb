@@ -5,7 +5,7 @@ require_relative 'sheet'
 module DfEDataTables
   module DataElementParsers
     class ExclusionsFrom2005 < Sheet
-      private
+    private
 
       def regex
         /Exclusions_05-06_to_\d{2}-\d{2}/

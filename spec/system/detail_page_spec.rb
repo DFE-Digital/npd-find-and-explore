@@ -19,6 +19,43 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page).to have_link(concept.category.name, href: category_path(concept.category))
   end
 
+  it 'Shows the link to the "how to access" page' do
+    visit concept_path(concept)
+
+    expect(page)
+      .to have_link('apply for access via the DfE',
+                    href: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
+    expect(page).to have_text('To view this data you will need to apply for access via the DfE.')
+  end
+
+  it 'Shows the application guidance text' do
+    visit concept_path(concept)
+
+    expect(page).to have_text('You can use the button to copy the names of the data you will need.')
+  end
+
+  it 'Shows the sensitivity' do
+    visit concept_path(concept)
+
+    expect(page).to have_text('Sensitivity')
+    expect(page).to have_text(concept.data_elements.map(&:sensitivity).min)
+  end
+
+  it 'Shows the identifiability' do
+    visit concept_path(concept)
+
+    expect(page).to have_text('Identifiability')
+    expect(page).to have_text(concept.data_elements.map(&:identifiability).min)
+  end
+
+  it 'Shows the academic year this concept was collected from' do
+    visit concept_path(concept)
+
+    collected_from = concept.data_elements.map(&:academic_year_collected_from).min
+    expect(page).to have_text('Collected from')
+    expect(page).to have_text("#{collected_from} - #{(collected_from + 1).to_s[2, 2]}")
+  end
+
   it 'Shows the elements names' do
     visit concept_path(concept)
 

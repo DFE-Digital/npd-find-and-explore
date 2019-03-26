@@ -27,17 +27,15 @@ module DfEDataTables
           DfEDataTables::DataElementParsers::DataBlock.new(
             sheet,
             sheet_name,
-            {
-              header_row: row,
-              first_row: significant_rows.dig(:first_rows, index),
-              last_row: significant_rows.dig(:last_rows, index),
-              table_name: significant_rows.dig(:table_names, index)
-            }
+            header_row: row,
+            first_row: significant_rows.dig(:first_rows, index),
+            last_row: significant_rows.dig(:last_rows, index),
+            table_name: significant_rows.dig(:table_names, index)
           )
         end
       end
 
-      private
+    private
 
       def regex
         /census/

@@ -5,7 +5,7 @@ require_relative 'sheet'
 module DfEDataTables
   module DataElementParsers
     class Ypmad < Sheet
-      private
+    private
 
       def regex
         /YPMAD \d{2}-\d{2}/

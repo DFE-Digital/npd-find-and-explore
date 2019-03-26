@@ -7,12 +7,15 @@ module DfEDataTables
     def initialize(categories_path)
       categories_workbook = Roo::Spreadsheet.open(categories_path)
 
-      @extracts = DfEDataTables::CategoriesParser.new(categories_workbook, 'Demographics - SC')
-
-      upload(@extracts.categories)
+      [
+        DfEDataTables::CategoriesParser.new(categories_workbook, 'Category Trees'),
+        DfEDataTables::CategoriesParser.new(categories_workbook, 'Demographics - SC')
+      ].each do |worksheet|
+        upload(worksheet.categories)
+      end
     end
 
-    private
+  private
 
     def upload(categories, parent = nil)
       categories.each do |hash|

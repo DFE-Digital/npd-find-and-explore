@@ -5,7 +5,7 @@ require_relative 'sheet'
 module DfEDataTables
   module DataElementParsers
     class Eyfsp < Sheet
-      private
+    private
 
       def regex
         /EYFSP#{YEARS_REGEX}/
