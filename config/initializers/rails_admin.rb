@@ -32,16 +32,16 @@ RailsAdmin.config do |config|
     show
     show_in_app
     new do
-      except ['DataElement']
+      except %w[DataElement]
     end
     bulk_delete do
-      except ['DataElement']
+      except %w[DataElement]
     end
     edit do
-      except ['DataElement']
+      except %w[DataElement]
     end
     delete do
-      except ['DataElement']
+      except %w[DataElement]
     end
 
     ## With an audit adapter, you can add:
