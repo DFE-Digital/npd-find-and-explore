@@ -11,7 +11,7 @@
 # A leaf-category (one without sub-categories) contains one or more
 # concepts.
 class Category < ApplicationRecord
-  has_many :concepts, dependent: :destroy
+  has_many :concepts, dependent: :destroy, inverse_of: :category
 
   validates :name, uniqueness: true
 
