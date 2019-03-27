@@ -48,7 +48,11 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # ROO gem to handle Excel files
 gem 'roo', '~> 2.7'
 
+# Authentication for Rails Admin
 gem 'devise', '~> 4'
+
+# Audit changes
+gem 'paper_trail', '~> 10'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
