@@ -35,8 +35,8 @@ services:
     #command: sidekiq -c 25 -q default
     command: echo Hello
 
-    volumes:
-      - .:/usr/src/app
+    # volumes:
+    #   - .:/usr/src/app
 
     # Keep the stdin open, so we can attach to our app container's process and do things such as
     # byebug, etc:
