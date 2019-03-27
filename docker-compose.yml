@@ -47,6 +47,7 @@ services:
 
     links:
       - postgres
+      - postgres_test
     env_file: .env
 
   # This container will run the rails web server:
