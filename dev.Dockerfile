@@ -15,9 +15,14 @@ ENV HOME=/usr/src/app PATH=/usr/src/app/bin:$PATH
 
 WORKDIR $HOME
 
-ADD Gemfile* /usr/src/app/
+ADD Gemfile* ./
 RUN set -ex && bundle --retry 3
+
+ADD package.json .
+ADD yarn.lock .
 RUN set -ex && yarn install
+
+ADD . ./
 
 ENTRYPOINT ["bundle", "exec"]
 CMD ["rails", "server", "-b", "0.0.0.0", "-p", "3000"]
