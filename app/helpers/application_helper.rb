@@ -16,4 +16,8 @@ module ApplicationHelper
   def academic_term(term)
     ACADEMIC_TERMS[term&.downcase&.to_sym] || term
   end
+
+  def google_analytics_key
+    Rails.application.credentials.dig(Rails.env.to_sym, :google_analytics_tracking_id)
+  end
 end
