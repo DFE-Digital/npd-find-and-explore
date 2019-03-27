@@ -16,7 +16,7 @@ ENV HOME=/usr/src/app PATH=/usr/src/app/bin:$PATH
 WORKDIR $HOME
 
 ADD Gemfile* ./
-RUN set -ex && bundle --retry 3
+RUN set -ex && bundle --deployment --retry 3
 
 ADD package.json .
 ADD yarn.lock .
