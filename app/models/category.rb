@@ -11,6 +11,8 @@
 # A leaf-category (one without sub-categories) contains one or more
 # concepts.
 class Category < ApplicationRecord
+  include PgSearch
+
   has_many :concepts, dependent: :destroy, inverse_of: :category
 
   validates :name, uniqueness: true
@@ -19,4 +21,6 @@ class Category < ApplicationRecord
   translates :description
 
   has_ancestry
+
+  multisearchable against: %i[name description]
 end
