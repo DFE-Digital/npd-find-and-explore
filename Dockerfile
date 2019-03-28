@@ -1,8 +1,6 @@
 # Based on https://github.com/vovimayhem/docker-compose-rails-dev-example
 FROM ruby:2.6.1-alpine
 
-# RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
-# RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN set -ex && apk add --update --no-cache \
 											git \
                                            	build-base \
