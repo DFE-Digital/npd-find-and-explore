@@ -23,61 +23,66 @@ services:
 
   # Application: -----------------------------------------------------------------
   # We'll also use this configuration (&app_base) for the web and test containers:
-  jobs: &app_base
-    build:
-      context: .
-      dockerfile: dev.Dockerfile
-    image: slatehorse/npd-find-and-explore:development
+  # jobs: &app_base
+  #   build:
+  #     context: .
+  #     dockerfile: dev.Dockerfile
+  #   #image: slatehorse/npd-find-and-explore:development
 
-    # The command this container will run - in this case, this container will run our sidekiq
-    # process:
-    # FIXME: errors out
-    #command: sidekiq -c 25 -q default
-    command: echo Hello
+  #   # The command this container will run - in this case, this container will run our sidekiq
+  #   # process:
+  #   # FIXME: errors out
+  #   #command: sidekiq -c 25 -q default
+  #   command: echo Hello
 
-    # volumes:
-    #   - .:/usr/src/app
+  #   # volumes:
+  #   #   - .:/usr/src/app
 
-    # Keep the stdin open, so we can attach to our app container's process and do things such as
-    # byebug, etc:
-    stdin_open: true
+  #   links:
+  #     - postgres
+  #     - postgres_test
 
-    # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container:
-    tty: true
+  #   # Keep the stdin open, so we can attach to our app container's process and do things such as
+  #   # byebug, etc:
+  #   stdin_open: true
 
-    links:
-      - postgres
-      - postgres_test
-    env_file: .env
+  #   # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container:
+  #   tty: true
+
+  #   env_file: .env
 
   # This container will run the rails web server:
   web:
     # We'll copy from &app_base, and override:
-    <<: *app_base
-    command: rails server -p 3000 -b 0.0.0.0
+    build: .
+    env_file: .env
     environment:
-      - RACK_ENV=development
-      - RAILS_ENV=development
+      - RACK_ENV=${RAILS_ENV}
+      - RAILS_ENV=${RAILS_ENV}
+      - NODE_ENV=${RAILS_ENV}
       - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       - POSTGRES_TEST_HOST=postgres_test
+      - POSTGRES_TEST_PORT=5432
       - WEBPACK_DEV_HOST=webpacker
       - WEBPACKER_DEV_SERVER_HOST=webpacker
     ports:
       - "3000:3000" # Bind our host's port 3000 to the app port 3000:
     links:
-      - webpacker
+      - postgres
+      - postgres_test
+      # - webpacker
 
-  webpacker:
-    <<: *app_base
-    #command: ./bin/webpack-dev-server
-    # https://github.com/rails/webpacker/issues/1019
-    entrypoint: ''
-    command: ash -c "rm -rf /usr/src/app/public/packs; /usr/src/app/bin/webpack-dev-server"
-    environment:
-      - WEBPACK_DEV_HOST=webpacker
-      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
-    ports:
-      - '3035:3035'
+  # webpacker:
+  #   <<: *web
+  #   #command: ./bin/webpack-dev-server
+  #   # https://github.com/rails/webpacker/issues/1019
+  #   entrypoint: ''
+  #   command: ash -c "rm -rf /usr/src/app/public/packs; /usr/src/app/bin/webpack-dev-server"
+  #   environment:
+  #     - WEBPACK_DEV_HOST=webpacker
+  #     - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+  #   ports:
+  #     - '3035:3035'
 
   # App Guard: Keeps running tests on a separate process:
   # test:
