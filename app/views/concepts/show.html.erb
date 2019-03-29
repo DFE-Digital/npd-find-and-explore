@@ -24,23 +24,22 @@
 <%= render partial: "concept_aggregate_data" %>
 
 <div class="govuk-grid-row govuk-!-margin-top-6">
-    <div class="govuk-grid-column-full">
-      <table class="govuk-table govuk-!-font-size-16">
-        <caption class="govuk-table__caption govuk-!-font-size-24">Data elements</caption>
-        <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-            <th class="govuk-table__header" scope="col">Name</th>
-            <th class="govuk-table__header govuk-table__header--numeric" scope="col">Old name</th>
-            <th class="govuk-table__header govuk-table__header--numeric" scope="col">Date collected</th>
-            <th class="govuk-table__header govuk-table__header--numeric" scope="col">Collection term</th>
-            <th class="govuk-table__header govuk-table__header--numeric" scope="col">Educational phase</th>
-            <th class="govuk-table__header govuk-table__header--numeric" scope="col">Values</th>
-          </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-          <%= render partial: "data_element_row", collection: @concept.data_elements %>
-        </tbody>
-      </table>
-    </div>
+  <div class="govuk-grid-column-full">
+    <table class="govuk-table govuk-!-font-size-16">
+      <caption class="govuk-table__caption govuk-!-font-size-24">Data elements</caption>
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header" scope="col">Name</th>
+          <th class="govuk-table__header govuk-table__header--numeric" scope="col">Old name</th>
+          <th class="govuk-table__header govuk-table__header--numeric" scope="col">Date collected</th>
+          <th class="govuk-table__header govuk-table__header--numeric" scope="col">Collection term</th>
+          <th class="govuk-table__header govuk-table__header--numeric" scope="col">Educational phase</th>
+          <th class="govuk-table__header govuk-table__header--numeric" scope="col">Values</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <%= render partial: "data_element_row", collection: @concept.data_elements %>
+      </tbody>
+    </table>
   </div>
 </div>
