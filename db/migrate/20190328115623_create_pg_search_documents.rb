@@ -6,6 +6,7 @@ class CreatePgSearchDocuments < ActiveRecord::Migration[5.2]
       create_table :pg_search_documents do |t|
         t.text :content
         t.belongs_to :searchable, type: :uuid, polymorphic: true, index: true
+        t.belongs_to :result, type: :uuid, polymorphic: true, index: true
         t.timestamps null: false
       end
     end

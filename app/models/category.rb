@@ -22,5 +22,6 @@ class Category < ApplicationRecord
 
   has_ancestry
 
-  multisearchable against: %i[name description]
+  multisearchable against: %i[name description],
+                  additional_attributes: ->(category) { { result_id: category.id, result_type: 'Category' } }
 end

@@ -17,5 +17,6 @@ class Concept < ApplicationRecord
   translates :name
   translates :description
 
-  multisearchable against: %i[name description]
+  multisearchable against: %i[name description],
+                  additional_attributes: ->(concept) { { result_id: concept.id, result_type: 'Concept' } }
 end

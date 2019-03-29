@@ -20,7 +20,8 @@ class DataElement < ApplicationRecord
                     academic_year_collected_to
                     collection_terms
                     values
-                  ]
+                  ],
+                  additional_attributes: ->(element) { { result_id: element.concept_id, result_type: 'Concept' } }
 
   def title
     [source_table_name, source_attribute_name].join('.')

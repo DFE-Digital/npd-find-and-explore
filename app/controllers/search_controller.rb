@@ -9,9 +9,9 @@ class SearchController < ApplicationController
 private
 
   def search
-    PgSearch.multisearch(search_params[:search])
-            .map { |s| s.searchable.is_a?(DataElement) ? s.searchable.concept : s.searchable }
-            .uniq
+    Search.search(search_params[:search])
+          .includes(result: %i[translations])
+          .map(&:result).uniq
   end
 
   def search_params
