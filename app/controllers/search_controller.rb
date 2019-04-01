@@ -9,9 +9,7 @@ class SearchController < ApplicationController
 private
 
   def search
-    Search.search(search_params[:search])
-          .includes(result: %i[translations])
-          .map(&:result).uniq
+    PgSearch.multisearch(search_params[:search]).includes(searchable: %i[translations])
   end
 
   def search_params
