@@ -2,7 +2,7 @@
 
 class SearchController < ApplicationController
   def index
-    @results = search.page(page).per(per_page)
+    @results = sorted_search.page(page).per(per_page)
     render action: :index
   end
 
@@ -12,8 +12,21 @@ private
     PgSearch.multisearch(search_params[:search]).includes(searchable: %i[translations])
   end
 
+  def sorted_search
+    sort_param ? search.reorder(sort_param) : search
+  end
+
   def search_params
     params.permit(:search)
+  end
+
+  def sort_param
+    par = params.permit(:sort).dig(:sort)
+    {
+      published: { searchable_created_at: :asc },
+      updated: { searchable_updated_at: :asc },
+      az: { searchable_name: :asc }
+    }[par.to_sym]
   end
 
   def page

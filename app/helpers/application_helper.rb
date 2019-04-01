@@ -27,4 +27,13 @@ module ApplicationHelper
 
     result.name
   end
+
+  def sort_options
+    [
+      ['Recently added', 'published'],
+      ['Recently updated', 'updated'],
+      ['Relevance', 'relevance'],
+      ['A - Z', 'az']
+    ]
+  end
 end

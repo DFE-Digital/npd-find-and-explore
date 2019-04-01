@@ -10,12 +10,8 @@
       <label class="govuk-label govuk-!-display-inline govuk-!-padding-right-2" for="sort">
         Sort by
       </label>
-      <select class="govuk-select govuk-!-display-inline" id="sort" name="sort">
-        <option value="published">Recently added</option>
-        <option value="updated">Recently updated</option>
-        <option value="relevance" selected="">Relevance</option>
-        <option value="az">A - Z</option>
-      </select>
+      <%= select_tag :sort, options_for_select(sort_options, params[:sort]),
+        class: %w[govuk-select govuk-!-display-inline] %>
     </div>
   </div>
 </div>

@@ -10,3 +10,5 @@
 import '../src/application.scss';
 
 import '../src/govuk-frontend.js';
+
+import '../src/sort.js';
