@@ -101,13 +101,14 @@ ActiveRecord::Schema.define(version: 2019_03_28_115623) do
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
-    t.text "content"
+    t.tsvector "content"
     t.string "searchable_type"
     t.uuid "searchable_id"
     t.string "result_type"
     t.uuid "result_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["content"], name: "index_pg_search_documents_on_content", using: :gin
     t.index ["result_type", "result_id"], name: "index_pg_search_documents_on_result_type_and_result_id"
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
   end

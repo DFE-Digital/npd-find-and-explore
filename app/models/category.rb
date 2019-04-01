@@ -24,4 +24,22 @@ class Category < ApplicationRecord
 
   multisearchable against: %i[name description],
                   additional_attributes: ->(category) { { result_id: category.id, result_type: 'Category' } }
+
+  def self.rebuild_pg_search_documents
+    connection.execute <<-SQL
+      INSERT INTO pg_search_documents (searchable_type, searchable_id, content, created_at, updated_at)
+      SELECT 'Category' AS searchable_type,
+      categories.id AS searchable_id,
+      to_tsvector('english', string_agg(
+       concat_ws(' ', category_translations.name, category_translations.description),
+      ' ')) AS content,
+      now() AS created_at,
+      now() AS updated_at
+
+      FROM categories
+      LEFT OUTER JOIN category_translations
+        ON categories.id = category_translations.category_id
+      GROUP BY categories.id
+    SQL
+  end
 end

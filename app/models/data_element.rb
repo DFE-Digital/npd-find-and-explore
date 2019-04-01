@@ -8,21 +8,6 @@ class DataElement < ApplicationRecord
 
   translates :description
 
-  multisearchable against: %i[
-                    description
-                    source_table_name
-                    source_attribute_name
-                    additional_attributes
-                    identifiability
-                    sensitivity
-                    source_old_attribute_name
-                    academic_year_collected_from
-                    academic_year_collected_to
-                    collection_terms
-                    values
-                  ],
-                  additional_attributes: ->(element) { { result_id: element.concept_id, result_type: 'Concept' } }
-
   def title
     [source_table_name, source_attribute_name].join('.')
   end
