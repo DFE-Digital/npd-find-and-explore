@@ -23,7 +23,8 @@
 a.card__body {
   color: $govuk-link-colour;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     cursor: pointer;
     text-decoration: none;
   }
@@ -31,7 +32,6 @@ a.card__body {
 
 .card__footer {
   display: block;
-  background-color:
-  govuk-colour("grey-4");
+  background-color: govuk-colour("grey-4");
   padding: 1em;
 }

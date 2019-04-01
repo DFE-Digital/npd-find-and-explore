@@ -2,12 +2,10 @@
   <div class="govuk-grid-column-full">
     <nav role="navigation" aria-label="Pagination">
       <div class="govuk-body govuk-!-font-size-14 pagination__summary govuk-!-margin-bottom-0">
-        Showing 1 – 3 of 3 results
+        <%= page_entries_info @results %>
       </div>
       <ul class="pagination govuk-!-margin-top-0">
-        <li class="pagination__item">
-          <a class="pagination__link current" href="#0" aria-current="true" aria-label="Page 1, current page">1</a>
-        </li>
+        <%= paginate @results, previous_label: ' ', next_label: ' '  %>
       </ul>
     </nav>
   </div>
