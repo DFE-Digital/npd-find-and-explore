@@ -1,4 +1,4 @@
-document.querySelector('#sort').addEventListener('change', event => {
+document.querySelector('#sort').addEventListener('change', function(event) {
   var query = window.location.search.replace(/^\?/, '').split('&');
 
   var newQuery = query.filter(function(element) { return !/^sort/.test(element) });
