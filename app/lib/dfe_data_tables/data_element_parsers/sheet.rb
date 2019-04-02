@@ -15,23 +15,35 @@ module DfEDataTables
         find_sheet(table)
       end
 
-      def to_h
-        {
-          name: sheet_name,
-          data_blocks: data_blocks
-        }
-      end
+      def parse_each
+        table_name = nil
+        headers = nil
+        started = false
 
-      def data_blocks
-        @data_blocks ||= significant_rows[:header_rows]&.each_with_index&.map do |row, index|
-          DfEDataTables::DataElementParsers::DataBlock.new(
-            sheet,
-            sheet_name,
-            header_row: row,
-            first_row: significant_rows.dig(:first_rows, index),
-            last_row: significant_rows.dig(:last_rows, index),
-            table_name: significant_rows.dig(:table_names, index)
-          )
+        (1..sheet.last_row).each do |idx|
+          row = sheet.row(idx)
+
+          if row[0].nil?
+            table_name = nil
+            next
+          end
+
+          if headers_regex.match?(row[0])
+            started = true
+            table_name = sheet_name
+            headers = Headers.new(row)
+            next
+          end
+
+          if first_row_regex.match? row[0]
+            table_name = row[0].gsub(/table/i, '').strip.gsub(/[^\w]/, '_').gsub(/_+$/, '')
+            next
+          end
+
+          next if !started || headers.nil? || table_name.nil?
+
+          element = Row.new(table_name, headers, row).process
+          yield(element)
         end
       end
 

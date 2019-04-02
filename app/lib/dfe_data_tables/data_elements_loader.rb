@@ -42,26 +42,18 @@ module DfEDataTables
       @sheets_to_process.each do |sheet_parser|
         puts "Uploading #{sheet_parser.sheet_name}"
 
-        # For each block within a sheet
-        sheet_parser.data_blocks.each do |block|
-          block.each_row do |data_element|
-            next if invalid?(data_element)
+        sheet_parser.parse_each do |data_element|
+          next if data_element.empty?
 
-            element = DataElement.find_or_create_by(find_params(data_element))
+          element = DataElement.find_or_create_by(find_params(data_element))
 
-            element.update(update_params(element, data_element))
-          end
+          element.update(update_params(element, data_element))
         end
 
         puts "Uploaded #{sheet_parser.sheet_name}"
       end
 
       true
-    end
-
-    def invalid?(data_element)
-      data_element.empty? || data_element.dig(:npd_alias).nil? ||
-        data_element.dig(:field_reference).nil? || data_element.dig(:table_name).nil?
     end
 
     def find_params(data_element)
