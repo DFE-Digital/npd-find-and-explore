@@ -70,6 +70,7 @@ group :development, :test do
   gem 'govuk-lint', '~> 3.11.0'
   gem 'pry', '~> 0.12.2'
   gem 'rspec'
+  gem 'rspec-benchmark'
   gem 'rspec-rails', '~> 3.8'
 end
 
