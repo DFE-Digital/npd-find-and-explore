@@ -1,0 +1,34 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+RSpec.describe 'Search pages', type: :system do
+  before { create_list(:category, 10, :with_subcategories_and_concepts) }
+
+  it 'Has search' do
+    visit '/categories'
+    expect(page).to have_field('search')
+  end
+
+  it 'Will find categories' do
+    visit '/categories'
+    fill_in('search', with: Category.first.name)
+    click_button('Search')
+
+    expect(page).to have_field('search')
+    expect(page).to have_text("Results for '#{Category.first.name}'")
+    expect(page).to have_text(Category.first.parent&.name&.upcase)
+    expect(page).to have_text(Category.first.description)
+  end
+
+  it 'Will find concepts' do
+    visit '/categories'
+    fill_in('search', with: Concept.first.name)
+    click_button('Search')
+
+    expect(page).to have_field('search')
+    expect(page).to have_text("Results for '#{Concept.first.name}'")
+    expect(page).to have_text(Concept.first.category.name.upcase)
+    expect(page).to have_text(Concept.first.description)
+  end
+end

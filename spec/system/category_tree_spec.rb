@@ -34,6 +34,11 @@ RSpec.describe 'Category hierarchy', type: :system do
     end
   end
 
+  it 'Has search' do
+    visit '/categories'
+    expect(page).to have_field('search')
+  end
+
   it 'Walks the tree to a detail page' do
     root_category = create(:category)
     child_category = create(:category, parent: root_category)
@@ -64,8 +69,5 @@ RSpec.describe 'Category hierarchy', type: :system do
   end
 
   xit 'Shows related publications' do
-  end
-
-  xit 'Has search' do
   end
 end

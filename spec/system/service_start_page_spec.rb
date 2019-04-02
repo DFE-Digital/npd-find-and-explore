@@ -31,7 +31,4 @@ RSpec.describe 'Service start page', type: :system do
 
     expect(page).to have_link('2018 version of the data table', 'https://todo.example.com')
   end
-
-  xit 'Has search' do
-  end
 end
