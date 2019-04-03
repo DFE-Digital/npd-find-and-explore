@@ -7,7 +7,7 @@ RSpec.describe 'DfEDataTables::DataElementsLoader', type: :model do
   it 'Will perform under a given time' do
     expect {
       DfEDataTables::DataElementParsers::DataElementsLoader.new(table_path)
-    }.to perform_under(6000).ms.sample(10)
+    }.to perform_under(1000).ms.sample(10)
   end
 
   it 'Will upload the data elements' do

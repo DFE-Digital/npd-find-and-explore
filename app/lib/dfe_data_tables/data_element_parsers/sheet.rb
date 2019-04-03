@@ -15,12 +15,12 @@ module DfEDataTables
         find_sheet(table)
       end
 
-      def parse_each
+      def map
         table_name = nil
         headers = nil
         started = false
 
-        (1..sheet.last_row).each do |idx|
+        (1..sheet.last_row).map do |idx|
           row = sheet.row(idx)
 
           if row[0].nil?
@@ -43,8 +43,10 @@ module DfEDataTables
           next if !started || headers.nil? || table_name.nil?
 
           element = Row.new(table_name, headers, row).process
-          yield(element)
-        end
+          next if element.nil?
+
+          block_given? ? yield(element) : element
+        end.compact
       end
 
     private

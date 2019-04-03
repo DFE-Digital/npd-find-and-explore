@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'DfEDataTables::DataElementParsers::Sheet', type: :model do
   let(:concept) { build :concept }
-  let(:workbook_path) { 'spec/fixtures/files/simple_table.xlsx' }
+  let(:workbook_path) { 'spec/fixtures/files/single_sheet_table.xlsx' }
   let(:workbook) { Roo::Spreadsheet.open(workbook_path) }
   let(:spreadsheet) { DfEDataTables::DataElementParsers::Sheet.new(workbook) }
 
@@ -20,51 +20,59 @@ RSpec.describe 'DfEDataTables::DataElementParsers::Sheet', type: :model do
     expect {
       workbook = Roo::Spreadsheet.open(workbook_path)
       DfEDataTables::DataElementParsers::Sheet.new(workbook)
-    }.to perform_under(50).ms.sample(5)
+    }.to perform_under(50).ms.sample(10)
   end
 
-  it 'Will perform under a 80ms' do
+  it 'Will perform under 550ms' do
     table = spreadsheet
     expect {
-      table.parse_each do |data_element|
+      table.map do |data_element|
         # do nothing
       end
-    }.to perform_under(80).ms.sample(5)
+    }.to perform_under(550).ms.sample(10)
   end
 
-  it 'Will peform significantly slower (just under 650ms) if needs saving' do
+  it 'Will peform significantly slower (just under 12650ms) if needs saving' do
     table = spreadsheet
     expect {
-      table.parse_each do |data_element|
-        next if data_element.empty?
+      table.map do |data_element|
+        next if data_element.nil?
 
         element = DataElement.find_or_create_by(find_params(data_element))
-        element.update(update_params(element, data_element))
+        element.update(update_params(data_element))
       end
-    }.to perform_under(650).ms.sample(5)
+    }.to perform_under(12650).ms.sample(10)
+  end
+
+  it 'Will peform a lot better (just under 1000ms) if it bulk saves' do
+    table = spreadsheet
+    expect {
+      DataElement.import(table.map { |element| element[:concept_id] = concept.id },
+                         on_duplicate_key_update: %i[source_table_name source_attribute_name])
+    }.to perform_under(1000).ms.sample(10)
   end
 
 private
 
-  def find_params(data_element)
+  def find_params(data_element, concept = nil)
     {
-      source_table_name: data_element.dig(:table_name),
-      source_attribute_name: data_element.dig(:field_reference),
-      concept: concept
+      source_table_name: data_element[:source_table_name],
+      source_attribute_name: data_element[:source_attribute_name],
+      concept: data_element[:concept] || concept
     }
   end
 
-  def update_params(element, data_element)
+  def update_params(data_element)
     {
-      source_old_attribute_name: [data_element.dig(:old_alias), data_element.dig(:former_name)].flatten.compact,
-      identifiability: data_element.dig(:identification_risk),
-      sensitivity: data_element.dig(:sensitivity),
-      academic_year_collected_from: data_element.dig(:years_populated, :from),
-      academic_year_collected_to: data_element.dig(:years_populated, :to),
-      collection_terms: data_element.dig(:collection_term),
-      values: data_element.dig(:values),
-      description: data_element.dig(:description),
-      additional_attributes: (element.additional_attributes || {}).merge(data_element)
+      source_old_attribute_name: data_element[:source_old_attribute_name],
+      identifiability: data_element[:identifiability],
+      sensitivity: data_element[:sensitivity],
+      academic_year_collected_from: data_element[:academic_year_collected_from],
+      academic_year_collected_to: data_element[:academic_year_collected_to],
+      collection_terms: data_element[:collection_terms],
+      values: data_element[:values],
+      description: data_element[:description],
+      additional_attributes: data_element[:additional_attributes]
     }
   end
 end

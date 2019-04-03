@@ -42,40 +42,16 @@ module DfEDataTables
       @sheets_to_process.each do |sheet_parser|
         puts "Uploading #{sheet_parser.sheet_name}"
 
-        sheet_parser.parse_each do |data_element|
-          next if data_element.empty?
-
-          element = DataElement.find_or_create_by(find_params(data_element))
-
-          element.update(update_params(element, data_element))
+        elements = sheet_parser.map do |element|
+          element[:concept_id] = concept.id
+          element
         end
+        DataElement.import(elements, on_duplicate_key_update: %i[source_table_name source_attribute_name])
 
         puts "Uploaded #{sheet_parser.sheet_name}"
       end
 
       true
-    end
-
-    def find_params(data_element)
-      {
-        source_table_name: data_element.dig(:table_name),
-        source_attribute_name: data_element.dig(:field_reference),
-        concept: concept
-      }
-    end
-
-    def update_params(element, data_element)
-      {
-        source_old_attribute_name: [data_element.dig(:old_alias), data_element.dig(:former_name)].flatten.compact,
-        identifiability: data_element.dig(:identification_risk),
-        sensitivity: data_element.dig(:sensitivity),
-        academic_year_collected_from: data_element.dig(:years_populated, :from),
-        academic_year_collected_to: data_element.dig(:years_populated, :to),
-        collection_terms: data_element.dig(:collection_term),
-        values: data_element.dig(:values),
-        description: data_element.dig(:description),
-        additional_attributes: (element.additional_attributes || {}).merge(data_element)
-      }
     end
 
     def concept
