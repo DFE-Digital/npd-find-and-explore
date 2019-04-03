@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'DfEDataTables::DataElementsLoader', type: :model do
   let(:table_path) { 'spec/fixtures/files/reduced_table.xlsx' }
+
   it 'Will perform under a given time' do
     expect {
       DfEDataTables::DataElementParsers::DataElementsLoader.new(table_path)
