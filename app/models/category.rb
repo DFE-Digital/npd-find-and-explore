@@ -11,6 +11,8 @@
 # A leaf-category (one without sub-categories) contains one or more
 # concepts.
 class Category < ApplicationRecord
+  include PgSearch
+
   has_many :concepts, dependent: :destroy, inverse_of: :category
 
   validates :name, uniqueness: true
@@ -19,4 +21,28 @@ class Category < ApplicationRecord
   translates :description
 
   has_ancestry
+
+  multisearchable against: %i[name description]
+
+  def self.rebuild_pg_search_documents
+    connection.execute <<-SQL
+      INSERT INTO pg_search_documents (searchable_type, searchable_id, content,
+        searchable_name, searchable_created_at, searchable_updated_at, created_at, updated_at)
+      SELECT 'Category' AS searchable_type,
+      categories.id AS searchable_id,
+      to_tsvector('english', string_agg(
+       concat_ws(' ', category_translations.name, category_translations.description),
+      ' ')) AS content,
+      MIN(category_translations.name) AS searchable_name,
+      MIN(categories.created_at) AS searchable_created_at,
+      MIN(categories.updated_at) AS searchable_updated_at,
+      now() AS created_at,
+      now() AS updated_at
+
+      FROM categories
+      LEFT OUTER JOIN category_translations
+        ON categories.id = category_translations.category_id
+      GROUP BY categories.id
+    SQL
+  end
 end

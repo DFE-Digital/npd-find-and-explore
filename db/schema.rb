@@ -10,9 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_27_110119) do
+ActiveRecord::Schema.define(version: 2019_03_28_115623) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "fuzzystrmatch"
+  enable_extension "pg_trgm"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
@@ -98,9 +100,22 @@ ActiveRecord::Schema.define(version: 2019_03_27_110119) do
     t.index ["concept_id"], name: "index_data_elements_on_concept_id"
   end
 
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.tsvector "content"
+    t.string "searchable_type"
+    t.uuid "searchable_id"
+    t.text "searchable_name"
+    t.datetime "searchable_created_at"
+    t.datetime "searchable_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content"], name: "index_pg_search_documents_on_content", using: :gin
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
+  end
+
   create_table "versions", force: :cascade do |t|
     t.string "item_type", null: false
-    t.integer "item_id", null: false
+    t.uuid "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
     t.text "object"

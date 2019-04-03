@@ -3,8 +3,10 @@
 $govuk-global-styles: true;
 $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 @import "node_modules/govuk-frontend/all";
-@import "_related-items";
-@import "_tooltip";
+@import "related-items";
+@import "tooltip";
+@import "pagination";
+@import "cards";
 
 // Custom styles to refactor somewhere
 .strong_link {
@@ -15,10 +17,20 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
   background-color: govuk-colour("grey-4");
 }
 
+.govuk-\!-display-inline-block {
+  display: inline-block !important;
+}
+
 .how-to-access {
   background-color: $govuk-brand-colour;
 }
 
-.how-to-access p, .how-to-access a, .how-to-access h2 {
+.how-to-access p,
+.how-to-access a,
+.how-to-access h2 {
   color: govuk-colour('white');
+}
+
+.right {
+  text-align: right;
 }

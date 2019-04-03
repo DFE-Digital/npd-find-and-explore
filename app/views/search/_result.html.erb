@@ -1,0 +1,16 @@
+<%- searchable = result.searchable %>
+<div class="card govuk-!-width-full">
+  <a href="<%= url_for(searchable) %>" class="card__body">
+    <span class="govuk-!-font-weight-bold govuk-!-font-size-19 govuk-!-margin-bottom-0 govuk-!-display-inline">
+      <%= searchable.name %>
+    </span>
+    <span class="float-right govuk-!-display-inline">
+      <strong class="govuk-tag">
+        <%= search_category_tag(searchable) %>
+      </strong>
+    </span>
+  </a>
+  <div class="card__footer govuk-body govuk-!-font-size-14">
+    <p class="govuk-!-font-size-14 govuk-!-margin-bottom-2"><%= searchable.description %></p>
+  </div>
+</div>

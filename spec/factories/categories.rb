@@ -10,5 +10,29 @@ FactoryBot.define do
         create(:category, parent: category)
       end
     end
+
+    trait :with_subcategories_and_concepts do
+      after(:create) do |category|
+        create(:category, :with_concepts, parent: category)
+      end
+    end
+
+    trait :with_subcategories_concepts_and_data_elements do
+      after(:create) do |category|
+        create(:category, :with_concepts_and_data_elements, parent: category)
+      end
+    end
+
+    trait :with_concepts do
+      after(:create) do |category|
+        create(:concept, category: category)
+      end
+    end
+
+    trait :with_concepts_and_data_elements do
+      after(:create) do |category|
+        create(:concept, :with_data_elements, category: category)
+      end
+    end
   end
 end
