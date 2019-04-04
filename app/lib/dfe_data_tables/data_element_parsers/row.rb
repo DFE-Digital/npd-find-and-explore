@@ -11,7 +11,7 @@ module DfEDataTables
         @row = row
       end
 
-      def process(concept = nil)
+      def process
         return nil if table_name.nil? || row.compact.first.nil?
 
         data_element = { table_name: table_name }
@@ -29,7 +29,7 @@ module DfEDataTables
         data_element[:npd_alias] = data_element[:npd_alias]&.split("\n")
         data_element[:years_populated] = process_years(data_element[:years_populated])
 
-        invalid?(data_element) ? nil : data_element_params(data_element, concept)
+        invalid?(data_element) ? nil : data_element_params(data_element)
       end
 
     private
@@ -54,9 +54,8 @@ module DfEDataTables
           data_element[:field_reference].nil?
       end
 
-      def data_element_params(data_element, concept)
+      def data_element_params(data_element)
         {
-          concept: concept,
           source_table_name: data_element.dig(:table_name),
           source_attribute_name: data_element.dig(:field_reference),
           source_old_attribute_name: [data_element.dig(:old_alias), data_element.dig(:former_name)].flatten.compact,
@@ -66,7 +65,7 @@ module DfEDataTables
           academic_year_collected_to: data_element.dig(:years_populated, :to),
           collection_terms: data_element.dig(:collection_term),
           values: data_element.dig(:values),
-          description: data_element.dig(:description),
+          description_en: data_element.dig(:description),
           additional_attributes: data_element
         }
       end

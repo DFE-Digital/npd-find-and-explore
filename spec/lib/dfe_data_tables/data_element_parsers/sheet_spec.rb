@@ -71,7 +71,7 @@ private
       academic_year_collected_to: data_element[:academic_year_collected_to],
       collection_terms: data_element[:collection_terms],
       values: data_element[:values],
-      description: data_element[:description],
+      description_en: data_element[:description_en],
       additional_attributes: data_element[:additional_attributes]
     }
   end

@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :data_element do
     sequence(:source_table_name)     { |n| "#{Faker::Lorem.word.strip}#{n}" }
     sequence(:source_attribute_name) { |n| "#{Faker::Creature::Animal.name.strip}#{n}" }
-    description                      { Faker::Lorem.sentence(3, false, 3) }
+    description_en                   { Faker::Lorem.sentence(3, false, 3) }
     source_old_attribute_name        { [Faker::Creature::Animal.name.strip] }
     identifiability                  { Random.rand(5) }
     sensitivity                      { %w[A B C D E].sample }

@@ -6,7 +6,7 @@ class ConceptsController < ApplicationController
 
   def show
     @concept = Concept
-               .includes(:translations, category: [:translations], data_elements: [:translations])
+               .includes(:translations, :data_elements, category: [:translations])
                .find(params.require(:id))
 
     breadcrumbs_for(category_leaf: @concept.category, concept: @concept)

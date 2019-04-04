@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Search pages', type: :system do
-  before { create_list(:category, 10, :with_subcategories_concepts_and_data_elements) }
+  before { create_list(:category, 2, :with_subcategories_concepts_and_data_elements) }
 
   it 'Has search' do
     visit '/categories'
