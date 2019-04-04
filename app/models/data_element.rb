@@ -7,6 +7,8 @@ class DataElement < ApplicationRecord
   belongs_to :concept, inverse_of: :data_elements
 
   def description
+    return description_cy if I18n.locale == :cy
+
     description_en
   end
 
