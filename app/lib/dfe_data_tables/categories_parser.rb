@@ -48,21 +48,21 @@ module DfEDataTables
         category_level3 = category_level2&.dig(:subcat)&.last
 
         unless category_level3.nil?
-          obj&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(concept_hash)
+          category_level3[:concepts].push(concept_hash)
           next
         end
 
         unless category_level2.nil?
-          obj&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(concept_hash)
+          category_level2[:concepts].push(concept_hash)
           next
         end
 
         unless category_level1.nil?
-          obj&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(concept_hash)
+          category_level1[:concepts].push(concept_hash)
           next
         end
 
-        obj&.last&.dig(:concepts)&.push(concept_hash)
+        category_level0[:concepts].push(concept_hash)
       end
     end
 
