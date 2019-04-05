@@ -7,14 +7,16 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-import '../src/application.scss';
+import '../src/application.scss'
 
-import $ from 'jquery';
+import $ from 'jquery'
 
-import '../src/govuk-frontend.js';
-import '../src/sort.js';
-import '../src/step-by-step-navigation.js';
+import '../src/govuk-frontend.js'
+import '../src/sort.js'
+import '../src/step-by-step-navigation.js'
 
-var $element = $('#step-by-step-navigation')
-var stepByStepNavigation = new GOVUK.Modules.StepByStepNavigation()
-stepByStepNavigation.start($element)
+$(document).ready(function() {
+  var $element = $('#step-by-step-navigation')
+  var stepByStepNavigation = new GOVUK.Modules.StepByStepNavigation()
+  stepByStepNavigation.start($element)
+})
