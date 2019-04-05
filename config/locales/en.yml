@@ -70,3 +70,7 @@ en:
           other: "Showing all %{count} results"
       more_pages:
         display_entries: "Showing %{first} &ndash; %{last} of %{total} results"
+
+  date:
+    formats:
+      npd: "%d %B %Y"
