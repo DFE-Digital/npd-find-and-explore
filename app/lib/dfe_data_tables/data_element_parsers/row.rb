@@ -66,6 +66,7 @@ module DfEDataTables
           collection_terms: data_element.dig(:collection_term),
           values: data_element.dig(:values),
           description_en: data_element.dig(:description),
+          description_cy: '',
           additional_attributes: data_element
         }
       end
