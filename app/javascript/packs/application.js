@@ -9,6 +9,12 @@
 
 import '../src/application.scss';
 
-import '../src/govuk-frontend.js';
+import $ from 'jquery';
 
+import '../src/govuk-frontend.js';
 import '../src/sort.js';
+import '../src/step-by-step-navigation.js';
+
+var $element = $('#step-by-step-navigation')
+var stepByStepNavigation = new GOVUK.Modules.StepByStepNavigation()
+stepByStepNavigation.start($element)
