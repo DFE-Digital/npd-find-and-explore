@@ -56,6 +56,7 @@ module DfEDataTables
 
       def data_element_params(data_element)
         {
+          npd_alias: data_element.dig(:npd_alias, 0),
           source_table_name: data_element.dig(:table_name),
           source_attribute_name: data_element.dig(:field_reference),
           source_old_attribute_name: [data_element.dig(:old_alias), data_element.dig(:former_name)].flatten.compact,
