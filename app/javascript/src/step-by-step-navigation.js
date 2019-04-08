@@ -27,9 +27,6 @@ window.GOVUK.getCurrentLocation = function () {
     var activeLinkHref = '#content'
 
     this.start = function ($element) {
-      // Not working - $(window) undefined
-      // $(window).unload(storeScrollPosition)
-
       // Indicate that js has worked
       $element.addClass('app-step-nav--active')
 
