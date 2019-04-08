@@ -51,7 +51,7 @@ module DfEDataTables
       return if concept.nil? || npd_aliases.blank?
 
       npd_aliases.each do |npd_alias|
-        DataElement.where("additional_attributes->>'npd_alias' LIKE ?", "%#{npd_alias}%")
+        DataElement.where(npd_alias: npd_alias)
                    .each { |element| element.update!(concept: concept) }
       end
     end
