@@ -1,0 +1,4 @@
+cy:
+  date:
+    formats:
+      npd: "%d %B %Y"
