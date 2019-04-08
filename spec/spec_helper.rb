@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rspec-benchmark'
+
 require 'coveralls'
 Coveralls.wear!('rails')
 
@@ -80,4 +82,7 @@ RSpec.configure do |config|
   # test failures related to randomization by passing the same `--seed` value
   # as the one that triggered the failure.
   Kernel.srand config.seed
+
+  # Include benchmark matchers
+  config.include RSpec::Benchmark::Matchers
 end

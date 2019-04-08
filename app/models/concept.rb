@@ -27,7 +27,7 @@ class Concept < ApplicationRecord
       concepts.id AS searchable_id,
       to_tsvector('english', string_agg(
        concat_ws(' ', concept_translations.name, concept_translations.description,
-         data_element_translations.description, data_elements.source_table_name,
+         data_elements.description_en, data_elements.source_table_name,
          data_elements.source_attribute_name, data_elements.additional_attributes,
          array_to_string(data_elements.source_old_attribute_name, ' '),
          data_elements.academic_year_collected_from,
@@ -46,8 +46,6 @@ class Concept < ApplicationRecord
         ON concepts.id = concept_translations.concept_id
       LEFT OUTER JOIN data_elements
         ON concepts.id = data_elements.concept_id
-      LEFT OUTER JOIN data_element_translations
-        ON data_elements.id = data_element_translations.data_element_id
       GROUP BY concepts.id
     SQL
   end

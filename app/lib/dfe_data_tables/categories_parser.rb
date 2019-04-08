@@ -42,22 +42,27 @@ module DfEDataTables
 
         concept_hash = concept(row)
 
-        if row[3].present?
-          obj&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(concept_hash)
+        category_level0 = obj&.last
+        category_level1 = category_level0&.dig(:subcat)&.last
+        category_level2 = category_level1&.dig(:subcat)&.last
+        category_level3 = category_level2&.dig(:subcat)&.last
+
+        unless category_level3.nil?
+          category_level3[:concepts].push(concept_hash)
           next
         end
 
-        if row[2].present?
-          obj&.last&.dig(:subcat)&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(concept_hash)
+        unless category_level2.nil?
+          category_level2[:concepts].push(concept_hash)
           next
         end
 
-        if row[1].present?
-          obj&.last&.dig(:subcat)&.last&.dig(:concepts)&.push(concept_hash)
+        unless category_level1.nil?
+          category_level1[:concepts].push(concept_hash)
           next
         end
 
-        obj&.last&.dig(:concepts)&.push(concept_hash)
+        category_level0[:concepts].push(concept_hash)
       end
     end
 

@@ -60,6 +60,9 @@ gem 'pg_search', '~> 2.1'
 # Pagination
 gem 'kaminari', '~>1.1'
 
+# Bulk import
+gem 'activerecord-import', '~>1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -70,6 +73,7 @@ group :development, :test do
   gem 'govuk-lint', '~> 3.11.0'
   gem 'pry', '~> 0.12.2'
   gem 'rspec'
+  gem 'rspec-benchmark'
   gem 'rspec-rails', '~> 3.8'
 end
 

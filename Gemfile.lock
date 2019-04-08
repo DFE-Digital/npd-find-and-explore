@@ -33,6 +33,8 @@ GEM
       activemodel (= 5.2.2)
       activesupport (= 5.2.2)
       arel (>= 9.0)
+    activerecord-import (1.0.1)
+      activerecord (>= 3.2)
     activestorage (5.2.2)
       actionpack (= 5.2.2)
       activerecord (= 5.2.2)
@@ -51,6 +53,8 @@ GEM
     arel (9.0.0)
     ast (2.4.0)
     bcrypt (3.1.12)
+    benchmark-perf (0.4.0)
+    benchmark-trend (0.2.0)
     bindex (0.5.0)
     bootsnap (1.4.0)
       msgpack (~> 1.0)
@@ -284,6 +288,10 @@ GEM
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
       rspec-mocks (~> 3.8.0)
+    rspec-benchmark (0.4.0)
+      benchmark-perf (~> 0.4.0)
+      benchmark-trend (~> 0.2.0)
+      rspec (>= 3.0.0, < 4.0.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.2)
@@ -386,6 +394,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-import (~> 1)
   ancestry (~> 3.0)
   bootsnap (>= 1.1.0)
   byebug
@@ -414,6 +423,7 @@ DEPENDENCIES
   rails_admin_nestable (~> 0.3.2)
   roo (~> 2.7)
   rspec
+  rspec-benchmark
   rspec-rails (~> 3.8)
   selenium-webdriver
   spring
