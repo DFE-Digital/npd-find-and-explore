@@ -14,6 +14,6 @@ RSpec.describe 'DfEDataTables::DataElementsLoader', type: :model do
   it 'Will upload the data elements' do
     expect {
       DfEDataTables::DataElementsLoader.new(table_path)
-    }.to change(DataElement, :count).by(314)
+    }.to change(DataElement, :count).by(274)
   end
 end
