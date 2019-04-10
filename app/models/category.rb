@@ -15,8 +15,6 @@ class Category < ApplicationRecord
 
   has_many :concepts, dependent: :destroy, inverse_of: :category
 
-  validates :name, uniqueness: true
-
   translates :name
   translates :description
 

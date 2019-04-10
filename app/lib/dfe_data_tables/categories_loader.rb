@@ -9,8 +9,10 @@ module DfEDataTables
 
       PgSearch.disable_multisearch do
         [
-          DfEDataTables::CategoriesParser.new(categories_workbook, 'Category Trees'),
-          DfEDataTables::CategoriesParser.new(categories_workbook, 'Demographics - SC')
+          DfEDataTables::CategoriesParser.new(categories_workbook, 'Demographics'),
+          DfEDataTables::CategoriesParser.new(categories_workbook, 'Attainment'),
+          DfEDataTables::CategoriesParser.new(categories_workbook, 'Absence-Exclusion'),
+          DfEDataTables::CategoriesParser.new(categories_workbook, 'Pupil Ref Nos - KS\'s')
         ].each do |worksheet|
           upload(worksheet.categories)
         end
@@ -23,8 +25,14 @@ module DfEDataTables
 
     def upload(categories, parent = nil)
       categories.each do |hash|
-        category = Category.find_or_create_by!(name: hash.dig(:name))
-        category.update(parent: parent) if parent
+        name = hash.dig(:name)
+        category = parent ? parent.children.find_by(name: :name) : Category.find_by(name: name, ancestry: nil)
+        if !category
+          category = Category.create!(name: name)
+          category.parent = parent
+          category.save!
+        end
+
         category.concepts << concepts(category, hash.dig(:concepts))
 
         next if hash.dig(:subcat).blank?
