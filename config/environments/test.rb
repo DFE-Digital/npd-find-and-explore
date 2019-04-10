@@ -47,5 +47,5 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Fallback for empty translations
-  config.i18n.fallbacks = true
+  config.i18n.fallbacks = [I18n.default_locale]
 end
