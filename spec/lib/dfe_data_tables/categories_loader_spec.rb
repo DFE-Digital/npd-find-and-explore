@@ -16,9 +16,9 @@ RSpec.describe 'DfEDataTables::CategoriesLoader', type: :model do
 
     DfEDataTables::CategoriesLoader.new(table_path)
 
-    expect(Category.count).to eq(241)
-    expect(Concept.count).to eq(1258)
+    expect(Category.count).to eq(47)
+    expect(Concept.count).to eq(179)
     expect(Category.find_each.map(&:root).uniq.map(&:name).sort)
-      .to eq(['Attainment', 'Demographics', 'Education', 'Personal identifiers'])
+      .to eq(['Demographics'])
   end
 end

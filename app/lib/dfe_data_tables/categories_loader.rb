@@ -11,6 +11,8 @@ module DfEDataTables
 
       PgSearch.disable_multisearch do
         TABLES.each do |table|
+          next unless categories_workbook.sheets.include?(table)
+
           worksheet = DfEDataTables::CategoriesParser.new(categories_workbook, table)
           upload(worksheet.categories)
         end
