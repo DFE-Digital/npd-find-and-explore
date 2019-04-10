@@ -53,3 +53,24 @@ en:
       earliest_collected:
         label: Collected from
         tooltip: The earliest academic year data was collected from.
+
+  views:
+    pagination:
+      first: "&laquo; First"
+      last: "Last &raquo;"
+      previous: "&lsaquo; Prev"
+      next: "Next &rsaquo;"
+      truncate: "&hellip;"
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "No result found"
+          one: "Displaying 1 result"
+          other: "Showing all %{count} results"
+      more_pages:
+        display_entries: "Showing %{first} &ndash; %{last} of %{total} results"
+
+  date:
+    formats:
+      npd: "%d %B %Y"

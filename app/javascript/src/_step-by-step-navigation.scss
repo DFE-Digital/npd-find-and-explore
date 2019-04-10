@@ -1,0 +1,367 @@
+// Based on https://github.com/alphagov/govuk_publishing_components/blob/v9.3.6/app/assets/stylesheets/govuk_publishing_components/components/_step-by-step-nav.scss
+// Note - this code for prototype purposes only. It is not production code,
+// nor an example of the best way to use GOV.UK Frontend
+
+.app-step-nav {
+  @include govuk-font(19);
+  margin-bottom: 30px;
+
+  &.app-step-nav--large {
+    @include govuk-media-query($from: tablet) {
+      margin-bottom: 60px;
+    }
+  }
+}
+
+.app-step-nav__controls {
+  padding: 3px 3px 0 0;
+  text-align: right;
+}
+
+.app-step-nav__button {
+  background: none;
+  border: 0;
+  color: $govuk-link-colour;
+  cursor: pointer;
+  margin: 0;
+}
+
+// removes extra dotted outline from buttons in Firefox
+// on focus (standard yellow outline unaffected)
+.app-step-nav__button::-moz-focus-inner {
+  border: 0;
+}
+
+.app-step-nav__button--title {
+  @include govuk-font(19, $weight: bold);
+  color: govuk-colour("black");
+  display: inline-block;
+  padding: 0;
+  text-align: left;
+
+  .app-step-nav--large & {
+    @include govuk-font(24, $weight: bold)
+  }
+}
+
+.app-step-nav__button--controls {
+  @include govuk-font(14);
+  padding: .5em 0;
+  position: relative;
+  text-decoration: underline;
+  z-index: 1; // this and relative position stops focus outline underlap with border of accordion
+
+  &:hover {
+    color: $govuk-link-hover-colour;
+  }
+
+  .app-step-nav--large & {
+    @include govuk-font(16)
+  }
+}
+
+.app-step-nav__steps {
+  margin: 0;
+  padding: 0;
+}
+
+.app-step-nav__step {
+  list-style: none;
+  padding-left: 45px;
+  position: relative;
+
+  &:after {
+    background: govuk-colour("white");
+    border-left: solid 2px $govuk-border-colour;
+    content: "";
+    height: 100%;
+    left: 0;
+    margin-left: 12px;
+    position: absolute;
+    top: 15px;
+    width: 0;
+    z-index: 2;
+  }
+
+  &:last-child {
+    &:before {
+      border-bottom: solid 2px $govuk-border-colour;
+      bottom: 0;
+      content: "";
+      height: 0;
+      left: 0;
+      margin-left: 6.5px;
+      position: absolute;
+      width: 13px;
+      z-index: 6;
+    }
+
+    &:after {
+      height: -webkit-calc(100% - 15px);
+      height: calc(100% - 15px);
+    }
+  }
+}
+
+@include govuk-media-query($from: tablet) {
+  .app-step-nav--large .app-step-nav__step {
+    padding-left: 60px;
+
+    &:after {
+      border-width: 3px;
+      left: 0;
+      margin-left: 16px;
+      top: 30px;
+    }
+
+    &:last-child {
+      &:before {
+        border-width: 3px;
+        margin-left: 8.75px;
+        width: 17.5px;
+      }
+
+      &:after {
+        height: calc(100% - 30px);
+      }
+    }
+  }
+}
+
+.app-step-nav__step--active .app-step-nav__circle--number,
+.app-step-nav__step--active .app-step-nav__substep:after,
+.app-step-nav__step--active:after,
+.app-step-nav__step--active:last-child:before {
+  border-color: govuk-colour("black");
+}
+
+.app-step-nav__circle {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background: govuk-colour("white");
+  border-radius: 100px;
+  box-sizing: border-box;
+  color: govuk-colour("black");
+  height: 26px;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: 15px;
+  width: 26px;
+  z-index: 5;
+}
+
+@include govuk-media-query($from: tablet) {
+  .app-step-nav--large .app-step-nav__circle {
+    height: 35px;
+    top: 30px;
+    width: 35px;
+  }
+}
+
+.app-step-nav__circle--number {
+  @include govuk-font(16, $weight: bold);
+  border: solid 2px $govuk-border-colour;
+  line-height: 23px;
+}
+
+@include govuk-media-query($from: tablet) {
+  .app-step-nav__circle--number {
+    font-size: 16px;
+    line-height: 23px;
+  }
+}
+
+.app-step-nav--large .app-step-nav__circle--number {
+  @include govuk-font(16, $weight: bold);
+  line-height: 23px;
+}
+
+@include govuk-media-query($from: tablet) {
+  .app-step-nav--large .app-step-nav__circle--number {
+    border-width: 3px;
+    font-size: 19px;
+    line-height: 30px;
+  }
+}
+
+.app-step-nav__circle-inner {
+  float: right;
+  min-width: 100%;
+}
+
+.app-step-nav__circle-background {
+  text-shadow: 0 -.1em 0 govuk-colour("white"), .1em 0 0 govuk-colour("white"), 0 .1em 0 govuk-colour("white"), -.1em 0 0 govuk-colour("white");
+}
+
+.app-step-nav__header {
+  padding: 15px 0;
+  border-top: solid 2px govuk-colour("grey-3");
+}
+
+.app-step-nav--active .app-step-nav__header {
+  cursor: pointer;
+}
+
+.app-step-nav__header:hover .app-step-nav__button,
+.app-step-nav__header:hover .app-step-nav__circle {
+  color: $govuk-link-colour;
+}
+
+.app-step-nav__header:hover .app-step-nav__toggle-link {
+  text-decoration: underline;
+}
+
+@include govuk-media-query($from: tablet) {
+  .app-step-nav--large .app-step-nav__header {
+    padding: 30px 0;
+  }
+}
+
+.app-step-nav__title {
+  @include govuk-font(19, $weight: bold);
+  line-height: 1.4;
+  margin: 0;
+}
+
+@include govuk-media-query($from: tablet) {
+  .app-step-nav__title {
+    font-size: 19px;
+    line-height: 1.4;
+  }
+}
+
+.app-step-nav--large .app-step-nav__title {
+  @include govuk-font(19, $weight: bold);
+  line-height: 1.4;
+}
+
+@include govuk-media-query($from: tablet) {
+  .app-step-nav--large .app-step-nav__title {
+    font-size: 24px;
+    line-height: 1.4;
+  }
+}
+
+.app-step-nav__toggle-link {
+  @include govuk-font(16);
+  line-height: 1.2;
+  display: block;
+  color: $govuk-link-colour;
+}
+
+.app-step-nav--large .app-step-nav__toggle-link {
+  @include govuk-font(16);
+  line-height: 1.2;
+}
+
+@include govuk-media-query($from: tablet) {
+  .app-step-nav--large .app-step-nav__toggle-link {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+}
+
+.app-step-nav__panel {
+  @include govuk-font(16);
+  line-height: 1.25;
+
+  .js-enabled &.js-hidden {
+    display: none;
+  }
+}
+
+@include govuk-media-query($from: tablet) {
+  .app-step-nav__panel {
+    font-size: 16px;
+  }
+}
+
+.app-step-nav--large .app-step-nav__panel {
+  @include govuk-font(19)
+}
+
+.app-step-nav__heading,
+.app-step-nav__paragraph {
+  padding-bottom: 15px;
+  margin: 0;
+  font-size: inherit;
+}
+
+.app-step-nav__heading + .app-step-nav__list,
+.app-step-nav__paragraph + .app-step-nav__list {
+  margin-top: -5px;
+}
+
+@include govuk-media-query($from: tablet) {
+  .app-step-nav--large .app-step-nav__heading + .app-step-nav__list,
+  .app-step-nav--large .app-step-nav__paragraph + .app-step-nav__list {
+    margin-top: -15px;
+  }
+}
+
+@include govuk-media-query($from: tablet) {
+  .app-step-nav--large .app-step-nav__heading,
+  .app-step-nav--large .app-step-nav__paragraph {
+    padding-bottom: 30px;
+  }
+}
+
+.app-step-nav__heading {
+  font-weight: bold;
+}
+
+.app-step-nav__list {
+  padding: 0 0 10px;
+}
+
+@include govuk-media-query($from: tablet) {
+  .app-step-nav--large .app-step-nav__list {
+    padding-bottom: 20px;
+  }
+}
+
+.app-step-nav__list-item {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.app-step-nav__list-item--active {
+  position: relative;
+
+  &:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background: govuk-colour("black");
+    border: solid 2px govuk-colour("white");
+    border-radius: 100px;
+    box-sizing: border-box;
+    content: "";
+    height: 16px;
+    left: -45px;
+    margin-left: 5px;
+    margin-top: -8px;
+    position: absolute;
+    top: .6em;
+    width: 16px;
+    z-index: 5;
+  }
+}
+
+@include govuk-media-query($from: tablet) {
+  .app-step-nav--large .app-step-nav__list-item--active:before {
+    left: -60px;
+    margin-left: 9.5px;
+  }
+}
+
+.app-step-nav__list-item--active .app-step-nav__link {
+  color: govuk-colour("black");
+  text-decoration: none;
+
+  &:active,
+  &:link,
+  &:visited {
+    color: govuk-colour("black");
+  }
+}

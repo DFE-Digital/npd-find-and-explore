@@ -10,9 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_26_162755) do
+ActiveRecord::Schema.define(version: 2019_04_05_090444) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "fuzzystrmatch"
+  enable_extension "pg_trgm"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
@@ -71,16 +73,6 @@ ActiveRecord::Schema.define(version: 2019_03_26_162755) do
     t.index ["category_id"], name: "index_concepts_on_category_id"
   end
 
-  create_table "data_element_translations", force: :cascade do |t|
-    t.uuid "data_element_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "description"
-    t.index ["data_element_id"], name: "index_data_element_translations_on_data_element_id"
-    t.index ["locale"], name: "index_data_element_translations_on_locale"
-  end
-
   create_table "data_elements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "source_table_name"
     t.string "source_attribute_name"
@@ -95,7 +87,35 @@ ActiveRecord::Schema.define(version: 2019_03_26_162755) do
     t.integer "academic_year_collected_to"
     t.string "collection_terms", array: true
     t.text "values"
+    t.text "description_en"
+    t.text "description_cy"
+    t.string "npd_alias", null: false
     t.index ["concept_id"], name: "index_data_elements_on_concept_id"
+    t.index ["npd_alias"], name: "index_data_elements_on_npd_alias", unique: true
+  end
+
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.tsvector "content"
+    t.string "searchable_type"
+    t.uuid "searchable_id"
+    t.text "searchable_name"
+    t.datetime "searchable_created_at"
+    t.datetime "searchable_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content"], name: "index_pg_search_documents_on_content", using: :gin
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.uuid "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.datetime "created_at"
+    t.text "object_changes"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
 end

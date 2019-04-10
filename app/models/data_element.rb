@@ -2,9 +2,15 @@
 
 # A Data Element represents a column of data in a database
 class DataElement < ApplicationRecord
+  include PgSearch
+
   belongs_to :concept, inverse_of: :data_elements
 
-  translates :description
+  def description
+    return description_cy if I18n.locale == :cy
+
+    description_en
+  end
 
   def title
     [source_table_name, source_attribute_name].join('.')

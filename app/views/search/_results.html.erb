@@ -1,0 +1,31 @@
+<%= content_for :additional_links do %>
+  <%= javascript_pack_tag 'sort' %>
+<%- end %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h3 class="govuk-heading-m govuk-!-display-inline">
+      Results for '<%= params[:search] %>'
+    </h1>
+  </div>
+
+  <div class="govuk-grid-column-one-third right">
+    <div class="govuk-form-group govuk-!-display-inline-block right">
+      <label class="govuk-label govuk-!-display-inline govuk-!-padding-right-2" for="sort">
+        Sort by
+      </label>
+      <%= select_tag :sort, options_for_select(sort_options, params[:sort]),
+        class: %w[govuk-select govuk-!-display-inline] %>
+    </div>
+  </div>
+</div>
+
+<%= render 'pagination' %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <%= render partial: "result", collection: @results %>
+  </div>
+</div>
+
+<%= render 'pagination' %>

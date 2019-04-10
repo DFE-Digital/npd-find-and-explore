@@ -7,12 +7,16 @@ module DfEDataTables
     def initialize(categories_path)
       categories_workbook = Roo::Spreadsheet.open(categories_path)
 
-      [
-        DfEDataTables::CategoriesParser.new(categories_workbook, 'Category Trees'),
-        DfEDataTables::CategoriesParser.new(categories_workbook, 'Demographics - SC')
-      ].each do |worksheet|
-        upload(worksheet.categories)
+      PgSearch.disable_multisearch do
+        [
+          DfEDataTables::CategoriesParser.new(categories_workbook, 'Category Trees'),
+          DfEDataTables::CategoriesParser.new(categories_workbook, 'Demographics - SC')
+        ].each do |worksheet|
+          upload(worksheet.categories)
+        end
       end
+      PgSearch::Multisearch.rebuild(Category)
+      PgSearch::Multisearch.rebuild(Concept)
     end
 
   private
@@ -47,7 +51,7 @@ module DfEDataTables
       return if concept.nil? || npd_aliases.blank?
 
       npd_aliases.each do |npd_alias|
-        DataElement.where("additional_attributes->>'npd_alias' LIKE ?", "%#{npd_alias}%")
+        DataElement.where(npd_alias: npd_alias)
                    .each { |element| element.update!(concept: concept) }
       end
     end
