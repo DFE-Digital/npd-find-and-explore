@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'DfEDataTables::CategoriesParser', type: :model do
   let(:table_path) { 'spec/fixtures/files/categories_table.xlsx' }
   let(:workbook) { Roo::Spreadsheet.open(table_path) }
-  let(:parser) { DfEDataTables::CategoriesParser.new(workbook, 'Demographics - SC') }
+  let(:parser) { DfEDataTables::CategoriesParser.new(workbook, 'Demographics') }
   let(:categories) { parser.categories }
   let(:demographics) { categories.dig(0) }
   let(:age) { demographics.dig(:subcat, 0) }
