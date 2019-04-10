@@ -8,7 +8,7 @@ RSpec.describe 'DfEDataTables::CategoriesLoader', type: :model do
   it 'Will perform under a given time' do
     expect {
       DfEDataTables::CategoriesLoader.new(table_path)
-    }.to perform_under(5000).ms.sample(10)
+    }.to perform_under(10000).ms.sample(10)
   end
 
   it 'Will upload the categories' do
