@@ -18,6 +18,7 @@ test:
   <<: *default
   # Our Docker setup uses a different port for the test DB, so we can run tests
   # locally and leverage spring
+  database: <%= ENV['POSTGRES_TEST_DB'] || "npd-find-and-explore-test" %>
   host: <%= ENV['POSTGRES_TEST_HOST'] || 'localhost' %>
   port: <%= ENV['POSTGRES_TEST_PORT'] || 5433 %>
 
