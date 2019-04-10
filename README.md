@@ -1,7 +1,6 @@
 # README
 
-[![Build Status](https://travis-ci.com/slatehorse/npd-find-and-explore.svg?branch=master)](https://travis-ci.com/slatehorse/npd-find-and-explore)
-[![Coverage Status](https://coveralls.io/repos/github/slatehorse/npd-find-and-explore/badge.svg?branch=master)](https://coveralls.io/github/slatehorse/npd-find-and-explore?branch=master)
+[![Build Status](https://dfe-ssp.visualstudio.com/S112-Find-and-Explore-Data-in-NPD/_apis/build/status/S112-Find-and-Explore-Data-in-NPD-Docker%20container-CI?branchName=master)](https://dfe-ssp.visualstudio.com/S112-Find-and-Explore-Data-in-NPD/_build/latest?definitionId=100&branchName=master)
 
 The Find and explore data in the National Pupil Database (NPD) service allows users to explore, search and find metadata contained in the NPD.
 
@@ -95,6 +94,17 @@ or
 
 docker-compose run --rm web /bin/sh -c "bundle exec govuk-lint-ruby"
 ```
+
+## Reset DB
+
+We use custom PostgreSQL functions for search. `schema.rb` only supports structural defintions, so we must load `structure.sql` _as well_ in order to get our custom functions, e.g.:
+
+```bash
+./bin/rails db:reset
+./bin/rails db:structure:load
+```
+
+> Note: if you apply migrations to a clean database this is unnecessary, as the functions are defined within the migrations as well as `structure.sql`.
 
 ## Import data
 

@@ -9,15 +9,5 @@ class AlterDataElements < ActiveRecord::Migration[5.2]
     add_column    :data_elements, :academic_year_collected_to,   :integer, default: nil
     add_column    :data_elements, :collection_terms,             :string,  array: true
     add_column    :data_elements, :values,                       :text
-
-    reversible do |dir|
-      dir.up do
-        DataElement.create_translation_table! description: :text
-      end
-
-      dir.down do
-        DataElement.drop_translation_table!
-      end
-    end
   end
 end
