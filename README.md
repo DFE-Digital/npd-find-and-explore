@@ -95,6 +95,17 @@ or
 docker-compose run --rm web /bin/sh -c "bundle exec govuk-lint-ruby"
 ```
 
+## Reset DB
+
+We use custom PostgreSQL functions for search. `schema.rb` only supports structural defintions, so we must load `structure.sql` _as well_ in order to get our custom functions, e.g.:
+
+```bash
+./bin/rails db:reset
+./bin/rails db:structure:load
+```
+
+> Note: if you apply migrations to a clean database this is unnecessary, as the functions are defined within the migrations as well as `structure.sql`.
+
 ## Import data
 
 Import data items from NPD data tables.
