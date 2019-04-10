@@ -64,11 +64,9 @@ module DfEDataTables
     end
 
     def concept
-      return @concept if @concept.present?
-
-      @concept = Concept.find_or_create_by(name: 'No Concept', category: category)
-      @concept.update(description: 'No Description')
-      @concept
+      @concept ||= Concept.find_or_create_by(name: 'No Concept', category: category) do |new_concept|
+        new_concept.description = 'No Description'
+      end
     end
 
     def category
