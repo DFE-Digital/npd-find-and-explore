@@ -6,12 +6,14 @@ RSpec.describe 'DfEDataTables::CategoriesLoader', type: :model do
   let(:table_path) { 'spec/fixtures/files/categories_table.xlsx' }
 
   it 'Will perform under a given time' do
-    expect {
-      DfEDataTables::CategoriesLoader.new(table_path)
-    }.to perform_under(10000).ms.sample(10)
+    expect { DfEDataTables::CategoriesLoader.new(table_path) }
+      .to perform_under(10_000).ms
   end
 
   it 'Will upload the categories' do
+    Category.destroy_all
+    Concept.destroy_all
+
     DfEDataTables::CategoriesLoader.new(table_path)
 
     expect(Category.count).to eq(115)
