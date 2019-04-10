@@ -40,7 +40,7 @@ module DfEDataTables
     def process
       # For each worksheet
       @sheets_to_process.each do |sheet_parser|
-        puts "Uploading #{sheet_parser.sheet_name}"
+        logger.debug "Uploading #{sheet_parser.sheet_name}"
 
         elements = sheet_parser.map { |element| element.merge(concept_id: concept.id) }
                                .uniq { |element| element.dig(:npd_alias) }
@@ -57,7 +57,7 @@ module DfEDataTables
           }
         )
 
-        puts "Uploaded #{sheet_parser.sheet_name}"
+        logger.info "Uploaded #{sheet_parser.sheet_name}"
       end
 
       true
