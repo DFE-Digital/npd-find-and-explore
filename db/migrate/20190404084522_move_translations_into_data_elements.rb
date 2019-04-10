@@ -5,10 +5,11 @@ class MoveTranslationsIntoDataElements < ActiveRecord::Migration[5.2]
     add_column :data_elements, :description_en, :text
     add_column :data_elements, :description_cy, :text
 
+    PgSearch::Multisearch.rebuild(Concept)
+    PgSearch::Multisearch.rebuild(Category)
   end
 
   def down
-
     remove_column :data_elements, :description_en, :text
     remove_column :data_elements, :description_cy, :text
   end

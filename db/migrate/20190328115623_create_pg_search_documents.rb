@@ -13,8 +13,10 @@ class CreatePgSearchDocuments < ActiveRecord::Migration[5.2]
       end
       add_index(:pg_search_documents, :content, using: :gin)
     end
-    PgSearch::Multisearch.rebuild(Concept)
-    PgSearch::Multisearch.rebuild(Category)
+
+    # Normally we'd rebuild the indexes here, but because we KNOW this will fail for
+    # subsequent migrations (because of a future change in schema to change where translations live)
+    # we'll do that in the migration which matches the current model definition (the next migration)
   end
 
   def self.down
