@@ -4,7 +4,7 @@
       <%= @concept.name %>
     </h1>
 
-    <p><%= @concept.description %></p>
+    <p><%= @concept.description || @concept.placeholder_description %></p>
   </div>
   <div class="govuk-grid-column-one-third">
     <div class="govuk-grid-column-full how-to-access govuk-!-padding-top-4">

@@ -19,6 +19,10 @@ class Concept < ApplicationRecord
 
   multisearchable against: %i[name description]
 
+  def placeholder_description
+    data_elements&.max { |a, b| a&.description&.length <=> b&.description&.length }&.description
+  end
+
   def self.rebuild_pg_search_documents
     connection.execute <<-SQL
       INSERT INTO pg_search_documents (searchable_type, searchable_id, content,

@@ -42,10 +42,8 @@ module DfEDataTables
       @sheets_to_process.each do |sheet_parser|
         puts "Uploading #{sheet_parser.sheet_name}"
 
-        elements = sheet_parser.map do |element|
-          element[:concept_id] = concept.id
-          element
-        end.uniq { |element| element.dig(:npd_alias) }
+        elements = sheet_parser.map { |element| element.merge(concept_id: concept.id) }
+                               .uniq { |element| element.dig(:npd_alias) }
 
         DataElement.import(
           elements,
@@ -66,7 +64,11 @@ module DfEDataTables
     end
 
     def concept
-      @concept ||= Concept.find_or_create_by(name: 'No Concept', category: category)
+      return @concept if @concept.present?
+
+      @concept = Concept.find_or_create_by(name: 'No Concept', category: category)
+      @concept.update(description: 'No Description')
+      @concept
     end
 
     def category
