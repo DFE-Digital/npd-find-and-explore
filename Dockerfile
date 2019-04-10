@@ -2,15 +2,16 @@
 FROM ruby:2.6.1-alpine
 
 RUN set -ex && apk add --update --no-cache \
-											git \
-                                           	build-base \
-                                           	libxml2-dev \
-                                           	libxslt-dev \
-                                           	nodejs \
-                                           	yarn \
-                                           	postgresql-dev \
-                                           	tzdata \
-                                           	firefox-esr
+                                        git \
+                                        build-base \
+                                        libxml2-dev \
+                                        libxslt-dev \
+                                        nodejs \
+                                        yarn \
+                                        postgresql-dev \
+                                        postgresql-client \
+                                        tzdata \
+                                        firefox-esr
 
 # Set the working dir as HOME and add the app's binaries path to $PATH:
 ENV HOME=/usr/src/app PATH=/usr/src/app/bin:$PATH
