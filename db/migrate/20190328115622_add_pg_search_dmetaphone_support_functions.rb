@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 class AddPgSearchDmetaphoneSupportFunctions < ActiveRecord::Migration[5.2]
   def self.up
     say_with_time('Adding support functions for pg_search :dmetaphone') do
+      execute 'CREATE EXTENSION IF NOT EXISTS fuzzystrmatch'
       execute <<~'SQL'
         create extension fuzzystrmatch;
         CREATE OR REPLACE FUNCTION pg_search_dmetaphone(text) RETURNS text LANGUAGE SQL IMMUTABLE STRICT AS $function$

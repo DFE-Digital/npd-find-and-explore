@@ -5,8 +5,7 @@ class CategoriesController < ApplicationController
   include BreadcrumbBuilder
 
   def index
-    @categories = Category.includes(:translations, concepts: %i[data_elements])
-                          .roots
+    @categories = Category.includes(:translations).roots
   end
 
   def show

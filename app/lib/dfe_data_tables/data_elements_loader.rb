@@ -40,7 +40,7 @@ module DfEDataTables
     def process
       # For each worksheet
       @sheets_to_process.each do |sheet_parser|
-        puts "Uploading #{sheet_parser.sheet_name}"
+        logger.debug "Uploading #{sheet_parser.sheet_name}"
 
         elements = sheet_parser.map { |element| element.merge(concept_id: concept.id) }
                                .uniq { |element| element.dig(:npd_alias) }
@@ -57,18 +57,16 @@ module DfEDataTables
           }
         )
 
-        puts "Uploaded #{sheet_parser.sheet_name}"
+        logger.info "Uploaded #{sheet_parser.sheet_name}"
       end
 
       true
     end
 
     def concept
-      return @concept if @concept.present?
-
-      @concept = Concept.find_or_create_by(name: 'No Concept', category: category)
-      @concept.update(description: 'No Description')
-      @concept
+      @concept ||= Concept.find_or_create_by(name: 'No Concept', category: category) do |new_concept|
+        new_concept.description = 'No Description'
+      end
     end
 
     def category

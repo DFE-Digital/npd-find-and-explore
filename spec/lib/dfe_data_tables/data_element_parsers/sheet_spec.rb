@@ -32,18 +32,6 @@ RSpec.describe 'DfEDataTables::DataElementParsers::Sheet', type: :model do
     }.to perform_under(550).ms.sample(10)
   end
 
-  it 'Will peform significantly slower (just under 12650ms) if needs saving' do
-    table = spreadsheet
-    expect {
-      table.map do |data_element|
-        next if data_element.nil?
-
-        element = DataElement.find_or_create_by(find_params(data_element))
-        element.update(update_params(data_element))
-      end
-    }.to perform_under(12650).ms.sample(10)
-  end
-
   it 'Will peform a lot better (just under 1000ms) if it bulk saves' do
     table = spreadsheet
     expect {
