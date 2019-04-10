@@ -7,7 +7,7 @@ RSpec.describe 'DfEDataTables::CategoriesLoader', type: :model do
 
   it 'Will perform under a given time' do
     expect { DfEDataTables::CategoriesLoader.new(table_path) }
-      .to perform_under(10_000).ms
+      .to perform_under(10_000).ms.sample(10)
   end
 
   it 'Will upload the categories' do
@@ -16,9 +16,9 @@ RSpec.describe 'DfEDataTables::CategoriesLoader', type: :model do
 
     DfEDataTables::CategoriesLoader.new(table_path)
 
-    expect(Category.count).to eq(115)
-    expect(Concept.count).to eq(179)
+    expect(Category.count).to eq(241)
+    expect(Concept.count).to eq(1258)
     expect(Category.find_each.map(&:root).uniq.map(&:name).sort)
-      .to eq(%w[Attainment Demographics])
+      .to eq(['Attainment', 'Demographics', 'Education', 'Personal identifiers'])
   end
 end
