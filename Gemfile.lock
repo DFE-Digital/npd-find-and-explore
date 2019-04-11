@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/spikeheap/globalize.git
+  revision: 9d5d7400c62505520f37871084cb880988424705
+  branch: check_connected
+  specs:
+    globalize (5.2.0)
+      activemodel (>= 4.2, < 6.1)
+      activerecord (>= 4.2, < 6.1)
+      request_store (~> 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -113,10 +123,6 @@ GEM
       railties (>= 3.2, < 6.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    globalize (5.2.0)
-      activemodel (>= 4.2, < 5.3)
-      activerecord (>= 4.2, < 5.3)
-      request_store (~> 1.0)
     govuk-lint (3.11.0)
       rubocop (~> 0.64)
       rubocop-rspec (~> 1.28)
@@ -405,7 +411,7 @@ DEPENDENCIES
   factory_bot (~> 5.0)
   factory_bot_rails (~> 5.0)
   faker (~> 1.9)
-  globalize (~> 5.2)
+  globalize!
   govuk-lint (~> 3.11.0)
   high_voltage (~> 3.1)
   jbuilder (~> 2.5)
