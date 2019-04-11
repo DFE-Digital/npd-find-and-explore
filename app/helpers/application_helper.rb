@@ -21,6 +21,10 @@ module ApplicationHelper
     Rails.application.credentials.dig(Rails.env.to_sym, :google_analytics_tracking_id)
   end
 
+  def google_manager_key
+    Rails.application.credentials.dig(Rails.env.to_sym, :google_manager_id)
+  end
+
   def search_category_tag(result)
     return result.category.name if result.respond_to?(:category)
     return result.parent.name if result.parent.present?
