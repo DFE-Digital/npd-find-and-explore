@@ -27,5 +27,8 @@ RUN set -ex && yarn install
 
 ADD . ./
 
+# Compile the webpacker/sprockets assets for production
+RUN ./bin/rails assets:precompile
+
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
 EXPOSE 3000
