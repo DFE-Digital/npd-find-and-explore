@@ -10,7 +10,7 @@ gem 'rails', '~> 5.2.2'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
-gem 'webpacker', '~> 4.0.2'
+gem 'webpacker', '~> 3.6'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
@@ -90,7 +90,7 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'coveralls', require: false
   gem 'selenium-webdriver'
-  gem "webdrivers", "~> 3.7"
+  gem 'webdrivers', '~> 3.7'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

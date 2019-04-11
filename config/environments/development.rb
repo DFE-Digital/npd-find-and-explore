@@ -59,5 +59,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Fallback for empty translations
-  config.i18n.fallbacks = true
+  config.i18n.fallbacks = [I18n.default_locale]
 end
