@@ -3,8 +3,10 @@
 $govuk-global-styles: true;
 $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 @import "node_modules/govuk-frontend/all";
+@import "colours";
 @import "related-items";
 @import "tooltip";
+@import "overlay";
 @import "pagination";
 @import "cards";
 @import "step-by-step-navigation";
