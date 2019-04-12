@@ -1,5 +1,3 @@
-import $ from 'jquery'
-
 $(document).ready(function () {
   $('#sort').on('change', function (event) {
     var query = window.location.search.replace(/^\?/, '').split('&')

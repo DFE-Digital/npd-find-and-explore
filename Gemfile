@@ -63,6 +63,9 @@ gem 'kaminari', '~>1.1'
 # Bulk import
 gem 'activerecord-import', '~>1'
 
+# Include jQuery explicitly
+gem 'jquery-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

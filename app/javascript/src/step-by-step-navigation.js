@@ -2,8 +2,6 @@
 
 // based on https://github.com/alphagov/govuk_publishing_components/blob/v9.3.6/app/assets/javascripts/govuk_publishing_components/components/step-by-step-nav.js
 
-import $ from 'jquery'
-
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {}
 window.GOVUK.support = window.GOVUK.support || {}
@@ -29,6 +27,9 @@ window.GOVUK.getCurrentLocation = function () {
     this.start = function ($element) {
       // Indicate that js has worked
       $element.addClass('app-step-nav--active')
+
+      // Remember scroll position
+      $(window).unload(storeScrollPosition)
 
       // Prevent FOUC, remove class hiding content
       $element.removeClass('js-hidden')
