@@ -98,9 +98,22 @@ RSpec.describe 'Category hierarchy', type: :system do
   it 'Shows the elements values' do
     visit concept_path(concept)
 
+    expect(page).not_to have_link('Codeset')
     concept.data_elements.each do |element|
       expect(page).to have_text(element.values)
     end
+  end
+
+  it 'Shows an overlay when the value has newlines' do
+    element = concept.data_elements.first
+    element.update(values: "Value 1\nValue 2")
+    visit concept_path(concept)
+
+    expect(page).to have_link('Codeset')
+    expect(page).not_to have_text(element.values)
+
+    click_on('Codeset')
+    expect(page).to have_text(element.values)
   end
 
   it 'Shows the elements descriptions' do
