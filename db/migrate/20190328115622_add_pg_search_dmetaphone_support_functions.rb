@@ -4,6 +4,8 @@ class AddPgSearchDmetaphoneSupportFunctions < ActiveRecord::Migration[5.2]
   def self.up
     say_with_time('Adding support functions for pg_search :dmetaphone') do
       execute 'CREATE EXTENSION IF NOT EXISTS fuzzystrmatch'
+      execute 'CREATE EXTENSION IF NOT EXISTS pg_trgm'
+      execute 'CREATE EXTENSION IF NOT EXISTS plpgsql'
       execute <<~'SQL'
         CREATE OR REPLACE FUNCTION pg_search_dmetaphone(text) RETURNS text LANGUAGE SQL IMMUTABLE STRICT AS $function$
         SELECT array_to_string(ARRAY(SELECT dmetaphone(unnest(regexp_split_to_array($1, E'\\s+')))), ' ')
