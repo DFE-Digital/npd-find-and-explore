@@ -1,0 +1,141 @@
+.app-pane__nav .dropdown-header {
+  display: none;
+}
+
+.navbar-list li {
+  background: none;
+  border: 0;
+  color: govuk-colour('white');
+  font-family: "nta",Arial,sans-serif;
+  font-size: 14px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  line-height: 1.2em;
+}
+
+@media print {
+  .navbar-list li {
+    font-family: sans-serif;
+    font-size: 14pt;
+    line-height: 1.2;
+  }
+}
+
+@media (min-width: 40.0625em) {
+  .navbar-list li {
+    font-size: 16px;
+    line-height: 1.25;
+    top: 15px;
+  }
+
+  .js-enabled .navbar-list li {
+    display: none;
+  }
+}
+
+.navbar-list li:hover {
+  text-decoration: underline;
+}
+
+.navbar-list li:focus {
+  outline: 3px solid govuk-colour('yellow');
+  outline-offset: 0;
+}
+
+.js-enabled .navbar-list li {
+  display: block;
+}
+
+.app-navigation {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "nta",Arial,sans-serif;
+  font-size: 16px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 700;
+  line-height: 1.25;
+  width: 100%;
+}
+
+@media print {
+  .app-navigation {
+    font-family: sans-serif;
+    font-size: 14pt;
+    line-height: 1.15em;
+  }
+}
+
+@media (min-width: 40.0625em) {
+  .app-navigation {
+    font-size: 19px;
+    line-height: 1.3em;
+    margin-left: -15px;
+  }
+}
+
+@media (max-width: 40.0525em) {
+  .app-navigation {
+    display: none;
+  }
+}
+
+.app-navigation__list {
+  list-style: none;
+  padding: 0;
+}
+
+.app-navigation__list>li {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  float: left;
+  height: 53px;
+  line-height: 53px;
+}
+
+.app-navigation__list>li:hover {
+  border-bottom: 4px solid govuk-colour('light-blue');
+}
+
+.app-navigation__list>li.app-navigation--current-page {
+  border-bottom: 4px solid govuk-colour('blue') !important
+}
+
+.app-navigation__list>li.app-navigation--current-page a:hover {
+  color: govuk-colour('blue');
+}
+
+.app-navigation__list>li a {
+  color: govuk-colour('blue');
+  display: block;
+  font-weight: 700;
+  padding: 0 15px;
+  text-decoration: none
+}
+
+.app-navigation__list>li a:visited {
+  color: govuk-colour('blue');
+}
+
+.app-navigation__list>li a:hover,.app-navigation__list>li a:focus {
+  background-color: inherit;
+  color: govuk-colour('light-blue');
+}
+
+@media (min-width: 40.0625em) {
+  .app-pane__nav {
+    background-color: govuk-colour('grey-4');
+    -webkit-box-direction: normal;
+    -webkit-box-flex: 1;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+  }
+}
