@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta content="width=device-width, initial-scale=1" name="viewport; charset=utf-8" />
+    <meta content="NONE,NOARCHIVE" name="robots" />
+    <%= csrf_meta_tag %>
+    <%= stylesheet_link_tag "rails_admin/rails_admin.css", media: :all %>
+    <%= stylesheet_pack_tag 'application' %>
+    <%= javascript_include_tag "rails_admin/rails_admin.js" %>
+  </head>
+  <body class="govuk-template__body">
+    <%= content_tag :div, '', id: 'admin-js', 'data-i18n-options' => I18n.t("admin.js").to_json %>
+    <%-# Initialize JS simple i18n %>
+    <script type="javascript">
+      RailsAdmin.I18n.init('#{I18n.locale}', document.getElementById("admin-js").dataset.i18nOptions);
+    </script>
+    <%= content_tag :div, t('admin.loading'), id: %i[loading label label-warning],
+      style: 'display:none; position:fixed; right:20px; bottom:20px; z-index:100000' %>
+
+    <div class="app-pane app-pane--enabled">
+      <%= render 'layouts/rails_admin/navigation' %>
+      <%= render 'layouts/rails_admin/tertiary_navigation' %>
+    </div>
+
+    <div class="govuk-width-container">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column">
+          <div class="content" data-pjax-container="true">
+            <%= render template: 'layouts/rails_admin/pjax' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
