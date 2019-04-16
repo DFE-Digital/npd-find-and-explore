@@ -100,7 +100,7 @@
 }
 
 .app-navigation__list>li.app-navigation--current-page {
-  border-bottom: 4px solid govuk-colour('blue') !important
+  border-bottom: 4px solid govuk-colour('blue') !important;
 }
 
 .app-navigation__list>li.app-navigation--current-page a:hover {
@@ -112,14 +112,15 @@
   display: block;
   font-weight: 700;
   padding: 0 15px;
-  text-decoration: none
+  text-decoration: none;
 }
 
 .app-navigation__list>li a:visited {
   color: govuk-colour('blue');
 }
 
-.app-navigation__list>li a:hover,.app-navigation__list>li a:focus {
+.app-navigation__list>li a:hover,
+.app-navigation__list>li a:focus {
   background-color: inherit;
   color: govuk-colour('light-blue');
 }
