@@ -8,12 +8,12 @@
     <%= csrf_meta_tag %>
     <%= stylesheet_link_tag "rails_admin/rails_admin.css", media: :all %>
     <%= stylesheet_pack_tag 'application' %>
-    <%= javascript_include_tag "rails_admin/rails_admin.js" %>
+    <%= javascript_include_tag 'rails_admin/rails_admin.js' %>
   </head>
   <body class="govuk-template__body">
-    <%= content_tag :div, '', id: 'admin-js', 'data-i18n-options' => I18n.t("admin.js").to_json %>
+    <div id="admin-js" data-i18n-options="<%= I18n.t("admin.js").to_json %>">
     <%-# Initialize JS simple i18n %>
-    <script type="javascript">
+    <script>
       RailsAdmin.I18n.init('#{I18n.locale}', document.getElementById("admin-js").dataset.i18nOptions);
     </script>
     <%= content_tag :div, t('admin.loading'), id: %i[loading label label-warning],
