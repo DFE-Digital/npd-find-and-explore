@@ -2,7 +2,7 @@
 
 // based on https://github.com/alphagov/govuk_publishing_components/blob/v9.3.6/app/assets/javascripts/govuk_publishing_components/components/step-by-step-nav.js
 
-import $ from 'jquery'
+import jQuery from 'jquery';
 
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {}
@@ -16,9 +16,10 @@ window.GOVUK.getCurrentLocation = function () {
   return window.location
 };
 
+
 (function (Modules) {
   'use strict'
-
+  
   Modules.StepByStepNavigation = function () {
     var actions = {} // stores text for JS appended elements 'show' and 'hide' on steps, and 'show/hide all' button
     var rememberShownStep = false
@@ -31,7 +32,7 @@ window.GOVUK.getCurrentLocation = function () {
       $element.addClass('app-step-nav--active')
 
       // Remember scroll position
-      $(window).unload(storeScrollPosition)
+      jQuery(window).on('unload', storeScrollPosition)
 	
       // Prevent FOUC, remove class hiding content
       $element.removeClass('js-hidden')
@@ -90,11 +91,11 @@ window.GOVUK.getCurrentLocation = function () {
         $stepHeaders.each(function () {
           var linkText = actions.showText
 
-          if (headerIsOpen($(this))) {
+          if (headerIsOpen(jQuery(this))) {
             linkText = actions.hideText
           }
-          if (!$(this).find('.js-toggle-link').length) {
-            $(this).find('.js-step-title-button').append('<span class="app-step-nav__toggle-link js-toggle-link" aria-hidden="true">' + linkText + '</span>')
+          if (!jQuery(this).find('.js-toggle-link').length) {
+            jQuery(this).find('.js-step-title-button').append('<span class="app-step-nav__toggle-link js-toggle-link" aria-hidden="true">' + linkText + '</span>')
           }
         })
       }
@@ -115,8 +116,8 @@ window.GOVUK.getCurrentLocation = function () {
       }
 
       function setAllStepsShownState (isShown) {
-        $.each($steps, function () {
-          var stepView = new StepView($(this))
+        jQuery.each($steps, function () {
+          var stepView = new StepView(jQuery(this))
           stepView.preventHashUpdate()
           stepView.setIsShown(isShown)
         })
@@ -149,8 +150,8 @@ window.GOVUK.getCurrentLocation = function () {
       }
 
       function addButtonstoSteps () {
-        $.each($steps, function () {
-          var $step = $(this)
+        jQuery.each($steps, function () {
+          var $step = jQuery(this)
           var $title = $step.find('.js-step-title')
           var contentId = $step.find('.js-panel').first().attr('id')
 
@@ -169,7 +170,7 @@ window.GOVUK.getCurrentLocation = function () {
 
       function bindToggleForSteps () {
         $element.find('.js-toggle-panel').click(function (event) {
-          var $step = $(this).closest('.js-step')
+          var $step = jQuery(this).closest('.js-step')
 
           var stepView = new StepView($step)
           stepView.toggle()
@@ -181,14 +182,14 @@ window.GOVUK.getCurrentLocation = function () {
       // tracking click events on links in step content
       function bindComponentLinkClicks () {
         $element.find('.js-link').click(function (event) {
-          var thisLinkHref = $(this).attr('href')
+          var thisLinkHref = jQuery(this).attr('href')
 
-          if ($(this).attr('rel') !== 'external') {
-            saveToSessionStorage(sessionStoreLink, $(this).data('position'))
+          if (jQuery(this).attr('rel') !== 'external') {
+            saveToSessionStorage(sessionStoreLink, jQuery(this).data('position'))
           }
 
           if (thisLinkHref === activeLinkHref) {
-            setOnlyThisLinkActive($(this))
+            setOnlyThisLinkActive(jQuery(this))
           }
         })
       }
@@ -236,8 +237,8 @@ window.GOVUK.getCurrentLocation = function () {
 
       function removeActiveStateFromAllButCurrent ($links, current) {
         $links.each(function () {
-          if ($(this).find('.js-link').data('position').toString() !== current.toString()) {
-            $(this).removeClass(activeLinkClass)
+          if (jQuery(this).find('.js-link').data('position').toString() !== current.toString()) {
+            jQuery(this).removeClass(activeLinkClass)
           }
         })
       }
