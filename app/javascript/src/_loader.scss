@@ -1,0 +1,21 @@
+.govuk-c-loader {
+  line-height: 0;
+  position: relative;
+  text-align: center;
+
+  &:focus {
+    outline: 3px solid govuk-colour('yellow');
+  }
+
+  &__spinner {
+    z-index: 2000000000;
+  }
+
+  &__label {
+    /* @include core-19($tabular-numbers: true); */
+    display: block;
+    line-height: 1em;
+    margin-top: -.5em;
+    padding-bottom: 1.5em;
+  }
+}
