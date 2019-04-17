@@ -9,13 +9,15 @@
     <%= stylesheet_link_tag "rails_admin/rails_admin.css", media: :all %>
     <%= stylesheet_pack_tag 'application' %>
     <%= stylesheet_pack_tag 'rails_admin' %>
+
+    <%= javascript_pack_tag 'loader' %>
     <%= javascript_include_tag 'rails_admin/rails_admin.js' %>
   </head>
   <body class="govuk-template__body">
     <div id="admin-js" data-i18n-options="<%= I18n.t("admin.js").to_json %>">
     <%-# Initialize JS simple i18n %>
     <script>
-      RailsAdmin.I18n.init('#{I18n.locale}', document.getElementById("admin-js").dataset.i18nOptions);
+      RailsAdmin.I18n.init('#{I18n.locale}', document.getElementById("admin-js").dataset.i18nOptions)
     </script>
     <%= content_tag :div, t('admin.loading'), id: %i[loading label label-warning],
       style: 'display:none; position:fixed; right:20px; bottom:20px; z-index:100000' %>

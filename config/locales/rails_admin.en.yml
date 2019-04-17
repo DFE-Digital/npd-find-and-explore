@@ -1,0 +1,11 @@
+en:
+  admin:
+    actions:
+      import:
+        title: Import Data Tables
+        menu: Import
+        breadcrumb: Import
+      do_import:
+        title: Import Data Tables
+        menu: Import
+        breadcrumb: Import
