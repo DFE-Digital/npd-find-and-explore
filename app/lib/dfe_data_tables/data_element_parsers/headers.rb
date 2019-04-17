@@ -31,6 +31,7 @@ module DfEDataTables
         available_from_udks: /Available from UKDS/,
         identification_risk: /(Identifiability|Identification Risk)/,
         sensitivity: /Sensitivity/,
+        data_type: /Data Type/,
         data_request_data_item_required: /Data request data item required/,
         data_request_years_required: /Data request years required/
       }.freeze

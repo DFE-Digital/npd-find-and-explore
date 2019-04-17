@@ -60,6 +60,7 @@ private
       collection_terms: data_element[:collection_terms],
       values: data_element[:values],
       description_en: data_element[:description_en],
+      data_type: data_element[:data_type],
       additional_attributes: data_element[:additional_attributes]
     }
   end

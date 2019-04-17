@@ -20,7 +20,7 @@ module DfEDataTables
         headers = nil
         started = false
 
-        (1..sheet.last_row).map do |idx|
+        rows = (1..sheet.last_row).map do |idx|
           row = sheet.row(idx)
 
           if row[0].nil?
@@ -46,7 +46,8 @@ module DfEDataTables
           next if element.nil?
 
           block_given? ? yield(element) : element
-        end.compact
+        end
+        rows.compact
       end
 
     private
