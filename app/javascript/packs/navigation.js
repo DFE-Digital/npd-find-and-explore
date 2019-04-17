@@ -1,3 +1,4 @@
+import $ from 'jquery'
 import '../src/govuk-frontend.js'
 import '../src/step-by-step-navigation.js'
 
