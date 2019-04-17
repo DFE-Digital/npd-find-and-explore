@@ -8,6 +8,7 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 @import "pagination";
 @import "cards";
 @import "step-by-step-navigation";
+@import "main_navigation";
 
 // Custom styles to refactor somewhere
 .strong_link {
@@ -34,4 +35,27 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 
 .right {
   text-align: right;
+}
+
+.navbar-list {
+  text-align: right;
+
+  li {
+    display: inline-block;
+
+    a {
+      color: govuk-colour("white");
+      display: inline-block;
+      padding: 15px 5px 10px 5px;
+      margin-right: 15px;
+      text-decoration: none;
+
+      &:hover {
+        -moz-box-shadow: inset 0 -1px 0 0 govuk-colour("white");
+        -webkit-box-shadow: inset 0 -1px 0 0 govuk-colour("white");
+        box-shadow: inset 0 -1px 0 0 govuk-colour("white");
+        color: govuk-colour("white");
+      }
+    }
+  }
 }
