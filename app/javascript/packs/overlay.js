@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 $(document).ready(function() {
   $('.overlay-parent > a').on('click', function(event) {
     event.preventDefault()
