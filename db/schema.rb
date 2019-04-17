@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_05_090444) do
+ActiveRecord::Schema.define(version: 2019_04_17_151708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 2019_04_05_090444) do
     t.text "description_en"
     t.text "description_cy"
     t.string "npd_alias", null: false
+    t.string "data_type"
     t.index ["concept_id"], name: "index_data_elements_on_concept_id"
     t.index ["npd_alias"], name: "index_data_elements_on_npd_alias", unique: true
   end
