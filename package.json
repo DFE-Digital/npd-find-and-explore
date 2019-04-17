@@ -4,10 +4,7 @@
   "dependencies": {
     "@rails/webpacker": "3.5",
     "govuk-frontend": "^2.7.0",
-    "jquery": "^3.3.1",
-    "vue": "^2.6.6",
-    "vue-loader": "14.2.2",
-    "vue-template-compiler": "^2.6.6"
+    "jquery": "^3.4.0"
   },
   "devDependencies": {
     "webpack-dev-server": "2.9.1"
