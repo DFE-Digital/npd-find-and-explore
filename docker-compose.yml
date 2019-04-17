@@ -22,9 +22,16 @@ services:
 
   # This container will run the rails web server:
   web:
-    build: .
+    build:
+      context: .
+      args:
+        - BUNDLE_WITHOUT=
+        - RAILS_ENV=development
     env_file: .env.development
     environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_TEST_HOST=postgres_test
+      - POSTGRES_TEST_PORT=5432
       - WEBPACK_DEV_HOST=webpacker
       - WEBPACKER_DEV_SERVER_HOST=webpacker
     ports:
