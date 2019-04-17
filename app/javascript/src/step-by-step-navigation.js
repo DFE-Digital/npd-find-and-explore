@@ -30,6 +30,9 @@ window.GOVUK.getCurrentLocation = function () {
       // Indicate that js has worked
       $element.addClass('app-step-nav--active')
 
+      // Remember scroll position
+      $(window).unload(storeScrollPosition)
+	
       // Prevent FOUC, remove class hiding content
       $element.removeClass('js-hidden')
 

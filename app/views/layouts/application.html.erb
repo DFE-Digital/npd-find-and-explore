@@ -27,8 +27,10 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= render 'shared/google_tag_header' %>
   <%= stylesheet_pack_tag 'application' %>
+
+  <%= render 'shared/google_tag_header' %>
+  
   <%= yield :additional_links %>
 </head>
 
