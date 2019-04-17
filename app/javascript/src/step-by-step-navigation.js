@@ -16,9 +16,10 @@ window.GOVUK.getCurrentLocation = function () {
   return window.location
 };
 
+
 (function (Modules) {
   'use strict'
-
+  
   Modules.StepByStepNavigation = function () {
     var actions = {} // stores text for JS appended elements 'show' and 'hide' on steps, and 'show/hide all' button
     var rememberShownStep = false
@@ -30,6 +31,9 @@ window.GOVUK.getCurrentLocation = function () {
       // Indicate that js has worked
       $element.addClass('app-step-nav--active')
 
+      // Remember scroll position
+      $(window).on('unload', storeScrollPosition)
+	
       // Prevent FOUC, remove class hiding content
       $element.removeClass('js-hidden')
 
