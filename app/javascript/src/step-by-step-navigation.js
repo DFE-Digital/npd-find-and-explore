@@ -2,7 +2,7 @@
 
 // based on https://github.com/alphagov/govuk_publishing_components/blob/v9.3.6/app/assets/javascripts/govuk_publishing_components/components/step-by-step-nav.js
 
-import jQuery from 'jquery';
+import $ from 'jquery';
 
 window.GOVUK = window.GOVUK || {}
 window.GOVUK.Modules = window.GOVUK.Modules || {}
@@ -32,7 +32,7 @@ window.GOVUK.getCurrentLocation = function () {
       $element.addClass('app-step-nav--active')
 
       // Remember scroll position
-      jQuery(window).on('unload', storeScrollPosition)
+      $(window).on('unload', storeScrollPosition)
 	
       // Prevent FOUC, remove class hiding content
       $element.removeClass('js-hidden')
@@ -91,11 +91,11 @@ window.GOVUK.getCurrentLocation = function () {
         $stepHeaders.each(function () {
           var linkText = actions.showText
 
-          if (headerIsOpen(jQuery(this))) {
+          if (headerIsOpen($(this))) {
             linkText = actions.hideText
           }
-          if (!jQuery(this).find('.js-toggle-link').length) {
-            jQuery(this).find('.js-step-title-button').append('<span class="app-step-nav__toggle-link js-toggle-link" aria-hidden="true">' + linkText + '</span>')
+          if (!$(this).find('.js-toggle-link').length) {
+            $(this).find('.js-step-title-button').append('<span class="app-step-nav__toggle-link js-toggle-link" aria-hidden="true">' + linkText + '</span>')
           }
         })
       }
@@ -116,8 +116,8 @@ window.GOVUK.getCurrentLocation = function () {
       }
 
       function setAllStepsShownState (isShown) {
-        jQuery.each($steps, function () {
-          var stepView = new StepView(jQuery(this))
+        $.each($steps, function () {
+          var stepView = new StepView($(this))
           stepView.preventHashUpdate()
           stepView.setIsShown(isShown)
         })
@@ -150,8 +150,8 @@ window.GOVUK.getCurrentLocation = function () {
       }
 
       function addButtonstoSteps () {
-        jQuery.each($steps, function () {
-          var $step = jQuery(this)
+        $.each($steps, function () {
+          var $step = $(this)
           var $title = $step.find('.js-step-title')
           var contentId = $step.find('.js-panel').first().attr('id')
 
@@ -170,7 +170,7 @@ window.GOVUK.getCurrentLocation = function () {
 
       function bindToggleForSteps () {
         $element.find('.js-toggle-panel').click(function (event) {
-          var $step = jQuery(this).closest('.js-step')
+          var $step = $(this).closest('.js-step')
 
           var stepView = new StepView($step)
           stepView.toggle()
@@ -182,14 +182,14 @@ window.GOVUK.getCurrentLocation = function () {
       // tracking click events on links in step content
       function bindComponentLinkClicks () {
         $element.find('.js-link').click(function (event) {
-          var thisLinkHref = jQuery(this).attr('href')
+          var thisLinkHref = $(this).attr('href')
 
-          if (jQuery(this).attr('rel') !== 'external') {
-            saveToSessionStorage(sessionStoreLink, jQuery(this).data('position'))
+          if ($(this).attr('rel') !== 'external') {
+            saveToSessionStorage(sessionStoreLink, $(this).data('position'))
           }
 
           if (thisLinkHref === activeLinkHref) {
-            setOnlyThisLinkActive(jQuery(this))
+            setOnlyThisLinkActive($(this))
           }
         })
       }
@@ -237,8 +237,8 @@ window.GOVUK.getCurrentLocation = function () {
 
       function removeActiveStateFromAllButCurrent ($links, current) {
         $links.each(function () {
-          if (jQuery(this).find('.js-link').data('position').toString() !== current.toString()) {
-            jQuery(this).removeClass(activeLinkClass)
+          if ($(this).find('.js-link').data('position').toString() !== current.toString()) {
+            $(this).removeClass(activeLinkClass)
           }
         })
       }
