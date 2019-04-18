@@ -34,6 +34,37 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page).to have_text('You can use the button to copy the names of the data you will need.')
   end
 
+  it 'Doesn\'t show the data type when no data element has data type' do
+    concept.data_elements.first.update(data_type: '')
+    concept.data_elements.second.update(data_type: '')
+    concept.data_elements.last.update(data_type: '')
+
+    visit concept_path(concept)
+
+    expect(page).not_to have_text('Data Type')
+  end
+
+  it 'Shows data type as Multiple when more than one different data type' do
+    concept.data_elements.first.update(data_type: 'Text')
+    concept.data_elements.second.update(data_type: 'Categorical')
+
+    visit concept_path(concept)
+
+    expect(page).to have_text('Data Type')
+    expect(page).to have_text('Multiple')
+  end
+
+  it 'Shows data type as the common data type when same data type' do
+    concept.data_elements.first.update(data_type: 'Dichotomous')
+    concept.data_elements.second.update(data_type: 'Dichotomous')
+    concept.data_elements.last.update(data_type: 'Dichotomous')
+
+    visit concept_path(concept)
+
+    expect(page).to have_text('Data Type')
+    expect(page).to have_text('Dichotomous')
+  end
+
   it 'Shows the sensitivity' do
     visit concept_path(concept)
 

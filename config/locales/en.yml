@@ -53,6 +53,13 @@ en:
       earliest_collected:
         label: Collected from
         tooltip: The earliest academic year data was collected from.
+      data_type:
+        label: Data Type
+        multiple: Different data types for each element in this category.
+        continuous: Continuous
+        categorical: Categories
+        dicotomous: Dichotomous data has only two possible values when observed or measured. For example, true - false or male - female.
+        text: Free text
 
   views:
     pagination:
