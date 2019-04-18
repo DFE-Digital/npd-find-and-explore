@@ -55,11 +55,11 @@ en:
         tooltip: The earliest academic year data was collected from.
       data_type:
         label: Data Type
-        multiple: Different data types for each element in this category.
-        continuous: Continuous
-        categorical: Categories
-        dicotomous: Dichotomous data has only two possible values when observed or measured. For example, true - false or male - female.
-        text: Free text
+        multiple: Shows more than one type of data type.
+        continuous: Continuous variables are numeric variables that have an infinite number of values between any two values. For example, the length of a part or the date and time a payment is received.
+        categorical: Categorical variables contain a finite number of categories or distinct groups. For example, categorical predictors include gender, material type, and payment method.
+        dichotomous: Dichotomous data has only two possible values when observed or measured. For example, "true" or "false" and "male" or "female".
+        text: Shows any kind of text data.
 
   views:
     pagination:
