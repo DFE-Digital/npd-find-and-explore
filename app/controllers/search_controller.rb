@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 class SearchController < ApplicationController
+  include BreadcrumbBuilder
+
   def index
     @results = sorted_search.page(page).per(per_page)
+    breadcrumbs_for(search: true)
+
     render action: :index
   end
 
