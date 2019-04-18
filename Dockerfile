@@ -18,14 +18,22 @@ ENV HOME=/usr/src/app PATH=/usr/src/app/bin:$PATH
 
 WORKDIR $HOME
 
+ARG BUNDLE_WITHOUT=test:development
+ENV BUNDLE_WITHOUT ${BUNDLE_WITHOUT}
+
 ADD Gemfile* ./
-RUN set -ex && bundle --retry 3
+RUN bundle install
 
 ADD package.json .
 ADD yarn.lock .
-RUN set -ex && yarn install
+RUN yarn install
 
 ADD . ./
+
+ARG RAILS_ENV=production
+ENV RAILS_ENV ${RAILS_ENV}
+ENV RACK_ENV ${RAILS_ENV}
+ENV NODE_ENV ${RAILS_ENV}
 
 # Compile the webpacker/sprockets assets for production
 RUN ./bin/rails assets:precompile

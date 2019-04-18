@@ -39,6 +39,9 @@
 yarn-debug.log*
 .yarn-integrity
 .env
+.env.development
+.env.test
+.env.production
 
 # Ignore RSpec state
 spec/.rspec_state.txt

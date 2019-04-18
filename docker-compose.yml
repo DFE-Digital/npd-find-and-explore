@@ -12,23 +12,24 @@ services:
       - 5432:5432
     volumes:
       - postgres-data:/var/lib/postgresql/data
-    env_file: .env
+    env_file: .env.development
 
   postgres_test:
     image: postgres:10.1
     ports:
       - 5433:5432
-    env_file: .env
+    env_file: .env.development
 
   # This container will run the rails web server:
   web:
-    build: .
-    env_file: .env
+    build:
+      context: .
+      args:
+        - BUNDLE_WITHOUT=
+        - RAILS_ENV=development
+    env_file: .env.development
     environment:
-      - RACK_ENV=${RAILS_ENV}
-      - RAILS_ENV=${RAILS_ENV}
-      - NODE_ENV=${RAILS_ENV}
-      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      - POSTGRES_HOST=postgres
       - POSTGRES_TEST_HOST=postgres_test
       - POSTGRES_TEST_PORT=5432
       - WEBPACK_DEV_HOST=webpacker
