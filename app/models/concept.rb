@@ -23,6 +23,13 @@ class Concept < ApplicationRecord
     data_elements&.max { |a, b| a&.description&.length <=> b&.description&.length }&.description
   end
 
+  def data_type
+    types = data_elements&.collect(&:data_type)&.compact&.uniq
+    return nil if types.empty?
+
+    types.length == 1 ? types.first : 'Multiple'
+  end
+
   def self.rebuild_pg_search_documents
     connection.execute <<-SQL
       INSERT INTO pg_search_documents (searchable_type, searchable_id, content,

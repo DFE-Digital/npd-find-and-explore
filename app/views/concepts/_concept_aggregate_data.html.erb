@@ -1,4 +1,10 @@
 <div class="govuk-grid-row govuk-!-margin-top-4">
+  <%- data_type = @concept.data_type %>
+  <%= render('aggregated_element',
+      label: t('concepts.show.data_type.label'),
+      tooltip: t("concepts.show.data_type.#{data_type.downcase}"),
+      value: data_type) if data_type.present? %>
+
   <%= render 'aggregated_element',
       label: t('concepts.show.sensitivity.label'),
       tooltip: t('concepts.show.sensitivity.tooltip'),

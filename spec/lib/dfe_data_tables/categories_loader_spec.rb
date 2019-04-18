@@ -19,6 +19,6 @@ RSpec.describe 'DfEDataTables::CategoriesLoader', type: :model do
     expect(Category.count).to eq(47)
     expect(Concept.count).to eq(179)
     expect(Category.find_each.map(&:root).uniq.map(&:name).sort)
-      .to eq(['Demographics'])
+      .to eq(%w[Demographics])
   end
 end

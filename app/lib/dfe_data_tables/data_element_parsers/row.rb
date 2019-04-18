@@ -68,6 +68,7 @@ module DfEDataTables
           values: data_element.dig(:values),
           description_en: data_element.dig(:description),
           description_cy: '',
+          data_type: data_element.dig(:data_type)&.split&.map(&:capitalize)&.join(' '),
           additional_attributes: data_element
         }
       end
