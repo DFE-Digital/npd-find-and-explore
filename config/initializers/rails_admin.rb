@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require Rails.root.join('app', 'lib', 'dfe_data_tables', 'data_elements_loader')
+
 RailsAdmin.config do |config|
   config.main_app_name = ['NPD Find & Explore']
   ### Popular gems integration
@@ -42,6 +44,26 @@ RailsAdmin.config do |config|
     end
     delete do
       except %w[DataElement]
+    end
+
+    root :import do
+      http_methods %i[get]
+    end
+
+    root :do_import do
+      http_methods %i[post]
+      visible false
+
+      controller do
+        proc do
+          DfEDataTables::DataElementsLoader.new(params['file-upload'].tempfile)
+
+          render 'import_success', format: :js, layout: false
+        rescue StandardError => error
+          Rails.logger.error(error)
+          render 'import_failure', format: :js, layout: false
+        end
+      end
     end
 
     ## With an audit adapter, you can add:
