@@ -19,6 +19,30 @@
     <script>
       RailsAdmin.I18n.init('#{I18n.locale}', document.getElementById("admin-js").dataset.i18nOptions)
     </script>
+    <script>
+      window.loader = new GOVUK.Loader()
+
+      $(document).ajaxStart(function() {
+        if (/do_import/.test(event.target.action)) {
+          $('.govuk-form-group').removeClass('govuk-form-group--error')
+          $('#upload-file-error span.message').html('')
+          $('#upload-file-success').addClass('govuk-visually-hidden')
+          $('#govuk-box-message').show()
+          window.loader.init({
+            container: 'govuk-box-message',
+            label: true,
+            labelText: 'We are processing the file you uploaded, please wait'
+          })
+        }
+      })
+
+      $(document).ajaxStop(function() {
+        setTimeout(function() {
+          $('#govuk-box-message').hide()
+          window.loader.stop()
+        }, 500)
+      })
+    </script>
     <%= content_tag :div, t('admin.loading'), id: %i[loading label label-warning],
       style: 'display:none; position:fixed; right:20px; bottom:20px; z-index:100000' %>
 

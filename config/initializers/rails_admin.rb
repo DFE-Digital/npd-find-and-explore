@@ -48,6 +48,7 @@ RailsAdmin.config do |config|
 
     root :import do
       http_methods %i[get]
+      pjax true
     end
 
     root :do_import do
