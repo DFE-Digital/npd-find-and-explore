@@ -13,7 +13,9 @@
   <td class="govuk-table__cell govuk-table__cell--numeric">
     <%= data_element_row&.collection_terms&.map { |t| academic_term(t) }&.join(', ') %>
   </td>
-  <td class="govuk-table__cell govuk-table__cell--numeric"></td>
+  <td class="govuk-table__cell govuk-table__cell--numeric">
+    <%= data_element_row&.educational_phase&.join(', ') %>
+  </td>
   <td class="govuk-table__cell govuk-table__cell--numeric">
     <%- if /\n/ =~ data_element_row.values %>
       <div class="overlay-parent">

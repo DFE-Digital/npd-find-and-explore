@@ -69,6 +69,7 @@ module DfEDataTables
           description_en: data_element.dig(:description),
           description_cy: '',
           data_type: data_element.dig(:data_type)&.split&.map(&:capitalize)&.join(' '),
+          educational_phase: data_element.dig(:educational_phase)&.split(',')&.map(&:strip)&.map(&:upcase),
           additional_attributes: data_element
         }
       end
