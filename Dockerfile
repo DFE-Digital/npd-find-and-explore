@@ -36,7 +36,9 @@ ENV RACK_ENV ${RAILS_ENV}
 ENV NODE_ENV ${RAILS_ENV}
 
 # Compile the webpacker/sprockets assets for production
-RUN ./bin/rails assets:precompile
+# Note that we're using a random SECRET_KEY_BASE so we don't expose
+# our production keys in CI. See https://github.com/rails/rails/issues/32947 for more.
+RUN SECRET_KEY_BASE=`bin/rake secret` bin/rake assets:precompile
 
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
 EXPOSE 3000

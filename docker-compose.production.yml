@@ -7,5 +7,3 @@ services:
       args:
         - BUNDLE_WITHOUT=development:test
         - RAILS_ENV=production
-    environment:
-      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
