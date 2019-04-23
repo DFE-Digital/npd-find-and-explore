@@ -12,6 +12,8 @@ module BreadcrumbBuilder
     # basic breadcrumbs for search
     breadcrumb 'search', search_index_path if search == true
 
+    return if category_leaf.nil?
+
     # build the breadcrumbs for the category's parent-tree
     category_leaf.ancestors.each do |category|
       breadcrumb category.name, category_path(category)
