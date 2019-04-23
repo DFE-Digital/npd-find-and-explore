@@ -14,5 +14,6 @@ FactoryBot.define do
     collection_terms                 { [%w[AUT SUM SPR].sample] }
     values                           { '0/1' }
     data_type                        { %w[Continuous Categorical Dichotomous Text].sample }
+    educational_phase                { %w[EY PRI SEC P-16].sample }
   end
 end
