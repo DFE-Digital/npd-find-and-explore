@@ -36,7 +36,7 @@ module ApplicationHelper
     [
       ['Recently added', 'published'],
       ['Recently updated', 'updated'],
-      ['Relevance', 'relevance'],
+      %w[Relevance relevance],
       ['A - Z', 'az']
     ]
   end

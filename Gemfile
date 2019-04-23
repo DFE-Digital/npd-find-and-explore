@@ -19,7 +19,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'high_voltage', '~> 3.1'
 
 # I18n for models
-gem 'globalize', :github => 'spikeheap/globalize', :branch => 'check_connected'
+gem 'globalize', github: 'spikeheap/globalize', branch: 'check_connected'
 
 # Nested tree for categories
 gem 'ancestry', '~> 3.0'
