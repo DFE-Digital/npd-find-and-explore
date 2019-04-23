@@ -71,29 +71,6 @@ module DfEDataTables
       def find_sheet(table)
         @sheet = table.sheet_for(sheet_name)
       end
-
-      def significant_rows
-        return @significant_rows unless @significant_rows.nil?
-
-        object = { header_rows: [], first_rows: [], last_rows: [], table_names: [] }
-        @significant_rows = (1..sheet.last_row).each_with_object(object) do |idx, obj|
-          row = sheet.row(idx)
-          obj[:header_rows] << idx if headers_regex.match? row[0]
-          next if obj[:header_rows].last.nil?
-
-          if first_row_regex.match? row[0]
-            obj[:first_rows] << (idx + 1)
-            obj[:table_names] << row[0].gsub(/table/i, '').strip.gsub(/[^\w]/, '_').gsub(/_+$/, '')
-            obj[:header_rows] << obj[:header_rows].last if obj[:first_rows].count > obj[:header_rows].count
-          end
-
-          next if obj[:header_rows].count == obj[:last_rows].count
-
-          obj[:last_rows] << (idx - 1) if row[0].nil? && (idx - 1) > obj[:header_rows].last
-        end
-        @significant_rows[:last_rows] << sheet.last_row
-        @significant_rows
-      end
     end
   end
 end
