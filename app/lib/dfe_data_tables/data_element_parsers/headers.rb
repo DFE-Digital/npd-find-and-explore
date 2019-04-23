@@ -18,7 +18,7 @@ module DfEDataTables
 
       HEADERS = {
         npd_alias: /(NPDAlias|NPD Alias)/,
-        field_reference: /(FieldReference|NPD Field Reference)/,
+        field_reference: /(Field Reference|FieldReference|NPD Field Reference)/i,
         old_alias: /(OldAlias|Old Alias)/,
         former_name: /FormerName/,
         years_populated: /Years Populated/,
@@ -32,6 +32,7 @@ module DfEDataTables
         identification_risk: /(Identifiability|Identification Risk)/,
         sensitivity: /Sensitivity/,
         data_type: /Data Type/,
+        educational_phase: /Educational Phase/,
         data_request_data_item_required: /Data request data item required/,
         data_request_years_required: /Data request years required/
       }.freeze
