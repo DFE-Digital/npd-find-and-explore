@@ -78,6 +78,14 @@ We use the [rails_admin gem](https://github.com/sferik/rails_admin) to provide a
 
 The admin interface is accessible through http://localhost:3000/admin in development.
 
+When setting up the system it is necessary to create one or more `AdminUser`s.
+
+This can be done in the Rails console, for example:
+
+```
+> AdminUser.create!(email: 'admin@test.com', password: 'password')
+```
+
 ## Running specs
 ```bash
 bundle exec rspec
