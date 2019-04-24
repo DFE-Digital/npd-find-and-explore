@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require Rails.root.join('app', 'lib', 'dfe_data_tables', 'data_elements_loader')
-
 RailsAdmin.config do |config|
   config.main_app_name = ['NPD Find & Explore']
   ### Popular gems integration

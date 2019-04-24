@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'sheet'
-
 module DfEDataTables
   module DataElementParsers
     class ScPupil < Sheet

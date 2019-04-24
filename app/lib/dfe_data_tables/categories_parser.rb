@@ -31,6 +31,8 @@ module DfEDataTables
     end
 
     def categories
+      # TODO: refactor to reduce block's line count.
+      # rubocop:disable Metrics/BlockLength
       @categories ||= (1..sheet.last_row).each_with_object([]) do |idx, obj|
         row = sheet.row(idx)
         next if (idx + 1) < first_row
@@ -73,6 +75,7 @@ module DfEDataTables
 
         tree_level0[:concepts].push(concept_hash)
       end
+      # rubocop:enable Metrics/BlockLength
     end
 
   private
