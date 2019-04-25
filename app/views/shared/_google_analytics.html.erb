@@ -1,11 +1,11 @@
 <% if Rails.env == "production"  %>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=<%= google_analytics_key %>"></script>
-  <script type="text/javascript">
+  <%= javascript_tag nonce: true, type: 'text/javascript' do %>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', '<%= google_analytics_key %>');
-  </script>
+  <%- end %>
 <% end %>
