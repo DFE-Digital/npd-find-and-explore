@@ -28,6 +28,8 @@ gem 'ancestry', '~> 3.0'
 gem 'rails_admin', '~> 1.4'
 gem 'rails_admin_nestable', '~> 0.3.2'
 
+gem 'administrate'
+
 # Breadcrumb navigation
 gem 'loaf', '~> 0.8.1'
 
