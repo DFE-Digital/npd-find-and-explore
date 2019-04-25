@@ -19,7 +19,7 @@
 # end
 
 # If you are using UJS then enable automatic nonce generation
-# Rails.application.config.content_security_policy_nonce_generator = -> request { SecureRandom.base64(16) }
+Rails.application.config.content_security_policy_nonce_generator = ->(_request) { SecureRandom.base64(16) }
 
 # Report CSP violations to a specified URI
 # For further information see the following documentation:
@@ -32,6 +32,6 @@ Rails.application.config.content_security_policy do |policy|
     policy.script_src :self, :https, :unsafe_eval, :unsafe_inline
     policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035', 'http://0.0.0.0:3035', 'ws://0.0.0.0:3035'
   else
-    policy.script_src :self, :https
+    policy.script_src :self, :https, 'https://www.google-analytics.com'
   end
 end
