@@ -77,6 +77,9 @@ en:
           other: "Showing all %{count} results"
       more_pages:
         display_entries: "Showing %{first} &ndash; %{last} of %{total} results"
+  admin:
+    links:
+      log_out: Log out
 
   date:
     formats:

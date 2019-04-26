@@ -1,0 +1,13 @@
+<ul class="navbar-list govuk-body">
+  <%- if main_app_root_path = (main_app.root_path rescue false) %>
+    <li><%= link_to t('admin.home.name'), main_app_root_path %></li>
+  <%- end %>
+  <%- if current_admin_user %>
+    <li>
+      <%= link_to current_admin_user.email, edit_admin_user_registration_path(current_admin_user) %>
+    </li>
+    <li>
+      <%= button_to t('admin.links.log_out'), destroy_admin_user_session_path, method: :delete, class: %w[button govuk-button--link] %>
+    </li>
+  <%- end %>
+</ul>

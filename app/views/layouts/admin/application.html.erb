@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noodp, noydir, index, follow">
+    <meta name="viewport" content="initial-scale=1">
+    <title>
+      <%= content_for(:title) || 'Dashboard' %> -
+      <%= Rails.application.class.parent_name.titlecase %>
+    </title>
+    <%= javascript_pack_tag 'administrate', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application' %>
+    <%= render 'stylesheet' %>
+    <%= csrf_meta_tags %>
+    <meta name="turbolinks-root" content="/admin">
+  </head>
+  <body class="govuk-template__body">
+    <div class="app-pane app-pane--enabled">
+      <%= render 'layouts/admin/government_header' %>
+      <%= render 'layouts/admin/navigation' %>
+    </div>
+    <div class="govuk-width-container">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter">
+          <%= render 'navigation' %>
+        </div>
+        <div class="govuk-grid-column-three-quarters">
+          <%= render 'flashes' %>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+    <div class="icons" style="display: none; width: 0; height: 0; overflow: hidden; position: absolute">
+      <%= render 'icons' %>
+    </div>
+
+    <%= render 'javascript' %>
+    <%= render "shared/govuk_footer" %>
+  </body>
+</html>
