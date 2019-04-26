@@ -16,7 +16,8 @@ class CategoryDashboard < Administrate::BaseDashboard
     concepts: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    ancestry: Field::String,
+    parent: Field::BelongsTo.with_options(class_name: 'Category'),
+    children: Field::HasMany.with_options(class_name: 'Category'),
     position: Field::Number,
     versions: Field::HasMany.with_options(class_name: 'PaperTrail::Version')
   }.freeze
@@ -41,7 +42,8 @@ class CategoryDashboard < Administrate::BaseDashboard
     concepts
     created_at
     updated_at
-    ancestry
+    parent
+    children
     position
   ].freeze
 
@@ -50,8 +52,8 @@ class CategoryDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     concepts
-    ancestry
-    position
+    parent
+    children
   ].freeze
 
   # Overwrite this method to customize how categories are displayed
