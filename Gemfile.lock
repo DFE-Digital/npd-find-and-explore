@@ -118,6 +118,8 @@ GEM
       railties (>= 4.2.0)
     faker (1.9.3)
       i18n (>= 0.7)
+    faraday (0.15.4)
+      multipart-post (>= 1.2, < 3)
     ffi (1.10.0)
     font-awesome-rails (4.7.0.4)
       railties (>= 3.2, < 6.0)
@@ -192,6 +194,7 @@ GEM
     minitest (5.11.3)
     msgpack (1.2.6)
     multi_json (1.13.1)
+    multipart-post (2.0.0)
     nested_form (0.3.2)
     net_http_ssl_fix (0.0.10)
     netrc (0.11.0)
@@ -343,6 +346,8 @@ GEM
     selenium-webdriver (3.141.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2, >= 1.2.2)
+    sentry-raven (2.9.0)
+      faraday (>= 0.7.6, < 1.0)
     sexp_processor (4.11.0)
     simplecov (0.16.1)
       docile (~> 1.1)
@@ -431,6 +436,7 @@ DEPENDENCIES
   rspec-benchmark
   rspec-rails (~> 3.8)
   selenium-webdriver
+  sentry-raven (~> 2.9)
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
