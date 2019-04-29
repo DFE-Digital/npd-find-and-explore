@@ -4,7 +4,7 @@ module DfEDataTables
   # Loads categories from an Excel document formatted as defined in the
   # CategoriesParser
   class CategoriesLoader
-    TABLES = ['Demographics', 'Attainment', 'Absence-Exclusion', 'Pupil Ref Nos - KS\'s'].freeze
+    TABLES = ['CIN-CLA', 'Demographics', 'Attainment', 'Absence-Exclusion', 'Pupil Ref Nos - KS\'s'].freeze
 
     def initialize(categories_path)
       categories_workbook = Roo::Spreadsheet.open(categories_path)
