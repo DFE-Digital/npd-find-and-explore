@@ -12,6 +12,7 @@
     <%= stylesheet_pack_tag 'application' %>
     <%= render 'stylesheet' %>
     <%= csrf_meta_tags %>
+    <%= yield :additional_tags %>
     <meta name="turbolinks-root" content="/admin">
   </head>
   <body class="govuk-template__body">
