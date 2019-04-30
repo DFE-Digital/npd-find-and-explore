@@ -23,7 +23,7 @@ module Admin
     # for more information
 
     def tree
-      @categories = Category.arrange(order: :position)
+      @categories = Category.includes(:translations).arrange(order: :position)
     end
 
     def sort
