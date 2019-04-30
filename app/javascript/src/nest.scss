@@ -1,6 +1,7 @@
-/**
- * jQuery Nestable
- */
+@import 'node_modules/govuk-frontend/all';
+@import 'colours';
+
+// jQuery Nestable
 
 .dd {
   display: block;
@@ -18,10 +19,10 @@
   margin: 0;
   padding: 0;
   position: relative;
-}
 
-.dd-list .dd-list {
-  padding-left: 30px;
+  .dd-list {
+    padding-left: 30px;
+  }
 }
 
 .dd-collapsed .dd-list {
@@ -41,30 +42,26 @@
 }
 
 .dd-handle {
+  background: -webkit-gradient(linear, left top, left bottom, from(govuk-colour('grey-4')), to(govuk-colour('grey-3')));
+  background: -webkit-linear-gradient(top, govuk-colour('grey-4') 0%, govuk-colour('grey-3') 100%);
+  background: -o-linear-gradient(top, govuk-colour('grey-4') 0%, govuk-colour('grey-3') 100%);
+  background: linear-gradient(to bottom, govuk-colour('grey-4') 0%, govuk-colour('grey-3') 100%);
   background: govuk-colour('grey-4');
-  background: -webkit-gradient(linear,
-                               left top,
-                               left bottom,
-                               from(govuk-colour('grey-4')),
-                               to(#eee));
-  background: -webkit-linear-gradient(top, govuk-colour('grey-4') 0%, #eee 100%);
-  background: -o-linear-gradient(top, govuk-colour('grey-4') 0%, #eee 100%);
-  background: linear-gradient(to bottom, govuk-colour('grey-4') 0%, #eee 100%);
-  border: 1px solid #ccc;
+  border: 1px solid govuk-colour('grey-2');
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  box-sizing: border-box;
   -moz-box-sizing: border-box;
+  box-sizing: border-box;
   color: #333;
   display: block;
+  font-weight: bold;
   height: 30px;
   margin: 5px 0;
   padding: 5px 10px;
   text-decoration: none;
-  font-weight: bold;
 }
 .dd-handle:hover {
-  color: #2ea8e5;
+  color: govuk-colour('light-blue');
   background: govuk-colour('white');
 }
 
@@ -115,43 +112,13 @@
 .dd-empty {
   border: 1px dashed govuk-colour('grey-2');
   min-height: 100px;
+  background-image: -webkit-linear-gradient(45deg, govuk-colour('white') 25%, transparent 25%, transparent 75%, govuk-colour('white') 75%, govuk-colour('white')),
+                    -webkit-linear-gradient(45deg, govuk-colour('white') 25%, transparent 25%, transparent 75%, govuk-colour('white') 75%, govuk-colour('white'));
+  background-image: -moz-linear-gradient(45deg, govuk-colour('white') 25%, transparent 25%, transparent 75%, govuk-colour('white') 75%, govuk-colour('white')),
+                    -moz-linear-gradient(45deg, govuk-colour('white') 25%, transparent 25%, transparent 75%, govuk-colour('white') 75%, govuk-colour('white'));
+  background-image: linear-gradient(45deg, govuk-colour('white') 25%, transparent 25%, transparent 75%, govuk-colour('white') 75%, govuk-colour('white')),
+                    linear-gradient(45deg, govuk-colour('white') 25%, transparent 25%, transparent 75%, govuk-colour('white') 75%, govuk-colour('white'));
   background-color: #e5e5e5;
-  background-image: -webkit-linear-gradient(45deg,
-                                            govuk-colour('white') 25%,
-                                            transparent 25%,
-                                            transparent 75%,
-                                            govuk-colour('white') 75%,
-                                            govuk-colour('white')),
-                    -webkit-linear-gradient(45deg,
-                                            govuk-colour('white') 25%,
-                                            transparent 25%,
-                                            transparent 75%,
-                                            govuk-colour('white') 75%,
-                                            govuk-colour('white'));
-  background-image: -moz-linear-gradient(45deg,
-                                         govuk-colour('white') 25%,
-                                         transparent 25%,
-                                         transparent 75%,
-                                         govuk-colour('white') 75%,
-                                         govuk-colour('white')),
-                    -moz-linear-gradient(45deg,
-                                         govuk-colour('white') 25%,
-                                         transparent 25%,
-                                         transparent 75%,
-                                         govuk-colour('white') 75%,
-                                         govuk-colour('white'));
-  background-image: linear-gradient(45deg,
-                                    govuk-colour('white') 25%,
-                                    transparent 25%,
-                                    transparent 75%,
-                                    govuk-colour('white') 75%,
-                                    govuk-colour('white')),
-                    linear-gradient(45deg,
-                                    govuk-colour('white') 25%,
-                                    transparent 25%,
-                                    transparent 75%,
-                                    govuk-colour('white') 75%,
-                                    govuk-colour('white'));
   background-size: 60px 60px;
   background-position: 0 0, 30px 30px;
 }
@@ -169,9 +136,7 @@
   box-shadow: 2px 4px 6px 0 rgba(0,0,0,.1);
 }
 
-/**
- * Nestable Extras
- */
+// Nestable Extras
 
 .nestable-lists {
   border: 0;
@@ -184,30 +149,30 @@
 }
 
 #nestable-menu {
-  padding: 0;
   margin: 20px 0;
+  padding: 0;
 }
 
 #nestable-output,
 #nestable2-output {
-  width: 100%;
-  height: 7em;
-  font-size: 0.75em;
-  line-height: 1.333333em;
-  font-family: Consolas, monospace;
-  padding: 5px;
-  box-sizing: border-box;
   -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 0.75em;
+  font-family: Consolas, monospace;
+  height: 7em;
+  line-height: 1.333333em;
+  padding: 5px;
+  width: 100%;
 }
 
 #nestable2 .dd-handle {
   color: govuk-colour('white');
-  border: 1px solid #999;
+  border: 1px solid $grey-1-2;
   background: govuk-colour('grey-2');
-  background: -webkit-gradient(linear, left top, left bottom, from(govuk-colour('grey-2')), to(#999));
-  background: -webkit-linear-gradient(top, govuk-colour('grey-2') 0%, #999 100%);
-  background: -o-linear-gradient(top, govuk-colour('grey-2') 0%, #999 100%);
-  background: linear-gradient(to bottom, govuk-colour('grey-2') 0%, #999 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(govuk-colour('grey-2')), to($grey-1-2));
+  background: -webkit-linear-gradient(top, govuk-colour('grey-2') 0%, $grey-1-2 100%);
+  background: -o-linear-gradient(top, govuk-colour('grey-2') 0%, $grey-1-2 100%);
+  background: linear-gradient(to bottom, govuk-colour('grey-2') 0%, $grey-1-2 100%);
 }
 
 #nestable2 .dd-handle:hover {
@@ -230,39 +195,34 @@
 }
 
 .dd-hover > .dd-handle {
-  background: #2ea8e5 !important;
+  background: govuk-colour('light-blue') !important;
 }
 
-/**
- * Nestable Draggable Handles
- */
+// Nestable Draggable Handles
 
 .dd3-content {
+  background: -webkit-gradient(linear, left top, left bottom, from(govuk-colour('grey-4')), to(govuk-colour('grey-3')));
+  background: -webkit-linear-gradient(top, govuk-colour('grey-4') 0%, govuk-colour('grey-3') 100%);
+  background: -o-linear-gradient(top, govuk-colour('grey-4') 0%, govuk-colour('grey-3') 100%);
+  background: linear-gradient(to bottom, govuk-colour('grey-4') 0%, govuk-colour('grey-3') 100%);
+  background: govuk-colour('grey-4');
+  border: 1px solid govuk-colour('grey-2');
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: $grey-0;
   display: block;
+  font-weight: bold;
   height: 30px;
   margin: 5px 0;
   padding: 5px 10px 5px 40px;
-  color: #333;
   text-decoration: none;
-  font-weight: bold; border: 1px solid #ccc;
-  background: govuk-colour('grey-4');
-  background: -webkit-gradient(linear,
-                               left top,
-                               left bottom,
-                               from(govuk-colour('grey-4')),
-                               to(#eee));
-  background: -webkit-linear-gradient(top, govuk-colour('grey-4') 0%, #eee 100%);
-  background: -o-linear-gradient(top, govuk-colour('grey-4') 0%, #eee 100%);
-  background: linear-gradient(to bottom, govuk-colour('grey-4') 0%, #eee 100%);
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
 }
 
 .dd3-content:hover {
-  color: #2ea8e5;
   background: govuk-colour('white');
+  color: govuk-colour('light-blue');
 }
 
 .dd-dragel > .dd3-item > .dd3-content {
@@ -274,37 +234,37 @@
 }
 
 .dd3-handle {
-  position: absolute;
-  margin: 0;
-  left: 0;
-  top: 0;
-  cursor: pointer;
-  width: 30px;
-  text-indent: 100px;
-  white-space: nowrap;
-  overflow: hidden;
-  border: 1px solid #aaa;
-  background: govuk-colours('grey-3');
   background: -webkit-gradient(linear, left top, left bottom, from(govuk-colours('grey-3')), to(govuk-colour('grey-2')));
   background: -webkit-linear-gradient(top, govuk-colours('grey-3') 0%, govuk-colour('grey-2') 100%);
   background: -o-linear-gradient(top, govuk-colours('grey-3') 0%, govuk-colour('grey-2') 100%);
   background: linear-gradient(to bottom, govuk-colours('grey-3') 0%, govuk-colour('grey-2') 100%);
+  background: govuk-colours('grey-3');
+  border: 1px solid govuk-colour('grey-2');
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  cursor: pointer;
+  left: 0;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  text-indent: 100px;
+  white-space: nowrap;
+  width: 30px;
 }
 
 .dd3-handle:before {
+  color: govuk-colour('grey-1');
   content: '≡';
   display: block;
-  position: absolute;
-  left: 0;
-  top: 3px;
-  width: 100%;
-  text-align: center;
-  text-indent: 0;
-  color: govuk-colour('white');
   font-size: 20px;
   font-weight: normal;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  text-indent: 0;
+  top: 3px;
+  width: 100%;
 }
 
 .dd3-handle:hover {
