@@ -61,3 +61,17 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
     }
   }
 }
+
+.govuk-alert-message {
+  clear: both;
+  color: govuk-colour('yellow');
+  display: block;
+  font-family: "nta",Arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 700;
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.25;
+  margin-bottom: 15px;
+}
