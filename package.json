@@ -3,8 +3,12 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "3.5",
+    "activestorage": "^5.2.3",
+    "flatpickr": "^4.5.7",
     "govuk-frontend": "^2.7.0",
-    "jquery": "^3.4.0"
+    "jquery": "^3.4.0",
+    "rails-ujs": "^5.2.3",
+    "turbolinks": "^5.2.0"
   },
   "devDependencies": {
     "webpack-dev-server": "2.9.1"
