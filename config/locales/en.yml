@@ -79,6 +79,10 @@ en:
   admin:
     links:
       log_out: Log out
+    actions:
+      nestable:
+        success: Tree updated
+        error: Error while updating the tree
 
   date:
     formats:

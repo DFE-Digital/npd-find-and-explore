@@ -140,8 +140,8 @@
 
 .nestable-lists {
   border: 0;
-  border-bottom: 2px solid govuk-colours('grey-3');
-  border-top: 2px solid govuk-colours('grey-3');
+  border-bottom: 2px solid govuk-colour('grey-3');
+  border-top: 2px solid govuk-colour('grey-3');
   clear: both;
   display: block;
   padding: 30px 0;
@@ -234,11 +234,11 @@
 }
 
 .dd3-handle {
-  background: -webkit-gradient(linear, left top, left bottom, from(govuk-colours('grey-3')), to(govuk-colour('grey-2')));
-  background: -webkit-linear-gradient(top, govuk-colours('grey-3') 0%, govuk-colour('grey-2') 100%);
-  background: -o-linear-gradient(top, govuk-colours('grey-3') 0%, govuk-colour('grey-2') 100%);
-  background: linear-gradient(to bottom, govuk-colours('grey-3') 0%, govuk-colour('grey-2') 100%);
-  background: govuk-colours('grey-3');
+  background: -webkit-gradient(linear, left top, left bottom, from(govuk-colour('grey-3')), to(govuk-colour('grey-2')));
+  background: -webkit-linear-gradient(top, govuk-colour('grey-3') 0%, govuk-colour('grey-2') 100%);
+  background: -o-linear-gradient(top, govuk-colour('grey-3') 0%, govuk-colour('grey-2') 100%);
+  background: linear-gradient(to bottom, govuk-colour('grey-3') 0%, govuk-colour('grey-2') 100%);
+  background: govuk-colour('grey-3');
   border: 1px solid govuk-colour('grey-2');
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -268,7 +268,7 @@
 }
 
 .dd3-handle:hover {
-  background: govuk-colours('grey-3');
+  background: govuk-colour('grey-3');
 }
 
 .dd3-content .links {
@@ -298,9 +298,30 @@
 
 .nestable-flash {
   display: none;
-  min-width: 150px;
-  position: fixed;
-  right: 20px;
-  top: 80px;
+  position: absolute;
+  left: calc(50% - 150px);
+  top: 10px;
   width: auto;
+}
+
+.alert {
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+
+  .body {
+    font-weight: normal;
+    margin: .5em 1em;
+  }
+
+  .close {
+    line-height: .5em;
+    margin: .5em;
+    padding: .75em;
+  }
+}
+
+.alert-success {
+  background-color: govuk-colour('white');
+  border: 1px solid govuk-colour('blue');
+  color: govuk-colour('blue');
 }
