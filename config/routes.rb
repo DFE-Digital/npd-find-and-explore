@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     end
     resources :categories
     resources :concepts
+    resource :data_elements, only: [] do
+      get  :import
+      post :import, to: 'data_elements#do_import'
+    end
     resources :data_elements, only: %i[index show]
     resources :admin_users, only: %i[index show]
 
