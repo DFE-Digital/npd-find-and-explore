@@ -3,11 +3,9 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-import {} from 'rails-ujs'
-import {} from 'turbolinks'
+require('@rails/ujs').start()
+require('turbolinks').start()
+require('@rails/activestorage').start()
+require('jquery')
 
-// The next line you only need if you want ActiveStorage support
-import * as ActiveStorage from "activestorage"
-ActiveStorage.start()
-
-require("../src/administrate")
+require('../src/administrate')
