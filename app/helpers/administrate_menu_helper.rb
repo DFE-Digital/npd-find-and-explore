@@ -13,7 +13,7 @@ module AdministrateMenuHelper
     links.flatten.join.html_safe # rubocop:disable Rails/OutputSafety
   end
 
-  private
+private
 
   SECONDARY_LINKS = {
     categories: [
