@@ -19,5 +19,21 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
+
+    def import
+      render :import, layout: 'admin/application', locals: { success: nil, error: '' }
+    end
+
+    def do_import
+      DfEDataTables::DataElementsLoader.new(params['file-upload'])
+
+      render partial: 'form', layout: false, locals: { success: true, error: '' }
+    rescue ArgumentError => error
+      Rails.logger.error(error)
+      render partial: 'form', layout: false, locals: { success: false, error: 'Please upload an Excel spreadsheet' }
+    rescue StandardError => error
+      Rails.logger.error(error)
+      render partial: 'form', layout: false, locals: { success: false, error: error }
+    end
   end
 end

@@ -22,6 +22,13 @@ private
         url_params: %i[tree admin categories],
         active: :tree
       }
+    ],
+    data_elements: [
+      {
+        name: 'Import Data Elements',
+        url_params: %i[import admin data_elements],
+        active: :import
+      }
     ]
   }.freeze
 
