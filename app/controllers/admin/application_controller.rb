@@ -10,6 +10,7 @@ module Admin
   class ApplicationController < Administrate::ApplicationController
     before_action :authenticate_admin_user!
 
+    helper AdministrateMenuHelper
     # Override this value to specify the number of elements to display at a time
     # on index pages. Defaults to 20.
     # def records_per_page

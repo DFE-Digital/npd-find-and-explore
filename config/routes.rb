@@ -3,6 +3,10 @@
 Rails.application.routes.draw do
   devise_for :admin_users unless Rails.env.test?
   namespace :admin do
+    resource :categories, only: [] do
+      get  :tree
+      post :sort
+    end
     resources :categories
     resources :concepts
     resources :data_elements, only: %i[index show]

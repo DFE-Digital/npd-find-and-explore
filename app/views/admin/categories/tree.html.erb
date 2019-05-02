@@ -1,0 +1,38 @@
+<% content_for(:title) do %>
+  Sort Categories
+<% end %>
+
+<% content_for(:additional_tags) do %>
+  <%= stylesheet_pack_tag 'nest' %>
+<% end %>
+
+<header class="main-content__header" role="banner">
+  <h1 class="main-content__page-title" id="page-title">
+    <%= content_for(:title) %>
+  </h1>
+
+  <div>
+    <%= link_to(
+      t(
+        "administrate.actions.new_resource",
+        name: 'category'
+      ),
+      [:new, :admin, :category],
+      class: "button",
+    ) if valid_action?(:new) && show_action?(:new, new_resource) %>
+  </div>
+</header>
+
+<section id="nestable" class="main-content__body main-content__body--flush">
+  <% if @categories.present? %>
+    <div id="tree_nodes" class="dd" data-update-path="<%= sort_admin_categories_path %>">
+      <ol id="categories" class="dd-list">
+        <%= nested_tree_nodes @categories %>
+      </ol>
+    </div>
+  <% else %>
+    <h3>There are currently no categories.</h3>
+  <% end %>
+</section>
+
+<%= javascript_pack_tag 'nest' %>
