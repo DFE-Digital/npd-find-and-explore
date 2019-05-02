@@ -3,7 +3,7 @@
     <h1 class="govuk-heading-l">Log in</h1>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <%= render 'devise/shared/error_messages' %>
+      <%= render 'devise/shared/error_messages', resource: resource %>
       <%= render 'devise/shared/flash_messages' %>
 
       <div class="govuk-form-group">
