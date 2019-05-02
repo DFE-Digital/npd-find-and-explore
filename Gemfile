@@ -25,9 +25,6 @@ gem 'globalize', github: 'spikeheap/globalize', branch: 'check_connected'
 gem 'ancestry', '~> 3.0'
 
 # Lightweight admin functionality
-gem 'rails_admin', '~> 1.4'
-gem 'rails_admin_nestable', '~> 0.3.2'
-
 gem 'administrate'
 
 # Breadcrumb navigation
@@ -98,4 +95,4 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem "sentry-raven", "~> 2.9"
+gem 'sentry-raven', '~> 2.9'
