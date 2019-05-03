@@ -74,7 +74,7 @@ Then open http://localhost:3000.
 
 ## Admin
 
-We use the [rails_admin gem](https://github.com/sferik/rails_admin) to provide an easy-to-use back-office interface to manage our data. This has it's challenges (GOV.UK styling for a start), but helps us get off the ground quickly.
+We use the [administrate gem](https://github.com/thoughtbot/administrate) to provide an easy-to-use back-office interface to manage our data. This has it's challenges (GOV.UK styling for a start), but helps us get off the ground quickly.
 
 The admin interface is accessible through http://localhost:3000/admin in development.
 

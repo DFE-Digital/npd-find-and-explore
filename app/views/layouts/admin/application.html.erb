@@ -9,20 +9,21 @@
       <%= Rails.application.class.parent_name.titlecase %>
     </title>
     <%= javascript_pack_tag 'administrate', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'administrate' %>
     <%= stylesheet_pack_tag 'application' %>
     <%= render 'stylesheet' %>
     <%= csrf_meta_tags %>
+    <%= yield :additional_tags %>
     <meta name="turbolinks-root" content="/admin">
   </head>
   <body class="govuk-template__body">
     <div class="app-pane app-pane--enabled">
       <%= render 'layouts/admin/government_header' %>
-      <%= render 'layouts/admin/navigation' %>
     </div>
     <div class="govuk-width-container">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-quarter">
-          <%= render 'navigation' %>
+          <%= render 'layouts/admin/navigation' %>
         </div>
         <div class="govuk-grid-column-three-quarters">
           <%= render 'flashes' %>
