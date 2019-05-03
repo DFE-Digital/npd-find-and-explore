@@ -9,11 +9,21 @@
       <div class="govuk-form-group">
         <%= f.label :email, class: 'govuk-label' %>
         <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'govuk-input' %>
+        <% if f.object.errors[:email].present? %>
+          <span class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:email].map(&:capitalize).join(', ') %>
+          </span>
+        <% end %>
       </div>
 
       <div class="govuk-form-group">
         <%= f.label :password, class: 'govuk-label' %>
         <%= f.password_field :password, autocomplete: 'current-password', class: 'govuk-input' %>
+        <% if f.object.errors[:password].present? %>
+          <span class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:password].map(&:capitalize).join(', ') %>
+          </span>
+        <% end %>
       </div>
 
       <div class="govuk-form-group actions">

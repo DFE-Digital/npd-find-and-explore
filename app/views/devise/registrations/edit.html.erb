@@ -9,6 +9,11 @@
       <div class="govuk-form-group">
         <%= f.label :email, class: 'govuk-label' %>
         <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'govuk-input' %>
+        <% if f.object.errors[:email].present? %>
+          <span class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:email].map(&:capitalize).join(', ') %>
+          </span>
+        <% end %>
       </div>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -22,17 +27,32 @@
         <% if @minimum_password_length %>
           <div class="govuk-hint"><%= @minimum_password_length %> characters minimum</div>
         <% end %>
+        <% if f.object.errors[:password].present? %>
+          <span class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:password].map(&:capitalize).join(', ') %>
+          </span>
+        <% end %>
       </div>
 
       <div class="govuk-form-group">
         <%= f.label :password_confirmation, class: 'govuk-label' %>
         <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: 'govuk-input' %>
+        <% if f.object.errors[:password_confirmation].present? %>
+          <span class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:password_confirmation].map(&:capitalize).join(', ') %>
+          </span>
+        <% end %>
       </div>
 
       <div class="govuk-form-group">
         <%= f.label :current_password, class: 'govuk-label' %>
         <div class="govuk-hint">(we need your current password to confirm your changes)</div>
         <%= f.password_field :current_password, autocomplete: 'current-password', class: 'govuk-input' %>
+        <% if f.object.errors[:current_password].present? %>
+          <span class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:current_password].map(&:capitalize).join(', ') %>
+          </span>
+        <% end %>
       </div>
 
       <div class="govuk-form-group actions">
