@@ -12,6 +12,14 @@ module Admin
     #     per(10)
     # end
 
+    def edit
+      if requested_resource == current_admin_user
+        redirect_to edit_admin_user_registration_path(current_admin_user)
+      else
+        super
+      end
+    end
+
     # Define a custom finder by overriding the `find_resource` method:
     # def find_resource(param)
     #   AdminUser.find_by!(slug: param)
