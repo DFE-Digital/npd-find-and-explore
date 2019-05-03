@@ -11,7 +11,7 @@
     <%= javascript_pack_tag 'administrate', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'administrate' %>
     <%= stylesheet_pack_tag 'application' %>
-    <%= render 'stylesheet' %>
+    <%= render 'administrate/application/stylesheet' %>
     <%= csrf_meta_tags %>
     <%= yield :additional_tags %>
     <meta name="turbolinks-root" content="/admin">
@@ -26,16 +26,16 @@
           <%= render 'layouts/admin/navigation' %>
         </div>
         <div class="govuk-grid-column-three-quarters">
-          <%= render 'flashes' %>
+          <%= render 'administrate/application/flashes' %>
           <%= yield %>
         </div>
       </div>
     </div>
     <div class="icons" style="display: none; width: 0; height: 0; overflow: hidden; position: absolute">
-      <%= render 'icons' %>
+      <%= render 'administrate/application/icons' %>
     </div>
 
-    <%= render 'javascript' %>
+    <%= render 'administrate/application/javascript' %>
     <%= render "shared/govuk_footer" %>
   </body>
 </html>
