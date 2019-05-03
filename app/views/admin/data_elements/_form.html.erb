@@ -5,13 +5,17 @@
       <span class="govuk-body-m">Data Table file in Excel format</span>
     </label>
     <input class="govuk-file-upload govuk-!-margin-bottom-3" id="file-upload" name="file-upload" type="file">
-    <p id="upload-file-error" class="govuk-error-message govuk-!-margin-top-2">
-      <span class="<%= success == false ? '' : ' govuk-visually-hidden'%>">Error:</span>
-      <span class="message"><%= error %></span>
-    </p>
-    <p id="upload-file-success" class="govuk-inset-text<%= success ? '' : ' govuk-visually-hidden'%>">
-      The file was processed and uploaded successfully
-    </p>
+    <% if success == false %>
+      <p id="upload-file-error" class="govuk-error-message govuk-!-margin-top-2">
+        <span class="govuk-visually-hidden">Error:</span>
+        <span class="message"><%= error %></span>
+      </p>
+    <% end %>
+    <% if success %>
+      <p id="upload-file-success" class="govuk-inset-text">
+        The file was processed and uploaded successfully
+      </p>
+    <% end %>
     <div class="govuk-box govuk-!-margin-3" id="govuk-box-message" aria-busy="true"></div>
     <button type="submit" class="govuk-button">Upload</button>
   <%- end %>

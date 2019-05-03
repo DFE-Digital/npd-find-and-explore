@@ -8,8 +8,8 @@ window.loader = new GOVUK.Loader()
 $(document).on('ajax:send', function() {
   if (/import/.test(event.target.action)) {
     $('.govuk-form-group').removeClass('govuk-form-group--error')
-    $('#upload-file-error span.message').html('')
-    $('#upload-file-success').addClass('govuk-visually-hidden')
+    $('#upload-file-error').remove()
+    $('#upload-file-success').remove()
     $('#govuk-box-message').show()
     window.loader.init({
       container: 'govuk-box-message',
