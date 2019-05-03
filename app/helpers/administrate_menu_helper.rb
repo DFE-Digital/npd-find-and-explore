@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
 module AdministrateMenuHelper
+  include Administrate::ApplicationHelper
+
   def links(params)
-    links = Administrate::Namespace.new(namespace).resources.map do |resource|
+    namespace_value = defined?(namespace) ? namespace : 'admin'
+
+    links = Administrate::Namespace.new(namespace_value).resources.map do |resource|
       links = [link_to(
         display_resource_name(resource),
-        [namespace, resource_index_route_key(resource)],
-        class: ['navigation__link', "navigation__link--#{nav_link_state(resource)}"]
+        [namespace_value, resource_index_route_key(resource)],
+        class: ['navigation__link', "navigation__link--#{resource_state(resource, params)}"]
       )]
       links.push secondary_links(resource.name, params)
     end
@@ -44,5 +48,11 @@ private
 
   def active(action, params)
     params[:action].to_s == action.to_s ? :active : :inactive
+  end
+
+  def resource_state(resource, params)
+    return nav_link_state(resource) if defined?(nav_link_state)
+
+    params[:controller] == resource.to_s ? :active : :inactive
   end
 end
