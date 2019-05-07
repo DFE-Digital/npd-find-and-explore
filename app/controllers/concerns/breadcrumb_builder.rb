@@ -25,4 +25,20 @@ module BreadcrumbBuilder
     # finally, add the concept if it's there
     breadcrumb concept.name, concept_path(concept) if concept.present?
   end
+
+  def admin_breadcrumbs_for(category_leaf:, concept: nil)
+    # start with the root
+    breadcrumb 'home', admin_categories_path, match: :exact
+
+    # build the breadcrumbs for the category's parent-tree
+    category_leaf.ancestors.each do |category|
+      breadcrumb category.name, admin_category_path(category)
+    end
+
+    # ancestors doesn't include the leaf category (just it's parents)
+    breadcrumb category_leaf.name, admin_category_path(category_leaf)
+
+    # finally, add the concept if it's there
+    breadcrumb concept.name, admin_concept_path(concept) if concept.present?
+  end
 end

@@ -39,3 +39,10 @@ Style/Documentation:
     - app/models/application_record.rb
     - config/application.rb
     - spec/**/*
+
+Rails/LexicallyScopedActionFilter:
+  # Administrate generated classes will rely on the superclass to define
+  # actions, but we still need to before_action some of them.
+  Exclude:
+    - app/controllers/admin/categories_controller.rb
+    - app/controllers/admin/concepts_controller.rb
