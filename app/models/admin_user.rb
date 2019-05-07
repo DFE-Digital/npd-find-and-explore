@@ -6,4 +6,6 @@ class AdminUser < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :trackable
+
+  has_many :dfe_data_tables, inverse_of: :admin_user, dependent: :nullify
 end
