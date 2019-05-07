@@ -1,0 +1,14 @@
+<% if field.data %>
+  <% if valid_action?(:show, field.associated_class) %>
+    <% breadcrumbs = field.breadcrumbs %>
+    <%- breadcrumbs.each_with_index do |breadcrumb, index| %>
+      <%= link_to(
+        breadcrumb.name,
+        [namespace, breadcrumb],
+      ) %>
+      <%= index + 1 < breadcrumbs.length ? '>' : '' %>
+    <%- end %>
+  <% else %>
+    <%= field.display_associated_resource %>
+  <% end %>
+<% end %>
