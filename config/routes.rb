@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       post :import, to: 'data_elements#do_import'
     end
     resources :data_elements, only: %i[index show]
-    resources :admin_users, only: %i[index show]
+    resources :admin_users
 
     root to: 'categories#index'
   end

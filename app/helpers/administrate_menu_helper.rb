@@ -4,6 +4,8 @@ module AdministrateMenuHelper
   include Administrate::ApplicationHelper
 
   def links(params)
+    return '' if current_admin_user.blank?
+
     namespace_value = defined?(namespace) ? namespace : 'admin'
 
     links = Administrate::Namespace.new(namespace_value).resources.map do |resource|

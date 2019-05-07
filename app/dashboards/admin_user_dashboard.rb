@@ -10,9 +10,10 @@ class AdminUserDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    versions: Field::HasMany.with_options(class_name: 'PaperTrail::Version'),
     id: Field::String.with_options(searchable: false),
     email: Field::String,
+    password: Field::Password,
+    password_confirmation: Field::Password,
     reset_password_token: Field::String,
     reset_password_sent_at: Field::DateTime,
     remember_created_at: Field::DateTime,
@@ -31,9 +32,10 @@ class AdminUserDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    versions
-    id
     email
+    sign_in_count
+    last_sign_in_at
+    last_sign_in_ip
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -55,6 +57,8 @@ class AdminUserDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     email
+    password
+    password_confirmation
   ].freeze
 
   # Overwrite this method to customize how admin users are displayed
