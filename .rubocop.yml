@@ -17,6 +17,8 @@ Metrics/BlockLength:
     - config/initializers/**/*
     # RSpec wraps everything in a block
     - spec/**/*
+  ExcludedMethods:
+    - draw
 
 # Because we're not on 12" CRT monitors anymore...
 Metrics/LineLength:
