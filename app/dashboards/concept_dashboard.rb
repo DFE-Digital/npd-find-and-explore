@@ -12,7 +12,7 @@ class ConceptDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::String.with_options(searchable: false),
     name: Field::String,
-    category: Field::BelongsTo,
+    category: BreadcrumbField,
     data_elements: Field::HasMany,
     versions: Field::HasMany.with_options(class_name: 'PaperTrail::Version'),
     created_at: Field::DateTime,
