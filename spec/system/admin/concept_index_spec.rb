@@ -8,7 +8,7 @@ RSpec.describe 'Admin Concepts Index', type: :system do
 
   before do
     admin_user
-    create_list(:category, 2, :with_subcategories_concepts_and_data_elements)
+    create(:category, :with_subcategories_concepts_and_data_elements)
     PgSearch::Multisearch.rebuild(Category)
     PgSearch::Multisearch.rebuild(Concept)
 

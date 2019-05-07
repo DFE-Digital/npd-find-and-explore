@@ -2,6 +2,10 @@
 
 module Admin
   class ConceptsController < Admin::ApplicationController
+    include BreadcrumbBuilder
+
+    before_action :generate_breadcrumbs, only: %i[show edit]
+
     # To customize the behavior of this controller,
     # you can overwrite any of the RESTful actions. For example:
     #
@@ -38,6 +42,10 @@ module Admin
                                 .where(searchable_type: 'Concept')
                                 .pluck(:searchable_id))
              .includes(:translations, category: :translations)
+    end
+
+    def generate_breadcrumbs
+      admin_breadcrumbs_for(category_leaf: requested_resource.category, concept: requested_resource)
     end
   end
 end
