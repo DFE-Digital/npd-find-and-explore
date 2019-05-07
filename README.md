@@ -31,17 +31,17 @@ A clear way for users to comprehend the data they need to undertake quality rese
 
 #### Native
 
-1. Copy `.env.template` to `.env`, and update the database credentials to match your local setup.
-3. Run `bundle install` to install the gem dependencies.
-4. Run `bundle exec rails db:setup` to create a development and testing database.
-5. Run `bundle exec rails db:seed` to seed the development database with sample data.
-6. Run `bundle exec rails server` to launch the app on http://localhost:3000.
+1. Copy `.env.template` to `.env.development`, and update the database credentials to match your local setup.
+2. Run `bundle install` to install the gem dependencies.
+3. Run `bundle exec rails db:setup` to create a development and testing database.
+4. [Import Data Tables, categories and concepts](#importing-data).
+5. Run `bundle exec rails server` to launch the app on http://localhost:3000.
 
 #### Docker
 
 > Developing in Docker is currently quite cumbersome – the webpack build process happens for each frontend change as part of the web request, and is *very* slow. It's easier at the moment to develop natively or using a hybrid approach (detailed below).
 
-First, copy `.env.template` to `.env`, and update the database password.
+First, copy `.env.template` to `.env.development`, and update the database password.
 
 Run this in a shell and leave it running:
 
@@ -55,6 +55,8 @@ The first time you run the app, you need to set up the databases. In a new termi
 docker-compose run --rm web /bin/sh -c "bundle exec rails db:setup"
 ```
 
+At this point you will likely want to [import Data Tables, categories and concepts](#importing-data).
+
 Then open http://localhost:3000.
 
 #### Hybrid
@@ -66,10 +68,13 @@ docker-compose up -d postgres postgres_test
 ./bin/webpack-dev-server
 ```
 
-In another terminal:
+In another terminal, carry out your Rails commands as you'd expect for native development:
 ```bash
 ./bin/rails s
 ```
+
+
+At this point you will likely want to [import Data Tables, categories and concepts](#importing-data).
 
 Then open http://localhost:3000.
 
@@ -88,8 +93,15 @@ This can be done in the Rails console, for example:
 ```
 
 ## Running specs
+
 ```bash
 bundle exec rspec
+```
+
+or within Docker:
+
+```bash
+docker-compose run --rm web /bin/sh -c "bundle exec rspec"
 ```
 
 ## Style & Linting
@@ -98,9 +110,11 @@ We follow the [GOV.UK style guide](https://github.com/alphagov/styleguides/blob/
 
 ```bash
 bundle exec govuk-lint-ruby
+```
 
-or
+or within Docker:
 
+```bash
 docker-compose run --rm web /bin/sh -c "bundle exec govuk-lint-ruby"
 ```
 
@@ -115,20 +129,38 @@ We use custom PostgreSQL functions for search. `schema.rb` only supports structu
 
 > Note: if you apply migrations to a clean database this is unnecessary, as the functions are defined within the migrations as well as `structure.sql`.
 
-## Import data
+## Importing data
 
-Import data items from NPD data tables.
+### Importing Data Tables
+
+Data Elements are loaded from the Excel Data Tables file, and cannot be edited within the NPD Find & Explore service. When a new version of the Data Tables is produced, this can be uploaded to the admin interface at the `/admin/data_elements/import` page. 
+
+To import the file using the CLI, use `DfEDataTables::DataElementsLoader`, as follows:
+
+> Note that we add `;nil` to the command, otherwise you see a huge dump of all the data elements loaded in that run. We also wrap everything in a transaction so the data flips between old and new, rather than having a period with limited categories available.
 
 ```
-DfEDataTables::DataElementParsers::DataElementsLoader.new('path-to-your-NPD-data-tables')
+ActiveRecord::Base.transaction do
+    DataElement.delete_all
+    DfEDataTables::DataElementsLoader.new('path/to/DataTables.xlsx');nil
+end
 ```
 
-Import categories and concepts from a specifically prepared categories excel
-file.
+### Importing categories and concepts
+
+Categories and concepts should be managed through the Find & Explore admin interface (`/admin`). To manually replace the entire category and concept tree, replacing it with data from the seed Information Architecture document:
+
+> Note that we add `;nil` to the command, otherwise you see a huge dump of all the data elements loaded in that run. We also wrap everything in a transaction so the data flips between old and new, rather than having a period with limited categories available.
 
 ```
-DfEDataTables::CategoriesLoader.new('path-to-your-categories-excel-file')
+ActiveRecord::Base.transaction do
+    Concept.delete_all
+    Category.delete_all
+    DfEDataTables::CategoriesLoader.new('path/to/Information Architecture 04-24 - MASTER.xlsx');nil
+end
 ```
+
+The above should be used for seeding the initial system only, for example on the staging environment. Once data has been edited within Find & Explore, running the above command would wipe out any changes. For production migrations, consider database backup/restore.
 
 ### EditorConfig
 
