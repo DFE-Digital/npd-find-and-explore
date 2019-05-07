@@ -16,7 +16,7 @@ class CategoryDashboard < Administrate::BaseDashboard
     concepts: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    parent: Field::BelongsTo.with_options(class_name: 'Category'),
+    parent: BreadcrumbField.with_options(class_name: 'Category'),
     children: Field::HasMany.with_options(class_name: 'Category'),
     position: Field::Number,
     versions: Field::HasMany.with_options(class_name: 'PaperTrail::Version')
@@ -39,9 +39,9 @@ class CategoryDashboard < Administrate::BaseDashboard
     id
     name
     description
-    concepts
     parent
     children
+    concepts
     created_at
     updated_at
   ].freeze
