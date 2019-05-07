@@ -1,7 +1,18 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :admin_users unless Rails.env.test?
+  unless Rails.env.test?
+    devise_for :admin_users, skip: %i[registrations]
+    as :admin_user do
+      get    '/admin_users/profile',        to: 'devise/registrations#edit',   as: :admin_user_root
+      get    '/admin_users/edit(.:format)', to: 'devise/registrations#edit',   as: :edit_admin_user_registration
+      patch  '/admin_users(.:format)',      to: 'devise/registrations#update', as: :admin_user_registration
+      put    '/admin_users(.:format)',      to: 'devise/registrations#update'
+      delete '/admin_users(.:format)',      to: 'devise/registrations#destroy'
+      post   '/admin_users(.:format)',      to: 'devise/registrations#create'
+    end
+  end
+
   namespace :admin do
     resource :categories, only: [] do
       get  :tree
