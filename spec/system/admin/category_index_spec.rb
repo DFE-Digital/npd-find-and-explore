@@ -7,6 +7,9 @@ RSpec.describe 'Admin Categories Index', type: :system do
   let(:admin_user) { AdminUser.create!(email: 'admin@test.com', password: password) }
 
   before do
+    DataElement.destroy_all
+    Concept.destroy_all
+    Category.destroy_all
     admin_user
     create(:category, :with_subcategories_concepts_and_data_elements)
     PgSearch::Multisearch.rebuild(Category)
