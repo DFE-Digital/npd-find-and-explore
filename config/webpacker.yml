@@ -3,8 +3,11 @@
 default: &default
   source_path: app/javascript
   source_entry_path: packs
+  public_root_path: public
   public_output_path: packs
   cache_path: tmp/cache/webpacker
+  check_yarn_integrity: false
+  webpack_compile_output: false
 
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
@@ -16,8 +19,22 @@ default: &default
   # From 4.0.0 we need this in order for stylesheet_pack_tag to work
   extract_css: true
 
+  static_assets_extensions:
+    - .jpg
+    - .jpeg
+    - .png
+    - .gif
+    - .tiff
+    - .ico
+    - .svg
+    - .eot
+    - .otf
+    - .ttf
+    - .woff
+    - .woff2
+
   extensions:
-    - .vue
+    - .mjs
     - .js
     - .sass
     - .scss
@@ -34,6 +51,9 @@ default: &default
 development:
   <<: *default
   compile: true
+
+  # Verifies that correct packages and versions are installed by inspecting package.json, yarn.lock, and node_modules
+  check_yarn_integrity: true
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
@@ -53,7 +73,8 @@ development:
     headers:
       'Access-Control-Allow-Origin': '*'
     watch_options:
-      ignored: /node_modules/
+      ignored: '**/node_modules/**'
+
 
 test:
   <<: *default
