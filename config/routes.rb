@@ -30,8 +30,9 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   scope '(/:locale)', locale: /en|cy/, defaults: { locale: 'en' } do
-    resources :categories, only: %i[index show]
-    resources :concepts, only: %i[show]
-    resources :search, only: %i[index]
+    resources :categories,  only: %i[index show]
+    resources :concepts,    only: %i[show]
+    resources :search,      only: %i[index]
+    resources :data_tables, only: %i[show]
   end
 end
