@@ -1,8 +1,6 @@
 # README
 
-[![Build Status](https://dfe-ssp.visualstudio.com/S112-Find-and-Explore-Data-in-NPD/_apis/build/status/S112-Find-and-Explore-Data-in-NPD-Docker%20container-CI?branchName=master)](https://dfe-ssp.visualstudio.com/S112-Find-and-Explore-Data-in-NPD/_build/latest?definitionId=100&branchName=master) [![Known Vulnerabilities](https://snyk.io/test/github/DFE-Digital/npd-find-and-explore
-/badge.svg)](https://snyk.io/test/github/DFE-Digital/npd-find-and-explore
-) 
+[![Build Status](https://dfe-ssp.visualstudio.com/S112-Find-and-Explore-Data-in-NPD/_apis/build/status/S112-Find-and-Explore-Data-in-NPD-Docker%20container-CI?branchName=master)](https://dfe-ssp.visualstudio.com/S112-Find-and-Explore-Data-in-NPD/_build/latest?definitionId=100&branchName=master) [![Known Vulnerabilities](https://snyk.io/test/github/DFE-Digital/npd-find-and-explore/badge.svg)](https://snyk.io/test/github/DFE-Digital/npd-find-and-explore) 
 
 The Find and explore data in the National Pupil Database (NPD) service allows users to explore, search and find metadata contained in the NPD.
 
