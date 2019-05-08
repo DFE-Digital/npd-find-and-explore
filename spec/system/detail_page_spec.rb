@@ -19,6 +19,14 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page).to have_link(concept.category.name, href: category_path(concept.category))
   end
 
+  it 'Shows the link to download the data table' do
+    visit concept_path(concept)
+
+    expect(page).to have_text('Can\'t find what you\'re looking for?')
+    expect(page).to have_link('Click here to download the latest version of the Data Tables',
+                              href: 'https://docs.google.com/forms/d/e/1FAIpQLSfLDp6pa7GOanfRW72C495z1JbAG1jYwZiGTn2yUYPGcMBwdA/viewform')
+  end
+
   it 'Shows the link to the "how to access" page' do
     visit concept_path(concept)
 

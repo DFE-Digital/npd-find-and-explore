@@ -26,6 +26,9 @@ module Admin
 
     def do_import
       DfEDataTables::DataElementsLoader.new(params['file-upload'])
+      DfEDataTable.create(admin_user: current_admin_user,
+                          file_name: params['file-upload'].original_filename,
+                          data_table: params['file-upload'])
 
       render partial: 'form', layout: false, locals: { success: true, error: '' }
     rescue ArgumentError => error
