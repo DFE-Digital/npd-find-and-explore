@@ -10,6 +10,7 @@ RSpec.describe 'Admin Categories Index', type: :system do
     DataElement.destroy_all
     Concept.destroy_all
     Category.destroy_all
+
     admin_user
     create(:category, :with_subcategories_concepts_and_data_elements)
     PgSearch::Multisearch.rebuild(Category)
