@@ -8,4 +8,10 @@ class AdminUser < ApplicationRecord
          :trackable, :lockable, :timeoutable
 
   has_many :dfe_data_tables, inverse_of: :admin_user, dependent: :nullify
+
+protected
+
+  def extract_ip_from(request)
+    request.headers['X-Forwarded-For'] || request.remote_ip
+  end
 end
