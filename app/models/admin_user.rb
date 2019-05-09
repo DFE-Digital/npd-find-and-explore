@@ -9,6 +9,18 @@ class AdminUser < ApplicationRecord
 
   has_many :dfe_data_tables, inverse_of: :admin_user, dependent: :nullify
 
+  validate :password_complexity
+
+  def password_complexity
+    return if password.present? && password.length >= 8 &&
+      password =~ /[A-Z]+/ && password =~ /[a-z]+/ && password =~ /\d+/ &&
+      password =~ /\W+/
+
+    errors.add :password, 'is too simple. It should be minimum 8 characters
+    and include at least 1 uppercase letter, 1 lowercase letter, 1 number and
+    1 special character'
+  end
+
 protected
 
   def extract_ip_from(request)
