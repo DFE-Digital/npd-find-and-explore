@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin Concepts Index', type: :system do
-  let(:password) { 'password' }
+  let(:password) { 'paSSw0rd!' }
   let(:admin_user) { AdminUser.create!(email: 'admin@test.com', password: password) }
 
   before do
