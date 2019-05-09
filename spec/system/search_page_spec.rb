@@ -4,6 +4,10 @@ require 'rails_helper'
 
 RSpec.describe 'Search pages', type: :system do
   before do
+    DataElement.destroy_all
+    Concept.destroy_all
+    Category.destroy_all
+
     create_list(:category, 2, :with_subcategories_concepts_and_data_elements)
     PgSearch::Multisearch.rebuild(Category)
     PgSearch::Multisearch.rebuild(Concept)
