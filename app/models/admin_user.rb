@@ -12,6 +12,6 @@ class AdminUser < ApplicationRecord
 protected
 
   def extract_ip_from(request)
-    request.headers['X-Forwarded-For'] || request.remote_ip
+    request.headers['X-Forwarded-For']&.split(':')&.first || request.remote_ip
   end
 end
