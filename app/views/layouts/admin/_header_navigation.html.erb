@@ -1,6 +1,6 @@
 <ul class="navbar-list govuk-body">
   <%- if main_app_root_path = (main_app.root_path rescue false) %>
-    <li><%= link_to t('admin.home.name'), main_app_root_path %></li>
+    <li><%= link_to t('admin.links.public_site'), main_app_root_path %></li>
   <%- end %>
   <%- if current_admin_user %>
     <li>

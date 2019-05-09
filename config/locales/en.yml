@@ -79,6 +79,7 @@ en:
   admin:
     links:
       log_out: Log out
+      public_site: Public Site
     actions:
       nestable:
         success: Tree updated
