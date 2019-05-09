@@ -81,7 +81,6 @@ In another terminal, carry out your Rails commands as you'd expect for native de
 ./bin/rails s
 ```
 
-
 At this point you will likely want to [import Data Tables, categories and concepts](#importing-data).
 
 Then open http://localhost:3000.
