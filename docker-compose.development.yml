@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  
+  # This container will run the rails web server:
+  web:
+    volumes:
+      - .:/usr/src/app

@@ -45,8 +45,16 @@ First, copy `.env.template` to `.env.development`, and update the database passw
 
 Run this in a shell and leave it running:
 
+> Note: this doesn't mount your local repository into the container, so changes won't propagate across automatically.
+
 ```bash
 docker-compose up --build
+```
+
+To mount your local repository into the container:
+
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.development.yml up --build
 ```
 
 The first time you run the app, you need to set up the databases. In a new terminal:
