@@ -5,13 +5,13 @@ require 'rails_helper'
 RSpec.describe 'Service start page', type: :system do
   it 'Has a link to the category tree view' do
     visit '/'
-    find('span.js-step-title', text: 'Find out what information is available in the NPD').click
+    find('span.js-step-title', text: 'Find and explore data in the NPD').click
     expect(page).to have_text('Find variables and metadata')
   end
 
   it 'Links the user to the top-level category tree view' do
     visit '/'
-    find('span.js-step-title', text: 'Find out what information is available in the NPD').click
+    find('span.js-step-title', text: 'Find and explore data in the NPD').click
     click_on('Find variables and metadata')
     expect(page).to have_current_path(categories_path)
     expect(page).to have_text('Categories')
