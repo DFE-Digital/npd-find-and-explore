@@ -67,7 +67,11 @@ module Admin
         return
       end
 
-      DfEDataTables::CategoriesLoader.new(params['file-upload'])
+      ActiveRecord::Base.transaction do
+        Concept.delete_all
+        Category.delete_all
+        DfEDataTables::CategoriesLoader.new(params['file-upload'])
+      end
 
       render partial: 'form', layout: false, locals: { success: true, error: '' }
     rescue StandardError => error
