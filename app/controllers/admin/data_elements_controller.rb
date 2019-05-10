@@ -25,18 +25,20 @@ module Admin
     end
 
     def do_import
+      if params['file-upload'].content_type != DfEDataTables::EXCEL_CONTENT_TYPE
+        render partial: 'form', layout: false, locals: { success: false, error: 'Please upload an Excel spreadsheet' }
+        return
+      end
+
       DfEDataTables::DataElementsLoader.new(params['file-upload'])
       DfEDataTable.create(admin_user: current_admin_user,
                           file_name: params['file-upload'].original_filename,
                           data_table: params['file-upload'])
 
       render partial: 'form', layout: false, locals: { success: true, error: '' }
-    rescue ArgumentError => error
-      Rails.logger.error(error)
-      render partial: 'form', layout: false, locals: { success: false, error: 'Please upload an Excel spreadsheet' }
     rescue StandardError => error
       Rails.logger.error(error)
-      render partial: 'form', layout: false, locals: { success: false, error: error }
+      render partial: 'form', layout: false, locals: { success: false, error: 'There has been an error while processing your file' }
     end
   end
 end

@@ -1,0 +1,22 @@
+<div id="form-group" class="govuk-form-group<%= success == false ? ' govuk-form-group--error' : '' %>">
+  <%= form_with url: import_admin_categories_path, method: :post, remote: true,
+                multipart: true, id: 'upload-form' do |f| %>
+    <label class="govuk-label govuk-!-margin-bottom-3" for="file-upload">
+      <span class="govuk-body-m">Categories file in Excel format</span>
+    </label>
+    <input class="govuk-file-upload govuk-!-margin-bottom-3" id="file-upload" name="file-upload" type="file">
+    <% if success == false %>
+      <p id="upload-file-error" class="govuk-error-message govuk-!-margin-top-2">
+        <span class="govuk-visually-hidden">Error:</span>
+        <span class="message"><%= error %></span>
+      </p>
+    <% end %>
+    <% if success %>
+      <p id="upload-file-success" class="govuk-inset-text">
+        The file was processed and uploaded successfully
+      </p>
+    <% end %>
+    <div class="govuk-box govuk-!-margin-3" id="govuk-box-message" aria-busy="true"></div>
+    <button type="submit" class="govuk-button">Upload</button>
+  <%- end %>
+</div>
