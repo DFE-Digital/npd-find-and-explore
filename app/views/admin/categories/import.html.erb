@@ -1,0 +1,28 @@
+<% content_for(:title) do %>
+  Upload Categories and Concepts from an Excel Data Table
+<% end %>
+
+<% content_for(:additional_tags) do %>
+  <%= stylesheet_pack_tag 'loader' %>
+  <%= javascript_pack_tag 'loader' %>
+<% end %>
+
+<%= javascript_tag nonce: true do %>
+  document.body.addEventListener('ajax:success', function(event) {
+    var detail = event.detail
+    var data = detail[0], status = detail[1], xhr = detail[2]
+    setTimeout(function() {
+      document.querySelector('#form-group').outerHTML = detail[0]
+    }, 500)
+  })
+<% end %>
+
+<header class="main-content__header" role="banner">
+  <h1 class="main-content__page-title" id="page-title">
+    <%= content_for(:title) %>
+  </h1>
+</header>
+
+<fieldset class="govuk-fieldset govuk-!-margin-2" aria-describedby="upload-file-hint upload-file-error" role="group">
+  <%= render partial: 'form', locals: { success: success, error: error } %>
+</fieldset>

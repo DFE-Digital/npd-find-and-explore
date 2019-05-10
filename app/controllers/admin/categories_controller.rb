@@ -57,6 +57,24 @@ module Admin
       render plain: message
     end
 
+    def import
+      render :import, layout: 'admin/application', locals: { success: nil, error: '' }
+    end
+
+    def do_import
+      if params['file-upload'].content_type != DfEDataTables::EXCEL_CONTENT_TYPE
+        render partial: 'form', layout: false, locals: { success: false, error: 'Please upload an Excel spreadsheet' }
+        return
+      end
+
+      DfEDataTables::CategoriesLoader.new(params['file-upload'])
+
+      render partial: 'form', layout: false, locals: { success: true, error: '' }
+    rescue StandardError => error
+      Rails.logger.error(error)
+      render partial: 'form', layout: false, locals: { success: false, error: 'There has been an error while processing your file' }
+    end
+
   private
 
     def update_tree(tree_nodes, parent_node = nil)

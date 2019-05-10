@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     resource :categories, only: [] do
       get  :tree
       post :sort
+      get  :import
+      post :import, to: 'categories#do_import'
     end
     resources :categories
     resources :concepts

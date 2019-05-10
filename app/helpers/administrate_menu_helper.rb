@@ -27,6 +27,11 @@ private
         name: 'Sort Categories',
         url_params: %i[tree admin categories],
         active: :tree
+      },
+      {
+        name: 'Import Categories and Concepts',
+        url_params: %i[import admin categories],
+        active: :import
       }
     ],
     data_elements: [
