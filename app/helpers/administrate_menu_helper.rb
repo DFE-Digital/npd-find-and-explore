@@ -26,19 +26,28 @@ private
       {
         name: 'Sort Categories',
         url_params: %i[tree admin categories],
-        active: :tree
+        conditions: {
+          controller: 'admin/categories',
+          action: :tree
+        }
       },
       {
         name: 'Import Categories and Concepts',
         url_params: %i[import admin categories],
-        active: :import
+        conditions: {
+          controller: 'admin/categories',
+          action: :import
+        }
       }
     ],
     data_elements: [
       {
         name: 'Import Data Elements',
         url_params: %i[import admin data_elements],
-        active: :import
+        conditions: {
+          controller: 'admin/data_elements',
+          action: :import
+        }
       }
     ]
   }.freeze
@@ -48,13 +57,16 @@ private
       link_to(
         link[:name],
         link[:url_params],
-        class: "navigation__link navigation__link--secondary navigation__link--#{active(link[:active], params)}"
+        class: "navigation__link navigation__link--secondary navigation__link--#{active(link[:conditions], params)}"
       )
     end
   end
 
-  def active(action, params)
-    params[:action].to_s == action.to_s ? :active : :inactive
+  def active(conditions, params)
+    return :active if params[:controller].to_s == conditions[:controller].to_s &&
+      params[:action].to_s == conditions[:action].to_s
+
+    :inactive
   end
 
   def resource_state(resource, params)
