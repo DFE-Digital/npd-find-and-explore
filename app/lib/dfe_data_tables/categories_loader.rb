@@ -41,9 +41,9 @@ module DfEDataTables
       concepts.map do |concept_hash|
         concept = Concept.find_or_create_by!(
           name: concept_hash.dig(:name),
-          description: concept_hash.dig(:description),
           category: category
         )
+        concept.update(description: concept_hash.dig(:description))
         update_data_elements(concept, concept_hash.dig(:npd_aliases))
         concept
       end

@@ -90,13 +90,13 @@ module DfEDataTables
     def category(name, desc)
       return nil if name.blank?
 
-      { name: name, description: desc, subcat: [], concepts: [] }
+      { name: name.strip.gsub(/\s+/, ' '), description: desc, subcat: [], concepts: [] }
     end
 
     def concept(row)
       return nil if row[8].blank?
 
-      { name: row[8], description: row[9], npd_aliases: npd_aliases(row) }
+      { name: row[8].strip.gsub(/\s+/, ' '), description: row[9], npd_aliases: npd_aliases(row) }
     end
 
     def npd_aliases(row)

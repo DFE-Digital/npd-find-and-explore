@@ -21,7 +21,7 @@ module DfEDataTables
           next if headers[index].nil?
 
           # Cast empty strings to nil
-          data_element[headers[index]] = (cell.instance_of?(String) && cell.empty? ? nil : cell)
+          data_element[headers[index]] = parse_cell(cell)
         end
 
         # Post-process to add structure
@@ -33,6 +33,11 @@ module DfEDataTables
       end
 
     private
+
+      def parse_cell(cell)
+        cell = cell.strip if cell.instance_of?(String)
+        cell.presence
+      end
 
       def process_years(years_populated)
         return {} if years_populated.nil?
