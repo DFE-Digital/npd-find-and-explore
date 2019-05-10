@@ -62,10 +62,12 @@ gem 'kaminari', '~>1.1'
 # Bulk import
 gem 'activerecord-import', '~>1'
 
+gem "azure-storage", require: false
+
 group :development, :test do
+  gem 'dotenv-rails', '~> 2.6'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'dotenv-rails', '~> 2.6'
   gem 'factory_bot', '~> 5.0'
   gem 'factory_bot_rails', '~> 5.0'
   gem 'faker', '~> 1.9'
