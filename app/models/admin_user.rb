@@ -12,13 +12,18 @@ class AdminUser < ApplicationRecord
   validate :password_complexity
 
   def password_complexity
-    return if password.present? && password.length >= 8 &&
+    return if password.blank?
+    return if password.length >= 8 &&
       password =~ /[A-Z]+/ && password =~ /[a-z]+/ && password =~ /\d+/ &&
       password =~ /\W+/
 
     errors.add :password, 'is too simple. It should be minimum 8 characters
     and include at least 1 uppercase letter, 1 lowercase letter, 1 number and
     1 special character'
+  end
+
+  def update_unique_session_id!(unique_session_id)
+    self.update_attribute(:unique_session_id, unique_session_id)
   end
 
 protected
