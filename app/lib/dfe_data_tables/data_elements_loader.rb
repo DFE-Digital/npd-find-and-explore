@@ -35,6 +35,8 @@ module DfEDataTables
       @sheets_to_process = SHEETS.map { |sheet| sheet.new(data_tables_workbook) }
 
       process
+
+      data_tables_workbook.close
     end
 
   private
