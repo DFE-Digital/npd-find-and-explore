@@ -16,12 +16,10 @@ module DfEDataTables
           worksheet = DfEDataTables::CategoriesParser.new(categories_workbook, table)
           upload(worksheet.categories)
         end
-        data_tables_workbook.close
+        categories_workbook.close
       end
       PgSearch::Multisearch.rebuild(Category)
       PgSearch::Multisearch.rebuild(Concept)
-
-
     end
 
   private
