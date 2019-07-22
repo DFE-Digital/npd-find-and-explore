@@ -15,8 +15,8 @@ class ConceptDashboard < Administrate::BaseDashboard
     category: BreadcrumbField,
     data_elements: Field::HasMany,
     versions: Field::HasMany.with_options(class_name: 'PaperTrail::Version'),
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    created_at: Field::DateTime.with_options(timezone: 'GB'),
+    updated_at: Field::DateTime.with_options(timezone: 'GB')
   }.freeze
 
   # COLLECTION_ATTRIBUTES

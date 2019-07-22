@@ -15,15 +15,15 @@ class AdminUserDashboard < Administrate::BaseDashboard
     password: Field::Password,
     password_confirmation: Field::Password,
     reset_password_token: Field::String,
-    reset_password_sent_at: Field::DateTime,
-    remember_created_at: Field::DateTime,
+    reset_password_sent_at: Field::DateTime.with_options(timezone: 'GB'),
+    remember_created_at: Field::DateTime.with_options(timezone: 'GB'),
     sign_in_count: Field::Number,
-    current_sign_in_at: Field::DateTime,
-    last_sign_in_at: Field::DateTime,
+    current_sign_in_at: Field::DateTime.with_options(timezone: 'GB'),
+    last_sign_in_at: Field::DateTime.with_options(timezone: 'GB'),
     current_sign_in_ip: Field::String.with_options(searchable: false),
     last_sign_in_ip: Field::String.with_options(searchable: false),
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime
+    created_at: Field::DateTime.with_options(timezone: 'GB'),
+    updated_at: Field::DateTime.with_options(timezone: 'GB')
   }.freeze
 
   # COLLECTION_ATTRIBUTES
