@@ -26,8 +26,8 @@ RUN bundle install
 
 ADD package.json .
 ADD yarn.lock .
-RUN yarn install
-RUN yarn snyk-protect
+ADD .snyk .
+RUN yarn install && yarn snyk-protect
 
 ADD . ./
 
