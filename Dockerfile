@@ -26,6 +26,7 @@ RUN bundle install
 
 ADD package.json .
 ADD yarn.lock .
+ADD .snyk .
 RUN yarn install
 
 ADD . ./
