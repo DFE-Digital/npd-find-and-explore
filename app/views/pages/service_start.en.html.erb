@@ -1,10 +1,11 @@
 <%= content_for :additional_links do %>
   <%= javascript_pack_tag 'navigation' %>
 <%- end %>
+<% @title = 'How to apply for access to NPD data' %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-l">How to apply for access to NPD data</h1>
+    <h1 class="govuk-heading-l"><%= @title %></h1>
     <hr class="govuk-section-break govuk-section-break--xl  govuk-section-break--visible ">
   </div>
 

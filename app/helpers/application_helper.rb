@@ -7,6 +7,10 @@ module ApplicationHelper
     sum: 'Summer'
   }.freeze
 
+  def page_title
+    [@title, 'gov.uk'].compact.join(' - ')
+  end
+
   def academic_year(year)
     return 'present' if year.blank?
 

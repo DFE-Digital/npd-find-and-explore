@@ -9,6 +9,7 @@ class ConceptsController < ApplicationController
                .includes(:translations, :data_elements, category: [:translations])
                .find(params.require(:id))
 
+    @title = @concept.name
     breadcrumbs_for(category_leaf: @concept.category, concept: @concept)
   end
 end
