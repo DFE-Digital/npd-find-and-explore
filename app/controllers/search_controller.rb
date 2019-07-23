@@ -5,6 +5,7 @@ class SearchController < ApplicationController
 
   def index
     @results = sorted_search.page(page).per(per_page)
+    @title = t('search_title')
     breadcrumbs_for(search: true)
 
     render action: :index

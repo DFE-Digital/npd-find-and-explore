@@ -3,6 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Service start page', type: :system do
+  it 'Has the correct title' do
+    visit '/'
+    expect(page).to have_title('How to apply for access to NPD data - GOV.UK')
+  end
+
   it 'Has a link to the category tree view' do
     visit '/'
     find('span.js-step-title', text: 'Find and explore data in the NPD').click

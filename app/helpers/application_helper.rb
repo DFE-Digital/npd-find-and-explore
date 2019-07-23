@@ -8,7 +8,7 @@ module ApplicationHelper
   }.freeze
 
   def page_title
-    [@title, 'gov.uk'].compact.join(' - ')
+    [@title, 'GOV.UK'].compact.join(' - ')
   end
 
   def academic_year(year)

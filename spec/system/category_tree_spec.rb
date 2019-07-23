@@ -8,6 +8,7 @@ RSpec.describe 'Category hierarchy', type: :system do
   it 'View the categories page' do
     visit '/categories'
     expect(page).to have_text('Categories')
+    expect(page).to have_title('Find and explore data in the National Pupil Database - GOV.UK')
 
     top_level_categories = Category.includes(:translations).roots
 
@@ -26,6 +27,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     click_link(top_level_category.name)
     expect(page).to have_text(top_level_category.name)
     expect(page).to have_text(top_level_category.description)
+    expect(page).to have_title("#{top_level_category.name} - GOV.UK")
 
     second_level_categories.each do |category|
       expect(page).to have_text(category.name)
@@ -54,6 +56,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page).to have_current_path(concept_path(concept))
     expect(page).to have_text(concept.name)
     expect(page).to have_text(concept.description)
+    expect(page).to have_title("#{concept.name} - GOV.UK")
   end
 
   it 'Shows the breadcrumb trail' do
