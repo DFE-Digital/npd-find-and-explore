@@ -10,6 +10,7 @@ RSpec.describe 'Category hierarchy', type: :system do
 
     expect(page).to have_text(concept.name)
     expect(page).to have_text(concept.description)
+    expect(page).to have_title("#{concept.name} - GOV.UK")
   end
 
   it 'Shows the breadcrumb trail' do
