@@ -8,3 +8,4 @@ require('@rails/activestorage').start()
 require('jquery')
 
 require('../src/administrate')
+require('../src/timeout')
