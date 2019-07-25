@@ -76,3 +76,21 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
   line-height: 1.25;
   margin-bottom: 15px;
 }
+
+@media (min-width: 40.0625em) {
+  .govuk-grid-column-same-height {
+    min-height: 15em;
+  }
+}
+
+@media (min-width: 820px) {
+  .govuk-grid-column-same-height {
+    min-height: 12em;
+  }
+}
+
+@media (min-width: 1000px) {
+  .govuk-grid-column-same-height {
+    min-height: 10em;
+  }
+}
