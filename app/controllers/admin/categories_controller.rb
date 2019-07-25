@@ -66,7 +66,7 @@ module Admin
 
     def do_import
       if params['file-upload'].content_type != DfEDataTables::EXCEL_CONTENT_TYPE
-        render partial: 'form', layout: false, locals: { success: false, error: 'Please upload an Excel spreadsheet' }
+        render partial: 'import_form', layout: false, locals: { success: false, error: 'Please upload an Excel spreadsheet' }
         return
       end
 
@@ -76,10 +76,10 @@ module Admin
         DfEDataTables::CategoriesLoader.new(params['file-upload'])
       end
 
-      render partial: 'form', layout: false, locals: { success: true, error: '' }
+      render partial: 'import_form', layout: false, locals: { success: true, error: '' }
     rescue StandardError => error
       Rails.logger.error(error)
-      render partial: 'form', layout: false, locals: { success: false, error: 'There has been an error while processing your file' }
+      render partial: 'import_form', layout: false, locals: { success: false, error: 'There has been an error while processing your file' }
     end
 
   private
