@@ -19,8 +19,10 @@
   <td class="govuk-table__cell govuk-table__cell--numeric">
     <%- if /\n/ =~ data_element_row.values %>
       <div class="overlay-parent">
-        <a href="#" aria-describedby="codeset" title="Codeset">Codeset</a>
-        <div class="overlay" role="overlay" id="<%= data_element_row.id %>">
+        <a href="#" class="codeset" aria-describedby="codeset-<%= data_element_row.title.downcase %>" title="Codeset for <%= data_element_row.title %>">
+          Codeset<span class="codeset-specification">for <%= data_element_row.title %></span>
+        </a>
+        <div class="overlay" role="overlay" id="codeset-<%= data_element_row.title.downcase %>">
           <div class="overlay-content">
             <span class="overlay-header">
               <span>Codeset values for <%= data_element_row.title %></span>
