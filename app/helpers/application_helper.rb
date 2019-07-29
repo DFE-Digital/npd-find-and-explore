@@ -44,4 +44,9 @@ module ApplicationHelper
       ['A - Z', 'az']
     ]
   end
+
+  def how_to_access(concept)
+    identifiability = concept.data_elements.map(&:identifiability).compact.min
+    identifiability > 2 ? 'how_to_access' : 'not_available'
+  end
 end

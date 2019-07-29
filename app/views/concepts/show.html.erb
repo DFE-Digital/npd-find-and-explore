@@ -10,7 +10,7 @@
 
     <p><%= @concept.description || @concept.placeholder_description %></p>
   </div>
-  <%= render @concept.data_elements.map(&:identifiability).compact.min > 2 ? 'how_to_access' : 'not_available' %>
+  <%= render how_to_access(@concept) %>
 </div>
 
 <%= render partial: "concept_aggregate_data" %>
