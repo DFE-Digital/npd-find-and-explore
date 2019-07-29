@@ -28,7 +28,16 @@ RSpec.describe 'Category hierarchy', type: :system do
                               href: 'https://docs.google.com/forms/d/e/1FAIpQLSfLDp6pa7GOanfRW72C495z1JbAG1jYwZiGTn2yUYPGcMBwdA/viewform')
   end
 
-  it 'Shows the link to the "how to access" page' do
+  it 'Shows the "not available" message when identifiability rating = 1' do
+    concept.data_elements.each { |de| de.update(identifiability: 1) }
+    visit concept_path(concept)
+
+    expect(page).to have_text('This data item is not available for research purposes')
+    expect(page).to have_text('This data item cannot be applied for as it is has an Identification risk rating of 1. The DFE has committed to only use this data for internal purposes.')
+  end
+
+  it 'Shows the link to the "how to access" page when identifiability rating > 1' do
+    concept.data_elements.each { |de| de.update(identifiability: 3) }
     visit concept_path(concept)
 
     expect(page)
