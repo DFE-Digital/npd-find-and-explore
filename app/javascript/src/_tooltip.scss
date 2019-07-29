@@ -7,9 +7,18 @@
     color: govuk-colour('white');
     font-size: 19px;
     margin-left: 8px;
-    padding: 3px 10px 0;
+    padding: 3px 12px 0;
     position: relative;
     text-decoration: none;
+
+    span {
+      height: 1px;
+      left: -10000px;
+      overflow: hidden;
+      position: absolute;
+      top: auto;
+      width: 1px;
+    }
 
     &:focus + .tooltip-content,
     &:hover + .tooltip-content {
