@@ -28,12 +28,24 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 
 .how-to-access {
   background-color: $govuk-brand-colour;
+
+  p, a, h2 {
+    color: govuk-colour('white');
+  }
 }
 
-.how-to-access p,
-.how-to-access a,
-.how-to-access h2 {
-  color: govuk-colour('white');
+.govuk-panel--alert {
+  background: govuk-colour('red');
+  text-align: left;
+  padding: 10px !important;
+
+  .govuk-panel__body, h2 {
+    color: govuk-colour('white');
+  }
+
+  p {
+    margin-bottom: 0;
+  }
 }
 
 .right {

@@ -44,6 +44,9 @@ en:
         title: Add this to your application
         link: applying for access
         how_to_access: If you are %{link} to NPD data from the DfE you can copy and paste this title in your application form.
+      not-available:
+        title: This data item is not available for research purposes
+        content: This data item cannot be applied for as it is has an <strong>identifiably rating of 1 or 2</strong>. The DFE has committed to only use this data for internal purposes.
       sensitivity:
         label: Sensitivity
         tooltip: Data is given a sensitivity scale. Items are rated from A to E with A being highly sensitive and E being low.
