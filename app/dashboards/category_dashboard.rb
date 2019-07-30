@@ -13,7 +13,7 @@ class CategoryDashboard < Administrate::BaseDashboard
     id: Field::String.with_options(searchable: false),
     name: Field::String,
     description: Field::String,
-    concepts: Field::HasMany,
+    concepts: HasManySortedField.with_options(order: :name),
     created_at: Field::DateTime.with_options(timezone: 'GB'),
     updated_at: Field::DateTime.with_options(timezone: 'GB'),
     parent: BreadcrumbField.with_options(class_name: 'Category'),
