@@ -128,7 +128,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     end
   end
 
-  it 'Shows the elements collection terms' do
+  xit 'Shows the elements collection terms' do
     visit concept_path(concept)
 
     concept.data_elements.each do |element|

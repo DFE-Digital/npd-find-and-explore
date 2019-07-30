@@ -7,18 +7,6 @@
       value: data_type) if data_type.present? %>
 
   <%= render 'aggregated_element',
-      id: 'sensitivity-tip',
-      label: t('concepts.show.sensitivity.label'),
-      tooltip: t('concepts.show.sensitivity.tooltip'),
-      value: @concept.data_elements.map(&:sensitivity).compact.min %>
-
-  <%= render 'aggregated_element',
-      id: 'identifiability-tip',
-      label: t('concepts.show.identifiability.label'),
-      tooltip: t('concepts.show.identifiability.tooltip'),
-      value: @concept.data_elements.map(&:identifiability).compact.min %>
-
-  <%= render 'aggregated_element',
       id: 'earliest-collected-tip',
       label: t('concepts.show.earliest_collected.label'),
       tooltip: t('concepts.show.earliest_collected.tooltip'),

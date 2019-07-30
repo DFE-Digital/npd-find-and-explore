@@ -24,8 +24,20 @@
           <th class="govuk-table__header" scope="col">Name</th>
           <th class="govuk-table__header govuk-table__header--numeric" scope="col">Old name</th>
           <th class="govuk-table__header govuk-table__header--numeric" scope="col">Date collected</th>
-          <th class="govuk-table__header govuk-table__header--numeric" scope="col">Collection term</th>
-          <th class="govuk-table__header govuk-table__header--numeric" scope="col">Educational phase</th>
+          <th class="govuk-table__header govuk-table__header--numeric" scope="col">
+            <%= t('concepts.show.sensitivity.label') %>
+            <%= render 'tooltip',
+              label: t('concepts.show.sensitivity.label'),
+              id: 'sensitivity-tip',
+              tooltip: t('concepts.show.sensitivity.tooltip') %>
+          </th>
+          <th class="govuk-table__header govuk-table__header--numeric" scope="col">
+            <%= t('concepts.show.identifiability.label') %>
+            <%= render 'tooltip',
+              label: t('concepts.show.identifiability.label'),
+              id: 'identifiability-tip',
+              tooltip: t('concepts.show.identifiability.tooltip') %>
+          </th>
           <th class="govuk-table__header govuk-table__header--numeric" scope="col">Values</th>
         </tr>
       </thead>
