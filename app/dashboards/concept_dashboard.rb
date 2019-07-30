@@ -12,8 +12,8 @@ class ConceptDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::String.with_options(searchable: false),
     name: Field::String,
-    category: BreadcrumbField,
-    data_elements: Field::HasMany,
+    category: BreadcrumbField.with_options(order: :name),
+    data_elements: HasManySortedField.with_options(order: %i[source_table_name source_attribute_name]),
     versions: Field::HasMany.with_options(class_name: 'PaperTrail::Version'),
     created_at: Field::DateTime.with_options(timezone: 'GB'),
     updated_at: Field::DateTime.with_options(timezone: 'GB')
