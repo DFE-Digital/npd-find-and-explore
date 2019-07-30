@@ -1,21 +1,25 @@
 <div class="govuk-grid-row govuk-!-margin-top-4">
   <%- data_type = @concept.data_type %>
   <%= render('aggregated_element',
+      id: 'data-type-tip',
       label: t('concepts.show.data_type.label'),
       tooltip: t("concepts.show.data_type.#{data_type.downcase}"),
       value: data_type) if data_type.present? %>
 
   <%= render 'aggregated_element',
+      id: 'sensitivity-tip',
       label: t('concepts.show.sensitivity.label'),
       tooltip: t('concepts.show.sensitivity.tooltip'),
       value: @concept.data_elements.map(&:sensitivity).compact.min %>
 
   <%= render 'aggregated_element',
+      id: 'identifiability-tip',
       label: t('concepts.show.identifiability.label'),
       tooltip: t('concepts.show.identifiability.tooltip'),
       value: @concept.data_elements.map(&:identifiability).compact.min %>
 
   <%= render 'aggregated_element',
+      id: 'earliest-collected-tip',
       label: t('concepts.show.earliest_collected.label'),
       tooltip: t('concepts.show.earliest_collected.tooltip'),
       value: academic_year(@concept.data_elements.map(&:academic_year_collected_from).compact.min) %>
