@@ -11,10 +11,10 @@
     <%= academic_year(data_element_row.academic_year_collected_to) %>
   </td>
   <td class="govuk-table__cell govuk-table__cell--numeric">
-    <%= data_element_row&.collection_terms&.map { |t| academic_term(t) }&.join(', ') %>
+    <%= data_element_row&.sensitivity %>
   </td>
   <td class="govuk-table__cell govuk-table__cell--numeric">
-    <%= data_element_row&.educational_phase&.join(', ') %>
+    <%= data_element_row&.identifiability %>
   </td>
   <td class="govuk-table__cell govuk-table__cell--numeric">
     <%- if /\n/ =~ data_element_row.values %>
