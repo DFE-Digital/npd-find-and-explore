@@ -3,7 +3,10 @@
     <h2 class="govuk-heading-s"><%= t('concepts.show.not-available.title') %></h2>
 
     <p class="govuk-panel__body govuk-!-font-size-16">
-      <%= t('concepts.show.not-available.content').html_safe %>
+      <%= t(
+        'concepts.show.not-available.content',
+        link: link_to(t('concepts.show.not-available.link'), 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
+      ).html_safe %>
     </p>
   </div>
 </div>

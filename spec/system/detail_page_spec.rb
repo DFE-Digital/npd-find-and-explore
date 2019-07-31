@@ -28,12 +28,30 @@ RSpec.describe 'Category hierarchy', type: :system do
                               href: 'https://docs.google.com/forms/d/e/1FAIpQLSfLDp6pa7GOanfRW72C495z1JbAG1jYwZiGTn2yUYPGcMBwdA/viewform')
   end
 
-  it 'Shows the "not available" message when identifiability rating = 1' do
-    concept.data_elements.each { |de| de.update(identifiability: 1) }
+  it 'Shows the "not available" message when at least one has identifiability rating = 1' do
+    concept.data_elements.each { |de| de.update(identifiability: 3) }
+    concept.data_elements.first.update(identifiability: 1)
     visit concept_path(concept)
 
     expect(page).to have_text('This data item is not available for research purposes')
-    expect(page).to have_text('This data item cannot be applied for as it is has an Identification risk rating of 1. The DFE has committed to only use this data for internal purposes.')
+    expect(page)
+      .to have_link('4 exemptions',
+                    href: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
+    expect(page).to have_text('This data in some or all of these variables has an identification risk of 1 or 2.')
+    expect(page).to have_text('As a researcher, this data is only available if you meet one or more of 4 exemptions following a successful application.')
+  end
+
+  it 'Shows the "not available" message when at least one has identifiability rating = 2' do
+    concept.data_elements.each { |de| de.update(identifiability: 3) }
+    concept.data_elements.first.update(identifiability: 2)
+    visit concept_path(concept)
+
+    expect(page).to have_text('This data item is not available for research purposes')
+    expect(page)
+      .to have_link('4 exemptions',
+                    href: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
+    expect(page).to have_text('This data in some or all of these variables has an identification risk of 1 or 2.')
+    expect(page).to have_text('As a researcher, this data is only available if you meet one or more of 4 exemptions following a successful application.')
   end
 
   it 'Shows the link to the "how to access" page when identifiability rating > 1' do
