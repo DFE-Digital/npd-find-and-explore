@@ -30,7 +30,7 @@ module Admin
         return
       end
 
-      if params['file-upload'].content_type != DfEDataTables::EXCEL_CONTENT_TYPE
+      unless DfEDataTables::UPLOAD_CONTENT_TYPES.include?(params['file-upload'].content_type)
         render partial: 'form', layout: false, locals: { success: false, error: 'Wrong format. Please upload an Excel spreadsheet' }
         return
       end
