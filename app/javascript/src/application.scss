@@ -39,8 +39,12 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
   text-align: left;
   padding: 10px !important;
 
-  .govuk-panel__body, h2 {
+  .govuk-panel__body, h2, a {
     color: govuk-colour('white');
+  }
+
+  a {
+    font-weight: bold;
   }
 
   p {
