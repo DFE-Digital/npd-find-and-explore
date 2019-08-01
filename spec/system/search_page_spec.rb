@@ -44,12 +44,12 @@ RSpec.describe 'Search pages', type: :system do
 
   it 'Will find concepts by element' do
     visit '/categories'
-    fill_in('search', with: DataElement.first.source_table_name)
+    fill_in('search', with: DataElement.first.source_attribute_name)
     click_button('Search')
 
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
-    expect(page).to have_text("Results for '#{DataElement.first.source_table_name}'")
+    expect(page).to have_text("Results for '#{DataElement.first.source_attribute_name}'")
     expect(page).to have_text(DataElement.first.concept.category.name.upcase)
     expect(page).to have_text(DataElement.first.concept.description)
   end

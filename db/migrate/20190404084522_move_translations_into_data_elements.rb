@@ -4,9 +4,6 @@ class MoveTranslationsIntoDataElements < ActiveRecord::Migration[5.2]
   def up
     add_column :data_elements, :description_en, :text
     add_column :data_elements, :description_cy, :text
-
-    PgSearch::Multisearch.rebuild(Concept)
-    PgSearch::Multisearch.rebuild(Category)
   end
 
   def down
