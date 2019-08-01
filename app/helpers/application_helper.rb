@@ -36,6 +36,12 @@ module ApplicationHelper
     result.name
   end
 
+  def searchable_description(result)
+    return result.description if result.respond_to?(:category)
+
+    result.description || result.placeholder_description
+  end
+
   def sort_options
     [
       ['Recently added', 'published'],
