@@ -47,7 +47,7 @@ en:
       not-available:
         title: This data item is not available for research purposes
         link: 4 exemptions
-        content: This data in some or all of these variables has an <strong>identification risk of 1 or 2</strong>. As a researcher, this data is only available if you meet one or more of %{link} following a successful application.
+        content: The data in some or all of these variables has an <strong>identification risk of 1 or 2</strong>. As a researcher, this data is only available if you meet one or more of %{link} following a successful application.
       sensitivity:
         label: Sensitivity
         tooltip: Data is given a sensitivity scale. Items are rated from A to E with A being highly sensitive and E being low.

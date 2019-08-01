@@ -37,7 +37,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page)
       .to have_link('4 exemptions',
                     href: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
-    expect(page).to have_text('This data in some or all of these variables has an identification risk of 1 or 2.')
+    expect(page).to have_text('The data in some or all of these variables has an identification risk of 1 or 2.')
     expect(page).to have_text('As a researcher, this data is only available if you meet one or more of 4 exemptions following a successful application.')
   end
 
@@ -50,7 +50,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page)
       .to have_link('4 exemptions',
                     href: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
-    expect(page).to have_text('This data in some or all of these variables has an identification risk of 1 or 2.')
+    expect(page).to have_text('The data in some or all of these variables has an identification risk of 1 or 2.')
     expect(page).to have_text('As a researcher, this data is only available if you meet one or more of 4 exemptions following a successful application.')
   end
 
