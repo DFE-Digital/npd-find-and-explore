@@ -36,16 +36,14 @@ class Concept < ApplicationRecord
         searchable_name, searchable_created_at, searchable_updated_at, created_at, updated_at)
       SELECT 'Concept' AS searchable_type,
       concepts.id AS searchable_id,
-      to_tsvector('english', string_agg(
-       concat_ws(' ', concept_translations.name, concept_translations.description,
-         data_elements.description_en, data_elements.source_table_name,
-         data_elements.source_attribute_name, data_elements.additional_attributes,
-         array_to_string(data_elements.source_old_attribute_name, ' '),
-         data_elements.academic_year_collected_from,
-         data_elements.academic_year_collected_to,
-         array_to_string(data_elements.collection_terms, ' '),
-         data_elements.values),
-      ' ')) AS content,
+      setweight(to_tsvector(string_agg(concept_translations.name, ' ')), 'A') ||
+      setweight(to_tsvector(string_agg(concept_translations.description, ' ')), 'B') ||
+      setweight(to_tsvector(string_agg(concat_ws(data_elements.source_table_name, data_elements.source_attribute_name), ' ')), 'C') ||
+      setweight(to_tsvector(string_agg(concat_ws(data_elements.description_en, data_elements.description_cy), ' ')), 'D') ||
+      setweight(to_tsvector(string_agg(data_elements.npd_alias, ' ')), 'D') ||
+      setweight(to_tsvector(string_agg(array_to_string(data_elements.source_old_attribute_name, ' '), ' ')), 'D') ||
+      setweight(to_tsvector(string_agg(data_elements.data_type, ' ')), 'D')
+      AS content,
       MIN(concept_translations.name) AS searchable_name,
       MIN(concepts.created_at) AS searchable_created_at,
       MIN(concepts.updated_at) AS searchable_updated_at,
