@@ -1,0 +1,42 @@
+.variable-description {
+  background: govuk-colour('grey-4');
+  border-bottom: 1px solid $govuk-border-colour;
+  padding: 1em .5em;
+}
+
+@include govuk-media-query($until: tablet) {
+  table thead {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  table tr {
+    display: block;
+  }
+
+  table td,
+  table th {
+    border-bottom: 1px solid govuk-colour('grey-3');
+    display: block;
+    min-height: 1.2em;
+    text-align: right;
+  }
+
+  table td::before {
+    content: attr(data-label);
+    float: left;
+  }
+
+  .variable-description {
+    border-bottom: 0;
+    margin: 0;
+    margin-bottom: 2em !important;
+    text-align: left;
+  }
+}
