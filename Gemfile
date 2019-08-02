@@ -62,7 +62,7 @@ gem 'kaminari', '~>1.1'
 # Bulk import
 gem 'activerecord-import', '~>1'
 
-gem "azure-storage", require: false
+gem 'azure-storage', require: false
 
 group :development, :test do
   gem 'dotenv-rails', '~> 2.6'

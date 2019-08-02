@@ -11,7 +11,7 @@ class DataTablesController < ApplicationController
   def show
     # Add id parsing when we'll need to let the user download data tables other
     # than the latest
-    @data_table = DfEDataTable.last
+    @data_table = DfEDataTable.order(created_at: :asc).last
 
     respond_to do |format|
       format.html # show.html.erb
