@@ -1,22 +1,22 @@
 <tr class="govuk-table__row">
-  <th class="govuk-table__header" scope="row">
+  <th data-label="Name" class="govuk-table__header" scope="row">
     <%= data_element_row.title %>
   </th>
-  <td class="govuk-table__cell govuk-table__cell--numeric">
+  <td data-label="Old name" class="govuk-table__cell govuk-table__cell--numeric">
     <%= [data_element_row.source_old_attribute_name].join(', ') %>
   </td>
-  <td class="govuk-table__cell govuk-table__cell--numeric">
+  <td data-label="Date collected" class="govuk-table__cell govuk-table__cell--numeric">
     <%= academic_year(data_element_row.academic_year_collected_from) %>
     to
     <%= academic_year(data_element_row.academic_year_collected_to) %>
   </td>
-  <td class="govuk-table__cell govuk-table__cell--numeric">
+  <td data-label="Sensitivity" class="govuk-table__cell govuk-table__cell--numeric">
     <%= data_element_row&.sensitivity %>
   </td>
-  <td class="govuk-table__cell govuk-table__cell--numeric">
+  <td data-label="Identification risk" class="govuk-table__cell govuk-table__cell--numeric">
     <%= data_element_row&.identifiability %>
   </td>
-  <td class="govuk-table__cell govuk-table__cell--numeric">
+  <td data-label="Value" class="govuk-table__cell govuk-table__cell--numeric">
     <%- if /\n/ =~ data_element_row.values %>
       <div class="overlay-parent">
         <a href="#" class="codeset" aria-describedby="codeset-<%= data_element_row.title.downcase %>" title="Codeset for <%= data_element_row.title %>">
@@ -40,7 +40,9 @@
   </td>
 </tr>
 <tr class="govuk-table__row">
-  <td class="govuk-table__cell govuk-background__gray-4 govuk-!-font-size-14" colspan="6">
-    <%= data_element_row.description %>
+  <td class="govuk-table__cell" colspan="6">
+    <p class="variable-description govuk-background__gray-4 govuk-!-font-size-14 govuk-!-margin-bottom-0">
+      <%= data_element_row.description %>
+    </p>
   </td>
 </tr>
