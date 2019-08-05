@@ -22,6 +22,7 @@
       <%= render 'layouts/admin/government_header' %>
     </div>
     <div class="govuk-width-container">
+      <%= render 'shared/staging' unless Rails.env.production? %>
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-quarter">
           <%= render 'layouts/admin/navigation' %>
