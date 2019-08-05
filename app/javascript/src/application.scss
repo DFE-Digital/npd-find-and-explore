@@ -122,3 +122,11 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
     width: 1px;
   }
 }
+
+.staging-warning {
+  background-color: $govuk-focus-colour;
+  border: 1px solid $govuk-input-border-colour;
+  margin-top: .5rem;
+  padding: .5rem;
+  text-align: center;
+}

@@ -46,6 +46,7 @@
 
   <div class="govuk-width-container">
     <%= render "shared/phase_banner" %>
+    <%= render 'shared/staging' unless Rails.env.production? %>
     <%= render "shared/breadcrumbs" %>
 
     <main class="govuk-main-wrapper " id="main-content" role="main">
