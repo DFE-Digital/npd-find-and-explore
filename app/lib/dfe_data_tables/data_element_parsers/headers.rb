@@ -21,7 +21,7 @@ module DfEDataTables
         field_reference: /(Field Reference|FieldReference|NPD Field Reference)/i,
         old_alias: /(OldAlias|Old Alias)/,
         former_name: /FormerName/,
-        years_populated: /Years Populated/,
+        years_populated: /Years Populated/i,
         description: /Description/,
         values: /(Values|Allowed Values)/,
         source: /Source/,
