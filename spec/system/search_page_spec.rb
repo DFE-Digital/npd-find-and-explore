@@ -19,15 +19,16 @@ RSpec.describe 'Search pages', type: :system do
   end
 
   it 'Will not find categories' do
+    category = Category.first.root.children.first
     visit '/categories'
-    fill_in('search', with: Category.first.name)
+    fill_in('search', with: category.name)
     click_button('Search')
 
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
-    expect(page).to have_text("Results for '#{Category.first.name}'")
-    expect(page).not_to have_text(Category.first.parent&.name&.upcase)
-    expect(page).not_to have_text(Category.first.description)
+    expect(page).to have_text("Results for '#{category.name}'")
+    expect(page).not_to have_text(category.parent&.name&.upcase)
+    expect(page).not_to have_text(category.description)
   end
 
   it 'Will find concepts' do
