@@ -14,7 +14,9 @@ class SearchController < ApplicationController
 private
 
   def search
-    PgSearch.multisearch(search_params[:search]).includes(searchable: %i[translations])
+    PgSearch.multisearch(search_params[:search])
+            .where(searchable_type: 'Concept')
+            .includes(searchable: %i[translations])
   end
 
   def sorted_search
