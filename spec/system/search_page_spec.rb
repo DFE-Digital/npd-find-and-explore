@@ -18,7 +18,7 @@ RSpec.describe 'Search pages', type: :system do
     expect(page).to have_field('search')
   end
 
-  it 'Will find categories' do
+  it 'Will not find categories' do
     visit '/categories'
     fill_in('search', with: Category.first.name)
     click_button('Search')
@@ -26,8 +26,8 @@ RSpec.describe 'Search pages', type: :system do
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
     expect(page).to have_text("Results for '#{Category.first.name}'")
-    expect(page).to have_text(Category.first.parent&.name&.upcase)
-    expect(page).to have_text(Category.first.description)
+    expect(page).not_to have_text(Category.first.parent&.name&.upcase)
+    expect(page).not_to have_text(Category.first.description)
   end
 
   it 'Will find concepts' do
