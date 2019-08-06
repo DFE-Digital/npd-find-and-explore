@@ -1,5 +1,4 @@
 var timeoutId;
-console.log('Do we even get here?');
 
 function startTimer() {
   // window.setTimeout returns an Id that can be used to start and stop a timer

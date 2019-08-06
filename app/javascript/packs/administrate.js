@@ -6,6 +6,7 @@
 require('@rails/ujs').start()
 require('@rails/activestorage').start()
 require('jquery')
+tail = { select: require('tail.select') }
 
 require('../src/administrate')
 require('../src/timeout')
