@@ -82,6 +82,19 @@ module Admin
       render partial: 'import_form', layout: false, locals: { success: false, error: 'There has been an error while processing your file' }
     end
 
+    def reindex
+      render :reindex, layout: 'admin/application', locals: { success: nil, error: '' }
+    end
+
+    def do_reindex
+      PgSearch::Multisearch.rebuild(Category)
+
+      render :reindex, layout: 'admin/application', locals: { success: true, error: '' }
+    rescue StandardError => error
+      Rails.logger.error(error)
+      render :reindex, layout: 'admin/application', locals: { success: false, error: 'There has been an error while reindexing the categories' }
+    end
+
   private
 
     def update_tree(tree_nodes, parent_node = nil)

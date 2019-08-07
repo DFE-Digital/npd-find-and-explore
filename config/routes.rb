@@ -17,8 +17,14 @@ Rails.application.routes.draw do
       post :sort
       get  :import
       post :import, to: 'categories#do_import'
+      get  :reindex
+      post :reindex, to: 'categories#do_reindex'
     end
     resources :categories
+    resource :concepts, only: [] do
+      get  :reindex
+      post :reindex, to: 'concepts#do_reindex'
+    end
     resources :concepts
     resource :data_elements, only: [] do
       get  :import

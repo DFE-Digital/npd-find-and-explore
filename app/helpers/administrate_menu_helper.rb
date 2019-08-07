@@ -38,6 +38,24 @@ private
           controller: 'admin/categories',
           action: :import
         }
+      },
+      {
+        name: 'Reindex Categories for search',
+        url_params: %i[reindex admin categories],
+        conditions: {
+          controller: 'admin/categories',
+          action: :reindex
+        }
+      }
+    ],
+    concepts: [
+      {
+        name: 'Reindex Concepts for search',
+        url_params: %i[reindex admin concepts],
+        conditions: {
+          controller: 'admin/concepts',
+          action: :reindex
+        }
       }
     ],
     data_elements: [
