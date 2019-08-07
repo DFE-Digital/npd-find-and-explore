@@ -28,8 +28,8 @@ class Category < ApplicationRecord
         searchable_name, searchable_created_at, searchable_updated_at, created_at, updated_at)
       SELECT 'Category' AS searchable_type,
       categories.id AS searchable_id,
-      setweight(to_tsvector(string_agg(category_translations.name, ' ')), 'A') ||
-      setweight(to_tsvector(string_agg(category_translations.description, ' ')), 'B')
+      setweight(to_tsvector(coalesce(string_agg(category_translations.name, ' '), '')), 'A') ||
+      setweight(to_tsvector(coalesce(string_agg(category_translations.description, ' '), '')), 'B')
       AS content,
       MIN(category_translations.name) AS searchable_name,
       MIN(categories.created_at) AS searchable_created_at,
