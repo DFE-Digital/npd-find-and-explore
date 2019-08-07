@@ -130,3 +130,9 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
   padding: .5rem;
   text-align: center;
 }
+
+.govuk-border-box {
+  border: 1px solid $govuk-input-border-colour;
+  margin: .5rem;
+  padding: .5rem;
+}

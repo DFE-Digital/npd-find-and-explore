@@ -21,6 +21,7 @@ module Admin
     # for more information
 
     def import
+      @last_import = DfEDataTable.order(created_at: :asc).last
       render :import, layout: 'admin/application', locals: { success: nil, error: '' }
     end
 
