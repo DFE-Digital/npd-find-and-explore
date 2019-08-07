@@ -25,7 +25,7 @@ module Admin
         resources: resources,
         search_term: search_term,
         page: page,
-        show_search_bar: show_search_bar?,
+        show_search_bar: show_search_bar?
       }
     end
 
@@ -108,12 +108,13 @@ module Admin
     end
 
     def find_resources(search_term = nil)
-      return Category.all if search_term.blank?
+      return Category.all.order(:name) if search_term.blank?
 
       Category.where(id: PgSearch.multisearch(search_term)
                                  .where(searchable_type: 'Category')
                                  .pluck(:searchable_id))
               .includes(:translations, concepts: :translations)
+              .order(:name)
     end
 
     def generate_breadcrumbs
