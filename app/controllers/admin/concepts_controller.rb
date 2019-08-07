@@ -36,6 +36,19 @@ module Admin
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
 
+    def reindex
+      render :reindex, layout: 'admin/application', locals: { success: nil, error: '' }
+    end
+
+    def do_reindex
+      PgSearch::Multisearch.rebuild(Concept)
+
+      render :reindex, layout: 'admin/application', locals: { success: true, error: '' }
+    rescue StandardError => error
+      Rails.logger.error(error)
+      render :reindex, layout: 'admin/application', locals: { success: false, error: 'There has been an error while reindexing the concepts' }
+    end
+
   private
 
     def find_resources(search_term = nil)
