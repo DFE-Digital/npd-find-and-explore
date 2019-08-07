@@ -27,11 +27,13 @@ module Admin
 
     def do_import
       if params['file-upload'].blank?
+        @last_import = DfEDataTable.order(created_at: :asc).last
         render partial: 'form', layout: false, locals: { success: false, error: 'Please upload a file' }
         return
       end
 
       unless DfEDataTables::UPLOAD_CONTENT_TYPES.include?(params['file-upload'].content_type)
+        @last_import = DfEDataTable.order(created_at: :asc).last
         render partial: 'form', layout: false, locals: { success: false, error: 'Wrong format. Please upload an Excel spreadsheet' }
         return
       end
@@ -41,9 +43,13 @@ module Admin
                           file_name: params['file-upload'].original_filename,
                           data_table: params['file-upload'])
 
+      @last_import = DfEDataTable.order(created_at: :asc).last
+
       render partial: 'form', layout: false, locals: { success: true, error: '' }
     rescue StandardError => error
       Rails.logger.error(error)
+      @last_import = DfEDataTable.order(created_at: :asc).last
+
       render partial: 'form', layout: false, locals: { success: false, error: 'There has been an error while processing your file' }
     end
   end

@@ -19,6 +19,12 @@ RSpec.describe 'Data Elements Import', type: :system do
     click_on('Log in')
   end
 
+  it 'Will not show the previously uploaded file if there is none' do
+    visit 'admin/data_elements/import'
+
+    expect(page).not_to have_text('Last Upload Name')
+  end
+
   it 'Will error if no file uploaded' do
     visit 'admin/data_elements/import'
     click_on('Upload')
@@ -40,5 +46,6 @@ RSpec.describe 'Data Elements Import', type: :system do
     click_on('Upload')
 
     expect(page).to have_text('The file was processed and uploaded successfully', wait: 5)
+    expect(page).to have_text('Last Upload Name')
   end
 end

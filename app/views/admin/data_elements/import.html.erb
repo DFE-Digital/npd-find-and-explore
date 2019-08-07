@@ -17,7 +17,7 @@
     var data = detail[0], status = detail[1], xhr = detail[2]
 
     setTimeout(function() {
-      document.querySelector('#form-group').outerHTML = detail[0]
+      document.querySelector('#upload-file-container').innerHTML = detail[0]
       document.getElementById('submit-upload').removeAttribute('disabled')
     }, 500)
   })
@@ -29,23 +29,6 @@
   </h1>
 </header>
 
-<fieldset class="govuk-fieldset govuk-!-margin-2" aria-describedby="upload-file-hint upload-file-error" role="group">
+<fieldset class="govuk-fieldset govuk-!-margin-2" id="upload-file-container" aria-describedby="upload-file-hint upload-file-error" role="group">
   <%= render partial: 'form', locals: { success: success, error: error } %>
 </fieldset>
-
-<% if @last_import.present? %>
-  <div class="govuk-border-box">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third">Last Upload Name:</div>
-      <div class="govuk-grid-column-two-thirds"><%= @last_import.file_name %></div>
-    </div>
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third">Last Upload Date:</div>
-      <div class="govuk-grid-column-two-thirds"><%= l(@last_import.created_at&.in_time_zone('GB')) %></div>
-    </div>
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third">Last Uploader:</div>
-      <div class="govuk-grid-column-two-thirds"><%= @last_import.admin_user&.email %></div>
-    </div>
-  </div>
-<% end %>
