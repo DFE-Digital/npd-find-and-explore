@@ -1,0 +1,16 @@
+<% if @last_import.present? %>
+  <div class="govuk-border-box">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">Last Upload Name:</div>
+      <div class="govuk-grid-column-two-thirds"><%= @last_import.file_name %></div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">Last Upload Date:</div>
+      <div class="govuk-grid-column-two-thirds"><%= l(@last_import.created_at&.in_time_zone('GB')) %></div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">Last Uploader:</div>
+      <div class="govuk-grid-column-two-thirds"><%= @last_import.admin_user&.email %></div>
+    </div>
+  </div>
+<% end %>

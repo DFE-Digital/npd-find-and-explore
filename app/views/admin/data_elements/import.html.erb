@@ -17,7 +17,7 @@
     var data = detail[0], status = detail[1], xhr = detail[2]
 
     setTimeout(function() {
-      document.querySelector('#form-group').outerHTML = detail[0]
+      document.querySelector('#upload-file-container').innerHTML = detail[0]
       document.getElementById('submit-upload').removeAttribute('disabled')
     }, 500)
   })
@@ -29,6 +29,6 @@
   </h1>
 </header>
 
-<fieldset class="govuk-fieldset govuk-!-margin-2" aria-describedby="upload-file-hint upload-file-error" role="group">
+<fieldset class="govuk-fieldset govuk-!-margin-2" id="upload-file-container" aria-describedby="upload-file-hint upload-file-error" role="group">
   <%= render partial: 'form', locals: { success: success, error: error } %>
 </fieldset>
