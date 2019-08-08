@@ -22,6 +22,10 @@ class Category < ApplicationRecord
 
   multisearchable against: %i[name description]
 
+  def child_categories
+    children.count
+  end
+
   def self.childless
     join_condition = '(regexp_match(children.ancestry, \'[[:alnum:]-]+\Z\')) = regexp_split_to_array(categories.id::"varchar", \'/\')'
     search = arel_table

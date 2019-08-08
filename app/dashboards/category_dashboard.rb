@@ -18,6 +18,7 @@ class CategoryDashboard < Administrate::BaseDashboard
     updated_at: Field::DateTime.with_options(timezone: 'GB'),
     parent: BreadcrumbField.with_options(class_name: 'Category'),
     children: Field::HasMany.with_options(class_name: 'Category'),
+    child_categories: Field::Number,
     position: Field::Number,
     versions: Field::HasMany.with_options(class_name: 'PaperTrail::Version')
   }.freeze
@@ -31,7 +32,7 @@ class CategoryDashboard < Administrate::BaseDashboard
     name
     description
     concepts
-    children
+    child_categories
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
