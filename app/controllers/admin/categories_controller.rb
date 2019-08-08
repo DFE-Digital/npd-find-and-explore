@@ -13,7 +13,7 @@ module Admin
     def index
       search_term = params[:search].to_s.strip
       resources = find_resources(search_term)
-      resources = apply_resource_includes(resources)
+      # resources = apply_resource_includes(resources)
       # TODO: From the next version of Administrate it may be necessary to
       # remove the above line and uncomment the following
       # resources = apply_collection_includes(resources)
@@ -36,6 +36,18 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
+
+    def childless
+      resources = Category.childless
+      resources = order.apply(resources)
+      resources = resources.page(params[:page]).per(records_per_page)
+      page = Administrate::Page::Collection.new(dashboard, order: order)
+
+      render locals: {
+        resources: resources,
+        page: page
+      }
+    end
 
     def tree
       @categories = Category.includes(:translations).arrange(order: :position)

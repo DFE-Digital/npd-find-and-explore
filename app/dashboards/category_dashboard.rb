@@ -31,6 +31,7 @@ class CategoryDashboard < Administrate::BaseDashboard
     name
     description
     concepts
+    children
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
