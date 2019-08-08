@@ -36,6 +36,18 @@ module Admin
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
 
+    def childless
+      resources = Concept.childless
+      resources = order.apply(resources)
+      resources = resources.page(params[:page]).per(records_per_page)
+      page = Administrate::Page::Collection.new(dashboard, order: order)
+
+      render locals: {
+        resources: resources,
+        page: page
+      }
+    end
+
     def reindex
       render :reindex, layout: 'admin/application', locals: { success: nil, error: '' }
     end

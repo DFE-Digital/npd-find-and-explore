@@ -30,6 +30,15 @@ class Concept < ApplicationRecord
     types.length == 1 ? types.first : 'Multiple'
   end
 
+  def self.childless
+    search = arel_table
+             .project('concepts.id AS id, COUNT(data_elements) AS data_elements_count')
+             .join(DataElement.arel_table, Arel::Nodes::OuterJoin).on('data_elements.concept_id = concepts.id')
+             .group('concepts.id')
+
+    where("concepts.id IN (SELECT id FROM (#{search.to_sql}) AS search WHERE search.data_elements_count = 0)")
+  end
+
   def self.rebuild_pg_search_documents
     connection.execute <<-SQL
       INSERT INTO pg_search_documents (searchable_type, searchable_id, content,

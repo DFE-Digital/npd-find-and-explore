@@ -58,6 +58,14 @@ private
     ],
     concepts: [
       {
+        name: 'Childless Concepts',
+        url_params: %i[childless admin concepts],
+        conditions: {
+          controller: 'admin/concepts',
+          action: :childless
+        }
+      },
+      {
         name: 'Reindex Concepts for search',
         url_params: %i[reindex admin concepts],
         conditions: {

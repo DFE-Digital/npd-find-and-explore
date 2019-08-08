@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     end
     resources :categories
     resource :concepts, only: [] do
+      get  :childless
       get  :reindex
       post :reindex, to: 'concepts#do_reindex'
     end
