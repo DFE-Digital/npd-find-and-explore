@@ -22,6 +22,17 @@ class Category < ApplicationRecord
 
   multisearchable against: %i[name description]
 
+  def self.childless
+    join_condition = '(regexp_match(children.ancestry, \'[[:alnum:]-]+\Z\')) = regexp_split_to_array(categories.id::"varchar", \'/\')'
+    search = arel_table
+             .project('categories.id AS id, COUNT(children.id) AS children_count, COUNT(concepts) AS concepts_count')
+             .join(arel_table.alias(Arel.sql('children')), Arel::Nodes::OuterJoin).on(join_condition)
+             .join(Concept.arel_table, Arel::Nodes::OuterJoin).on('concepts.category_id = categories.id')
+             .group('categories.id')
+
+    where("categories.id IN (SELECT id FROM (#{search.to_sql}) AS search WHERE search.children_count = 0 AND search.concepts_count = 0)")
+  end
+
   def self.rebuild_pg_search_documents
     connection.execute <<-SQL
       INSERT INTO pg_search_documents (searchable_type, searchable_id, content,

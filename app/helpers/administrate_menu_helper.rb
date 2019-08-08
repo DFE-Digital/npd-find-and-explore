@@ -24,6 +24,14 @@ private
   SECONDARY_LINKS = {
     categories: [
       {
+        name: 'Childless Categories',
+        url_params: %i[childless admin categories],
+        conditions: {
+          controller: 'admin/categories',
+          action: :childless
+        }
+      },
+      {
         name: 'Sort Categories',
         url_params: %i[tree admin categories],
         conditions: {
@@ -82,7 +90,7 @@ private
 
   def active(conditions, params)
     return :active if params[:controller].to_s == conditions[:controller].to_s &&
-      params[:action].to_s == conditions[:action].to_s
+                      params[:action].to_s == conditions[:action].to_s
 
     :inactive
   end

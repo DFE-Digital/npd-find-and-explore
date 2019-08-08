@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resource :categories, only: [] do
+      get  :childless
       get  :tree
       post :sort
       get  :import
