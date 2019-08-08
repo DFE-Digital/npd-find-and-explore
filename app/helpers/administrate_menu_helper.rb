@@ -90,7 +90,7 @@ private
 
   def active(conditions, params)
     return :active if params[:controller].to_s == conditions[:controller].to_s &&
-                      params[:action].to_s == conditions[:action].to_s
+      params[:action].to_s == conditions[:action].to_s
 
     :inactive
   end
