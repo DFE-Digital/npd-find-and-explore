@@ -13,6 +13,7 @@ class Concept < ApplicationRecord
   has_many :data_elements, dependent: :nullify, inverse_of: :concept
 
   validates :name, uniqueness: { scope: :category }
+  before_destroy :reassign_data_elements, prepend: true
 
   translates :name
   translates :description
@@ -28,6 +29,18 @@ class Concept < ApplicationRecord
     return nil if types.empty?
 
     types.length == 1 ? types.first : 'Multiple'
+  end
+
+  def reassign_data_elements
+    return true if data_elements.count.zero?
+    raise ActiveRecord::NotNullViolation if name == 'No Concept' && data_elements.count.positive?
+
+    no_category = Category.find_or_create_by(name: 'No Category')
+    no_concept = Concept.find_or_create_by(name: 'No Concept', category: no_category)
+    data_elements.each do |data_element|
+      data_element.update(concept: no_concept)
+    end
+    reload
   end
 
   def self.childless

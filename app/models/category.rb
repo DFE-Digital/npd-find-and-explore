@@ -15,15 +15,28 @@ class Category < ApplicationRecord
 
   has_many :concepts, dependent: :destroy, inverse_of: :category
 
+  before_destroy :reassign_concepts, prepend: true
+
   translates :name
   translates :description
 
-  has_ancestry
+  has_ancestry orphan_strategy: :rootify
 
   multisearchable against: %i[name description]
 
   def child_categories
     children.count
+  end
+
+  def reassign_concepts
+    return true if concepts.count.zero?
+    raise ActiveRecord::NotNullViolation if name == 'No Category' && concepts.count.positive?
+
+    no_category = Category.find_or_create_by(name: 'No Category')
+    concepts.each do |concept|
+      concept.update(category: no_category)
+    end
+    reload
   end
 
   def self.childless
