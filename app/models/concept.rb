@@ -33,7 +33,7 @@ class Concept < ApplicationRecord
 
   def reassign_data_elements
     return true if data_elements.count.zero?
-    raise ActiveRecord::NotNullViolation if name == 'No Concept' && data_elements.count.positive?
+    raise(ActiveRecord::NotNullViolation, 'Cannot delete "No Concept" with data elements') if name == 'No Concept' && data_elements.count.positive?
 
     no_category = Category.find_or_create_by(name: 'No Category')
     no_concept = Concept.find_or_create_by(name: 'No Concept', category: no_category)

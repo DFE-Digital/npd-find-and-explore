@@ -16,5 +16,17 @@ module Admin
     # def records_per_page
     #   params[:per_page] || 20
     # end
+
+    def destroy
+      if requested_resource.destroy
+        flash[:notice] = translate_with_resource('destroy.success')
+      else
+        flash[:error] = requested_resource.errors.full_messages.join('<br/>')
+      end
+      redirect_to action: :index
+    rescue ActiveRecord::NotNullViolation => e
+      flash[:error] = e.message
+      redirect_to action: :index
+    end
   end
 end

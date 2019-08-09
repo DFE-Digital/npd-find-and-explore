@@ -30,7 +30,7 @@ class Category < ApplicationRecord
 
   def reassign_concepts
     return true if concepts.count.zero?
-    raise ActiveRecord::NotNullViolation if name == 'No Category' && concepts.count.positive?
+    raise(ActiveRecord::NotNullViolation, 'Cannot delete "No Category" with concepts') if name == 'No Category' && concepts.count.positive?
 
     no_category = Category.find_or_create_by(name: 'No Category')
     concepts.each do |concept|
