@@ -31,6 +31,13 @@ module Admin
         return
       end
 
+      loader.preprocess
+
+      if loader.errors.any?
+        render partial: 'form', layout: false, locals: { success: false, error: loader.errors.join(', ') }
+        return
+      end
+
       load_tables
       render partial: 'form', layout: false, locals: { success: true, error: '' }
     rescue StandardError => error
@@ -51,10 +58,11 @@ module Admin
       nil
     end
 
-    def load_tables
-      loader = DfEDataTables::DataElementsLoader.new(params['file-upload'])
-      loader.preprocess
+    def loader
+      @loader ||= DfEDataTables::DataElementsLoader.new(params['file-upload'])
+    end
 
+    def load_tables
       loader.process
 
       DfEDataTable.create(admin_user: current_admin_user,

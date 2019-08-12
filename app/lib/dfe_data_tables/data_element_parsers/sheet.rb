@@ -8,10 +8,11 @@ module DfEDataTables
     class Sheet
       YEARS_REGEX = /_\d{2}-\d{2}(_to)?_\d{2}-\d{2}(_[A-Z]{3})?/.freeze
 
-      attr_reader :sheet_name, :sheet, :headers
+      attr_reader :sheet_name, :sheet, :headers, :errors
 
       def initialize(table)
         @headers = {}
+        @errors = []
         find_name(table.sheets)
         find_sheet(table)
       end
@@ -48,6 +49,7 @@ module DfEDataTables
           }
         end
         @headers.delete_if { |_k, v| v.blank? }
+        check_headers_for_errors
       end
 
       def map
@@ -99,6 +101,10 @@ module DfEDataTables
 
       def find_sheet(table)
         @sheet = table.sheet_for(sheet_name)
+      end
+
+      def check_headers_for_errors
+        @errors << "Can't find a column with header 'NPD Alias' or 'NPDAlias' for tab '#{sheet_name}'" if @headers.empty?
       end
     end
   end

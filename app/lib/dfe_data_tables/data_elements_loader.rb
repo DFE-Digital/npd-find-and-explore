@@ -29,14 +29,19 @@ module DfEDataTables
       DfEDataTables::DataElementParsers::Ypmad
     ].freeze
 
+    attr_reader :errors
+
     def initialize(data_tables_path)
       @data_tables_workbook = Roo::Spreadsheet.open(data_tables_path)
-
       @sheets_to_process = SHEETS.map { |sheet| sheet.new(@data_tables_workbook) }
+      @errors = []
     end
 
     def preprocess
-      @sheets_to_process.each(&:check_headers)
+      @sheets_to_process.each do |sheet|
+        sheet.check_headers
+        @errors << sheet.errors if sheet.errors.any?
+      end
     end
 
     def process
