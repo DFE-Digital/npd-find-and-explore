@@ -73,5 +73,29 @@ module Admin
 
       render partial: 'form', layout: false, locals: { success: false, error: 'There has been an error while processing your file' }
     end
+
+  private
+
+    def check_input_file
+      @last_import = DfEDataTable.order(created_at: :asc).last
+
+      return 'Please upload a file' if params['file-upload'].blank?
+      return 'Wrong format. Please upload an Excel spreadsheet' unless DfEDataTables::UPLOAD_CONTENT_TYPES.include?(params['file-upload'].content_type)
+
+      nil
+    end
+
+    def load_tables
+      loader = DfEDataTables::DataElementsLoader.new(params['file-upload'])
+      loader.preprocess
+
+      loader.process
+
+      DfEDataTable.create(admin_user: current_admin_user,
+                          file_name: params['file-upload'].original_filename,
+                          data_table: params['file-upload'])
+
+      @last_import = DfEDataTable.order(created_at: :asc).last
+    end
   end
 end
