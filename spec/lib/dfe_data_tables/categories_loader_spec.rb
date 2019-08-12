@@ -11,8 +11,9 @@ RSpec.describe 'DfEDataTables::CategoriesLoader', type: :model do
   end
 
   it 'Will upload the categories' do
-    Category.destroy_all
+    DataElement.destroy_all
     Concept.destroy_all
+    Category.destroy_all
 
     DfEDataTables::CategoriesLoader.new(table_path)
 
