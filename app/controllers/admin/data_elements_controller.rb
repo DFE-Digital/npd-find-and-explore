@@ -26,7 +26,8 @@ module Admin
     end
 
     def do_import
-      if error = check_input_file
+      error = check_input_file
+      if error
         render partial: 'form', layout: false, locals: { success: false, error: error }
         return
       end

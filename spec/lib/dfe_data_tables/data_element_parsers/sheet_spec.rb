@@ -20,7 +20,7 @@ RSpec.describe 'DfEDataTables::DataElementParsers::Sheet', type: :model do
     expect {
       workbook = Roo::Spreadsheet.open(workbook_path)
       DfEDataTables::DataElementParsers::Sheet.new(workbook)
-    }.to perform_under(50).ms.sample(10)
+    }.to perform_under(55).ms.sample(10)
   end
 
   it 'Will peform a lot better (just under 1000ms) if it bulk saves' do
