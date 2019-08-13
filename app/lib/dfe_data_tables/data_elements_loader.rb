@@ -42,6 +42,7 @@ module DfEDataTables
         sheet.check_headers
         @errors << sheet.errors if sheet.errors.any?
       end
+      @errors.any? ? false : true
     end
 
     def process

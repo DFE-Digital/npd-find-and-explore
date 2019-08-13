@@ -26,15 +26,9 @@ module Admin
     end
 
     def do_import
-      error = check_input_file
-      if error
-        render partial: 'form', layout: false, locals: { success: false, error: error }
-        return
-      end
+      check_input_file
 
-      loader.preprocess
-
-      if loader.errors.any?
+      unless loader.preprocess
         render partial: 'form', layout: false, locals: { success: false, error: loader.errors.join(', ') }
         return
       end
@@ -45,7 +39,7 @@ module Admin
       Rails.logger.error(error)
       @last_import = DfEDataTable.order(created_at: :asc).last
 
-      render partial: 'form', layout: false, locals: { success: false, error: 'There has been an error while processing your file' }
+      render partial: 'form', layout: false, locals: { success: false, error: error.message[0, 1000] }
     end
 
   private
@@ -53,8 +47,8 @@ module Admin
     def check_input_file
       @last_import = DfEDataTable.order(created_at: :asc).last
 
-      return 'Please upload a file' if params['file-upload'].blank?
-      return 'Wrong format. Please upload an Excel spreadsheet' unless DfEDataTables::UPLOAD_CONTENT_TYPES.include?(params['file-upload'].content_type)
+      raise(ArgumentError, 'Please upload a file') if params['file-upload'].blank?
+      raise(ArgumentError, 'Wrong format. Please upload an Excel spreadsheet') unless DfEDataTables::check_content_type(params['file-upload'])
 
       nil
     end
