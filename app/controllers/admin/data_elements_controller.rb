@@ -26,26 +26,21 @@ module Admin
     end
 
     def do_import
-      error = check_input_file
-      if error
-        render partial: 'form', layout: false, locals: { success: false, error: error }
-        return
-      end
-
-      loader.preprocess
-
-      if loader.errors.any?
+      @last_import = DfEDataTable.order(created_at: :asc).last
+      check_input_file
+      unless loader.preprocess
         render partial: 'form', layout: false, locals: { success: false, error: loader.errors.join(', ') }
         return
       end
 
       load_tables
       render partial: 'form', layout: false, locals: { success: true, error: '' }
+    rescue ArgumentError => error
+      Rails.logger.error(error)
+      render partial: 'form', layout: false, locals: { success: false, error: error.message }
     rescue StandardError => error
       Rails.logger.error(error)
-      @last_import = DfEDataTable.order(created_at: :asc).last
-
-      render partial: 'form', layout: false, locals: { success: false, error: 'There has been an error while processing your file' }
+      render partial: 'form', layout: false, locals: { success: false, error: 'An error occourred while uploading the data tables' }
     end
 
   private
@@ -53,8 +48,8 @@ module Admin
     def check_input_file
       @last_import = DfEDataTable.order(created_at: :asc).last
 
-      return 'Please upload a file' if params['file-upload'].blank?
-      return 'Wrong format. Please upload an Excel spreadsheet' unless DfEDataTables::UPLOAD_CONTENT_TYPES.include?(params['file-upload'].content_type)
+      raise(ArgumentError, 'Please upload a file') if params['file-upload'].blank?
+      raise(ArgumentError, 'Wrong format. Please upload an Excel spreadsheet') unless DfEDataTables.check_content_type(params['file-upload'])
 
       nil
     end
