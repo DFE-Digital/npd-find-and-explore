@@ -8,9 +8,10 @@ module DfEDataTables
     class Sheet
       YEARS_REGEX = /_\d{2}-\d{2}(_to)?_\d{2}-\d{2}(_[A-Z]{3})?/.freeze
 
-      attr_reader :sheet_name, :sheet, :headers, :errors
+      attr_reader :sheet_name, :sheet, :labels, :headers, :errors
 
       def initialize(table)
+        @labels = nil
         @headers = {}
         @errors = []
         find_name(table.sheets)
@@ -18,35 +19,8 @@ module DfEDataTables
       end
 
       def check_headers
-        table_name = nil
-        headers = nil
-        header_row_no = nil
-
         (1..sheet.last_row).map do |idx|
-          row = sheet.row(idx)
-
-          if row[0].nil?
-            header_row_no = nil
-            table_name = nil
-            next
-          end
-
-          if headers_regex.match?(row[0])
-            header_row_no = idx
-            table_name = sheet_name
-            headers = Headers.new(row)
-            @headers[header_row_no] = { table: table_name, headers: headers }
-            next
-          end
-
-          next unless first_row_regex.match?(row[0])
-
-          @headers[header_row_no] = nil if header_row_no
-          header_row_no = idx
-          @headers[header_row_no] = {
-            table: row[0].gsub(/table/i, '').strip.gsub(/[^\w]/, '_').gsub(/_+$/, ''),
-            headers: headers
-          }
+          extract_header_row(idx)
         end
         @headers.delete_if { |_k, v| v.blank? }
         check_headers_for_errors
@@ -55,30 +29,26 @@ module DfEDataTables
       def map
         return [] if @headers.blank?
 
-        headers_idx = @headers.keys
+        headers_idx = [@headers.keys, sheet.last_row + 1].flatten
         headers = nil
         table_name = nil
 
-        rows = (headers_idx.first..sheet.last_row).map do |idx|
-          if headers_idx.include?(idx)
-            headers = @headers[idx][:headers]
-            table_name = @headers[idx][:table]
-            next
+        rows = @headers.keys.each_with_index.map do |key, idx|
+          headers = @headers[key][:headers]
+          table_name = @headers[key][:table]
+
+          ((key + 1)...headers_idx[idx + 1]).map do |row_idx|
+            row = sheet.row(row_idx)
+
+            next if row[0].nil? || headers_regex =~ row[0] || headers.nil? || table_name.nil?
+
+            element = Row.new(table_name, headers, row).process
+            next if element.nil?
+
+            block_given? ? yield(element) : element
           end
-
-          row = sheet.row(idx)
-
-          if row[0].nil? || headers.nil? || table_name.nil?
-            headers = nil
-            table_name = nil
-          end
-
-          element = Row.new(table_name, headers, row).process
-          next if element.nil?
-
-          block_given? ? yield(element) : element
         end
-        rows.compact
+        rows.flatten.compact
       end
 
     private
@@ -88,7 +58,7 @@ module DfEDataTables
       end
 
       def headers_regex
-        /(NPDAlias|NPD Alias)/
+        /(NPDAlias|NPD Alias)/i
       end
 
       def first_row_regex
@@ -101,6 +71,20 @@ module DfEDataTables
 
       def find_sheet(table)
         @sheet = table.sheet_for(sheet_name)
+      end
+
+      def extract_header_row(idx)
+        row = sheet.row(idx)
+        if headers_regex.match?(row[0])
+          @labels = Headers.new(row)
+          @headers[idx] = { table: sheet_name, headers: @labels }
+          return
+        end
+
+        return unless first_row_regex.match?(row[0])
+
+        @headers[idx] = @headers.delete(idx - 1) || { headers: @labels }
+        @headers[idx][:table] = row[0].gsub(/table/i, '').strip.gsub(/[^\w]/, '_').gsub(/_+$/, '')
       end
 
       def check_headers_for_errors
