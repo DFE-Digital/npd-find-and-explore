@@ -6,7 +6,7 @@ module DfEDataTables
     private
 
       def regex
-        /NCCIS#{YEARS_REGEX}/
+        /^NCCIS/i
       end
     end
   end

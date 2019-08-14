@@ -6,7 +6,7 @@ module DfEDataTables
     private
 
       def regex
-        /PRU_Census#{YEARS_REGEX}/
+        /^(PRU_Census|PRU Census|PRUCensus)/i
       end
     end
   end

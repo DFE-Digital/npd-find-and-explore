@@ -6,7 +6,7 @@ module DfEDataTables
     private
 
       def regex
-        /Exclusions_\d{2}-\d{2}_to_04-05/
+        /^Exclusions_\d{2}-\d{2}_to_04-05/i
       end
     end
   end

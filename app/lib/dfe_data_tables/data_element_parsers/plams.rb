@@ -6,7 +6,7 @@ module DfEDataTables
     private
 
       def regex
-        /PLAMS#{YEARS_REGEX}/
+        /^PLAMS/i
       end
     end
   end

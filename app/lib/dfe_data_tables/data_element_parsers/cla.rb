@@ -6,7 +6,7 @@ module DfEDataTables
     private
 
       def regex
-        /CLA#{YEARS_REGEX}/
+        /^CLA/i
       end
     end
   end

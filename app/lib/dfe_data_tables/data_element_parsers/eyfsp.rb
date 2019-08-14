@@ -6,7 +6,7 @@ module DfEDataTables
     private
 
       def regex
-        /EYFSP#{YEARS_REGEX}/
+        /^EYFSP/i
       end
     end
   end

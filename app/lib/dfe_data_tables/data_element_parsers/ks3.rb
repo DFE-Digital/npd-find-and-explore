@@ -6,7 +6,7 @@ module DfEDataTables
     private
 
       def regex
-        /KS3#{YEARS_REGEX}/
+        /^KS3/i
       end
 
       def first_row_regex

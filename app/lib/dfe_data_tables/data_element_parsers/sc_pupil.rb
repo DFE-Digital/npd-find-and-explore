@@ -6,7 +6,7 @@ module DfEDataTables
     private
 
       def regex
-        /SC_Pupil#{YEARS_REGEX}/
+        /^(SC_Pupil|SC Pupil|SCPupil)/i
       end
     end
   end

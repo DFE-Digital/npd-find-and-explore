@@ -6,7 +6,7 @@ module DfEDataTables
     private
 
       def regex
-        /CIN#{YEARS_REGEX}/
+        /^CIN/i
       end
 
       def first_row_regex

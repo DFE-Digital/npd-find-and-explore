@@ -6,7 +6,7 @@ module DfEDataTables
     private
 
       def regex
-        /YPMAD \d{2}-\d{2}/
+        /^YPMAD/i
       end
 
       def first_row_regex

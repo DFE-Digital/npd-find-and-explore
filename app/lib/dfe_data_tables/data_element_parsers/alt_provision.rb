@@ -6,7 +6,7 @@ module DfEDataTables
     private
 
       def regex
-        /Alt_Provision#{YEARS_REGEX}/
+        /^(Alt_Provision|Alt Provision|AltProvision)/i
       end
     end
   end

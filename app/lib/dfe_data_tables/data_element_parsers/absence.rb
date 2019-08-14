@@ -6,7 +6,7 @@ module DfEDataTables
     private
 
       def regex
-        /Absence#{YEARS_REGEX}/
+        /^Absence/i
       end
     end
   end

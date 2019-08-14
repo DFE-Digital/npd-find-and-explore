@@ -6,7 +6,7 @@ module DfEDataTables
     private
 
       def regex
-        /AP addresses_\d{2}_\d{2}/
+        /^(AP_Addresses|AP Addresses|APAddresses)/i
       end
     end
   end
