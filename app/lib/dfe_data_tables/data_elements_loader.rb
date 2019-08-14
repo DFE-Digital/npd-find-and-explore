@@ -29,43 +29,60 @@ module DfEDataTables
       DfEDataTables::DataElementParsers::Ypmad
     ].freeze
 
+    attr_reader :errors
+
     def initialize(data_tables_path)
-      data_tables_workbook = Roo::Spreadsheet.open(data_tables_path)
-
-      @sheets_to_process = SHEETS.map { |sheet| sheet.new(data_tables_workbook) }
-
-      process
-
-      data_tables_workbook.close
+      @data_tables_workbook = Roo::Spreadsheet.open(data_tables_path)
+      @sheets_to_process = SHEETS.map { |sheet| sheet.new(@data_tables_workbook) }
+      @errors = []
     end
 
-  private
+    def preprocess
+      @sheets_to_process.each do |sheet|
+        sheet.check_headers
+        @errors << sheet.errors if sheet.errors.any?
+      end
+      @errors.any? ? false : true
+    end
 
     def process
+      sheet_name = nil
       # For each worksheet
       @sheets_to_process.each do |sheet_parser|
-        Rails.logger.debug "Uploading #{sheet_parser.sheet_name}"
+        sheet_name = sheet_parser.sheet_name
+        Rails.logger.info "Uploading #{sheet_parser.sheet_name}"
 
         elements = sheet_parser.map { |element| element.merge(concept_id: concept.id) }
                                .uniq { |element| element.dig(:npd_alias) }
 
-        DataElement.import(
-          elements,
-          on_duplicate_key_update: {
-            conflict_target: %i[npd_alias],
-            columns: %i[source_table_name source_attribute_name
-                        additional_attributes identifiability sensitivity
-                        source_old_attribute_name academic_year_collected_from
-                        academic_year_collected_to collection_terms values
-                        description_en description_cy data_type educational_phase
-                        updated_at]
-          }
-        )
+        import_elements(elements)
 
         Rails.logger.info "Uploaded #{sheet_parser.sheet_name}"
       end
 
+      @data_tables_workbook.close
       true
+    rescue StandardError
+      Rails.logger.error "An error happened while uploading #{sheet_name}"
+      @data_tables_workbook.close
+    end
+
+  private
+
+    COLUMNS = %i[source_table_name source_attribute_name additional_attributes
+                 identifiability sensitivity source_old_attribute_name
+                 academic_year_collected_from academic_year_collected_to
+                 collection_terms values description_en description_cy data_type
+                 educational_phase updated_at].freeze
+
+    def import_elements(elements)
+      DataElement.import(
+        elements,
+        on_duplicate_key_update: {
+          conflict_target: %i[npd_alias],
+          columns: COLUMNS
+        }
+      )
     end
 
     def concept
