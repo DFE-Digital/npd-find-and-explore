@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_01_125201) do
+ActiveRecord::Schema.define(version: 2019_08_14_153736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -122,6 +122,26 @@ ActiveRecord::Schema.define(version: 2019_08_01_125201) do
     t.index ["npd_alias"], name: "index_data_elements_on_npd_alias", unique: true
   end
 
+  create_table "data_table_tabs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "data_table_upload_id"
+    t.string "tab_name"
+    t.json "headers"
+    t.json "errors"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["data_table_upload_id"], name: "index_data_table_tabs_on_data_table_upload_id"
+  end
+
+  create_table "data_table_uploads", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "file_name"
+    t.uuid "admin_user_id"
+    t.json "errors"
+    t.json "warnings"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_user_id"], name: "index_data_table_uploads_on_admin_user_id"
+  end
+
   create_table "dfe_data_tables", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "file_name"
     t.uuid "admin_user_id"
@@ -159,5 +179,7 @@ ActiveRecord::Schema.define(version: 2019_08_01_125201) do
   add_foreign_key "concept_translations", "concepts", on_delete: :cascade
   add_foreign_key "concepts", "categories", on_delete: :nullify
   add_foreign_key "data_elements", "concepts", on_delete: :nullify
+  add_foreign_key "data_table_tabs", "data_table_uploads"
+  add_foreign_key "data_table_uploads", "admin_users"
   add_foreign_key "dfe_data_tables", "admin_users"
 end
