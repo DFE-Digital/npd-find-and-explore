@@ -4,6 +4,9 @@ require 'rails_helper'
 
 RSpec.describe Concept, type: :model do
   before do
+    DataElement.destroy_all
+    Concept.destroy_all
+    Category.destroy_all
     create_list(:category, 1, :with_concepts_and_data_elements)
   end
 
