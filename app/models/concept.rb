@@ -21,7 +21,7 @@ class Concept < ApplicationRecord
   multisearchable against: %i[name description]
 
   def placeholder_description
-    data_elements&.max { |a, b| a&.description&.length <=> b&.description&.length }&.description
+    data_elements&.max { |a, b| (a&.description&.length || 0) <=> (b&.description&.length || 0) }&.description
   end
 
   def data_type
