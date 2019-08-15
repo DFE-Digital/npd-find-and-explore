@@ -58,7 +58,7 @@ module Admin
       @last_import = DfEDataTable.order(created_at: :asc).last
 
       raise(ArgumentError, 'Please upload a file') if params['file-upload'].blank?
-      raise(ArgumentError, 'Wrong format. Please upload an Excel spreadsheet') unless DfEDataTables.check_content_type(params['file-upload'])
+      raise(ArgumentError, 'Wrong format. Please upload an Excel spreadsheet') unless DataTable.check_content_type(params['file-upload'])
 
       nil
     end

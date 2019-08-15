@@ -77,7 +77,7 @@ module Admin
     end
 
     def do_import
-      if params['file-upload'].content_type != DfEDataTables::EXCEL_CONTENT_TYPE
+      unless DataTable.check_content_type(params['file-upload'])
         render partial: 'import_form', layout: false, locals: { success: false, error: 'Please upload an Excel spreadsheet' }
         return
       end
