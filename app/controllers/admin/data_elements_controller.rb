@@ -21,7 +21,7 @@ module Admin
     # for more information
 
     def import
-      @last_import = DfEDataTable.order(created_at: :asc).last
+      @last_import = DataTable::Upload.order(created_at: :asc).last
       render :import, layout: 'admin/application', locals: { success: nil, error: '' }
     end
 
@@ -55,7 +55,7 @@ module Admin
   private
 
     def check_input_file
-      @last_import = DfEDataTable.order(created_at: :asc).last
+      @last_import = DataTable::Upload.order(created_at: :asc).last
 
       raise(ArgumentError, 'Please upload a file') if params['file-upload'].blank?
       raise(ArgumentError, 'Wrong format. Please upload an Excel spreadsheet') unless DataTable.check_content_type(params['file-upload'])
@@ -70,43 +70,12 @@ module Admin
     def load_tables
       loader.process
 
-      DfEDataTable.create(admin_user: current_admin_user,
-                          file_name: params['file-upload'].original_filename,
-                          data_table: params['file-upload'])
+      DataTable::Upload.create(admin_user: current_admin_user,
+                               file_name: params['file-upload'].original_filename,
+                               data_table: params['file-upload'],
+                               successful: true)
 
-      @last_import = DfEDataTable.order(created_at: :asc).last
-
-      render partial: 'form', layout: false, locals: { success: true, error: '' }
-    rescue StandardError => e
-      Rails.logger.error(e)
-      @last_import = DfEDataTable.order(created_at: :asc).last
-
-      render partial: 'form', layout: false, locals: { success: false, error: 'There has been an error while processing your file' }
-    end
-
-  private
-
-    def check_input_file
-      @last_import = DfEDataTable.order(created_at: :asc).last
-
-      raise(ArgumentError, 'Please upload a file') if params['file-upload'].blank?
-      raise(ArgumentError, 'Wrong format. Please upload an Excel spreadsheet') unless DfEDataTables.check_content_type(params['file-upload'])
-
-      nil
-    end
-
-    def loader
-      @loader ||= DfEDataTables::DataElementsLoader.new(params['file-upload'])
-    end
-
-    def load_tables
-      loader.process
-
-      DfEDataTable.create(admin_user: current_admin_user,
-                          file_name: params['file-upload'].original_filename,
-                          data_table: params['file-upload'])
-
-      @last_import = DfEDataTable.order(created_at: :asc).last
+      @last_import = DataTable::Upload.order(created_at: :asc).last
     end
   end
 end

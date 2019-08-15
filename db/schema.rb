@@ -135,19 +135,12 @@ ActiveRecord::Schema.define(version: 2019_08_14_153736) do
   create_table "data_table_uploads", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "file_name"
     t.uuid "admin_user_id"
-    t.json "errors"
-    t.json "warnings"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "upload_errors"
+    t.json "upload_warnings"
+    t.boolean "successful"
     t.index ["admin_user_id"], name: "index_data_table_uploads_on_admin_user_id"
-  end
-
-  create_table "dfe_data_tables", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "file_name"
-    t.uuid "admin_user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["admin_user_id"], name: "index_dfe_data_tables_on_admin_user_id"
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
@@ -181,5 +174,4 @@ ActiveRecord::Schema.define(version: 2019_08_14_153736) do
   add_foreign_key "data_elements", "concepts", on_delete: :nullify
   add_foreign_key "data_table_tabs", "data_table_uploads"
   add_foreign_key "data_table_uploads", "admin_users"
-  add_foreign_key "dfe_data_tables", "admin_users"
 end
