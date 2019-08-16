@@ -123,10 +123,12 @@ ActiveRecord::Schema.define(version: 2019_08_14_153736) do
   end
 
   create_table "data_table_tabs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "type"
     t.uuid "data_table_upload_id"
     t.string "tab_name"
     t.json "headers"
-    t.json "errors"
+    t.json "process_errors"
+    t.json "process_warnings"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["data_table_upload_id"], name: "index_data_table_tabs_on_data_table_upload_id"
