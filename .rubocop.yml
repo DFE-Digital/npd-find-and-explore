@@ -19,6 +19,7 @@ Metrics/BlockLength:
     - spec/**/*
   ExcludedMethods:
     - draw
+    - included
 
 # Because we're not on 12" CRT monitors anymore...
 Metrics/LineLength:
