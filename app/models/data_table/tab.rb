@@ -2,7 +2,9 @@
 
 module DataTable
   class Tab < ApplicationRecord
-    belongs_to :data_table_upload, class_name: 'DataTable::Upload'
+    include ProcessHeaders
+
+    belongs_to :data_table_upload, class_name: 'DataTable::Upload', inverse_of: :data_table_tabs
 
     attr_reader :sheet, :labels
 
@@ -15,7 +17,29 @@ module DataTable
       find_sheet(table)
     end
 
-    def check_headers
+    def map
+      return [] if headers.blank?
+
+      headers_idx = [headers.keys, sheet.last_row + 1].flatten
+      headers = nil
+      table_name = nil
+
+      rows = headers.keys.each_with_index.map do |key, idx|
+        headers = headers[key][:headers]
+        table_name = headers[key][:table]
+
+        ((key + 1)...headers_idx[idx + 1]).map do |row_idx|
+          row = sheet.row(row_idx)
+
+          next if row[0].nil? || headers_regex =~ row[0] || headers.nil? || table_name.nil?
+
+          element = DfEDataTables::DataElementParsers::Row.new(table_name, headers, row).process
+          next if element.nil?
+
+          block_given? ? yield(element) : element
+        end
+      end
+      rows.flatten.compact
     end
 
   private
@@ -26,6 +50,14 @@ module DataTable
 
     def regex
       /tab/
+    end
+
+    def headers_regex
+      /(NPDAlias|NPD Alias)/i
+    end
+
+    def first_row_regex
+      /census/
     end
 
     def find_name(tab_names)

@@ -11,5 +11,9 @@ module DataTable
     def regex
       /^KS4/i
     end
+
+    def first_row_regex
+      /(KS4 Pupil Table|KS4 Exam Table)/i
+    end
   end
 end

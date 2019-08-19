@@ -11,5 +11,9 @@ module DataTable
     def regex
       /^ISP/i
     end
+
+    def first_row_regex
+      %r{(Placement/Student|Funding|Support)}
+    end
   end
 end
