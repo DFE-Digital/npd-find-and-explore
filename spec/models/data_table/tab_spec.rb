@@ -2,14 +2,14 @@
 
 require 'rails_helper'
 
-RSpec.describe 'DfEDataTables::DataElementParsers::Sheet', type: :model do
+RSpec.describe DataTable::Tab, type: :model do
   let(:concept) { build :concept }
   let(:workbook_path) { 'spec/fixtures/files/single_sheet_table.xlsx' }
   let(:workbook) { Roo::Spreadsheet.open(workbook_path) }
-  let(:spreadsheet) { DfEDataTables::DataElementParsers::Sheet.new(workbook) }
+  let(:spreadsheet) { DataTable::Tab.new(workbook: workbook) }
 
-  it 'Will extract the sheet_name from table' do
-    expect(spreadsheet.sheet_name).to eq('census')
+  it 'Will extract the tab_name from table' do
+    expect(spreadsheet.tab_name).to eq('Tab')
   end
 
   it 'Will extract the sheet from table' do
@@ -24,9 +24,10 @@ RSpec.describe 'DfEDataTables::DataElementParsers::Sheet', type: :model do
   end
 
   it 'Will peform a lot better (just under 1000ms) if it bulk saves' do
-    table = spreadsheet
     expect {
-      DataElement.import(table.map { |element| element[:concept_id] = concept.id },
+      spreadsheet.check_headers
+      spreadsheet.check_rows
+      DataElement.import(spreadsheet.rows.map { |element| element[:concept_id] = concept.id },
                          on_duplicate_key_update: %i[source_table_name source_attribute_name])
     }.to perform_under(1000).ms.sample(10)
   end

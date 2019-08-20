@@ -25,7 +25,7 @@ module DataTable
     end
 
     def regex
-      /tab/
+      /tab/i
     end
 
     def headers_regex
