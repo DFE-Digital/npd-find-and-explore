@@ -21,7 +21,7 @@ module DfEDataTables
           next if headers[index].nil?
 
           # Cast empty strings to nil
-          data_element[headers[index]] = parse_cell(cell)
+          data_element[headers[index].to_sym] = parse_cell(cell)
         end
 
         # Post-process to add structure

@@ -46,6 +46,7 @@ module Preprocess
         sheet.check_headers
         upload_errors << sheet.process_errors if sheet.process_errors&.any?
         upload_warnings << sheet.process_warnings if sheet.process_warnings&.any?
+        sheet.check_rows
         sheet.save
       end
       update(upload_errors: upload_errors.flatten, upload_warnings: upload_warnings.flatten, successful: upload_errors.none?)
@@ -57,11 +58,9 @@ module Preprocess
         tab_name = sheet_parser.tab_name
         Rails.logger.info "Uploading #{sheet_parser.tab_name}"
 
-        byebug
         elements = sheet_parser.map { |element| element.merge(concept_id: concept.id) }
                                .uniq { |element| element.dig(:npd_alias) }
 
-        byebug
         import_elements(elements)
 
         Rails.logger.info "Uploaded #{sheet_parser.tab_name}"

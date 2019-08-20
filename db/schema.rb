@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_14_153736) do
+ActiveRecord::Schema.define(version: 2019_08_20_104531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 2019_08_14_153736) do
     t.json "process_warnings"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "rows", default: "{}"
     t.index ["data_table_upload_id"], name: "index_data_table_tabs_on_data_table_upload_id"
   end
 
