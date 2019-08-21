@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :admin_users, skip: %i[registrations]
+  devise_for :admin_users, path: 'admin/users', skip: %i[registrations]
   as :admin_user do
-    get    '/admin_users/profile',        to: 'devise/registrations#edit',   as: :admin_user_root
-    get    '/admin_users/edit(.:format)', to: 'devise/registrations#edit',   as: :edit_admin_user_registration
-    patch  '/admin_users(.:format)',      to: 'devise/registrations#update', as: :admin_user_registration
-    put    '/admin_users(.:format)',      to: 'devise/registrations#update'
-    delete '/admin_users(.:format)',      to: 'devise/registrations#destroy'
-    post   '/admin_users(.:format)',      to: 'devise/registrations#create'
+    get    '/admin/users/profile',        to: 'devise/registrations#edit',   as: :admin_user_root
+    get    '/admin/users/edit(.:format)', to: 'devise/registrations#edit',   as: :edit_admin_user_registration
+    patch  '/admin/users(.:format)',      to: 'devise/registrations#update', as: :admin_user_registration
+    put    '/admin/users(.:format)',      to: 'devise/registrations#update'
+    delete '/admin/users(.:format)',      to: 'devise/registrations#destroy'
+    post   '/admin/users(.:format)',      to: 'devise/registrations#create'
   end
 
   namespace :admin do
