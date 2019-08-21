@@ -12,5 +12,10 @@ module DataTable
              inverse_of: :data_table_upload, dependent: :destroy
 
     has_one_attached :data_table
+
+    def initialize(attr)
+      init_data_table_workbook(attr.delete(:data_table))
+      super(attr)
+    end
   end
 end

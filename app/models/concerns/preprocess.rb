@@ -34,20 +34,14 @@ module Preprocess
 
     attr_accessor :data_tables_workbook, :tab_name
 
-    def initialize(attr)
-      init_data_table_workbook(attr[:data_table])
-      super(attr)
-    end
-
     def preprocess
       upload_errors = []
       upload_warnings = []
-      sheets_to_process.each do |sheet|
-        sheet.check_headers
-        upload_errors << sheet.process_errors if sheet.process_errors&.any?
-        upload_warnings << sheet.process_warnings if sheet.process_warnings&.any?
-        sheet.check_rows
-        sheet.save
+      tabs_to_process.each do |tab|
+        tab.preprocess
+        upload_errors << tab.process_errors if tab.process_errors&.any?
+        upload_warnings << tab.process_warnings if tab.process_warnings&.any?
+        tab.save
       end
       update(upload_errors: upload_errors.flatten, upload_warnings: upload_warnings.flatten, successful: upload_errors.none?)
     end
@@ -83,8 +77,8 @@ module Preprocess
       @data_tables_workbook = Roo::Spreadsheet.open(file)
     end
 
-    def sheets_to_process
-      @sheets_to_process ||= SHEETS.map { |sheet| sheet.new(data_table_upload: self, workbook: data_tables_workbook) }
+    def tabs_to_process
+      @tabs_to_process ||= SHEETS.map { |tab| tab.new(data_table_upload: self, workbook: data_tables_workbook) }
     end
 
     def import_elements(elements)

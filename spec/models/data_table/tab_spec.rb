@@ -16,19 +16,29 @@ RSpec.describe DataTable::Tab, type: :model do
     expect(spreadsheet.sheet.class.name).to eq('Roo::Excelx::Sheet')
   end
 
-  it 'Will load the file and create the Sheet object under 50ms' do
+  it 'Will load the file and create the Sheet object under 100ms' do
     expect {
       workbook = Roo::Spreadsheet.open(workbook_path)
-      DfEDataTables::DataElementParsers::Sheet.new(workbook)
-    }.to perform_under(55).ms.sample(10)
+      DataTable::Tab.new(workbook: workbook)
+    }.to perform_under(100).ms.sample(10)
   end
 
-  it 'Will peform a lot better (just under 1000ms) if it bulk saves' do
+  it 'Will preprocess under 1300ms' do
+    expect { spreadsheet.preprocess }
+      .to perform_under(1300).ms.sample(10)
+  end
+
+  xit 'Will import data elements in under 2500ms' do
     expect {
-      spreadsheet.check_headers
-      spreadsheet.check_rows
-      DataElement.import(spreadsheet.rows.map { |element| element[:concept_id] = concept.id },
+      DataElement.import(spreadsheet.preprocess { |element| element.merge('concept_id' => concept.id) },
                          on_duplicate_key_update: %i[source_table_name source_attribute_name])
-    }.to perform_under(1000).ms.sample(10)
+    }.to perform_under(2500).ms.sample(10)
+  end
+
+  xit 'Will be able to create data elements' do
+    expect {
+      DataElement.import(spreadsheet.preprocess { |element| element.merge('concept_id' => concept.id) },
+                         on_duplicate_key_update: %i[source_table_name source_attribute_name])
+    }.to change(DataElement, :count).by(300)
   end
 end
