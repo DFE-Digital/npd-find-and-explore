@@ -34,4 +34,3 @@ RSpec.describe DataTable::Upload, type: :model do
       .to change(DataElement, :count).by(274)
   end
 end
-
