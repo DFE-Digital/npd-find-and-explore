@@ -65,6 +65,13 @@ module Admin
                           data_table: params['file-upload'])
 
       @last_import = DfEDataTable.order(created_at: :asc).last
+
+      render partial: 'form', layout: false, locals: { success: true, error: '' }
+    rescue StandardError => e
+      Rails.logger.error(e)
+      @last_import = DfEDataTable.order(created_at: :asc).last
+
+      render partial: 'form', layout: false, locals: { success: false, error: 'There has been an error while processing your file' }
     end
   end
 end
