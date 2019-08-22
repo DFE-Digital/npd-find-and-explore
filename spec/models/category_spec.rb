@@ -29,6 +29,6 @@ RSpec.describe Category, type: :model do
     category = concept.category
 
     category.update(name: 'No Category')
-    expect { category.destroy! }.to raise_error
+    expect { category.destroy! }.to raise_error ActiveRecord::NotNullViolation
   end
 end
