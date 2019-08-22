@@ -23,22 +23,8 @@ RSpec.describe DataTable::Tab, type: :model do
     }.to perform_under(100).ms.sample(10)
   end
 
-  it 'Will preprocess under 1300ms' do
+  it 'Will preprocess under 500ms' do
     expect { spreadsheet.preprocess }
-      .to perform_under(1300).ms.sample(10)
-  end
-
-  xit 'Will import data elements in under 2500ms' do
-    expect {
-      DataElement.import(spreadsheet.preprocess { |element| element.merge('concept_id' => concept.id) },
-                         on_duplicate_key_update: %i[source_table_name source_attribute_name])
-    }.to perform_under(2500).ms.sample(10)
-  end
-
-  xit 'Will be able to create data elements' do
-    expect {
-      DataElement.import(spreadsheet.preprocess { |element| element.merge('concept_id' => concept.id) },
-                         on_duplicate_key_update: %i[source_table_name source_attribute_name])
-    }.to change(DataElement, :count).by(300)
+      .to perform_under(500).ms.sample(10)
   end
 end

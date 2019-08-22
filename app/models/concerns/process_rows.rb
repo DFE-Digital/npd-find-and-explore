@@ -21,7 +21,7 @@ module ProcessRows
       end
 
       check_headers_for_errors
-      update(rows: tab_rows.flatten.compact.uniq { |r| r['npd_alias'] })
+      update(rows: tab_rows.flatten.compact.uniq { |r| r['npd_alias'] || r[:npd_alias] })
       rows
     end
 

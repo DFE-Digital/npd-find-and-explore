@@ -44,6 +44,8 @@ RSpec.describe 'Data Elements Import', type: :system do
     visit 'admin/data_elements/import'
     attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'reduced_table.xlsx'))
     click_on('Upload')
+    find_button('Continue', wait: 5)
+    click_on('Continue')
 
     expect(page).to have_text('The file was processed and uploaded successfully', wait: 5)
     expect(page).to have_text('Last Upload Name')

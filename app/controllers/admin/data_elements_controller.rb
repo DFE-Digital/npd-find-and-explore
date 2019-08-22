@@ -33,6 +33,9 @@ module Admin
       loader.preprocess
 
       render partial: 'preprocess', layout: false, locals: { loader_id: loader.id, warnings: loader.upload_warnings, errors: loader.upload_errors }
+    rescue ArgumentError => e
+      Rails.logger.error(e)
+      render partial: 'form', layout: false, locals: { success: false, error: e.message }
     rescue StandardError => e
       Rails.logger.error(e)
       render partial: 'form', layout: false, locals: { success: false, error: 'An error occourred while uploading the data tables' }
@@ -44,7 +47,7 @@ module Admin
       render partial: 'form', layout: false, locals: { success: true, error: '' }
     rescue ArgumentError => e
       Rails.logger.error(e)
-      render partial: 'form', layout: false, locals: { success: false, error: error.message }
+      render partial: 'form', layout: false, locals: { success: false, error: e.message }
     rescue StandardError => e
       Rails.logger.error(e)
       @last_import = DfEDataTable.order(created_at: :asc).last
