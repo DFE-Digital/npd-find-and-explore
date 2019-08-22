@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :concepts
     resource :data_elements, only: [] do
       get  :import
+      post :preprocess
       post :import, to: 'data_elements#do_import'
     end
     resources :data_elements, only: %i[index show]

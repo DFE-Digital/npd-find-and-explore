@@ -4,6 +4,9 @@ require 'rails_helper'
 
 RSpec.describe Category, type: :model do
   before do
+    DataElement.destroy_all
+    Concept.destroy_all
+    Category.destroy_all
     create_list(:category, 2, :with_subcategories_concepts_and_data_elements)
   end
 
@@ -26,6 +29,6 @@ RSpec.describe Category, type: :model do
     category = concept.category
 
     category.update(name: 'No Category')
-    expect { category.destroy! }.to raise_error
+    expect { category.destroy! }.to raise_error ActiveRecord::NotNullViolation
   end
 end

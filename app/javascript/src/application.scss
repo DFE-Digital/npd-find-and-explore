@@ -136,3 +136,49 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
   margin: .5rem;
   padding: .5rem;
 }
+
+.govuk-form-group--warning {
+  border-left: 5px solid govuk-colour('orange');
+  padding-left: 15px;
+}
+
+.govuk-form-group--warning .govuk-form-group {
+  border: 0;
+  padding: 0;
+}
+
+.govuk-warning-message {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  clear: both;
+  color: govuk-colour('orange');
+  display: block;
+  font-family: "nta", Arial, sans-serif;
+  font-size: 16px;
+  font-size: 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 15px;
+}
+
+@media print {
+  .govuk-warning-message {
+    font-family: sans-serif;
+  }
+}
+
+@media (min-width: 40.0625em) {
+  .govuk-warning-message {
+    font-size: 19px;
+    font-size: 1.1875rem;
+    line-height: 1.31579;
+  }
+}
+
+@media print {
+  .govuk-warning-message {
+    font-size: 14pt;
+    line-height: 1.15;
+  }
+}

@@ -1,0 +1,35 @@
+<div id="form-group" class="govuk-form-group">
+  <label class="govuk-label govuk-!-margin-bottom-3" for="file-upload">
+    <span class="govuk-body-m">Data table file:</span>
+  </label>
+  <div class="govuk-box govuk-!-margin-3" id="govuk-box-message" aria-busy="true"></div>
+  <% if errors&.any? %>
+    <%= render partial: 'form', locals: { success: false, error: errors.join(', ') } %>
+  <% else %>
+    <p id="upload-file-message" class="govuk-inset-text govuk-!-margin-top-2">
+      No errors for this file
+    </p>
+    <% if warnings&.any? %>
+      <div class="govuk-form-group--warning">
+        <p id="upload-file-warning" class="govuk-warning-message govuk-!-margin-top-2">
+          <span class="govuk-visually-hidden">Warnings:</span>
+          <% warnings.each do |warning| %>
+            <span class="message"><%= warning %></span><br />
+          <% end %>
+        </p>
+      </div>
+    <% else %>
+      <p id="upload-file-message" class="govuk-inset-text govuk-!-margin-top-2">
+        No warnings for this file
+      </p>
+    <% end %>
+    <%= form_with url: import_admin_data_elements_path, method: :post, remote: true,
+                  multipart: true, id: 'upload-form' do |f| %>
+      <input type="hidden" name="loader_id" value="<%= loader_id %>">
+      <button type="submit" class="govuk-button" id="submit-upload">Continue</button>
+    <%- end %>
+    <%= render partial: 'last_import' %>
+  <% end -%>
+</div>
+
+

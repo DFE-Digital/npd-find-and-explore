@@ -1,7 +1,7 @@
 # README
 
-[![Build Status](https://dfe-ssp.visualstudio.com/S112-Find-and-Explore-Data-in-NPD/_apis/build/status/S112-Find-and-Explore-Data-in-NPD-Docker%20container-CI?branchName=master)](https://dfe-ssp.visualstudio.com/S112-Find-and-Explore-Data-in-NPD/_build/latest?definitionId=100&branchName=master) 
-[![Known Vulnerabilities](https://snyk.io/test/github/DFE-Digital/npd-find-and-explore/badge.svg)](https://snyk.io/test/github/DFE-Digital/npd-find-and-explore) 
+[![Build Status](https://dfe-ssp.visualstudio.com/S112-Find-and-Explore-Data-in-NPD/_apis/build/status/S112-Find-and-Explore-Data-in-NPD-Docker%20container-CI?branchName=master)](https://dfe-ssp.visualstudio.com/S112-Find-and-Explore-Data-in-NPD/_build/latest?definitionId=100&branchName=master)
+[![Known Vulnerabilities](https://snyk.io/test/github/DFE-Digital/npd-find-and-explore/badge.svg)](https://snyk.io/test/github/DFE-Digital/npd-find-and-explore)
 
 The Find and explore data in the National Pupil Database (NPD) service allows users to explore, search and find metadata contained in the NPD.
 
@@ -141,16 +141,16 @@ We use custom PostgreSQL functions for search. `schema.rb` only supports structu
 
 ### Importing Data Tables
 
-Data Elements are loaded from the Excel Data Tables file, and cannot be edited within the NPD Find & Explore service. When a new version of the Data Tables is produced, this can be uploaded to the admin interface at the `/admin/data_elements/import` page. 
+Data Elements are loaded from the Excel Data Tables file, and cannot be edited within the NPD Find & Explore service. When a new version of the Data Tables is produced, this can be uploaded to the admin interface at the `/admin/data_elements/import` page.
 
-To import the file using the CLI, use `DfEDataTables::DataElementsLoader`, as follows:
+To import the file using the CLI, use `DataTable::Upload`, as follows:
 
 > Note that we add `;nil` to the command, otherwise you see a huge dump of all the data elements loaded in that run. We also wrap everything in a transaction so the data flips between old and new, rather than having a period with limited categories available.
 
 ```
 ActiveRecord::Base.transaction do
     DataElement.delete_all
-    DfEDataTables::DataElementsLoader.new('path/to/DataTables.xlsx');nil
+    DataTable::Upload.new(data_table: 'path/to/DataTables.xlsx')
 end
 ```
 

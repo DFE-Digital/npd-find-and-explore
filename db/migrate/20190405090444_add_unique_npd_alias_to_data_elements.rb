@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddUniqueNpdAliasToDataElements < ActiveRecord::Migration[5.2]
+class AddUniqueNPDAliasToDataElements < ActiveRecord::Migration[5.2]
   def up
     add_column :data_elements, :npd_alias, :string
     execute <<~'SQL'
