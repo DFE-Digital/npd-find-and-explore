@@ -7,7 +7,7 @@
 #       - KS2Pupil.EVERFSM_6
 #       - SchoolCensus.FSM6
 class Concept < ApplicationRecord
-  include PgSearch
+  include PgSearch::Model
 
   belongs_to :category, inverse_of: :concepts
   has_many :data_elements, dependent: :nullify, inverse_of: :concept
