@@ -38,35 +38,28 @@ module Preprocess
       upload_errors = []
       upload_warnings = []
       tabs_to_process.each do |tab|
-        tab.preprocess
+        tab.preprocess { |element| element.merge('concept_id' => no_concept.id) }
         upload_errors << tab.process_errors if tab.process_errors&.any?
         upload_warnings << tab.process_warnings if tab.process_warnings&.any?
-        tab.save
       end
       update(upload_errors: upload_errors.flatten, upload_warnings: upload_warnings.flatten, successful: upload_errors.none?)
     end
 
     def process
       # For each worksheet
-      data_table_tabs.each do |sheet_parser|
-        tab_name = sheet_parser.tab_name
-        Rails.logger.info "Uploading #{sheet_parser.tab_name}"
+      data_table_tabs.each do |tab|
+        Rails.logger.info "Uploading #{tab.tab_name}"
 
-        elements = sheet_parser.map { |element| element.merge(concept_id: concept.id) }
-                               .uniq { |element| element.dig(:npd_alias) }
+        import_elements(tab.rows)
 
-        import_elements(elements)
-
-        Rails.logger.info "Uploaded #{sheet_parser.tab_name}"
+        Rails.logger.info "Uploaded #{tab.tab_name}"
       end
 
       true
-    rescue StandardError
-      Rails.logger.error "An error happened while uploading #{tab_name}"
-      false
     end
 
   private
+
     COLUMNS = %i[source_table_name source_attribute_name additional_attributes
                  identifiability sensitivity source_old_attribute_name
                  academic_year_collected_from academic_year_collected_to
@@ -89,6 +82,14 @@ module Preprocess
           columns: COLUMNS
         }
       )
+    end
+
+    def no_concept
+      @no_concept ||= Concept.find_or_create_by(name: 'No Concept', category: no_category)
+    end
+
+    def no_category
+      @no_category ||= Category.find_or_create_by(name: 'No Category')
     end
   end
 end
