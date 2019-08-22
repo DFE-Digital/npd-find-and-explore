@@ -21,25 +21,25 @@ module Admin
     # for more information
 
     def import
-      @last_import = DataTable::Upload.order(created_at: :asc).last
+      @last_import = DataTable::Upload.where(successful: true).order(created_at: :asc).last
       render :import, layout: 'admin/application', locals: { success: nil, error: '' }
     end
 
-    def do_import
+    def preprocess
       check_input_file
-
-      unless loader.preprocess
-        render partial: 'form', layout: false, locals: { success: false, error: loader.errors.join(', ') }
-        return
-      end
-
+      loader = DataTable::Upload.new(admin_user: current_admin_user,
+                                     file_name: params['file-upload'].original_filename,
+                                     data_table: params['file-upload'])
       loader.preprocess
 
-      if loader.errors.any?
-        render partial: 'form', layout: false, locals: { success: false, error: loader.errors.join(', ') }
-        return
-      end
+      render partial: 'preprocess', layout: false, locals: { loader_id: loader.id, warnings: loader.upload_warnings, errors: loader.upload_errors }
+    rescue StandardError => e
+      Rails.logger.error(e)
+      render partial: 'form', layout: false, locals: { success: false, error: 'An error occourred while uploading the data tables' }
+    end
 
+    def do_import
+      @last_import = DataTable::Upload.where(successful: true).order(created_at: :asc).last
       load_tables
       render partial: 'form', layout: false, locals: { success: true, error: '' }
     rescue ArgumentError => e
@@ -55,27 +55,19 @@ module Admin
   private
 
     def check_input_file
-      @last_import = DataTable::Upload.order(created_at: :asc).last
-
       raise(ArgumentError, 'Please upload a file') if params['file-upload'].blank?
       raise(ArgumentError, 'Wrong format. Please upload an Excel spreadsheet') unless DataTable.check_content_type(params['file-upload'])
 
       nil
     end
 
-    def loader
-      @loader ||= DfEDataTables::DataElementsLoader.new(params['file-upload'])
-    end
-
     def load_tables
+      loader = DataTable::Upload.find(params['loader_id'])
       loader.process
 
-      DataTable::Upload.create(admin_user: current_admin_user,
-                               file_name: params['file-upload'].original_filename,
-                               data_table: params['file-upload'],
-                               successful: true)
+      loader.update(successful: true)
 
-      @last_import = DataTable::Upload.order(created_at: :asc).last
+      @last_import = DataTable::Upload.where(successful: true).order(created_at: :asc).last
     end
   end
 end
