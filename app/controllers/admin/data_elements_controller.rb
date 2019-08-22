@@ -39,7 +39,7 @@ module Admin
       Rails.logger.error(e)
       @last_import = DfEDataTable.order(created_at: :asc).last
 
-      render partial: 'form', layout: false, locals: { success: false, error: error.message[0, 1000] }
+      render partial: 'form', layout: false, locals: { success: false, error: e.message[0, 1000] }
     end
 
   private
@@ -48,7 +48,7 @@ module Admin
       @last_import = DfEDataTable.order(created_at: :asc).last
 
       raise(ArgumentError, 'Please upload a file') if params['file-upload'].blank?
-      raise(ArgumentError, 'Wrong format. Please upload an Excel spreadsheet') unless DfEDataTables::check_content_type(params['file-upload'])
+      raise(ArgumentError, 'Wrong format. Please upload an Excel spreadsheet') unless DfEDataTables.check_content_type(params['file-upload'])
 
       nil
     end
