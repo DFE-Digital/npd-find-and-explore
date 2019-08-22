@@ -89,8 +89,8 @@ module Admin
       end
 
       render partial: 'import_form', layout: false, locals: { success: true, error: '' }
-    rescue StandardError => error
-      Rails.logger.error(error)
+    rescue StandardError => e
+      Rails.logger.error(e)
       render partial: 'import_form', layout: false, locals: { success: false, error: 'There has been an error while processing your file' }
     end
 
@@ -102,8 +102,8 @@ module Admin
       PgSearch::Multisearch.rebuild(Category)
 
       render :reindex, layout: 'admin/application', locals: { success: true, error: '' }
-    rescue StandardError => error
-      Rails.logger.error(error)
+    rescue StandardError => e
+      Rails.logger.error(e)
       render :reindex, layout: 'admin/application', locals: { success: false, error: 'There has been an error while reindexing the categories' }
     end
 

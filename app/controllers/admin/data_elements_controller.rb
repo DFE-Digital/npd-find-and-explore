@@ -35,8 +35,8 @@ module Admin
 
       load_tables
       render partial: 'form', layout: false, locals: { success: true, error: '' }
-    rescue StandardError => error
-      Rails.logger.error(error)
+    rescue StandardError => e
+      Rails.logger.error(e)
       @last_import = DfEDataTable.order(created_at: :asc).last
 
       render partial: 'form', layout: false, locals: { success: false, error: error.message[0, 1000] }

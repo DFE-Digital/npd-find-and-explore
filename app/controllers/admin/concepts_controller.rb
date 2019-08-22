@@ -56,8 +56,8 @@ module Admin
       PgSearch::Multisearch.rebuild(Concept)
 
       render :reindex, layout: 'admin/application', locals: { success: true, error: '' }
-    rescue StandardError => error
-      Rails.logger.error(error)
+    rescue StandardError => e
+      Rails.logger.error(e)
       render :reindex, layout: 'admin/application', locals: { success: false, error: 'There has been an error while reindexing the concepts' }
     end
 

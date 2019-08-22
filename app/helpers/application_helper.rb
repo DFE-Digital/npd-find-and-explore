@@ -7,8 +7,8 @@ module ApplicationHelper
     sum: 'Summer'
   }.freeze
 
-  def page_title
-    [@title, 'GOV.UK'].compact.join(' - ')
+  def page_title(title)
+    [title, 'GOV.UK'].compact.join(' - ')
   end
 
   def academic_year(year)
