@@ -26,6 +26,7 @@ module Admin
     end
 
     def preprocess
+      @last_import = DataTable::Upload.where(successful: true).order(created_at: :asc).last
       check_input_file
       loader = DataTable::Upload.new(admin_user: current_admin_user,
                                      file_name: params['file-upload'].original_filename,
@@ -50,8 +51,6 @@ module Admin
       render partial: 'form', layout: false, locals: { success: false, error: e.message }
     rescue StandardError => e
       Rails.logger.error(e)
-      @last_import = DfEDataTable.order(created_at: :asc).last
-
       render partial: 'form', layout: false, locals: { success: false, error: e.message[0, 1000] }
     end
 

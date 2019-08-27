@@ -26,7 +26,8 @@
     <%= form_with url: import_admin_data_elements_path, method: :post, remote: true,
                   multipart: true, id: 'upload-form' do |f| %>
       <input type="hidden" name="loader_id" value="<%= loader_id %>">
-      <button type="submit" class="govuk-button" id="submit-upload">Continue</button>
+      <button type="submit" class="govuk-button" id="submit-upload">Confirm Upload</button>
+      <%= link_to 'Go Back', import_admin_data_elements_path, class: %w[govuk-button govuk-button--secondary] %>
     <%- end %>
     <%= render partial: 'last_import' %>
   <% end -%>

@@ -42,7 +42,7 @@ module Preprocess
         upload_errors << tab.process_errors if tab.process_errors&.any?
         upload_warnings << tab.process_warnings if tab.process_warnings&.any?
       end
-      update(upload_errors: upload_errors.flatten, upload_warnings: upload_warnings.flatten, successful: upload_errors.none?)
+      update(upload_errors: upload_errors.flatten, upload_warnings: upload_warnings.flatten)
     end
 
     def process
@@ -54,6 +54,7 @@ module Preprocess
 
         Rails.logger.info "Uploaded #{tab.tab_name}"
       end
+      update(successful: true)
 
       true
     end
