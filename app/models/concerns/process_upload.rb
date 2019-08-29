@@ -2,7 +2,7 @@
 
 require 'active_support/concern'
 
-module Preprocess
+module ProcessUpload
   extend ActiveSupport::Concern
 
   included do
@@ -35,25 +35,26 @@ module Preprocess
     attr_accessor :data_tables_workbook, :tab_name
 
     def preprocess
+      save
+      rows = []
       upload_errors = []
       upload_warnings = []
       tabs_to_process.each do |tab|
-        tab.preprocess { |element| element.merge('concept_id' => no_concept.id) }
-        upload_errors << tab.process_errors if tab.process_errors&.any?
-        upload_warnings << tab.process_warnings if tab.process_warnings&.any?
+        rows.concat(tab.preprocess { |el| el.merge('concept_id' => no_concept.id, 'data_table_upload_id' => id) })
+        upload_errors.concat(tab.process_errors) if tab.process_errors&.any?
+        upload_warnings.concat(tab.process_warnings) if tab.process_warnings&.any?
       end
       update(upload_errors: upload_errors.flatten, upload_warnings: upload_warnings.flatten)
+      import_elements(DataTable::Row, rows.compact.flatten.uniq { |r| r[:npd_alias] || r['npd_alias'] })
     end
 
     def process
       # For each worksheet
-      data_table_tabs.each do |tab|
-        Rails.logger.info "Uploading #{tab.tab_name}"
+      Rails.logger.info "Uploading #{file_name}"
 
-        import_elements(tab.rows)
+      import_elements(DataElement, data_table_rows.map(&:to_h))
 
-        Rails.logger.info "Uploaded #{tab.tab_name}"
-      end
+      Rails.logger.info "Uploaded #{file_name}"
       update(successful: true)
 
       true
@@ -61,28 +62,12 @@ module Preprocess
 
   private
 
-    COLUMNS = %i[source_table_name source_attribute_name additional_attributes
-                 identifiability sensitivity source_old_attribute_name
-                 academic_year_collected_from academic_year_collected_to
-                 collection_terms values description_en description_cy data_type
-                 educational_phase updated_at].freeze
-
     def init_data_table_workbook(file)
       @data_tables_workbook = Roo::Spreadsheet.open(file)
     end
 
     def tabs_to_process
-      @tabs_to_process ||= SHEETS.map { |tab| tab.new(data_table_upload: self, workbook: data_tables_workbook) }
-    end
-
-    def import_elements(elements)
-      DataElement.import(
-        elements,
-        on_duplicate_key_update: {
-          conflict_target: %i[npd_alias],
-          columns: COLUMNS
-        }
-      )
+      @tabs_to_process ||= SHEETS.map { |tab| tab.create(data_table_upload: self, workbook: data_tables_workbook) }
     end
 
     def no_concept

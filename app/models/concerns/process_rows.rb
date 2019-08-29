@@ -9,20 +9,12 @@ module ProcessRows
     attr_accessor :current_table_name, :current_headers
 
     def preprocess
-      tab_rows = (1..sheet.last_row).map do |idx|
-        row = sheet.row(idx)
-        next if row[0].nil?
-        next if extract_header_row(idx, row)
-
-        element = extract_row(row)
+      (1..sheet.last_row).map do |idx|
+        element = process_row(idx)
         next if element.nil?
 
         block_given? ? yield(element) : element
       end
-
-      check_headers_for_errors
-      update(rows: tab_rows.flatten.compact.uniq { |r| r['npd_alias'] || r[:npd_alias] })
-      rows
     end
 
   private
@@ -61,13 +53,7 @@ module ProcessRows
     end
 
     def extract_header_row(idx, row)
-      if headers_regex.match?(row[0])
-        self.current_headers = row.map { |cell| header(cell) }.reverse.drop_while(&:nil?).reverse
-        headers[idx] = { table: tab_name, headers: current_headers }
-        self.current_table_name = tab_name
-        return true
-      end
-
+      return set_headers(idx, row) if headers_regex.match?(row[0])
       return false unless first_row_regex.match?(row[0])
 
       headers[idx] = headers.delete(idx - 1) || { headers: current_headers }
@@ -83,6 +69,21 @@ module ProcessRows
       return if element.nil?
 
       element
+    end
+
+    def process_row(idx)
+      row = sheet.row(idx)
+      return if row[0].nil?
+      return if extract_header_row(idx, row)
+
+      extract_row(row)
+    end
+
+    def set_headers(idx, row)
+      self.current_headers = row.map { |cell| header(cell) }.reverse.drop_while(&:nil?).reverse
+      headers[idx] = { table: tab_name, headers: current_headers }
+      self.current_table_name = tab_name
+      true
     end
   end
 end
