@@ -40,6 +40,14 @@ module ProcessRows
       'data_request_years_required' => /Data request years required/
     }.freeze
 
+    def process_row(idx)
+      row = sheet.row(idx)
+      return if row[0].nil?
+      return if extract_header_row(idx, row)
+
+      extract_row(row)
+    end
+
     def header(cell)
       return nil if cell.is_a?(String) && cell.empty?
 
@@ -56,10 +64,7 @@ module ProcessRows
       return set_headers(idx, row) if headers_regex.match?(row[0])
       return false unless first_row_regex.match?(row[0])
 
-      headers[idx] = headers.delete(idx - 1) || { headers: current_headers }
-      headers[idx][:table] = row[0].gsub(/table/i, '').strip.gsub(/[^\w]/, '_').gsub(/_+$/, '')
-      self.current_table_name = headers[idx][:table]
-      true
+      set_table_name(idx, row)
     end
 
     def extract_row(row)
@@ -71,18 +76,17 @@ module ProcessRows
       element
     end
 
-    def process_row(idx)
-      row = sheet.row(idx)
-      return if row[0].nil?
-      return if extract_header_row(idx, row)
-
-      extract_row(row)
-    end
-
     def set_headers(idx, row)
       self.current_headers = row.map { |cell| header(cell) }.reverse.drop_while(&:nil?).reverse
       headers[idx] = { table: tab_name, headers: current_headers }
       self.current_table_name = tab_name
+      true
+    end
+
+    def set_table_name(idx, row)
+      headers[idx] = headers.delete(idx - 1) || { headers: current_headers }
+      headers[idx][:table] = row[0].gsub(/table/i, '').strip.gsub(/[^\w]/, '_').gsub(/_+$/, '')
+      self.current_table_name = headers[idx][:table]
       true
     end
   end

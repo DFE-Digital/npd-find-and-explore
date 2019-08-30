@@ -21,5 +21,10 @@ module DataTable
       init_data_table_workbook(attr.delete(:data_table))
       super(attr)
     end
+
+    def new_rows
+      DataTable::Row.joins('LEFT OUTER JOIN data_elements ON data_table_rows.npd_alias = data_elements.npd_alias')
+                    .where(data_elements: { npd_alias: nil }).pluck(:npd_alias).uniq
+    end
   end
 end

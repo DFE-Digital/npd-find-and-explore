@@ -1,0 +1,13 @@
+<% new_rows = loader.new_rows %>
+<div id="upload-file-summary" class="govuk-inset-text govuk-!-margin-top-2">
+  <% if new_rows.count == 0 -%>
+    <p>No new data elements to add</p>
+  <% else -%>
+    <p>The following <%= new_rows.count %> data elements will be added:</p>
+    <ul>
+      <% new_rows.each do |row| %>
+        <li><%= row %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

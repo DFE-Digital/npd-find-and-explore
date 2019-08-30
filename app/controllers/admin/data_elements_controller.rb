@@ -33,7 +33,7 @@ module Admin
                                      data_table: params['file-upload'])
       loader.preprocess
 
-      render partial: 'preprocess', layout: false, locals: { loader_id: loader.id, warnings: loader.upload_warnings, errors: loader.upload_errors }
+      render partial: 'preprocess', layout: false, locals: { loader: loader }
     rescue ArgumentError => e
       Rails.logger.error(e)
       render partial: 'form', layout: false, locals: { success: false, error: e.message }

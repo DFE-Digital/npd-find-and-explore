@@ -3,29 +3,27 @@
     <span class="govuk-body-m">Data table file:</span>
   </label>
   <div class="govuk-box govuk-!-margin-3" id="govuk-box-message" aria-busy="true"></div>
-  <% if errors&.any? %>
-    <%= render partial: 'form', locals: { success: false, error: errors.join(', ') } %>
+  <% if loader.upload_errors&.any? %>
+    <%= render partial: 'form', locals: { success: false, error: loader.upload_errors.join(', ') } %>
   <% else %>
     <p id="upload-file-message" class="govuk-inset-text govuk-!-margin-top-2">
       No errors for this file
     </p>
-    <% if warnings&.any? %>
+    <% if loader.upload_warnings&.any? %>
       <div class="govuk-form-group--warning">
         <p id="upload-file-warning" class="govuk-warning-message govuk-!-margin-top-2">
           <span class="govuk-visually-hidden">Warnings:</span>
-          <% warnings.each do |warning| %>
+          <% loader.upload_warnings.each do |warning| %>
             <span class="message"><%= warning %></span><br />
           <% end %>
         </p>
       </div>
     <% else %>
-      <p id="upload-file-message" class="govuk-inset-text govuk-!-margin-top-2">
-        No warnings for this file
-      </p>
+      <%= render partial: 'summary', locals: { loader: loader } %>
     <% end %>
     <%= form_with url: import_admin_data_elements_path, method: :post, remote: true,
                   multipart: true, id: 'upload-form' do |f| %>
-      <input type="hidden" name="loader_id" value="<%= loader_id %>">
+      <input type="hidden" name="loader_id" value="<%= loader.id %>">
       <button type="submit" class="govuk-button" id="submit-upload">Confirm Upload</button>
       <%= link_to 'Go Back', import_admin_data_elements_path, class: %w[govuk-button govuk-button--secondary] %>
     <%- end %>

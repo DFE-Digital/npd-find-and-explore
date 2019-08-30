@@ -40,7 +40,8 @@ module ProcessUpload
       upload_errors = []
       upload_warnings = []
       tabs_to_process.each do |tab|
-        rows.concat(tab.preprocess { |el| el.merge('concept_id' => no_concept.id, 'data_table_upload_id' => id) })
+        tab_rows = tab.preprocess { |el| el.merge('concept_id' => no_concept.id, 'data_table_upload_id' => id) }
+        rows.concat(tab_rows)
         upload_errors.concat(tab.process_errors) if tab.process_errors&.any?
         upload_warnings.concat(tab.process_warnings) if tab.process_warnings&.any?
       end
