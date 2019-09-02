@@ -6,17 +6,15 @@
   <% if loader.upload_errors&.any? %>
     <%= render partial: 'form', locals: { success: false, error: loader.upload_errors.join(', ') } %>
   <% else %>
-    <p id="upload-file-message" class="govuk-inset-text govuk-!-margin-top-2">
-      No errors for this file
-    </p>
     <% if loader.upload_warnings&.any? %>
-      <div class="govuk-form-group--warning">
-        <p id="upload-file-warning" class="govuk-warning-message govuk-!-margin-top-2">
-          <span class="govuk-visually-hidden">Warnings:</span>
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-warning-text__assistive">Warning</span>
           <% loader.upload_warnings.each do |warning| %>
             <span class="message"><%= warning %></span><br />
           <% end %>
-        </p>
+        </strong>
       </div>
     <% else %>
       <%= render partial: 'summary', locals: { loader: loader } %>
@@ -30,5 +28,4 @@
     <%= render partial: 'last_import' %>
   <% end -%>
 </div>
-
 
