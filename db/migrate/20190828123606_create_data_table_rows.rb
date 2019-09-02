@@ -26,6 +26,6 @@ class CreateDataTableRows < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    add_index :data_table_rows, :npd_alias, unique: true
+    add_index :data_table_rows, %i[data_table_upload_id npd_alias], unique: true
   end
 end

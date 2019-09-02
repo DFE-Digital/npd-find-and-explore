@@ -143,8 +143,8 @@ ActiveRecord::Schema.define(version: 2019_08_28_123606) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["concept_id"], name: "index_data_table_rows_on_concept_id"
+    t.index ["data_table_upload_id", "npd_alias"], name: "index_data_table_rows_on_data_table_upload_id_and_npd_alias", unique: true
     t.index ["data_table_upload_id"], name: "index_data_table_rows_on_data_table_upload_id"
-    t.index ["npd_alias"], name: "index_data_table_rows_on_npd_alias", unique: true
   end
 
   create_table "data_table_tabs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
