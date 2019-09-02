@@ -7,6 +7,7 @@ window.loader = new GOVUK.Loader()
 
 $(document).on('ajax:send', function() {
   $('#submit-upload').attr('disabled', true)
+  $('#cancel-upload').attr('disabled', true)
 
   if (/(import|preprocess)/.test(event.target.action)) {
     $('.govuk-form-group').removeClass('govuk-form-group--error')

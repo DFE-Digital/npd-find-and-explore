@@ -54,6 +54,13 @@ module Admin
       render partial: 'form', layout: false, locals: { success: false, error: e.message[0, 1000] }
     end
 
+    def abort_import
+      loader = DataTable::Upload.find(params['loader_id'])
+      loader.destroy
+
+      render partial: 'form', layout: false, locals: { success: false, error: 'The upload has been cancelled by the user' }
+    end
+
   private
 
     def check_input_file

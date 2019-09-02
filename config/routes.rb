@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       get  :import
       post :preprocess
       post :import, to: 'data_elements#do_import'
+      post :abort_import
     end
     resources :data_elements, only: %i[index show]
     resources :admin_users
