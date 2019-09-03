@@ -15,4 +15,8 @@ class DataElement < ApplicationRecord
   def title
     [source_table_name, source_attribute_name].join('.')
   end
+
+  def breadcrumbs
+    @breadcrumbs ||= [concept, concept.category, concept.category.ancestors.reverse].flatten
+  end
 end

@@ -1,4 +1,5 @@
 <% new_rows = loader.new_rows %>
+<% del_rows = loader.del_rows %>
 
 <div id="step-by-step-navigation" class="js-enabled app-step-nav app-step-nav--large app-step-nav--active" data-show-text="Show" data-hide-text="Hide" data-show-all-text="Show all" data-hide-all-text="Hide all">
   <ol class="app-step-nav__steps">
@@ -32,6 +33,45 @@
           <ul>
             <% new_rows.each do |row| %>
               <li><%= row %></li>
+            <% end %>
+          </ul>
+        <%- end %>
+      </div>
+    </li>
+
+    <li class="app-step-nav__step js-step" id="check-youre-allowed-to-drive">
+      <div class="app-step-nav__header js-toggle-panel" data-position="2">
+        <h2 class="app-step-nav__title">
+          <span class="app-step-nav__circle app-step-nav__circle--number">
+            <span class="app-step-nav__circle-inner">
+              <span class="app-step-nav__circle-background">
+                <span class="govuk-visually-hidden">Remove Elements</span>-
+              </span>
+            </span>
+          </span>
+
+          <span class="js-step-title">
+            <% if del_rows.count == 0 -%>
+              No data elements will be removed
+            <%- else %>
+              <%= del_rows.count %> data elements will be removed:
+            <%- end %>
+            <span class="app-step-nav__toggle-link js-toggle-link" aria-hidden="true">
+              Show
+            </span>
+          </span>
+        </h2>
+      </div>
+      <div class="app-step-nav__panel js-panel js-hidden" id="step-panel-prepare-to-apply-1">
+        <% if del_rows.count == 0 -%>
+          No data elements will be removed
+        <%- else %>
+          <ul>
+            <% del_rows.each do |row| %>
+              <li>
+                <strong><%= row.title %></strong><br />
+                &nbsp;[<%= row.breadcrumbs.map(&:name).join('/') %>]
+              </li>
             <% end %>
           </ul>
         <%- end %>
