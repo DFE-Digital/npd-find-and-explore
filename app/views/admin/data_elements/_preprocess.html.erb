@@ -1,7 +1,4 @@
 <div id="form-group" class="govuk-form-group">
-  <label class="govuk-label govuk-!-margin-bottom-3" for="file-upload">
-    <span class="govuk-body-m">Data table file:</span>
-  </label>
   <div class="govuk-box govuk-!-margin-3" id="govuk-box-message" aria-busy="true"></div>
   <% if loader.upload_errors&.any? %>
     <%= render partial: 'form', locals: { success: false, error: loader.upload_errors.join(', ') } %>
@@ -16,8 +13,8 @@
           <% end %>
         </strong>
       </div>
-      <%= render partial: 'summary', locals: { loader: loader } %>
     <% end %>
+    <%= render partial: 'summary', locals: { loader: loader } %>
     <%= form_with url: import_admin_data_elements_path, method: :post, remote: true,
                   multipart: true, id: 'upload-form', class: 'inline-form' do |f| %>
       <input type="hidden" name="loader_id" value="<%= loader.id %>">
