@@ -34,6 +34,7 @@
 
 .app-step-nav__button--title {
   @include govuk-font(19, $weight: bold);
+  background-color: transparent !important;
   color: govuk-colour("black");
   display: inline-block;
   padding: 0;

@@ -9,20 +9,14 @@ module ProcessRows
     attr_accessor :current_table_name, :current_headers
 
     def preprocess
-      tab_rows = (1..sheet.last_row).map do |idx|
-        row = sheet.row(idx)
-        next if row[0].nil?
-        next if extract_header_row(idx, row)
-
-        element = extract_row(row)
+      rows = (1..sheet.last_row).map do |idx|
+        element = process_row(idx)
         next if element.nil?
 
         block_given? ? yield(element) : element
       end
-
       check_headers_for_errors
-      update(rows: tab_rows.flatten.compact.uniq { |r| r['npd_alias'] || r[:npd_alias] })
-      rows
+      rows.flatten.compact
     end
 
   private
@@ -48,6 +42,14 @@ module ProcessRows
       'data_request_years_required' => /Data request years required/
     }.freeze
 
+    def process_row(idx)
+      row = sheet.row(idx)
+      return if row[0].nil?
+      return if extract_header_row(idx, row)
+
+      extract_row(row)
+    end
+
     def header(cell)
       return nil if cell.is_a?(String) && cell.empty?
 
@@ -61,19 +63,10 @@ module ProcessRows
     end
 
     def extract_header_row(idx, row)
-      if headers_regex.match?(row[0])
-        self.current_headers = row.map { |cell| header(cell) }.reverse.drop_while(&:nil?).reverse
-        headers[idx] = { table: tab_name, headers: current_headers }
-        self.current_table_name = tab_name
-        return true
-      end
-
+      return set_headers(idx, row) if headers_regex.match?(row[0])
       return false unless first_row_regex.match?(row[0])
 
-      headers[idx] = headers.delete(idx - 1) || { headers: current_headers }
-      headers[idx][:table] = row[0].gsub(/table/i, '').strip.gsub(/[^\w]/, '_').gsub(/_+$/, '')
-      self.current_table_name = headers[idx][:table]
-      true
+      set_table_name(idx, row)
     end
 
     def extract_row(row)
@@ -83,6 +76,20 @@ module ProcessRows
       return if element.nil?
 
       element
+    end
+
+    def set_headers(idx, row)
+      self.current_headers = row.map { |cell| header(cell) }.reverse.drop_while(&:nil?).reverse
+      headers[idx] = { table: tab_name, headers: current_headers }
+      self.current_table_name = tab_name
+      true
+    end
+
+    def set_table_name(idx, row)
+      headers[idx] = headers.delete(idx - 1) || { headers: current_headers }
+      headers[idx][:table] = row[0].gsub(/table/i, '').strip.gsub(/[^\w]/, '_').gsub(/_+$/, '')
+      self.current_table_name = headers[idx][:table]
+      true
     end
   end
 end

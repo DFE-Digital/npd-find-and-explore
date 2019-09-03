@@ -83,8 +83,8 @@ module Admin
       end
 
       ActiveRecord::Base.transaction do
-        Concept.delete_all
-        Category.delete_all
+        Concept.where.not(name: 'No Concept').delete_all
+        Category.where.not(name: 'No Category').delete_all
         DfEDataTables::CategoriesLoader.new(params['file-upload'])
       end
 

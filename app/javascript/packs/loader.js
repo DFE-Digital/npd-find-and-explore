@@ -6,7 +6,9 @@ import $ from 'jquery'
 window.loader = new GOVUK.Loader()
 
 $(document).on('ajax:send', function() {
-  if (/import/.test(event.target.action)) {
+  $('#submit-upload').attr('disabled', true)
+
+  if (/(import|preprocess)/.test(event.target.action)) {
     $('.govuk-form-group').removeClass('govuk-form-group--error')
     $('#upload-file-error').remove()
     $('#upload-file-success').remove()
