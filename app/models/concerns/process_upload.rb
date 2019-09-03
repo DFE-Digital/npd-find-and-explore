@@ -53,7 +53,7 @@ module ProcessUpload
       # For each worksheet
       Rails.logger.info "Uploading #{file_name}"
 
-      import_elements(DataElement, data_table_rows.map(&:to_h))
+      import_elements(DataElement, data_table_rows.map(&:to_data_element_hash))
 
       Rails.logger.info "Uploaded #{file_name}"
       update(successful: true)

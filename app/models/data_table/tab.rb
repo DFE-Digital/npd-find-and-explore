@@ -2,7 +2,6 @@
 
 module DataTable
   class Tab < ApplicationRecord
-    include DataElementImport
     include ProcessRows
 
     belongs_to :data_table_upload, class_name: 'DataTable::Upload', inverse_of: :data_table_tabs

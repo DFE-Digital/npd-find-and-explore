@@ -9,12 +9,14 @@ module ProcessRows
     attr_accessor :current_table_name, :current_headers
 
     def preprocess
-      (1..sheet.last_row).map do |idx|
+      rows = (1..sheet.last_row).map do |idx|
         element = process_row(idx)
         next if element.nil?
 
         block_given? ? yield(element) : element
       end
+      check_headers_for_errors
+      rows.flatten.compact
     end
 
   private

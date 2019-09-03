@@ -4,7 +4,7 @@ module DataTable
   class Row < ApplicationRecord
     belongs_to :data_table_upload, class_name: 'DataTable::Upload', inverse_of: :data_table_tabs
 
-    def to_h
+    def to_data_element_hash
       {
         id: id,
         concept_id: concept_id,
