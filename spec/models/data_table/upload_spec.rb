@@ -99,12 +99,12 @@ RSpec.describe DataTable::Upload, type: :model do
       .to perform_under(6).ms.sample(10)
   end
 
-  it 'will destroy itself below 4ms if rows are destroyed first' do
+  it 'will destroy itself below 5ms if rows are destroyed first' do
     loader.preprocess
     expect {
       loader.data_table_rows.destroy_all
       loader.destroy
     }
-      .to perform_under(4).ms.sample(10)
+      .to perform_under(5).ms.sample(10)
   end
 end
