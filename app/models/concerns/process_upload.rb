@@ -54,6 +54,7 @@ module ProcessUpload
       Rails.logger.info "Uploading #{file_name}"
 
       import_elements(DataElement, data_table_rows.map(&:to_data_element_hash))
+      DataElement.where(id: del_rows.pluck(:id)).destroy_all
 
       Rails.logger.info "Uploaded #{file_name}"
       update(successful: true)

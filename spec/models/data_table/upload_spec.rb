@@ -47,6 +47,22 @@ RSpec.describe DataTable::Upload, type: :model do
       .to change(DataElement, :count).by(274)
   end
 
+  it 'Will add the appropriate data elements' do
+    loader.preprocess
+    loader.process
+    add_loader.preprocess
+    expect { add_loader.process }
+      .to change(DataElement, :count).by(3)
+  end
+
+  it 'Will remove the appropriate data elements' do
+    loader.preprocess
+    loader.process
+    del_loader.preprocess
+    expect { del_loader.process }
+      .to change(DataElement, :count).by(-3)
+  end
+
   it 'Will know which new elements will be created' do
     loader.preprocess
     loader.process
@@ -54,7 +70,7 @@ RSpec.describe DataTable::Upload, type: :model do
     expect(add_loader.new_rows.count).to eq(3)
   end
 
-  it 'Will get new elements below 1ms' do
+  it 'Will get a list of elements to be created below 1ms' do
     loader.preprocess
     loader.process
     add_loader.preprocess
@@ -69,11 +85,26 @@ RSpec.describe DataTable::Upload, type: :model do
     expect(del_loader.del_rows.count).to eq(3)
   end
 
-  it 'Will get deleted elements below 1ms' do
+  it 'Will get a list of elements to be deleted below 1ms' do
     loader.preprocess
     loader.process
     del_loader.preprocess
     expect { del_loader.del_rows }
       .to perform_under(1).ms.sample(10)
+  end
+
+  it 'will destroy itself below 6ms' do
+    loader.preprocess
+    expect { loader.destroy }
+      .to perform_under(6).ms.sample(10)
+  end
+
+  it 'will destroy itself below 4ms if rows are destroyed first' do
+    loader.preprocess
+    expect {
+      loader.data_table_rows.destroy_all
+      loader.destroy
+    }
+      .to perform_under(4).ms.sample(10)
   end
 end
