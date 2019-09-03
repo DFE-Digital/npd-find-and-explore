@@ -16,7 +16,6 @@
           <% end %>
         </strong>
       </div>
-    <% else %>
       <%= render partial: 'summary', locals: { loader: loader } %>
     <% end %>
     <%= form_with url: import_admin_data_elements_path, method: :post, remote: true,
