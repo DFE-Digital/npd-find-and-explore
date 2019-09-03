@@ -64,9 +64,9 @@ module ProcessRows
 
     def extract_header_row(idx, row)
       return set_headers(idx, row) if headers_regex.match?(row[0])
-      return false unless first_row_regex.match?(row[0])
+      return set_table_name(idx, row) if first_row_regex.match?(row[0])
 
-      set_table_name(idx, row)
+      false
     end
 
     def extract_row(row)

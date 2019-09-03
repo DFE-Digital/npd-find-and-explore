@@ -40,11 +40,11 @@ RSpec.describe 'Data Elements Import', type: :system do
     expect(page).to have_text('Wrong format. Please upload an Excel spreadsheet')
   end
 
-  it 'Will have a Go Back link' do
+  it 'Will have a Go Back button' do
     visit 'admin/data_elements/import'
     attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'reduced_table.xlsx'))
     click_on('Upload')
-    expect(page).to have_link('Go Back', wait: 5)
+    expect(page).to have_button('Go Back', wait: 5)
   end
 
   it 'Will upload a file' do
