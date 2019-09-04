@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Admin Categories Index', type: :system do
+RSpec.describe 'Admin Categories Childless', type: :system do
   let(:password) { 'paSSw0rd!' }
   let(:admin_user) { AdminUser.create!(email: 'admin@test.com', password: password) }
 

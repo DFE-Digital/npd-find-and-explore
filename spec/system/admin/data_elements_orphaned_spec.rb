@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Admin Concepts Childless', type: :system do
+RSpec.describe 'Admin Data Elements Orphaned', type: :system do
   let(:password) { 'paSSw0rd!' }
   let(:admin_user) { AdminUser.create!(email: 'admin@test.com', password: password) }
 
@@ -20,17 +20,20 @@ RSpec.describe 'Admin Concepts Childless', type: :system do
     click_on('Log in')
   end
 
-  it 'has no empty concepts' do
-    visit '/admin/concepts/childless'
+  it 'has no orphaned data elements' do
+    visit '/admin/data_elements/orphaned'
 
     expect(page).not_to have_css('[data-url]')
   end
 
-  it 'will show an empty concept' do
-    empty_concept = create(:concept)
-    visit '/admin/concepts/childless'
+  it 'will show an orphaned data element' do
+    orphaned_element = DataElement.first
+    ActiveRecord::Base.connection.execute("UPDATE data_elements SET concept_id = NULL WHERE id = '#{orphaned_element.id}'")
+
+    visit '/admin/data_elements/orphaned'
 
     expect(page).to have_css('[data-url]')
-    expect(page).to have_text(empty_concept.name)
+    expect(page).to have_text(orphaned_element.source_table_name)
+    expect(page).to have_text(orphaned_element.source_attribute_name)
   end
 end
