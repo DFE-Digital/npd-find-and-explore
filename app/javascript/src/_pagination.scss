@@ -32,10 +32,15 @@
 .pagination__item {
   display: inline-block;
   list-style: none;
+  padding-top: 15px;
+}
+
+.page.gap {
+  display: inline-block;
 }
 
 .pagination__link {
-  display: block;
+  display: inline-block;
   padding: 5px 10px;
   text-decoration: none;
 

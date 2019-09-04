@@ -20,6 +20,18 @@ module Admin
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
 
+    def orphaned
+      resources = DataElement.orphaned
+      resources = order.apply(resources)
+      resources = resources.page(params[:page]).per(records_per_page)
+      page = Administrate::Page::Collection.new(dashboard, order: order)
+
+      render locals: {
+        resources: resources,
+        page: page
+      }
+    end
+
     def import
       @last_import = DataTable::Upload.where(successful: true).order(created_at: :asc).last
       render :import, layout: 'admin/application', locals: { success: nil, error: '' }
