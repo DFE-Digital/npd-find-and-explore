@@ -48,4 +48,6 @@ Rails.application.routes.draw do
     resources :search,      only: %i[index]
     resources :data_tables, only: %i[show]
   end
+
+  root to: 'categories#index'
 end
