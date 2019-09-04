@@ -76,6 +76,14 @@ private
     ],
     data_elements: [
       {
+        name: 'Orphaned Data Elements',
+        url_params: %i[orphaned admin data_elements],
+        conditions: {
+          controller: 'admin/data_elements',
+          action: :orphaned
+        }
+      },
+      {
         name: 'Import Data Elements',
         url_params: %i[import admin data_elements],
         conditions: {

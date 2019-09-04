@@ -18,6 +18,7 @@ Metrics/BlockLength:
     # RSpec wraps everything in a block
     - spec/**/*
   ExcludedMethods:
+    - namespace
     - draw
     - included
 

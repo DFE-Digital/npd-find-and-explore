@@ -6,6 +6,8 @@ class DataElement < ApplicationRecord
 
   belongs_to :concept, inverse_of: :data_elements
 
+  scope :orphaned, -> { where(concept_id: nil) }
+
   def description
     return description_cy if I18n.locale == :cy
 
