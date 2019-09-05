@@ -55,4 +55,10 @@ module ApplicationHelper
     identifiability = concept.data_elements.map(&:identifiability).compact.min
     identifiability.to_i > 2 ? 'how_to_access' : 'not_available'
   end
+
+  def root_page?
+    return true if params[:controller] == 'categories' && params[:action] == 'index'
+
+    false
+  end
 end
