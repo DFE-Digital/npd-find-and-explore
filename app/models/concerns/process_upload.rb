@@ -32,7 +32,7 @@ module ProcessUpload
       DataTable::Ypmad
     ].freeze
 
-    attr_accessor :data_tables_workbook, :tab_name
+    attr_accessor :tab_name
 
     def preprocess
       save
@@ -64,12 +64,8 @@ module ProcessUpload
 
   private
 
-    def init_data_table_workbook(file)
-      @data_tables_workbook = Roo::Spreadsheet.open(file)
-    end
-
     def tabs_to_process
-      @tabs_to_process ||= SHEETS.map { |tab| tab.create(data_table_upload: self, workbook: data_tables_workbook) }
+      @tabs_to_process ||= SHEETS.map { |tab| tab.create(data_table_upload: self, workbook: workbook) }
     end
 
     def no_concept

@@ -7,7 +7,7 @@ module DataTable
 
     default_scope { order(created_at: :asc) }
 
-    belongs_to :admin_user, inverse_of: :dfe_data_tables, optional: true
+    belongs_to :admin_user, inverse_of: :data_table_uploads, optional: true
     has_many :data_table_tabs,
              class_name: 'DataTable::Tab', foreign_key: :data_table_upload_id,
              inverse_of: :data_table_upload, dependent: :destroy
@@ -17,8 +17,10 @@ module DataTable
 
     has_one_attached :data_table
 
+    attr_accessor :workbook
+
     def initialize(attr)
-      init_data_table_workbook(attr.delete(:data_table))
+      @workbook = Roo::Spreadsheet.open(attr.delete(:data_table))
       super(attr)
     end
 
