@@ -184,6 +184,8 @@ ActiveRecord::Schema.define(version: 2019_09_04_134658) do
   create_table "inf_arch_uploads", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "file_name"
     t.uuid "admin_user_id"
+    t.json "upload_errors", default: []
+    t.json "upload_warnings", default: []
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["admin_user_id"], name: "index_inf_arch_uploads_on_admin_user_id"
