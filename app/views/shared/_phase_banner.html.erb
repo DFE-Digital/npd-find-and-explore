@@ -6,7 +6,7 @@
     <span class="govuk-phase-banner__text">
       <%= t('beta_banner.text',
             link: link_to(t('beta_banner.link'),
-                          'https://forms.gle/SzUbPugFPGoRWiX89',
+                          Rails.application.credentials.dig(Rails.env.to_sym, :google_feedback_form),
                           class: 'govuk-link')).html_safe %>
     </span>
   </p>
