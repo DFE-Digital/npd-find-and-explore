@@ -6,6 +6,11 @@ module ProcessCategoryTabs
   extend ActiveSupport::Concern
 
   included do
+
+    def process_errors
+      @process_errors ||= []
+    end
+
   private
 
     def find_sheet(table)
@@ -13,6 +18,8 @@ module ProcessCategoryTabs
     end
 
     def extract_tree
+      return [] unless check_first_row
+
       categories_tree = []
       tree_level0 = nil
       tree_level1 = nil
@@ -40,11 +47,15 @@ module ProcessCategoryTabs
       update(tree: categories_tree)
     end
 
+    def check_first_row
+      return true if first_row.present?
+
+      process_errors << "Can't find a column with header 'L0' or 'Standard Extract' for tab '#{tab_name}'"
+      false
+    end
+
     def first_row
-      @first_row ||= (1..sheet.last_row).each do |idx|
-        row = sheet.row(idx)
-        return idx + 2 if /(L0|Standard Extract)/ =~ row[0]
-      end
+      @first_row ||= ((1..sheet.last_row).select { |idx| /(L0|Standard Extract)/ =~ sheet.row(idx).dig(0) })&.first&.+ 2
     end
 
     def category(name, desc)

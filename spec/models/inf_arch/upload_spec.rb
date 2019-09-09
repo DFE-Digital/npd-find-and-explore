@@ -17,15 +17,21 @@ RSpec.describe InfArch::Upload, type: :model do
                           data_table: de_table_path)
   end
 
-  it 'Will preprocess under 20ms' do
+  it 'Will preprocess under 800ms' do
     expect { loader.preprocess }
-      .to perform_under(20).ms.sample(10)
+      .to perform_under(800).ms.sample(10)
   end
 
   it 'Will preprocess the infrastructure architecture items' do
     expect { loader.preprocess }
       .to change(InfArch::Upload, :count).by(1)
       .and change(InfArch::Tab, :count).by(4)
+  end
+
+  it 'Will process within 200ms' do
+    loader.preprocess
+    expect { loader.process }
+      .to perform_under(200).ms.sample(10)
   end
 
   it 'Will process the categories and concepts' do
