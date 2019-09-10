@@ -48,7 +48,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'roo', '~> 2.7'
 
 # Authentication for Rails Admin
-gem 'devise', '~> 4'
+gem 'devise', '~> 4', '>= 4.7.1'
 
 # Audit changes
 gem 'paper_trail', '~> 10'
