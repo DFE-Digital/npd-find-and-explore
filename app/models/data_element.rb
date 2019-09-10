@@ -19,6 +19,6 @@ class DataElement < ApplicationRecord
   end
 
   def breadcrumbs
-    @breadcrumbs ||= [concept, concept.category, concept.category.ancestors.reverse].flatten
+    @breadcrumbs ||= [concept, concept&.category, concept&.category&.ancestors&.reverse].compact.flatten
   end
 end
