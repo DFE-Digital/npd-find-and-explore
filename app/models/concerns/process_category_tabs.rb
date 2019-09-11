@@ -6,7 +6,6 @@ module ProcessCategoryTabs
   extend ActiveSupport::Concern
 
   included do
-
     def process_errors
       @process_errors ||= []
     end
