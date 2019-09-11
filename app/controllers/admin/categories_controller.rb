@@ -105,10 +105,19 @@ module Admin
       render partial: 'import_form', layout: false, locals: { success: true, error: '' }
     rescue ArgumentError => e
       Rails.logger.error(e)
-      render partial: 'form', layout: false, locals: { success: false, error: e.message }
+      render partial: 'import_form', layout: false, locals: { success: false, error: e.message }
     rescue StandardError => e
       Rails.logger.error(e)
       render partial: 'import_form', layout: false, locals: { success: false, error: 'There has been an error while processing your file' }
+    ensure
+      loader.destroy
+    end
+
+    def abort_import
+      loader = InfArch::Upload.find(params['loader_id'])
+      loader.destroy
+
+      render partial: 'import_form', layout: false, locals: { success: false, error: 'The upload has been cancelled by the user' }
     end
 
     def reindex

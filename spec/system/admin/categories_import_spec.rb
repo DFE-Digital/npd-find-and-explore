@@ -72,4 +72,14 @@ RSpec.describe 'Categories Import', type: :system do
     click_on('Upload')
     expect(page).to have_button('Go Back', wait: 5)
   end
+
+  it 'Will abort the upload' do
+    visit 'admin/categories/import'
+    attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'reduced_categories_table.xlsx'))
+    click_on('Upload')
+    find_button('Go Back', wait: 5)
+    click_on('Go Back')
+
+    expect(page).to have_text('The upload has been cancelled by the user', wait: 5)
+  end
 end

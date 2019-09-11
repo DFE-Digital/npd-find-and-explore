@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       get  :import
       post :preprocess
       post :import, to: 'categories#do_import'
+      post :abort_import
       get  :reindex
       post :reindex, to: 'categories#do_reindex'
     end

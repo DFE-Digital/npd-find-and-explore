@@ -20,11 +20,11 @@
       <input type="hidden" name="loader_id" value="<%= loader.id %>">
       <button type="submit" class="govuk-button" id="submit-upload">Confirm Upload</button>
     <%- end %>
-    <%#= form_with url: abort_import_admin_categories_path, method: :post, remote: true,
+    <%= form_with url: abort_import_admin_categories_path, method: :post, remote: true,
                   multipart: true, id: 'upload-form', class: 'inline-form' do |f| %>
       <input type="hidden" name="loader_id" value="<%= loader.id %>">
       <button type="submit" class="govuk-button govuk-button--secondary" id="cancel-upload">Go Back</button>
-    <%#- end %>
+    <%- end %>
   <% end -%>
 </div>
 
