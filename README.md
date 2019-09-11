@@ -162,9 +162,12 @@ Categories and concepts should be managed through the Find & Explore admin inter
 
 ```
 ActiveRecord::Base.transaction do
-    Concept.delete_all
-    Category.delete_all
-    DfEDataTables::CategoriesLoader.new('path/to/Information Architecture 04-24 - MASTER.xlsx');nil
+  Concept.delete_all
+  Category.delete_all
+  loader = InfArch::Upload.create(file_name: 'Information Architecture 04-24 - MASTER.xlsx',
+                                  data_table: 'path/to/Information Architecture 04-24 - MASTER.xlsx')
+  loader.preprocess
+  loader.process
 end
 ```
 
