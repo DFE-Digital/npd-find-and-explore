@@ -34,12 +34,10 @@ module ProcessCategories
     def upload(categories, parent = nil)
       categories.each do |hash|
         category = find_or_create_category(hash, parent)
+        concepts(category, hash.dig('concepts'))
 
-        category.concepts << concepts(category, hash.dig('concepts'))
-
-        next if hash.dig('subcat').blank?
-
-        upload(hash.dig('subcat'), category)
+        subcat = hash.dig('subcat')
+        upload(subcat, category) if subcat.present?
       end
     end
 
@@ -47,23 +45,17 @@ module ProcessCategories
       return [] if category.nil? || concepts.blank?
 
       concepts.map do |concept_hash|
-        concept = Concept.find_or_create_by!(
-          name: concept_hash.dig('name'),
-          category: category
-        )
-        concept.update(description: concept_hash.dig('description'))
+        concept = Concept.find_or_create_by!(name: concept_hash.dig('name'), category: category) do |c|
+          c.description = concept_hash.dig('description')
+        end
         update_data_elements(concept, concept_hash.dig('npd_aliases'))
-        concept
       end
     end
 
     def update_data_elements(concept, npd_aliases)
       return if concept.nil? || npd_aliases.blank?
 
-      npd_aliases.each do |npd_alias|
-        DataElement.where(npd_alias: npd_alias)
-                   .each { |element| element.update!(concept: concept) }
-      end
+      DataElement.where(npd_alias: npd_aliases).update_all(concept_id: concept.id)
     end
 
     def find_or_create_category(hash, parent = nil)
