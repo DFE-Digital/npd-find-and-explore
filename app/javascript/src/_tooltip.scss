@@ -1,6 +1,5 @@
 .tooltip {
   position: relative;
-  white-space: initial;
 
   .help {
     background-color: $govuk-brand-colour;
@@ -39,6 +38,7 @@
     transition: all .1s ease;
     width: 250px;
     z-index: 99;
+    white-space: normal;
   }
 
   .tooltip-top-left {
