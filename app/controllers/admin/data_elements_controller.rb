@@ -75,13 +75,6 @@ module Admin
 
   private
 
-    def check_input_file
-      raise(ArgumentError, 'Please upload a file') if params['file-upload'].blank?
-      raise(ArgumentError, 'Wrong format. Please upload an Excel spreadsheet') unless DataTable.check_content_type(params['file-upload'])
-
-      nil
-    end
-
     def load_tables
       loader = DataTable::Upload.find(params['loader_id'])
       loader.process
