@@ -35,6 +35,12 @@ RSpec.describe InfArch::Upload, type: :model do
                           data_table: de_table_path)
   end
 
+  before do
+    DataElement.destroy_all
+    Concept.destroy_all
+    Category.destroy_all
+  end
+
   it 'Will preprocess under 200ms' do
     expect { reduced_loader.preprocess }
       .to perform_under(200).ms.sample(10)

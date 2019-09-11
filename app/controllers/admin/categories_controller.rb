@@ -79,9 +79,9 @@ module Admin
     def preprocess
       check_input_file
 
-      loader = InfArch::Upload.new(admin_user: current_admin_user,
-                                   file_name: params['file-upload'].original_filename,
-                                   data_table: params['file-upload'])
+      loader = InfArch::Upload.create(admin_user: current_admin_user,
+                                      file_name: params['file-upload'].original_filename,
+                                      data_table: params['file-upload'])
       loader.preprocess
 
       render partial: 'preprocess', layout: false, locals: { loader: loader }
