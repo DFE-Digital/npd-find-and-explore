@@ -11,7 +11,10 @@ module ProcessCategories
       upload_errors = []
       upload_warnings = []
       TABLES.each do |tab_name|
-        next unless workbook.sheets.include?(tab_name)
+        unless workbook.sheets.include?(tab_name)
+          upload_warnings << "Can't find a tab named '#{tab_name}'"
+          next
+        end
 
         tab = InfArch::Tab.create(inf_arch_upload: self, workbook: workbook, tab_name: tab_name)
         upload_errors.concat(tab.process_errors)
@@ -29,7 +32,7 @@ module ProcessCategories
 
   private
 
-    TABLES = ['CIN-CLA', 'Demographics', 'Attainment', 'Absence-Exclusion', 'Pupil Ref Nos - KS\'s'].freeze
+    TABLES = %w[CIN-CLA Demographics Attainment Absence-Exclusion].freeze
 
     def upload(categories, parent = nil)
       categories.each do |hash|

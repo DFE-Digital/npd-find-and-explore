@@ -22,6 +22,12 @@ RSpec.describe InfArch::Upload, type: :model do
                         file_name: 'reduced_categories_table_wrong_header.xlsx',
                         data_table: reduced_wrong_header_table_path)
   end
+  let(:reduced_missing_tab_table_path) { 'spec/fixtures/files/reduced_categories_table_missing_tab.xlsx' }
+  let(:reduced_missing_tab_loader) do
+    InfArch::Upload.new(admin_user: admin_user,
+                        file_name: 'reduced_categories_table_missing_tab.xlsx',
+                        data_table: reduced_missing_tab_table_path)
+  end
   let(:de_table_path) { 'spec/fixtures/files/reduced_table.xlsx' }
   let(:de_loader) do
     DataTable::Upload.new(admin_user: admin_user,
@@ -40,9 +46,16 @@ RSpec.describe InfArch::Upload, type: :model do
       .and change(InfArch::Tab, :count).by(4)
   end
 
-  it 'will return a warning if a tab is missing the headers' do
+  it 'will return errors if a tab is missing the headers' do
     reduced_wrong_header_loader.preprocess
-    expect(reduced_wrong_header_loader.upload_errors).not_to be_empty
+    expect(reduced_wrong_header_loader.upload_errors)
+      .to eq(["Can't find a column with header 'L0' or 'Standard Extract' for tab 'Demographics'"])
+  end
+
+  it 'will return a warning if a tab is missing' do
+    reduced_missing_tab_loader.preprocess
+    expect(reduced_missing_tab_loader.upload_warnings)
+      .to eq(["Can't find a tab named 'Demographics'"])
   end
 
   it 'Will process within 2500ms' do
