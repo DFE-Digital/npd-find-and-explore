@@ -1,7 +1,8 @@
 .variable-description {
   background: govuk-colour('grey-4');
-  border-bottom: 1px solid $govuk-border-colour;
   padding: 1em .5em;
+  margin-top: -10px;
+  margin-bottom: -10px !important;
 }
 
 table th:first-child {
@@ -11,6 +12,10 @@ table th:first-child {
 
 .govuk-table__header--numeric {
   white-space: nowrap;
+}
+
+.govuk-table__cell--numeric {
+  word-break: break-word;
 }
 
 @include govuk-media-query($until: tablet) {
