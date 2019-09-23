@@ -13,8 +13,11 @@
           <% end %>
         </strong>
       </div>
+    <% else %>
+      <div class="govuk-notice-text">
+        <p class="message">No major issues have been found in the uploaded file. All expected tabs and headers are present.</p>
+      </div>
     <% end %>
-    <%= render partial: 'summary', locals: { loader: loader } %>
     <%= form_with url: import_admin_categories_path, method: :post, remote: true,
                   multipart: true, id: 'upload-form', class: 'inline-form' do |f| %>
       <input type="hidden" name="loader_id" value="<%= loader.id %>">

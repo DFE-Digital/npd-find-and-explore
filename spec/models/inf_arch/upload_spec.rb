@@ -61,7 +61,7 @@ RSpec.describe InfArch::Upload, type: :model do
   it 'will return a warning if a tab is missing' do
     reduced_missing_tab_loader.preprocess
     expect(reduced_missing_tab_loader.upload_warnings)
-      .to eq(["Can't find a tab named 'Demographics'"])
+      .to eq(["Can't find a tab named 'Demographics'. If you proceed, all categories and concepts from this tab will be removed from the system."])
   end
 
   it 'Will process within 2500ms' do

@@ -12,7 +12,7 @@ module ProcessCategories
       upload_warnings = []
       TABLES.each do |tab_name|
         unless workbook.sheets.include?(tab_name)
-          upload_warnings << "Can't find a tab named '#{tab_name}'"
+          upload_warnings << "Can't find a tab named '#{tab_name}'. If you proceed, all categories and concepts from this tab will be removed from the system."
           next
         end
 
