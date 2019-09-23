@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_28_123606) do
+ActiveRecord::Schema.define(version: 2019_09_04_134658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -170,6 +170,27 @@ ActiveRecord::Schema.define(version: 2019_08_28_123606) do
     t.index ["admin_user_id"], name: "index_data_table_uploads_on_admin_user_id"
   end
 
+  create_table "inf_arch_tabs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "inf_arch_upload_id"
+    t.string "tab_name"
+    t.json "tree"
+    t.json "process_errors"
+    t.json "process_warnings"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inf_arch_upload_id"], name: "index_inf_arch_tabs_on_inf_arch_upload_id"
+  end
+
+  create_table "inf_arch_uploads", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "file_name"
+    t.uuid "admin_user_id"
+    t.json "upload_errors", default: []
+    t.json "upload_warnings", default: []
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_user_id"], name: "index_inf_arch_uploads_on_admin_user_id"
+  end
+
   create_table "pg_search_documents", force: :cascade do |t|
     t.tsvector "content"
     t.string "searchable_type"
@@ -203,4 +224,6 @@ ActiveRecord::Schema.define(version: 2019_08_28_123606) do
   add_foreign_key "data_table_rows", "data_table_uploads"
   add_foreign_key "data_table_tabs", "data_table_uploads"
   add_foreign_key "data_table_uploads", "admin_users"
+  add_foreign_key "inf_arch_tabs", "inf_arch_uploads"
+  add_foreign_key "inf_arch_uploads", "admin_users"
 end

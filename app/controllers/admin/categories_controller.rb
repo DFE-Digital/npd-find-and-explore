@@ -76,22 +76,48 @@ module Admin
       render :import, layout: 'admin/application', locals: { success: nil, error: '' }
     end
 
+    def preprocess
+      check_input_file
+
+      loader = InfArch::Upload.create(admin_user: current_admin_user,
+                                      file_name: params['file-upload'].original_filename,
+                                      data_table: params['file-upload'])
+      loader.preprocess
+
+      render partial: 'preprocess', layout: false, locals: { loader: loader }
+    rescue ArgumentError => e
+      Rails.logger.error(e)
+      render partial: 'import_form', layout: false, locals: { success: false, error: e.message }
+    rescue StandardError => e
+      Rails.logger.error(e)
+      render partial: 'import_form', layout: false, locals: { success: false, error: 'An error occourred while uploading the information architecture file' }
+    end
+
     def do_import
-      unless DataTable.check_content_type(params['file-upload'])
-        render partial: 'import_form', layout: false, locals: { success: false, error: 'Please upload an Excel spreadsheet' }
-        return
-      end
+      loader = InfArch::Upload.find(params['loader_id'])
 
       ActiveRecord::Base.transaction do
         Concept.where.not(name: 'No Concept').delete_all
         Category.where.not(name: 'No Category').delete_all
-        DfEDataTables::CategoriesLoader.new(params['file-upload'])
+        loader.process
       end
 
       render partial: 'import_form', layout: false, locals: { success: true, error: '' }
+    rescue ArgumentError => e
+      Rails.logger.error(e)
+      render partial: 'import_form', layout: false, locals: { success: false, error: e.message }
     rescue StandardError => e
       Rails.logger.error(e)
       render partial: 'import_form', layout: false, locals: { success: false, error: 'There has been an error while processing your file' }
+    ensure
+      loader.destroy
+    end
+
+    def abort_import
+      loader = InfArch::Upload.find(params['loader_id'])
+      loader.destroy
+
+      render partial: 'import_form', layout: false, locals: { success: false, error: 'The upload has been cancelled by the user' }
     end
 
     def reindex

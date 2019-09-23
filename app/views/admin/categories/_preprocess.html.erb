@@ -1,0 +1,33 @@
+<div id="form-group" class="govuk-form-group">
+  <div class="govuk-box govuk-!-margin-3" id="govuk-box-message" aria-busy="true"></div>
+  <% if loader.upload_errors&.any? %>
+    <%= render partial: 'import_form', locals: { success: false, error: loader.upload_errors.join(', ') } %>
+  <% else %>
+    <% if loader.upload_warnings&.any? %>
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-warning-text__assistive">Warning</span>
+          <% loader.upload_warnings.each do |warning| %>
+            <span class="message"><%= warning %></span><br />
+          <% end %>
+        </strong>
+      </div>
+    <% else %>
+      <div class="govuk-notice-text">
+        <p class="message">No major issues have been found in the uploaded file. All expected tabs and headers are present.</p>
+      </div>
+    <% end %>
+    <%= form_with url: import_admin_categories_path, method: :post, remote: true,
+                  multipart: true, id: 'upload-form', class: 'inline-form' do |f| %>
+      <input type="hidden" name="loader_id" value="<%= loader.id %>">
+      <button type="submit" class="govuk-button" id="submit-upload">Confirm Upload</button>
+    <%- end %>
+    <%= form_with url: abort_import_admin_categories_path, method: :post, remote: true,
+                  multipart: true, id: 'upload-form', class: 'inline-form' do |f| %>
+      <input type="hidden" name="loader_id" value="<%= loader.id %>">
+      <button type="submit" class="govuk-button govuk-button--secondary" id="cancel-upload">Go Back</button>
+    <%- end %>
+  <% end -%>
+</div>
+

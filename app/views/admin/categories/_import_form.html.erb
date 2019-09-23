@@ -1,10 +1,10 @@
 <div id="form-group" class="govuk-form-group<%= success == false ? ' govuk-form-group--error' : '' %>">
-  <%= form_with url: import_admin_categories_path, method: :post, remote: true,
+  <%= form_with url: preprocess_admin_categories_path, method: :post, remote: true,
                 multipart: true, id: 'upload-form' do |f| %>
     <label class="govuk-label govuk-!-margin-bottom-3" for="file-upload">
       <span class="govuk-body-m">Categories file in Excel format</span>
     </label>
-    <input class="govuk-file-upload govuk-!-margin-bottom-3" id="file-upload" name="file-upload" type="file">
+    <input class="govuk-file-upload govuk-!-margin-bottom-3" id="file-upload" name="file-upload" type="file" required="true">
     <% if success == false %>
       <p id="upload-file-error" class="govuk-error-message govuk-!-margin-top-2">
         <span class="govuk-visually-hidden">Error:</span>

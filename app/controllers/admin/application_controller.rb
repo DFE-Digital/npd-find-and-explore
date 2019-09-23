@@ -28,5 +28,14 @@ module Admin
       flash[:error] = e.message
       redirect_to action: :index
     end
+
+  private
+
+    def check_input_file
+      raise(ArgumentError, 'Please upload a file') if params['file-upload'].blank?
+      raise(ArgumentError, 'Wrong format. Please upload an Excel spreadsheet') unless DataTable.check_content_type(params['file-upload'])
+
+      nil
+    end
   end
 end

@@ -7,7 +7,10 @@ class AdminUser < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :trackable, :lockable, :timeoutable
 
-  has_many :dfe_data_tables, inverse_of: :admin_user, dependent: :nullify
+  has_many :data_table_uploads,
+           class_name: 'DataTable::Uploads', inverse_of: :admin_user, dependent: :nullify
+  has_many :inf_arch_uploads,
+           class_name: 'InfArch::Uploads', inverse_of: :admin_user, dependent: :nullify
 
   validate :password_complexity
 
