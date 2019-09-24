@@ -155,7 +155,7 @@ module Admin
     def order
       @order ||= Administrate::OrderCategories.new(
         params.fetch(resource_name, {}).fetch(:order, nil),
-        params.fetch(resource_name, {}).fetch(:direction, nil),
+        params.fetch(resource_name, {}).fetch(:direction, nil)
       )
     end
 
