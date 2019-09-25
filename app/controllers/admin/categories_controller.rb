@@ -73,7 +73,7 @@ module Admin
     end
 
     def import
-      render :import, layout: 'admin/application', locals: { success: nil, error: '' }
+      render :import, layout: 'admin/application', locals: { success: nil, errors: [] }
     end
 
     def preprocess
@@ -87,10 +87,10 @@ module Admin
       render partial: 'preprocess', layout: false, locals: { loader: loader }
     rescue ArgumentError => e
       Rails.logger.error(e)
-      render partial: 'import_form', layout: false, locals: { success: false, error: e.message }
+      render partial: 'import_form', layout: false, locals: { success: false, errors: [e.message] }
     rescue StandardError => e
       Rails.logger.error(e)
-      render partial: 'import_form', layout: false, locals: { success: false, error: 'An error occourred while uploading the information architecture file' }
+      render partial: 'import_form', layout: false, locals: { success: false, errors: ['An error occourred while uploading the information architecture file'] }
     end
 
     def do_import
@@ -102,13 +102,13 @@ module Admin
         loader.process
       end
 
-      render partial: 'import_form', layout: false, locals: { success: true, error: '' }
+      render partial: 'import_form', layout: false, locals: { success: true, errors: [] }
     rescue ArgumentError => e
       Rails.logger.error(e)
-      render partial: 'import_form', layout: false, locals: { success: false, error: e.message }
+      render partial: 'import_form', layout: false, locals: { success: false, errors: [e.message] }
     rescue StandardError => e
       Rails.logger.error(e)
-      render partial: 'import_form', layout: false, locals: { success: false, error: 'There has been an error while processing your file' }
+      render partial: 'import_form', layout: false, locals: { success: false, errors: ['There has been an error while processing your file'] }
     ensure
       loader.destroy
     end
@@ -117,20 +117,20 @@ module Admin
       loader = InfArch::Upload.find(params['loader_id'])
       loader.destroy
 
-      render partial: 'import_form', layout: false, locals: { success: false, error: 'The upload has been cancelled by the user' }
+      render partial: 'import_form', layout: false, locals: { success: false, errors: ['The upload has been cancelled by the user'] }
     end
 
     def reindex
-      render :reindex, layout: 'admin/application', locals: { success: nil, error: '' }
+      render :reindex, layout: 'admin/application', locals: { success: nil, errors: [] }
     end
 
     def do_reindex
       PgSearch::Multisearch.rebuild(Category)
 
-      render :reindex, layout: 'admin/application', locals: { success: true, error: '' }
+      render :reindex, layout: 'admin/application', locals: { success: true, errors: [] }
     rescue StandardError => e
       Rails.logger.error(e)
-      render :reindex, layout: 'admin/application', locals: { success: false, error: 'There has been an error while reindexing the categories' }
+      render :reindex, layout: 'admin/application', locals: { success: false, errors: ['There has been an error while reindexing the categories'] }
     end
 
   private

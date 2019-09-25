@@ -45,7 +45,7 @@ RSpec.describe 'Categories Import', type: :system do
     attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'reduced_categories_table_wrong_header.xlsx'))
     click_on('Upload')
 
-    expect(page).to have_text("Can't find a column with header 'L0' or 'Standard Extract' for tab 'Demographics'")
+    expect(page).to have_text("Can't find a header row for tab 'Demographics'.")
   end
 
   it 'Will error if a tab is missing' do

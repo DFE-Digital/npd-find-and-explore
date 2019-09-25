@@ -1,7 +1,7 @@
 <div id="form-group" class="govuk-form-group">
   <div class="govuk-box govuk-!-margin-3" id="govuk-box-message" aria-busy="true"></div>
   <% if loader.upload_errors&.any? %>
-    <%= render partial: 'import_form', locals: { success: false, error: loader.upload_errors.join(', ') } %>
+    <%= render partial: 'import_form', locals: { success: false, errors: loader.upload_errors } %>
   <% else %>
     <% if loader.upload_warnings&.any? %>
       <div class="govuk-warning-text">

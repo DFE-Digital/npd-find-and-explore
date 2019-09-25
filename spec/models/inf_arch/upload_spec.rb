@@ -48,14 +48,18 @@ RSpec.describe InfArch::Upload, type: :model do
 
   it 'Will preprocess the infrastructure architecture items' do
     expect { reduced_loader.preprocess }
-      .to change(InfArch::Upload, :count).by(1)
-      .and change(InfArch::Tab, :count).by(4)
+      .to change(InfArch::Upload, :count)
+      .by(1)
+      .and change(InfArch::Tab, :count)
+      .by(4)
   end
 
   it 'will return errors if a tab is missing the headers' do
     reduced_wrong_header_loader.preprocess
     expect(reduced_wrong_header_loader.upload_errors)
-      .to eq(["Can't find a column with header 'L0' or 'Standard Extract' for tab 'Demographics'"])
+      .to eq(["Can't find a header row for tab 'Demographics'. " \
+              "The first cell of a header row should read 'Category (L0)', " \
+              'are you sure the header row is present and the headers are spelt correctly?'])
   end
 
   it 'will return a warning if a tab is missing' do
@@ -73,8 +77,10 @@ RSpec.describe InfArch::Upload, type: :model do
   it 'Will process the categories and concepts' do
     reduced_loader.preprocess
     expect { reduced_loader.process }
-      .to change(Category, :count).by(69)
-      .and change(Concept, :count).by(346)
+      .to change(Category, :count)
+      .by(69)
+      .and change(Concept, :count)
+      .by(346)
   end
 
   it 'Will assign a real concept to data elements' do
