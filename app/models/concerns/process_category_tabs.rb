@@ -12,12 +12,26 @@ module ProcessCategoryTabs
 
   private
 
+    HEADERS = {
+      'Category L0'             => /^\w*Category \(L0\)\w*$/i,
+      'Category L0 Description' => /^\w*Category \(L0\) Description\w*$/i,
+      'Category L1'             => /^\w*(Sub)?-?\w?Category \(L1\)\w*$/i,
+      'Category L1 Description' => /^\w*(Sub)?-?\w?Category \(L1\) Description\w*$/i,
+      'Category L2'             => /^\w*(Sub)?-?\w?Category \(L2\)\w*$/i,
+      'Category L2 Description' => /^\w*(Sub)?-?\w?Category \(L2\) Description\w*$/i,
+      'Category L3'             => /^\w*(Sub)?-?\w?Category \(L3\)\w*$/i,
+      'Category L3 Description' => /^\w*(Sub)?-?\w?Category \(L3\) Description\w*$/i,
+      'Concept Level'           => /^\w*Concept Level\w*$/i,
+      'Concept Description'     => /^\w*Concept Description\w*$/i,
+      'NPD Alias'               => /^\w*(NPD Alias|NPDAlias)/i
+    }.freeze
+
     def find_sheet(table)
       @sheet = table.sheet_for(tab_name)
     end
 
     def extract_tree
-      return [] unless check_first_row
+      return [] unless check_headers
 
       categories_tree = []
       tree_level0 = nil
@@ -46,11 +60,38 @@ module ProcessCategoryTabs
       update(tree: categories_tree)
     end
 
-    def check_first_row
-      return true if first_row.present?
+    def check_headers
+      if headers.empty?
+        process_errors << "Can't find a header row for tab '#{tab_name}'. " \
+                          "The first cell of a header row should read 'Category (L0)', " \
+                          'are you sure the header row is present and the headers are spelt correctly?'
+        return false
+      end
 
-      process_errors << "Can't find a column with header 'L0' or 'Standard Extract' for tab '#{tab_name}'"
-      false
+      log_missing_headers
+      process_errors.empty?
+    end
+
+    def headers
+      @headers ||= begin
+        row = ((1..sheet.last_row).select { |idx| HEADERS['Category L0'] =~ sheet.row(idx).dig(0) })&.first
+
+        sheet.row(row).map { |cell| header(cell) }.reverse.drop_while(&:nil?).reverse
+      end
+    end
+
+    def log_missing_headers
+      HEADERS.keys.each do |header|
+        next if headers.include?(header)
+
+        process_errors << "Can't find a column with header '#{header}' for tab '#{tab_name}'"
+      end
+    end
+
+    def header(cell)
+      return nil if cell.is_a?(String) && cell.empty?
+
+      HEADERS.find { |_k, v| v.match?(cell) }&.first || cell
     end
 
     def first_row

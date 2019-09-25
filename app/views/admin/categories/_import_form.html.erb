@@ -7,8 +7,10 @@
     <input class="govuk-file-upload govuk-!-margin-bottom-3" id="file-upload" name="file-upload" type="file" required="true">
     <% if success == false %>
       <p id="upload-file-error" class="govuk-error-message govuk-!-margin-top-2">
-        <span class="govuk-visually-hidden">Error:</span>
-        <span class="message"><%= error %></span>
+        <span class="govuk-visually-hidden">Errors:</span>
+        <% errors.each do |error| %>
+          <span class="message"><%= error %></span><br />
+        <% end %>
       </p>
     <% end %>
     <% if success %>

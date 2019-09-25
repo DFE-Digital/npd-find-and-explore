@@ -40,9 +40,10 @@ module Admin
     def preprocess
       @last_import = DataTable::Upload.where(successful: true).order(created_at: :asc).last
       check_input_file
-      loader = DataTable::Upload.new(admin_user: current_admin_user,
-                                     file_name: params['file-upload'].original_filename,
-                                     data_table: params['file-upload'])
+      loader = DataTable::Upload.create(admin_user: current_admin_user,
+                                        file_name: params['file-upload'].original_filename,
+                                        data_table: params['file-upload'])
+      loader.data_table.attach(params['file-upload'])
       loader.preprocess
 
       render partial: 'preprocess', layout: false, locals: { loader: loader }
