@@ -50,9 +50,10 @@
 
 <div class="govuk-grid-column-full govuk-!-padding-0">
   <div class="govuk-body-s govuk-!-margin-0 govuk-!-padding-bottom-0">
-    Can't find what you're looking for?
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfLDp6pa7GOanfRW72C495z1JbAG1jYwZiGTn2yUYPGcMBwdA/viewform">
-      Click here to download the latest version of the Data Tables
-    </a>
+    <%= t('concepts.show.data_table.cant_find_what_youre_looking_for') %>
+    <%= link_to(t('concepts.show.data_table.download'),
+                'https://docs.google.com/forms/d/e/1FAIpQLSfLDp6pa7GOanfRW72C495z1JbAG1jYwZiGTn2yUYPGcMBwdA/viewform',
+                data: { outgoing_link: true,
+                        outgoing_page: 'Download the latest version of the Data Tables' } ) %>
   </div>
 </div>
