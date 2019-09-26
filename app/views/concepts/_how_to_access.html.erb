@@ -5,7 +5,10 @@
     <p class="govuk-!-font-size-16">
       <%= t(
         'concepts.show.accessing.how_to_access',
-        link: link_to(t('concepts.show.accessing.link'), 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
+        link: link_to(t('concepts.show.accessing.link'),
+                      'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts',
+                      data: { outgoing_link: true,
+                              outgoing_page: 'How to access Department for Education (DfE) data extracts' } )
       ).html_safe %>
     </p>
   </div>
