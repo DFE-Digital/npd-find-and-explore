@@ -8,12 +8,14 @@
 
     gtag('config', '<%= google_analytics_key %>');
 
-
     document.addEventListener('DOMContentLoaded', function() {
-      var breadcrumbs = document.querySelector('.govuk-breadcrumbs').innerText.replace(/\n/g, '/');
+      var breadcrumbs = document.querySelector('.govuk-breadcrumbs');
+      if (breadcrumbs) { title = breadcrumbs.innerText.replace(/\n/g, '/'); }
+      else { title = document.title; }
+
       gtag('event', 'pageview', {
         send_to: '<%= google_analytics_key %>',
-        page_title: breadcrumbs,
+        page_title: title,
         event_label: document.title
       });
 
