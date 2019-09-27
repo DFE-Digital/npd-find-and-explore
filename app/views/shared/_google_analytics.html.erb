@@ -2,29 +2,59 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=<%= google_analytics_key %>"></script>
   <%= javascript_tag nonce: true, type: 'text/javascript' do %>
+    function search(field) {
+      var matcher = new RegExp('^' + field + '=')
+      return function(element) { return matcher.test(element) }
+    }
+
+    function extract(query, field) {
+      var result = query.filter(search(field))[0];
+      if (result) { return result.split('=')[1]; }
+      else { return ''; }
+    }
+
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
 
-    gtag('config', '<%= google_analytics_key %>',
-         { custom_map: { dimension1: 'location', dimension2: 'title', dimension3: 'keyword' } }
-    );
+    gtag('config', '<%= google_analytics_key %>', { custom_map: {
+      dimension1: 'location',
+      dimension2: 'title',
+      dimension3: 'keyword',
+      dimension4: 'sort',
+      dimension5: 'page',
+    } });
 
     document.addEventListener('DOMContentLoaded', function() {
       var breadcrumbs = document.querySelector('.govuk-breadcrumbs');
       if (breadcrumbs) { title = breadcrumbs.innerText.replace(/\n/g, '/'); }
       else { title = document.title; }
 
-      gtag('event', 'pageview', {
-        send_to: '<%= google_analytics_key %>',
-        page_title: title,
-        event_label: document.title
-      });
+      if (window.location.pathname === '/search') {
+        var query = window.location.search.split(/(\?|&)/)
+        var keyword = extract(query, 'search');
+
+        gtag('event', keyword, {
+          send_to: '<%= google_analytics_key %>',
+          event_category: 'search',
+          event_label: 'Search',
+          keyword: keyword,
+          sort: extract(query, 'sort'),
+          page: extract(query, 'page'),
+        });
+      } else {
+        gtag('event', 'pageview', {
+          send_to: '<%= google_analytics_key %>',
+          page_title: title,
+          event_label: document.title
+        });
+      }
 
       document.querySelectorAll('a[data-outgoing-link]').forEach(function(node) {
         node.addEventListener('click', function(event) {
           var target = event.currentTarget;
           gtag('event', target.innerText, {
+            send_to: '<%= google_analytics_key %>',
             event_category: 'outbound',
             event_label: target.dataset.outgoingPage,
             location: target.href,
@@ -32,19 +62,6 @@
           });
         });
       });
-
-      document.querySelectorAll('[data-search-form]').forEach(function(node) {
-        node.addEventListener('submit', function(event) {
-          var target = event.currentTarget;
-          var search = target.querySelector('#search').value
-          gtag('event', search, {
-            event_category: 'search',
-            event_label: 'Search',
-            event_action: search,
-            keyword: search,
-          });
-        });
-      })
     });
   <%- end %>
   <!-- End Google Analytics -->
