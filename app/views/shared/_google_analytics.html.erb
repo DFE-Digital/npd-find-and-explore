@@ -23,8 +23,6 @@
 
       document.querySelectorAll('a[data-outgoing-link]').forEach(function(node) {
         node.addEventListener('click', function(event) {
-          event.preventDefault();
-
           var target = event.currentTarget;
           gtag('event', target.innerText, {
             event_category: 'outbound',

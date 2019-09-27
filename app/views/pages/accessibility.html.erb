@@ -15,7 +15,8 @@
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-m">Accessibility for Find and Explore data in the National Pupil Database</h2>
     <p>This service is part of the wider GOV.UK website. There’s a separate accessibility statement for the main GOV.UK website.</p>
-    <p>This page only contains information about the Find and Explore data in the National Pupil Database service, available at <a href="https://find-npd-data.education.gov.uk">https://find-npd-data.education.gov.uk</a>.</p>
+    <p>This page only contains information about the Find and Explore data in the National Pupil Database service, available at
+      <a href="https://find-npd-data.education.gov.uk">https://find-npd-data.education.gov.uk</a>.</p>
 
     <h2 class="govuk-heading-m">Using this service</h2>
     <p>This service is run by the Department for Education. We want as many people as possible to be able to use it. For example, that means you should be able to:</p>
@@ -41,14 +42,21 @@
     <p>If you have difficulty using this service you can contact us at <a href="mailto:data-sharing@education.gov.uk">data-sharing@education.gov.uk</a></p>
 
     <h2 class="govuk-heading-m">Reporting accessibility problems with this service</h2>
-    <p>We’re always looking to improve the accessibility of this service. If you find any problems that aren’t listed on this page or think we’re not meeting accessibility requirements, contact: <a href="mailto:data-sharing@education.gov.uk">data-sharing@education.gov.uk</a> or you can leave feedback using our <a href="<%= Rails.application.credentials.dig(Rails.env.to_sym, :google_feedback_form) %>">online form.</a>
+    <p>We’re always looking to improve the accessibility of this service.
+      If you find any problems that aren’t listed on this page or think we’re not meeting accessibility requirements, contact:
+      <a href="mailto:data-sharing@education.gov.uk">data-sharing@education.gov.uk</a> or you can leave feedback using our
+      <a href="<%= Rails.application.credentials.dig(Rails.env.to_sym, :google_feedback_form) %>"
+         data-outgoing-link=true data-outgoing-page="Accessibility Feedback">online form.</a>
+    </span>
 
     <h2 class="govuk-heading-m">Enforcement procedure</h2>
-    <p>The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, <a rel="external" href="https://www.equalityadvisoryservice.com/">contact the Equality Advisory and Support Service (EASS)</a>.</p>
+    <p>The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint,
+      <a rel="external" href="https://www.equalityadvisoryservice.com/"
+        data-outgoing-link=true data-outgoing-page="Equality ADvisory and Support Service">contact the Equality Advisory and Support Service (EASS)</a>.</p>
 
     <h2 class="govuk-heading-m">Technical information about this service’s accessibility</h2>
     <p>The DfE is committed to making this service accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.</p>
-    <p>This service is fully compliant with the <a rel="external" href="https://www.w3.org/TR/WCAG21/">Web Content Accessibility Guidelines version 2.1 AA standard</a>.</p>
+    <p>This service is fully compliant with the <a rel="external" href="https://www.w3.org/TR/WCAG21/" data-outgoing-link=true data-outgoing-page="W3">Web Content Accessibility Guidelines version 2.1 AA standard</a>.</p>
 
     <h2 class="govuk-heading-m">How we tested this service</h2>
     <p>The service was last tested on 01 September 2019 and was checked for compliance with WCAG 2.1 AA. The test was carried out by our internal Accessibility Advisor.</p>
@@ -64,9 +72,9 @@
       </h2>
       <nav role="navigation" class="gem-c-related-navigation__nav-section" aria-labelledby="related-nav-related_items-e0133a5f" data-module="gem-toggle">
         <ul class="gem-c-related-navigation__link-list govuk-list govuk-!-font-size-16" data-module="track-click">
-          <li><a href="https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts">How to access Department for Education (DfE) data extracts</a></li>
-          <li><a href="https://www.gov.uk/government/collections/national-pupil-database">National Pupil Database</a></li>
-          <li><a href="https://www.gov.uk/government/publications/dfe-external-data-shares">DfE external data shares</a></li>
+          <li><a href="https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts" data-outgoing-link=true data-outgoing-page="How to access DfE Data Extracts">How to access Department for Education (DfE) data extracts</a></li>
+          <li><a href="https://www.gov.uk/government/collections/national-pupil-database" data-outgoing-link=true data-outgoing-page="National Pupil Database">National Pupil Database</a></li>
+          <li><a href="https://www.gov.uk/government/publications/dfe-external-data-shares" data-outgoing-link=true data-outgoing-page="DfE External Data Shares">DfE external data shares</a></li>
         </ul>
       </nav>
     </aside>
