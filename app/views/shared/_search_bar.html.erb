@@ -1,6 +1,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <form action="/search" method="get" novalidate>
+    <form action="/search" method="get" novalidate data-search-form=true>
       <input type="hidden" name="sort" id="search_sort" value="<%= params[:sort] || 'relevant' %>">
       <div class="govuk-form-group">
         <label class="govuk-label" for="search">

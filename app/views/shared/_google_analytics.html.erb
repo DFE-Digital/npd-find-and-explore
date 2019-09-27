@@ -7,7 +7,7 @@
     gtag('js', new Date());
 
     gtag('config', '<%= google_analytics_key %>',
-         { custom_map: { dimension1: 'location', dimension2: 'title' } }
+         { custom_map: { dimension1: 'location', dimension2: 'title', dimension3: 'keyword' } }
     );
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -32,6 +32,19 @@
           });
         });
       });
+
+      document.querySelectorAll('[data-search-form]').forEach(function(node) {
+        node.addEventListener('submit', function(event) {
+          var target = event.currentTarget;
+          var search = target.querySelector('#search').value
+          gtag('event', search, {
+            event_category: 'search',
+            event_label: 'Search',
+            event_action: search,
+            keyword: search,
+          });
+        });
+      })
     });
   <%- end %>
   <!-- End Google Analytics -->
