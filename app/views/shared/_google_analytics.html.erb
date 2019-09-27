@@ -6,7 +6,9 @@
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
 
-    gtag('config', '<%= google_analytics_key %>');
+    gtag('config', '<%= google_analytics_key %>',
+         { custom_map: { dimension1: 'location', dimension2: 'title' } }
+    );
 
     document.addEventListener('DOMContentLoaded', function() {
       var breadcrumbs = document.querySelector('.govuk-breadcrumbs');
@@ -21,12 +23,14 @@
 
       document.querySelectorAll('a[data-outgoing-link]').forEach(function(node) {
         node.addEventListener('click', function(event) {
+          event.preventDefault();
+
           var target = event.currentTarget;
           gtag('event', target.innerText, {
             event_category: 'outbound',
             event_label: target.dataset.outgoingPage,
-            event_action: target.href,
-            page_title: target.innerText,
+            location: target.href,
+            title: target.innerText,
           });
         });
       });
