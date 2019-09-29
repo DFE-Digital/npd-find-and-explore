@@ -45,7 +45,7 @@ gem 'loaf', '~> 0.8.1'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # ROO gem to handle Excel files
-gem 'roo', '~> 2.7'
+gem 'roo', '~> 2.8', '>= 2.8.2'
 
 # Authentication for Rails Admin
 gem 'devise', '~> 4', '>= 4.7.1'
@@ -90,8 +90,8 @@ end
 group :test do
   gem 'capybara', '>= 2.15'
   gem 'coveralls', require: false
-  gem 'selenium-webdriver'
-  gem 'webdrivers', '~> 3.7'
+  gem 'selenium-webdriver', '>= 3.142.3'
+  gem 'webdrivers', '~> 3.9', '>= 3.9.4'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
