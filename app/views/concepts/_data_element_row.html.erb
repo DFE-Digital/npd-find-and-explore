@@ -11,9 +11,25 @@
     <%= academic_year(data_element_row.academic_year_collected_to) %>
   </td>
   <td data-label="Sensitivity" class="govuk-table__cell govuk-table__cell--numeric">
+    <span class="tooltip">
+      <a href="#sensitivity-tip-before" class="help" aria-describedby="sensitivity-tip-before" title="Help">
+        i<span>nformation about sensitivity</span>
+      </a>
+      <span class="visuallyhidden tooltip-content tooltip-top-left" role="tooltip" id="sensitivity-tip-before">
+        Data is given a sensitivity scale. Items are rated from A to E with A being highly sensitive and E being low.
+      </span>
+    </span>
     <%= data_element_row&.sensitivity %>
   </td>
   <td data-label="Identification risk" class="govuk-table__cell govuk-table__cell--numeric">
+    <span class="tooltip">
+      <a href="#identifiability-tip-before" class="help" aria-describedby="identifiability-tip-before" title="Help">
+        i<span>nformation about identifiability</span>
+      </a>
+      <span class="visuallyhidden tooltip-content tooltip-top-left" role="tooltip" id="identifiability-tip-before">
+        Data is scored on identifiability scale from 1 to 5, the lower the number the higher the identifiability.
+      </span>
+    </span>
     <%= data_element_row&.identifiability %>
   </td>
   <td data-label="Value" class="govuk-table__cell govuk-table__cell--numeric">

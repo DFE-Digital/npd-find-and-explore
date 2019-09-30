@@ -10,6 +10,10 @@ table th:first-child {
   max-width: 400px;
 }
 
+table td .tooltip {
+  display: none;
+}
+
 .govuk-table__header--numeric {
   white-space: nowrap;
 }
@@ -45,6 +49,31 @@ table th:first-child {
   table td::before {
     content: attr(data-label);
     float: left;
+  }
+
+  table td .tooltip {
+    display: inline-block;
+    left: -50%;
+    position: relative;
+
+    .help {
+      font-weight: bold;
+      padding: 3px 12px 0;
+    }
+  }
+
+  table td .tooltip, h2 .tooltip {
+    .tooltip-top-left {
+      left: -50px;
+    }
+
+    .tooltip-top-right {
+      left: -50px;
+    }
+
+    .tooltip-bottom-left {
+      left: -50px;
+    }
   }
 
   .variable-description {
