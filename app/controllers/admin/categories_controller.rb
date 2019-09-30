@@ -13,7 +13,10 @@ module Admin
     def index
       search_term = params[:search].to_s.strip
       resources = find_resources(search_term)
-      resources = apply_collection_includes(resources)
+      resources = apply_resource_includes(resources)
+      # TODO: From the next version of Administrate it may be necessary to
+      # remove the above line and uncomment the following
+      # resources = apply_collection_includes(resources)
       resources = order.apply(resources)
       resources = resources.page(params[:page]).per(records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)
@@ -150,13 +153,6 @@ module Admin
                                  .pluck(:searchable_id))
               .includes(:translations, concepts: :translations)
               .order(:name)
-    end
-
-    def order
-      @order ||= Administrate::OrderCategories.new(
-        params.fetch(resource_name, {}).fetch(:order, nil),
-        params.fetch(resource_name, {}).fetch(:direction, nil)
-      )
     end
 
     def generate_breadcrumbs
