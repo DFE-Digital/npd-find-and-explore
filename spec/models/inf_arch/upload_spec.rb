@@ -80,7 +80,7 @@ RSpec.describe InfArch::Upload, type: :model do
       .to change(Category, :count)
       .by(69)
       .and change(Concept, :count)
-      .by(346)
+      .by(347)
   end
 
   it 'Will assign a real concept to data elements' do
