@@ -46,9 +46,21 @@ module ProcessCategoryTabs
         row = row.reverse.drop_while(&:nil?).reverse
         l0_cat, l1_cat, l2_cat, l3_cat = extract_categories(row)
 
-        tree_level0 = push_categories(l0_cat, categories_tree) if l0_cat.present?
-        tree_level1 = push_categories(l1_cat, tree_level0&.dig(:subcat)) if l1_cat.present?
-        tree_level2 = push_categories(l2_cat, tree_level1&.dig(:subcat)) if l2_cat.present?
+        if l0_cat.present?
+          tree_level0 = push_categories(l0_cat, categories_tree)
+          tree_level1, tree_level2, tree_level3 = nil
+        end
+
+        if l1_cat.present?
+          tree_level1 = push_categories(l1_cat, tree_level0&.dig(:subcat))
+          tree_level2, tree_level3 = nil
+        end
+
+        if l2_cat.present?
+          tree_level2 = push_categories(l2_cat, tree_level1&.dig(:subcat))
+          tree_level3 = nil
+        end
+
         tree_level3 = push_categories(l3_cat, tree_level2&.dig(:subcat)) if l3_cat.present?
 
         concept_hash = concept(row)
