@@ -155,6 +155,13 @@ module Admin
               .order(:name)
     end
 
+    def order
+      @order ||= Administrate::OrderCategories.new(
+        params.fetch(resource_name, {}).fetch(:order, nil),
+        params.fetch(resource_name, {}).fetch(:direction, nil)
+      )
+    end
+
     def generate_breadcrumbs
       admin_breadcrumbs_for(category_leaf: requested_resource)
     end
