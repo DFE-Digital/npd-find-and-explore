@@ -195,3 +195,25 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
     color: govuk-colour('grey-1');
   }
 }
+
+.govuk-category-card {
+  min-height: 7rem;
+}
+
+@media (max-width: 920px) {
+  .govuk-category-card {
+    min-height: 9rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .govuk-category-card {
+    min-height: 11rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .govuk-category-card {
+    min-height: auto;
+  }
+}

@@ -1,24 +1,20 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l">
-      <%= @title %>
-    </h1>
-
+    <h1 class="govuk-heading-l"><%= @title %></h1>
     <p><%= @category.description %></p>
   </div>
-
   <div class="govuk-grid-column-one-third">
   </div>
-
 </div>
 
-
-<%= content_tag :div, class: "govuk-grid-row" do %>
+<%= content_tag :div, class: 'govuk-grid-row' do %>
   <h3 class="govuk-grid-column-full govuk-heading-m"><%= t('.sub_categories') %></h3>
-  <%= render partial: "category", collection: @category.children.includes(:translations), locals: {wrap_class: "govuk-grid-column-one-half"} %>
+  <%= render partial: 'category', collection: @category.children.includes(:translations),
+             locals: { wrap_class: 'govuk-grid-column-one-half govuk-category-card' } %>
 <% end unless @category.children.empty? %>
 
-<%= content_tag :div, class: "govuk-grid-row" do %>
+<%= content_tag :div, class: 'govuk-grid-row' do %>
   <h3 class="govuk-grid-column-full govuk-heading-m"><%= t('.concepts') %></h3>
-  <%= render partial: "concept", collection: @category.concepts.includes(:translations), locals: {wrap_class: "govuk-grid-column-one-half"} %>
+  <%= render partial: 'concept', collection: @category.concepts.includes(:translations),
+             locals: { wrap_class: 'govuk-grid-column-one-half govuk-category-card' } %>
 <% end unless @category.concepts.empty? %>
