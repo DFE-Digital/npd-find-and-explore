@@ -20,12 +20,22 @@
   </div>
 </div>
 
-<%= render 'pagination' %>
+<% if @results.count.positive? %>
+  <%= render 'pagination' %>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <%= render partial: "result", collection: @results %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <%= render partial: "result", collection: @results %>
+    </div>
   </div>
-</div>
 
-<%= render 'pagination' %>
+  <%= render 'pagination' %>
+<% else %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <p class="govuk-body">
+        <%= t('helpers.page_entries_info.one_page.display_entries.zero') %>
+      </p>
+    </div>
+  </div>
+<% end %>
