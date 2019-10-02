@@ -39,6 +39,10 @@ Rails.application.routes.draw do
     end
     resources :data_elements, only: %i[index show]
     resources :admin_users
+    resource :admin_user, only: [] do
+      put ':id/deactivate', to: 'admin_users#deactivate', as: :deactivate
+      put ':id/reactivate', to: 'admin_users#reactivate', as: :reactivate
+    end
 
     root to: 'categories#index'
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_04_134658) do
+ActiveRecord::Schema.define(version: 2019_10_01_123357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2019_09_04_134658) do
     t.string "unlock_token"
     t.datetime "locked_at"
     t.string "unique_session_id"
+    t.datetime "deactivated_at"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_admin_users_on_unlock_token", unique: true

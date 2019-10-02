@@ -187,3 +187,11 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 .inline-form {
   display: inline-block;
 }
+
+.js-table-row-inactive {
+  color: govuk-colour('grey-1');
+
+  a {
+    color: govuk-colour('grey-1');
+  }
+}

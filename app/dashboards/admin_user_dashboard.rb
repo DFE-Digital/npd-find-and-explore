@@ -14,6 +14,7 @@ class AdminUserDashboard < Administrate::BaseDashboard
     email: Field::String,
     password: Field::Password,
     password_confirmation: Field::Password,
+    deactivated_at: Field::DateTime.with_options(timezone: 'GB'),
     reset_password_token: Field::String,
     reset_password_sent_at: Field::DateTime.with_options(timezone: 'GB'),
     remember_created_at: Field::DateTime.with_options(timezone: 'GB'),
@@ -36,6 +37,7 @@ class AdminUserDashboard < Administrate::BaseDashboard
     sign_in_count
     last_sign_in_at
     last_sign_in_ip
+    deactivated_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -43,6 +45,7 @@ class AdminUserDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     email
+    deactivated_at
     sign_in_count
     current_sign_in_at
     last_sign_in_at
