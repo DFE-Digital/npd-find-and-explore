@@ -20,6 +20,24 @@ module Admin
       end
     end
 
+    def deactivate
+      if requested_resource == current_admin_user
+        flash[:error] = "Can't deactivate self!"
+      else
+        requested_resource.deactivate!
+      end
+      redirect_to action: :index
+    end
+
+    def reactivate
+      if requested_resource == current_admin_user
+        flash[:error] = "Can't reactivate self!"
+      else
+        requested_resource.reactivate!
+      end
+      redirect_to action: :index
+    end
+
     # Define a custom finder by overriding the `find_resource` method:
     # def find_resource(param)
     #   AdminUser.find_by!(slug: param)

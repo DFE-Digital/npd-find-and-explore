@@ -8,11 +8,14 @@ class AdminUser < ApplicationRecord
          :trackable, :lockable, :timeoutable
 
   has_many :data_table_uploads,
-           class_name: 'DataTable::Uploads', inverse_of: :admin_user, dependent: :nullify
+           class_name: 'DataTable::Upload', inverse_of: :admin_user, dependent: :nullify
   has_many :inf_arch_uploads,
-           class_name: 'InfArch::Uploads', inverse_of: :admin_user, dependent: :nullify
+           class_name: 'InfArch::Upload', inverse_of: :admin_user, dependent: :nullify
 
   validate :password_complexity
+
+  scope :active, -> { where(deactivated_at: nil) }
+  scope :inactive, -> { where.not(deactivated_at: nil) }
 
   def password_complexity
     return if password.blank?
@@ -25,8 +28,24 @@ class AdminUser < ApplicationRecord
     1 special character'
   end
 
+  def deactivate!
+    update!(deactivated_at: DateTime.now)
+  end
+
+  def reactivate!
+    update!(deactivated_at: nil)
+  end
+
   def update_unique_session_id!(unique_session_id)
     self.update_attribute(:unique_session_id, unique_session_id)
+  end
+
+  def account_active?
+    deactivated_at.nil?
+  end
+
+  def active_for_authentication?
+    super && account_active?
   end
 
 protected
