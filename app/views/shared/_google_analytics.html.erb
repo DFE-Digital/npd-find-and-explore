@@ -1,4 +1,4 @@
-<% if Rails.env == "production"  %>
+<% if Rails.env == 'production' || Rails.env == 'staging'  %>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=<%= google_analytics_key %>"></script>
   <%= javascript_tag nonce: true, type: 'text/javascript' do %>
@@ -7,10 +7,10 @@
       return function(element) { return matcher.test(element) }
     }
 
-    function extract(query, field) {
+    function extract(query, field, fallback = '') {
       var result = query.filter(search(field))[0];
       if (result) { return result.split('=')[1]; }
-      else { return ''; }
+      else { return fallback; }
     }
 
     window.dataLayer = window.dataLayer || [];
@@ -39,8 +39,8 @@
           event_category: 'search',
           event_label: 'Search',
           keyword: keyword,
-          sort: extract(query, 'sort'),
-          page: extract(query, 'page'),
+          sort: extract(query, 'sort', 'relevance'),
+          page: extract(query, 'page', '1'),
         });
       } else {
         gtag('event', 'pageview', {
