@@ -1,0 +1,5 @@
+en:
+  administrate:
+    actions:
+      show_resource: Show
+      edit_resource: Edit
