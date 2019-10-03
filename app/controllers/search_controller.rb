@@ -28,12 +28,12 @@ private
   end
 
   def sort_param
-    par = params.permit(:sort).dig(:sort)
+    par = params.permit(:sort).dig(:sort)&.to_sym
     {
-      published: { searchable_created_at: :asc },
-      updated: { searchable_updated_at: :asc },
+      published: { searchable_created_at: :desc },
+      updated: { searchable_updated_at: :desc },
       az: { searchable_name: :asc }
-    }[par&.to_sym]
+    }[par]
   end
 
   def page

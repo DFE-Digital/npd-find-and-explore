@@ -43,6 +43,44 @@ class Concept < ApplicationRecord
     reload
   end
 
+  def create_or_update_pg_search_document
+    data_elements_headers = data_elements.map { |de| [de.source_table_name, de.source_attribute_name].join(' ') }
+                                         .join(' ')
+    data_elements_body = data_elements.map { |de| [de.description_en, de.description_cy, de.npd_alias, de.source_old_attribute_name, de.data_type].join(' ') }
+                                      .join(' ')
+    if !pg_search_document
+      ActiveRecord::Base.connection.execute <<-SQL
+        INSERT INTO pg_search_documents (searchable_type, searchable_id, content,
+          searchable_name, searchable_created_at, searchable_updated_at, created_at, updated_at)
+        SELECT
+          'Concept' AS searchable_type,
+          '#{id}' AS searchable_id,
+          setweight(to_tsvector('#{name}'), 'A') || setweight(to_tsvector('#{description}'), 'B') ||
+          setweight(to_tsvector('#{data_elements_headers}'), 'C') ||
+          setweight(to_tsvector('#{data_elements_body}'), 'D')
+          AS content,
+          '#{name}' AS searchable_name,
+          '#{created_at}' AS searchable_created_at,
+          '#{updated_at}' AS searchable_updated_at,
+          now() AS created_at,
+          now() AS updated_at
+      SQL
+    elsif should_update_pg_search_document?
+      ActiveRecord::Base.connection.execute <<-SQL
+        UPDATE pg_search_documents
+        SET
+          content = setweight(to_tsvector('#{name}'), 'A') || setweight(to_tsvector('#{description}'), 'B') ||
+                    setweight(to_tsvector('#{data_elements_headers}'), 'C') ||
+                    setweight(to_tsvector('#{data_elements_body}'), 'D'),
+          searchable_name = '#{name}',
+          searchable_created_at = '#{created_at}',
+          searchable_updated_at = '#{updated_at}',
+          updated_at = NOW()
+        WHERE searchable_type = 'Concept' AND searchable_id = '#{id}'
+      SQL
+    end
+  end
+
   def self.childless
     search = arel_table
              .project('concepts.id AS id, COUNT(data_elements) AS data_elements_count')
@@ -60,8 +98,8 @@ class Concept < ApplicationRecord
       concepts.id AS searchable_id,
       setweight(to_tsvector(coalesce(string_agg(concept_translations.name, ' '), '')), 'A') ||
       setweight(to_tsvector(coalesce(string_agg(concept_translations.description, ' '), '')), 'B') ||
-      setweight(to_tsvector(coalesce(string_agg(concat_ws(data_elements.source_table_name, data_elements.source_attribute_name), ' '), '')), 'C') ||
-      setweight(to_tsvector(coalesce(string_agg(concat_ws(data_elements.description_en, data_elements.description_cy,
+      setweight(to_tsvector(coalesce(string_agg(concat_ws(' ', data_elements.source_table_name, data_elements.source_attribute_name), ' '), '')), 'C') ||
+      setweight(to_tsvector(coalesce(string_agg(concat_ws(' ', data_elements.description_en, data_elements.description_cy,
                                                           data_elements.npd_alias, data_elements.source_old_attribute_name,
                                                           data_elements.data_type), ' '), '')), 'D')
       AS content,
