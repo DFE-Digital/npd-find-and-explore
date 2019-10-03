@@ -7,7 +7,9 @@
       <%= t('beta_banner.text',
             link: link_to(t('beta_banner.link'),
                           Rails.application.credentials.dig(Rails.env.to_sym, :google_feedback_form),
-                          class: 'govuk-link')).html_safe %>
+                          class: 'govuk-link',
+                          data: { outgoing_link: true,
+                                  outgoing_page: 'Feedback' })).html_safe %>
     </span>
   </p>
 </div>

@@ -33,7 +33,7 @@ private
       published: { searchable_created_at: :asc },
       updated: { searchable_updated_at: :asc },
       az: { searchable_name: :asc }
-    }[par.to_sym]
+    }[par&.to_sym]
   end
 
   def page

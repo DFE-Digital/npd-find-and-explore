@@ -1,4 +1,4 @@
-<form action="/search" method="get" class="govuk-form__inline" novalidate>
+<form action="/search" method="get" class="govuk-form__inline" novalidate data-search-form=true>
   <input type="hidden" name="sort" id="search_sort" value="<%= params[:sort] || 'relevant' %>">
   <input class="govuk-input govuk-!-width-two-thirds govuk-input__search-bar" id="search" name="search" type="text" value="<%= params[:search] %>" placeholder="Search">
   <button type="submit" class="govuk-button govuk-button-search govuk-button-search__header"></button>

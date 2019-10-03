@@ -68,6 +68,9 @@ en:
         categorical: Categorical variables contain a finite number of categories or distinct groups. For example, categorical predictors include gender, material type, and payment method.
         dichotomous: Dichotomous data has only two possible values when observed or measured. For example, "true" or "false" and "male" or "female".
         text: Shows any kind of text data.
+      data_table:
+        cant_find_what_youre_looking_for: "Can't find what you're looking for?"
+        download: Click here to download the latest version of the Data Tables
 
   views:
     pagination:

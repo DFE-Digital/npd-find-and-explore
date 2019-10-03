@@ -57,8 +57,6 @@ module ApplicationHelper
   end
 
   def root_page?
-    return true if params[:controller] == 'categories' && params[:action] == 'index'
-
-    false
+    params[:controller] == 'search' || (params[:controller] == 'categories' && params[:action] == 'index')
   end
 end
