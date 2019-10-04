@@ -21,6 +21,7 @@ WORKDIR $HOME
 ARG BUNDLE_WITHOUT=test:development
 ENV BUNDLE_WITHOUT ${BUNDLE_WITHOUT}
 
+RUN gem update bundler
 ADD Gemfile* ./
 RUN bundle install
 
