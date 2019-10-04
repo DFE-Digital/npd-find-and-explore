@@ -57,15 +57,17 @@ RSpec.describe InfArch::Upload, type: :model do
   it 'will return errors if a tab is missing the headers' do
     reduced_wrong_header_loader.preprocess
     expect(reduced_wrong_header_loader.upload_errors)
-      .to eq(["Can't find a header row for tab 'Demographics'. " \
+      .to eq(["Can't find a header row for tab 'IA_Demographics'. " \
               "The first cell of a header row should read 'Category (L0)', " \
               'are you sure the header row is present and the headers are spelt correctly?'])
   end
 
   it 'will return a warning if a tab is missing' do
     reduced_missing_tab_loader.preprocess
-    expect(reduced_missing_tab_loader.upload_warnings)
-      .to eq(["Can't find a tab named 'Demographics'. If you proceed, all categories and concepts from this tab will be removed from the system."])
+    expect(reduced_missing_tab_loader.upload_errors)
+      .to eq(["Can't find any suitable tab in the worksheet. " \
+              "A suitable tab should start with the prefix 'IA_'. " \
+              'If you proceed, all categories and concepts will be removed from the system.'])
   end
 
   it 'Will process within 2500ms' do

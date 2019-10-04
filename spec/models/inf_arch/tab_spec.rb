@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe InfArch::Tab, type: :model do
   let(:workbook_path) { 'spec/fixtures/files/categories_table.xlsx' }
   let(:workbook) { Roo::Spreadsheet.open(workbook_path) }
-  let(:tab) { InfArch::Tab.create(workbook: workbook, tab_name: 'Demographics') }
+  let(:tab) { InfArch::Tab.create(workbook: workbook, tab_name: 'IA_Demographics') }
   let(:demographics) { tab.tree.dig(0) }
   let(:age) { demographics.dig('subcat', 0) }
   let(:family) { demographics.dig('subcat', 3) }
@@ -42,7 +42,7 @@ RSpec.describe InfArch::Tab, type: :model do
   end
 
   it 'Will extract the tab_name from table' do
-    expect(tab.tab_name).to eq('Demographics')
+    expect(tab.tab_name).to eq('IA_Demographics')
   end
 
   it 'Will extract the sheet from table' do
@@ -52,7 +52,7 @@ RSpec.describe InfArch::Tab, type: :model do
   it 'Will load the file and preprocess the Sheet object under 550ms' do
     expect {
       workbook = Roo::Spreadsheet.open(workbook_path)
-      InfArch::Tab.new(workbook: workbook, tab_name: 'Demographics')
+      InfArch::Tab.new(workbook: workbook, tab_name: 'IA_Demographics')
     }.to perform_under(550).ms.sample(10)
   end
 

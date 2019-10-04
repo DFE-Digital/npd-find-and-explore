@@ -45,7 +45,7 @@ RSpec.describe 'Categories Import', type: :system do
     attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'reduced_categories_table_wrong_header.xlsx'))
     click_on('Upload')
 
-    expect(page).to have_text("Can't find a header row for tab 'Demographics'.")
+    expect(page).to have_text("Can't find a header row for tab 'IA_Demographics'.")
   end
 
   it 'Will error if a tab is missing' do
@@ -53,7 +53,7 @@ RSpec.describe 'Categories Import', type: :system do
     attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'reduced_categories_table_missing_tab.xlsx'))
     click_on('Upload')
 
-    expect(page).to have_text("Can't find a tab named 'Demographics'")
+    expect(page).to have_text("Can't find any suitable tab in the worksheet.")
   end
 
   it 'Will upload a file' do
