@@ -39,6 +39,34 @@ class Category < ApplicationRecord
     reload
   end
 
+  def create_or_update_pg_search_document
+    if !pg_search_document
+      ActiveRecord::Base.connection.execute <<-SQL
+        INSERT INTO pg_search_documents (searchable_type, searchable_id, content,
+          searchable_name, searchable_created_at, searchable_updated_at, created_at, updated_at)
+        SELECT 'Category' AS searchable_type,
+        '#{id}' AS searchable_id,
+        setweight(to_tsvector('#{name}'), 'A') || setweight(to_tsvector('#{description}'), 'B') AS content,
+        '#{name}' AS searchable_name,
+        '#{created_at}' AS searchable_created_at,
+        '#{updated_at}' AS searchable_updated_at,
+        now() AS created_at,
+        now() AS updated_at
+      SQL
+    elsif should_update_pg_search_document?
+      ActiveRecord::Base.connection.execute <<-SQL
+        UPDATE pg_search_documents
+        SET
+          content = setweight(to_tsvector('#{name}'), 'A') || setweight(to_tsvector('#{description}'), 'B'),
+          searchable_name = '#{name}',
+          searchable_created_at = '#{created_at}',
+          searchable_updated_at = '#{updated_at}',
+          updated_at = NOW()
+        WHERE searchable_type = 'Category' AND searchable_id = '#{id}'
+      SQL
+    end
+  end
+
   def self.childless
     join_condition = '(regexp_match(children.ancestry, \'[[:alnum:]-]+\Z\')) = regexp_split_to_array(categories.id::"varchar", \'/\')'
     search = arel_table
