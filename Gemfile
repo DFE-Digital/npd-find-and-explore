@@ -25,7 +25,7 @@ gem 'globalize'
 gem 'ancestry', '~> 3.0'
 
 # Lightweight admin functionality
-gem 'administrate'
+gem 'administrate', '~> 0.12'
 
 # Breadcrumb navigation
 gem 'loaf', '~> 0.8.1'
