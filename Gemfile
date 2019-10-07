@@ -47,6 +47,10 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # ROO gem to handle Excel files
 gem 'roo', '~> 2.8', '>= 2.8.2'
 
+# caxlsx to generate excel files
+gem 'axlsx_rails'
+gem 'caxlsx'
+
 # Authentication for Rails Admin
 gem 'devise', '~> 4', '>= 4.7.1'
 
