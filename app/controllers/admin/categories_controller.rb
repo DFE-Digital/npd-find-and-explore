@@ -130,6 +130,13 @@ module Admin
       render :reindex, layout: 'admin/application', locals: { success: false, errors: ['There has been an error while reindexing the categories'] }
     end
 
+    def download
+      @categories = Category.roots
+      filename = "F&E IA #{DateTime.now.strftime('%d %m %Y %H_%M')}.xlsx"
+
+      render xlsx: 'download.xlsx.axlsx', disposition: :inline, filename: filename
+    end
+
   private
 
     def update_tree(tree_nodes, parent_node = nil)

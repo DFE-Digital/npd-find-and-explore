@@ -48,6 +48,14 @@ private
         }
       },
       {
+        name: 'Export Categories and Concepts',
+        url_params: %i[export admin categories],
+        conditions: {
+          controller: 'admin/categories',
+          action: :export
+        }
+      },
+      {
         name: 'Reindex Categories for search',
         url_params: %i[reindex admin categories],
         conditions: {

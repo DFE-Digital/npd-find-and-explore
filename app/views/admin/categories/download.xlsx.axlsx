@@ -1,0 +1,66 @@
+# frozen_string_literal: true
+
+wb = xlsx_package.workbook
+headers = ['Category (L0)', 'Category (L0) Description',
+           'Category (L1)', 'Category (L1) Description',
+           'Sub-category (L2)', 'Category (L2) Description',
+           'Sub-category (L3)', 'Category (L3) Description',
+           'Concept level', 'Concept Description',
+           'NPD Alias 1', 'NPD Alias 2', 'NPD Alias 3', 'NPD Alias 4',
+           'NPD Alias 5', 'NPD Alias 6', 'NPD Alias 7', 'NPD Alias 8',
+           'NPD Alias 9', 'NPD Alias 10', 'NPD Alias 11', 'NPD Alias 12',
+           'NPD Alias 13', 'NPD Alias 14', 'NPD Alias 15']
+title = wb.styles.add_style(b: true)
+
+@categories.each do |category|
+  wb.add_worksheet(name: "IA_#{category.name}"[0, 31]) do |sheet|
+    sheet.add_row headers, style: title
+
+    l0n = category.name
+    l0d = category.description
+    l1n, l1d, l2n, l2d, l3n, l3d = ''
+
+    category.concepts.each do |concept|
+      sheet.add_row [l0n, l0d, l1n, l1d, l2n, l2d, l3n, l3d,
+                     concept.name, concept.description,
+                     concept.data_elements.map(&:npd_alias)].flatten
+      l0n, l0d = ''
+    end
+
+    category.children.each do |level1|
+      l1n = level1.name
+      l1d = level1.description
+
+      level1.concepts.each do |concept|
+        sheet.add_row [l0n, l0d, l1n, l1d, l2n, l2d, l3n, l3d,
+                       concept.name, concept.description,
+                       concept.data_elements.map(&:npd_alias)].flatten
+        l0n, l0d, l1n, l1d = ''
+      end
+
+      level1.children.each do |level2|
+        l2n = level2.name
+        l2d = level2.description
+
+        level2.concepts.each do |concept|
+          sheet.add_row [l0n, l0d, l1n, l1d, l2n, l2d, l3n, l3d,
+                         concept.name, concept.description,
+                         concept.data_elements.map(&:npd_alias)].flatten
+          l0n, l0d, l1n, l1d, l2n, l2d = ''
+        end
+
+        level2.children.each do |level3|
+          l3n = level3.name
+          l3d = level3.description
+
+          level3.concepts.each do |concept|
+            sheet.add_row [l0n, l0d, l1n, l1d, l2n, l2d, l3n, l3d,
+                           concept.name, concept.description,
+                           concept.data_elements.map(&:npd_alias)].flatten
+            l0n, l0d, l1n, l1d, l2n, l2d, l3n, l3d = ''
+          end
+        end
+      end
+    end
+  end
+end
