@@ -2,6 +2,11 @@
   Generate new IA document
 <% end %>
 
+<% content_for(:additional_tags) do %>
+  <%= stylesheet_pack_tag 'loader' %>
+  <%= javascript_pack_tag 'category_download' %>
+<% end %>
+
 <header class="main-content__header" role="banner">
   <h1 class="main-content__page-title" id="page-title">
     <%= content_for(:title) %>
@@ -9,6 +14,6 @@
 </header>
 
 <fieldset class="govuk-fieldset govuk-!-margin-2" aria-describedby="download-file-hint download-file-error" role="group">
-  <%= link_to 'Download', download_admin_categories_path, class: 'govuk-button' %>
+  <%= link_to 'Download', download_admin_categories_path, class: 'govuk-button', id: 'download-link' %>
 </fieldset>
-
+<div class="govuk-box govuk-!-margin-3" id="govuk-box-message" aria-busy="true"></div>

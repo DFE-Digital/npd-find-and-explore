@@ -133,6 +133,7 @@ module Admin
     def download
       @categories = Category.roots
       filename = "F&E IA #{DateTime.now.strftime('%d %m %Y %H_%M')}.xlsx"
+      cookies['download'] = { value: 'download-ia-table' }
 
       render xlsx: 'download.xlsx.axlsx', disposition: :inline, filename: filename
     end
