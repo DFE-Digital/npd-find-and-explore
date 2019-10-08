@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 module Administrate
-  class OrderConcepts < Administrate::Order
+  class OrderConcepts < Administrate::OrderBase
+  private
+
     def order_by_count(relation)
       relation
         .left_joins(attribute.to_sym)
