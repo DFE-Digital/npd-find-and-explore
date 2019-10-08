@@ -16,6 +16,22 @@ module Administrate
 
   private
 
+    def order_by_association(relation)
+      return order_by_count(relation) if has_many_attribute?(relation)
+
+      return order_by_name(relation) if belongs_to_translated_attribute?(relation)
+
+      return order_by_id(relation) if belongs_to_attribute?(relation)
+
+      relation
+    end
+
+    def order_by_name(relation)
+      relation
+        .joins(attribute.to_sym => :translations)
+        .reorder("#{attribute}_translations.name" => direction)
+    end
+
     def should_reorder?(relation)
       attribute.present? &&
         (relation.first.respond_to?(:translations) &&
@@ -24,6 +40,12 @@ module Administrate
 
     def reorder(relation)
       relation.reorder(attribute => direction)
+    end
+
+    def belongs_to_translated_attribute?(relation)
+      reflect_association(relation).macro == :belongs_to &&
+        relation.first.send(attribute).respond_to?(:translations) &&
+        relation.first.send(attribute).translations.first.respond_to?(:name)
     end
   end
 end
