@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       post :abort_import
       get  :reindex
       post :reindex, to: 'categories#do_reindex'
+      get  :export
+      get  :download
     end
     resources :categories
     resource :concepts, only: [] do
