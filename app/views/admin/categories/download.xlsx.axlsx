@@ -12,6 +12,7 @@ headers = ['Category (L0)', 'Category (L0) Description',
            'NPD Alias 13', 'NPD Alias 14', 'NPD Alias 15']
 title = wb.styles.add_style(b: true)
 
+# rubocop:disable Metrics/BlockLength
 @categories.each do |category|
   wb.add_worksheet(name: "IA_#{category.name}"[0, 31]) do |sheet|
     sheet.add_row headers, style: title
@@ -64,3 +65,4 @@ title = wb.styles.add_style(b: true)
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
