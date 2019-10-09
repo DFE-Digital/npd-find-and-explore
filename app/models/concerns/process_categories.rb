@@ -10,15 +10,17 @@ module ProcessCategories
       save
       upload_errors = []
       upload_warnings = []
-      TABLES.each do |tab_name|
-        unless workbook.sheets.include?(tab_name)
-          upload_warnings << "Can't find a tab named '#{tab_name}'. If you proceed, all categories and concepts from this tab will be removed from the system."
-          next
-        end
+      workbook.sheets.each do |tab_name|
+        next unless TAB_REGEX =~ tab_name
 
         tab = InfArch::Tab.create(inf_arch_upload: self, workbook: workbook, tab_name: tab_name)
         upload_errors.concat(tab.process_errors)
       end
+      if inf_arch_tabs.empty?
+        upload_errors << "Can't find any suitable tab in the worksheet. A suitable tab should start with the prefix 'IA_'. " \
+                         'If you proceed, all categories and concepts will be removed from the system.'
+      end
+
       update(upload_errors: upload_errors.flatten, upload_warnings: upload_warnings.flatten)
     end
 
@@ -32,7 +34,7 @@ module ProcessCategories
 
   private
 
-    TABLES = %w[CIN-CLA Demographics Attainment Absence-Exclusion].freeze
+    TAB_REGEX = /^IA_/i.freeze
 
     def upload(categories, parent = nil)
       categories.each do |hash|
