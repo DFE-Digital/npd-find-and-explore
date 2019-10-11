@@ -12,6 +12,7 @@ class ConceptDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::String.with_options(searchable: false),
     name: Field::String,
+    description: Field::String,
     category: BreadcrumbField.with_options(order: :name),
     data_elements: HasManySortedField.with_options(order: %i[source_table_name source_attribute_name]),
     versions: Field::HasMany.with_options(class_name: 'PaperTrail::Version'),
@@ -35,6 +36,7 @@ class ConceptDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     name
+    description
     category
     data_elements
     created_at
@@ -46,6 +48,7 @@ class ConceptDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     name
+    description
     category
     data_elements
   ].freeze
