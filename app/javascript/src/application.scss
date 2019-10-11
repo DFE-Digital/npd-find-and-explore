@@ -197,18 +197,18 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 }
 
 .govuk-category-card {
-  min-height: 7rem;
+  min-height: 10rem;
 }
 
-@media (max-width: 920px) {
+@media (max-width: 930px) {
   .govuk-category-card {
-    min-height: 9rem;
+    min-height: 13rem;
   }
 }
 
 @media (max-width: 700px) {
   .govuk-category-card {
-    min-height: 11rem;
+    min-height: 16rem;
   }
 }
 
