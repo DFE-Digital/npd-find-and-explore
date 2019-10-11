@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_01_123357) do
+ActiveRecord::Schema.define(version: 2019_10_11_101813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -217,7 +217,6 @@ ActiveRecord::Schema.define(version: 2019_10_01_123357) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "category_translations", "categories", on_delete: :cascade
   add_foreign_key "concept_translations", "concepts", on_delete: :cascade
   add_foreign_key "concepts", "categories", on_delete: :nullify
   add_foreign_key "data_elements", "concepts", on_delete: :nullify
