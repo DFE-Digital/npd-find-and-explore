@@ -36,7 +36,9 @@ class Concept < ApplicationRecord
     raise(ActiveRecord::NotNullViolation, 'Cannot delete "No Concept" with data elements') if name == 'No Concept' && data_elements.count.positive?
 
     no_category = Category.find_or_create_by(name: 'No Category')
-    no_concept = Concept.find_or_create_by(name: 'No Concept', category: no_category)
+    no_concept = Concept.find_or_create_by(name: 'No Concept', category: no_category) do |concept|
+      concept.description = 'This Concept is used to house data elements that are waiting to be categorised'
+    end
     data_elements.each do |data_element|
       data_element.update(concept: no_concept)
     end

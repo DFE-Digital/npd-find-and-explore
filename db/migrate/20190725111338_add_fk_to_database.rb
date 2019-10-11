@@ -8,7 +8,9 @@ class AddFkToDatabase < ActiveRecord::Migration[5.2]
 
     # set to 'no concept' orphaned data elements
     category = Category.find_or_create_by(name: 'No Category')
-    concept ||= Concept.find_or_create_by(name: 'No Concept', category: category)
+    concept ||= Concept.find_or_create_by(name: 'No Concept', category: category) do |c|
+      c.description = 'This Concept is used to house data elements that are waiting to be categorised'
+    end
     DataElement.where.not(concept_id: Concept.pluck(:id)).update(concept: concept)
 
     add_foreign_key :category_translations, :categories, uuid: true, on_delete: :cascade
