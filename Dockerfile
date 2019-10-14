@@ -11,7 +11,8 @@ RUN set -ex && apk add --update --no-cache \
                                         postgresql-dev \
                                         postgresql-client \
                                         tzdata \
-                                        firefox-esr
+                                        chromium \
+                                        chromium-chromedriver
 
 # Set the working dir as HOME and add the app's binaries path to $PATH:
 ENV HOME=/usr/src/app PATH=/usr/src/app/bin:$PATH
