@@ -48,6 +48,10 @@ Rails.application.routes.draw do
     end
     resources :uploads, only: %i[index]
 
+    authenticate :admin_user do
+      mount Rapidfire::Engine, at: '/surveys'
+    end
+
     root to: 'categories#index'
   end
 

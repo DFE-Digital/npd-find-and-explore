@@ -142,7 +142,6 @@ ActiveRecord::Schema.define(version: 2019_11_29_114718) do
   end
 
   create_table "data_table_tabs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "type"
     t.uuid "data_table_upload_id"
     t.string "tab_name"
     t.json "headers"
@@ -150,6 +149,7 @@ ActiveRecord::Schema.define(version: 2019_11_29_114718) do
     t.json "process_warnings"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "type", default: "DataTable::Tab"
     t.index ["data_table_upload_id"], name: "index_data_table_tabs_on_data_table_upload_id"
   end
 
@@ -166,9 +166,10 @@ ActiveRecord::Schema.define(version: 2019_11_29_114718) do
 
   create_table "datasets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "tab_name", null: false
-    t.string "tab_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_line_regex"
+    t.string "tab_type"
     t.string "name"
     t.text "description"
   end
@@ -211,6 +212,49 @@ ActiveRecord::Schema.define(version: 2019_11_29_114718) do
     t.boolean "searchable_is_cla", array: true
     t.index ["content"], name: "index_pg_search_documents_on_content", using: :gin
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
+  end
+
+  create_table "rapidfire_answers", force: :cascade do |t|
+    t.bigint "attempt_id"
+    t.bigint "question_id"
+    t.text "answer_text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attempt_id"], name: "index_rapidfire_answers_on_attempt_id"
+    t.index ["question_id"], name: "index_rapidfire_answers_on_question_id"
+  end
+
+  create_table "rapidfire_attempts", force: :cascade do |t|
+    t.bigint "survey_id"
+    t.string "user_type"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["survey_id"], name: "index_rapidfire_attempts_on_survey_id"
+    t.index ["user_id", "user_type"], name: "index_rapidfire_attempts_on_user_id_and_user_type"
+    t.index ["user_type", "user_id"], name: "index_rapidfire_attempts_on_user_type_and_user_id"
+  end
+
+  create_table "rapidfire_questions", force: :cascade do |t|
+    t.bigint "survey_id"
+    t.string "type"
+    t.string "question_text"
+    t.string "default_text"
+    t.string "placeholder"
+    t.integer "position"
+    t.text "answer_options"
+    t.text "validation_rules"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["survey_id"], name: "index_rapidfire_questions_on_survey_id"
+  end
+
+  create_table "rapidfire_surveys", force: :cascade do |t|
+    t.string "name"
+    t.text "introduction"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "after_survey_content"
   end
 
   create_table "versions", force: :cascade do |t|
