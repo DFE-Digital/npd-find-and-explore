@@ -24,6 +24,9 @@ gem 'ancestry', '~> 3.0'
 # Lightweight admin functionality
 gem 'administrate', '~> 0.14', '>= 0.14.0'
 
+# Custom surveys
+gem 'rapidfire'
+
 # Breadcrumb navigation
 gem 'loaf', '~> 0.8.1'
 
