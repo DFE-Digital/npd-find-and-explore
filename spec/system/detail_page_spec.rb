@@ -25,8 +25,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     visit concept_path(concept)
 
     expect(page).to have_text('Can\'t find what you\'re looking for?')
-    expect(page).to have_link('Click here to download the latest version of the Data Tables',
-                              href: 'https://docs.google.com/forms/d/e/1FAIpQLSfLDp6pa7GOanfRW72C495z1JbAG1jYwZiGTn2yUYPGcMBwdA/viewform')
+    expect(page).to have_link('Click here to download the latest version of the Data Tables')
   end
 
   it 'Shows the "not available" message when at least one has identifiability rating = 1' do
