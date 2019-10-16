@@ -8,9 +8,10 @@ module DataElementImport
   included do
   private
 
-    COLUMNS = %i[source_table_name source_attribute_name additional_attributes
-                 identifiability sensitivity source_old_attribute_name
-                 academic_year_collected_from academic_year_collected_to
+    COLUMNS = %i[tab_name source_table_name source_attribute_name
+                 additional_attributes identifiability sensitivity
+                 source_old_attribute_name academic_year_collected_from
+                 academic_year_collected_to standard_extract is_cla
                  collection_terms values description_en description_cy data_type
                  educational_phase updated_at].freeze
 

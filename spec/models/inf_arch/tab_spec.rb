@@ -49,11 +49,11 @@ RSpec.describe InfArch::Tab, type: :model do
     expect(tab.sheet.class.name).to eq('Roo::Excelx::Sheet')
   end
 
-  it 'Will load the file and preprocess the Sheet object under 550ms' do
+  it 'Will load the file and preprocess the Sheet object under 500ms' do
     expect {
       workbook = Roo::Spreadsheet.open(workbook_path)
       InfArch::Tab.new(workbook: workbook, tab_name: 'IA_Demographics')
-    }.to perform_under(550).ms.sample(10)
+    }.to perform_under(500).ms.sample(10)
   end
 
   it 'Will extract the demographics' do
