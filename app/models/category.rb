@@ -10,7 +10,7 @@
 # A category contains one or more categories in a nested tree.
 # A leaf-category (one without sub-categories) contains one or more
 # concepts.
-class Category < ApplicationRecord
+class Category < Versioned
   include PgSearch::Model
 
   has_many :concepts, dependent: :destroy, inverse_of: :category
