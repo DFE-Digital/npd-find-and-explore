@@ -94,8 +94,7 @@ end
 group :test do
   gem 'capybara', '>= 2.15'
   gem 'coveralls', require: false
-  gem 'selenium-webdriver', '>= 3.142.3'
-  gem 'webdrivers', '~> 3.9', '>= 3.9.4'
+  gem 'selenium-webdriver', '~> 3.142'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

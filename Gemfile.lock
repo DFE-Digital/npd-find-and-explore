@@ -349,10 +349,6 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webdrivers (3.9.4)
-      nokogiri (~> 1.6)
-      rubyzip (~> 1.0)
-      selenium-webdriver (~> 3.0)
     webpacker (4.0.7)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
@@ -399,13 +395,12 @@ DEPENDENCIES
   rspec
   rspec-benchmark
   rspec-rails (~> 3.8)
-  selenium-webdriver (>= 3.142.3)
+  selenium-webdriver (~> 3.142)
   sentry-raven (~> 2.9)
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
   web-console (>= 3.3.0)
-  webdrivers (~> 3.9, >= 3.9.4)
   webpacker (~> 4.0)
 
 RUBY VERSION
