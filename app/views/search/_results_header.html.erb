@@ -1,0 +1,19 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <h3 class="govuk-heading-m govuk-!-display-inline">
+      Results for '<%= params[:search] %>'
+    </h3>
+  </div>
+
+  <% if @results.any? %>
+    <div class="govuk-grid-column-one-half right">
+      <div class="govuk-form-group govuk-!-display-inline-block right">
+        <label class="govuk-label govuk-!-display-inline govuk-!-padding-right-2" for="sort">
+          Sort by
+        </label>
+        <%= select_tag :sort, options_for_select(sort_options, params[:sort]),
+          class: %w[govuk-select govuk-!-display-inline] %>
+      </div>
+    </div>
+  <% end %>
+</div>
