@@ -5,11 +5,7 @@ class SearchController < ApplicationController
 
   def index
     @results = sorted_search.page(page).per(per_page)
-    searchables = sorted_search.map(&:searchable)
-    @categories = searchables.map(&:category).uniq.sort
-    data_elements = searchables.map(&:data_elements).flatten.uniq
-    @years = (data_elements.map(&:academic_year_collected_from) + data_elements.map(&:academic_year_collected_to)).flatten.uniq.compact.sort
-    @tabs = data_elements.map(&:tab_name).flatten.uniq.compact.sort
+    build_filters
     @title = t('search_title')
     breadcrumbs_for(search: true)
 
@@ -47,5 +43,30 @@ private
 
   def per_page
     5
+  end
+
+  def build_filters
+    @categories, data_elements = build_categories_and_data_elements
+    @years, @tabs = build_years_and_tabs(data_elements)
+  end
+
+  def build_categories_and_data_elements
+    categories = []
+    data_elements = []
+    sorted_search.map(&:searchable).each do |searchable|
+      categories.push(searchable.category)
+      data_elements.push(searchable.data_elements)
+    end
+    [categories.uniq.sort, data_elements.flatten.uniq]
+  end
+
+  def build_years_and_tabs(data_elements)
+    years = []
+    tabs = []
+    data_elements.each do |de|
+      years.push(de.academic_year_collected_from, de.academic_year_collected_to)
+      tabs.push(de.tab_name)
+    end
+    [years.flatten.uniq.compact.sort, tabs.flatten.uniq.compact.sort]
   end
 end
