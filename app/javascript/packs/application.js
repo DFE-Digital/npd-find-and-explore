@@ -9,5 +9,4 @@
 
 import '../src/application.scss'
 
-import '../src/collapsible.js'
 import '../src/govuk-frontend.js'
