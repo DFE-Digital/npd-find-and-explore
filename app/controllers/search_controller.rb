@@ -4,7 +4,7 @@ class SearchController < ApplicationController
   include BreadcrumbBuilder
 
   def index
-    @results = sorted_search.page(page).per(per_page)
+    @results = filtered_search.page(page).per(per_page)
     build_filters
     @title = t('search_title')
     breadcrumbs_for(search: true)
@@ -22,6 +22,10 @@ private
 
   def sorted_search
     @sorted_search ||= sort_param ? search.reorder(sort_param) : search
+  end
+
+  def filtered_search
+    @filtered_search ||= filter_params.present? ? sorted_search.where(filter_params) : sorted_search
   end
 
   def search_params
@@ -43,6 +47,11 @@ private
 
   def per_page
     5
+  end
+
+  def filter_params
+    par = params.permit(filter: { category_id: [], tab_name: [], years: [], is_cla: [] })
+    par.dig(:filter)
   end
 
   def build_filters

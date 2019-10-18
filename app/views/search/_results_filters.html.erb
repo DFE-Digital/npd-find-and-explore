@@ -7,8 +7,8 @@
       <div class="govuk-checkboxes govuk-checkboxes-small collapsible">
         <% @categories.each do |category| %>
           <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="categories-<%= category.id %>" name="categories" type="checkbox" value="<%= category.id %>">
-            <label class="govuk-label govuk-checkboxes__label" for="categories-<%= category.id %>"><%= category.name %></label>
+            <%= check_box_tag 'filter[category_id][]', category.id, params[:filter][:category_id]&.include?(category.id), id: "category_id-#{category.id}", class: 'govuk-checkboxes__input' %>
+            <%= label_tag "category_id-#{category.id}", category.name, class: %w[govuk-label govuk-checkboxes__label] %>
           </div>
         <% end %>
       </div>
@@ -21,8 +21,8 @@
       <div class="govuk-checkboxes govuk-checkboxes-small collapsible">
         <% @years.each do |year| %>
           <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="years-<%= year %>" name="years" type="checkbox" value="<%= year %>">
-            <label class="govuk-label govuk-checkboxes__label" for="years-<%= year %>"><%= year %></label>
+            <%= check_box_tag 'filter[years][]', year, params[:filter][:years]&.include?(year.to_s), id: "years-#{year}", class: 'govuk-checkboxes__input' %>
+            <%= label_tag "years-#{year}", year, class: %w[govuk-label govuk-checkboxes__label] %>
           </div>
         <% end %>
       </div>
@@ -35,8 +35,10 @@
       <div class="govuk-checkboxes govuk-checkboxes-small collapsible">
         <% @tabs.each do |tab| %>
           <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="tabs-<%= tab %>" name="tabs" type="checkbox" value="<%= tab %>">
-            <label class="govuk-label govuk-checkboxes__label" for="tabs-<%= tab %>"><%= tab %></label>
+            <input class="govuk-checkboxes__input" id="tab_name-<%= tab %>" name="filter[tab_name][]" type="checkbox" value="<%= tab %>">
+            <label class="govuk-label govuk-checkboxes__label" for="tab_name-<%= tab %>"><%= tab %></label>
+            <%= check_box_tag 'filter[tab_name][]', tab, params[:filter][:tab_name]&.include?(tab), id: "tab_name-#{tab}", class: 'govuk-checkboxes__input' %>
+            <%= label_tag "tab_name-#{tab}", tab, class: %w[govuk-label govuk-checkboxes__label] %>
           </div>
         <% end %>
       </div>
@@ -48,12 +50,12 @@
       </h3>
       <div class="govuk-checkboxes govuk-checkboxes-small">
         <div class="govuk-checkboxes__item">
-          <input class="govuk-checkboxes__input" id="cla-yes" name="cla" type="checkbox" value="true">
-          <label class="govuk-label govuk-checkboxes__label" for="cla-yes">Yes</label>
+          <%= check_box_tag 'filter[is_cla][]', true, params[:filter][:is_cla]&.include?('true'), id: "is_cla-yes", class: 'govuk-checkboxes__input' %>
+          <%= label_tag "is_cla-yes", 'Yes', class: %w[govuk-label govuk-checkboxes__label] %>
         </div>
         <div class="govuk-checkboxes__item">
-          <input class="govuk-checkboxes__input" id="cla-no" name="cla" type="checkbox" value="false">
-          <label class="govuk-label govuk-checkboxes__label" for="cla-no">No</label>
+          <%= check_box_tag 'filter[is_cla][]', false, params[:filter][:is_cla]&.include?('false'), id: "is_cla-no", class: 'govuk-checkboxes__input' %>
+          <%= label_tag "is_cla-no", 'No', class: %w[govuk-label govuk-checkboxes__label] %>
         </div>
       </div>
     </div>
