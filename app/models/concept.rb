@@ -46,22 +46,40 @@ class Concept < Versioned
   end
 
   def create_or_update_pg_search_document
-    data_elements_headers = data_elements.map { |de| [de.source_table_name, de.source_attribute_name].join(' ') }
-                                         .join(' ')
-    data_elements_body = data_elements.map { |de| [de.description_en, de.description_cy, de.npd_alias, de.source_old_attribute_name, de.data_type].join(' ') }
-                                      .join(' ')
+    data_elements_headers = []
+    data_elements_body = []
+    data_elements_years_from = []
+    data_elements_years_to = []
+    data_elements_tab_names = []
+    data_elements_is_cla = []
+    data_elements.each do |de|
+      data_elements_headers.push([de.source_table_name, de.source_attribute_name].join(' '))
+      data_elements_body.push([de.description_en, de.description_cy, de.npd_alias, de.source_old_attribute_name, de.data_type].join(' '))
+      data_elements_years_from.push(de.academic_year_collected_from)
+      data_elements_years_to.push(de.academic_year_collected_to)
+      data_elements_tab_names.push(de.tab_name)
+      data_elements_is_cla.push(de.is_cla)
+    end
+
     if !pg_search_document
       ActiveRecord::Base.connection.execute <<-SQL
         INSERT INTO pg_search_documents (searchable_type, searchable_id, content,
-          searchable_name, searchable_created_at, searchable_updated_at, created_at, updated_at)
+          searchable_name, searchable_category_id, searchable_year_from,
+          searchable_year_to, searchable_tab_names, searchable_is_cla,
+          searchable_created_at, searchable_updated_at, created_at, updated_at)
         SELECT
           'Concept' AS searchable_type,
           '#{id}' AS searchable_id,
           setweight(to_tsvector('#{name}'), 'A') || setweight(to_tsvector('#{description}'), 'B') ||
-          setweight(to_tsvector('#{data_elements_headers}'), 'C') ||
-          setweight(to_tsvector('#{data_elements_body}'), 'D')
+          setweight(to_tsvector('#{data_elements_headers.join(' ')}'), 'C') ||
+          setweight(to_tsvector('#{data_elements_body.join(' ')}'), 'D')
           AS content,
           '#{name}' AS searchable_name,
+          '#{category_id}' AS searchable_category_id,
+          #{data_elements_years.compact.min} AS searchable_year_from,
+          #{data_elements_years.compact.max} AS searchable_year_to,
+          {'#{data_elements_tab_names.flatten.uniq.join("', '")}'} AS searchable_tab_names,
+          {'#{data_elements_is_cla.flatten.uniq.join("', '")}'} AS searchable_is_cla,
           '#{created_at}' AS searchable_created_at,
           '#{updated_at}' AS searchable_updated_at,
           now() AS created_at,
@@ -75,6 +93,12 @@ class Concept < Versioned
                     setweight(to_tsvector('#{data_elements_headers}'), 'C') ||
                     setweight(to_tsvector('#{data_elements_body}'), 'D'),
           searchable_name = '#{name}',
+          searchable_category_id = '#{category_id}',
+          searchable_years = {'#{data_elements_years.flatten.uniq.join("', '")}'},
+          searchable_year_from = #{data_elements_years_from.compact.min},
+          searchable_year_to = #{data_elements_years_to.compact.max},
+          searchable_tab_names = {'#{data_elements_tab_names.flatten.uniq.join("', '")}'},
+          searchable_is_cla = {'#{data_elements_is_cla.flatten.uniq.join("', '")}'},
           searchable_created_at = '#{created_at}',
           searchable_updated_at = '#{updated_at}',
           updated_at = NOW()
@@ -95,7 +119,9 @@ class Concept < Versioned
   def self.rebuild_pg_search_documents
     connection.execute <<-SQL
       INSERT INTO pg_search_documents (searchable_type, searchable_id, content,
-        searchable_name, searchable_created_at, searchable_updated_at, created_at, updated_at)
+        searchable_name, searchable_category_id, searchable_year_from,
+        searchable_year_to, searchable_tab_names, searchable_is_cla,
+        searchable_created_at, searchable_updated_at, created_at, updated_at)
       SELECT 'Concept' AS searchable_type,
       concepts.id AS searchable_id,
       setweight(to_tsvector(coalesce(string_agg(concept_translations.name, ' '), '')), 'A') ||
@@ -106,6 +132,11 @@ class Concept < Versioned
                                                           data_elements.data_type), ' '), '')), 'D')
       AS content,
       MIN(concept_translations.name) AS searchable_name,
+      category_id AS searchable_category_id,
+      min(data_elements.academic_year_collected_from) AS searchable_year_from,
+      max(data_elements.academic_year_collected_to) AS searchable_year_to,
+      array_agg(data_elements.tab_name) AS searchable_tab_names,
+      array_agg(data_elements.is_cla) AS searchable_is_cla,
       MIN(concepts.created_at) AS searchable_created_at,
       MIN(concepts.updated_at) AS searchable_updated_at,
       now() AS created_at,
