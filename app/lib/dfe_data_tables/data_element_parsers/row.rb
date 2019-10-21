@@ -72,7 +72,7 @@ module DfEDataTables
           academic_year_collected_from: data_element.dig(:years_populated, :from),
           academic_year_collected_to: data_element.dig(:years_populated, :to),
           standard_extract: data_element.dig(:standard_extract),
-          is_cla: /CIN.?CLA/i.match(data_element.dig(:standard_extract)),
+          is_cla: /CIN.?CLA/i.match?(data_element.dig(:standard_extract)),
           collection_terms: data_element.dig(:collection_term),
           values: data_element.dig(:values),
           description_en: data_element.dig(:description),
