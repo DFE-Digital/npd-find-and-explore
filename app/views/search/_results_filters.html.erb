@@ -35,8 +35,6 @@
       <div class="govuk-checkboxes govuk-checkboxes-small collapsible">
         <% @tabs.each do |tab| %>
           <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="tab_name-<%= tab %>" name="filter[tab_name][]" type="checkbox" value="<%= tab %>">
-            <label class="govuk-label govuk-checkboxes__label" for="tab_name-<%= tab %>"><%= tab %></label>
             <%= check_box_tag 'filter[tab_name][]', tab, params.dig(:filter, :tab_name)&.include?(tab), id: "tab_name-#{tab}", class: 'govuk-checkboxes__input' %>
             <%= label_tag "tab_name-#{tab}", tab, class: %w[govuk-label govuk-checkboxes__label] %>
           </div>

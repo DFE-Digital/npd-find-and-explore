@@ -14,13 +14,13 @@ RSpec.describe 'Search pages', type: :system do
   end
 
   it 'Has search' do
-    visit '/categories'
+    visit '/'
     expect(page).to have_field('search')
   end
 
   it 'Will not find categories' do
     category = Category.first.root.children.first
-    visit '/categories'
+    visit '/'
     fill_in('search', with: category.name)
     click_button('Search')
 
@@ -32,7 +32,7 @@ RSpec.describe 'Search pages', type: :system do
   end
 
   it 'Will find concepts' do
-    visit '/categories'
+    visit '/'
     fill_in('search', with: Concept.first.name)
     click_button('Search')
 
@@ -44,7 +44,7 @@ RSpec.describe 'Search pages', type: :system do
   end
 
   it 'Will find concepts by element' do
-    visit '/categories'
+    visit '/'
     fill_in('search', with: DataElement.first.source_attribute_name)
     click_button('Search')
 
@@ -53,5 +53,19 @@ RSpec.describe 'Search pages', type: :system do
     expect(page).to have_text("Results for '#{DataElement.first.source_attribute_name}'")
     expect(page).to have_text(DataElement.first.concept.category.name.upcase)
     expect(page).to have_text(DataElement.first.concept.description)
+  end
+
+  it 'Will filter concepts by category' do
+    Concept.all.each_with_index { |concept, i| concept.update(name: "FSM #{i}") }
+    visit '/'
+    fill_in('search', with: 'FSM')
+    click_button('Search')
+
+    expect(page).to have_text('Showing all 2 results')
+
+    check("category_id-#{Concept.first.category_id}", allow_label_click: true)
+    expect(page).to have_text('Displaying 1 result')
+    expect(page).to have_text(Concept.first.category.name.upcase)
+    expect(page).to have_text(Concept.first.description)
   end
 end

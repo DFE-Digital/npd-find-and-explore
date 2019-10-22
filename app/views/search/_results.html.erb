@@ -4,9 +4,7 @@
   <%= javascript_pack_tag 'collapsible' %>
 <%- end %>
 
-
-<% if @results.count.positive? %>
-
+<% if @results.any? %>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-third">
       <%= render 'results_filters' %>
@@ -18,10 +16,12 @@
       <%= render 'pagination' %>
     </div>
   </div>
-
 <% else %>
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column-one-third">
+      <%= render 'results_filters' %>
+    </div>
+    <div class="govuk-grid-column-two-thirds">
       <%= render 'results_header'%>
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">

@@ -49,6 +49,8 @@ class Concept < Versioned
     conn = ActiveRecord::Base.connection
     data_elements_headers, data_elements_body, data_elements_years_from,
       data_elements_years_to, data_elements_tab_names, data_elements_is_cla = extract_complex_fields
+    data_elements_processed_tabs = data_elements_tab_names.present? ? conn.quote("{#{data_elements_tab_names.map { |e| conn.quote(e) }.join(', ')}}") : 'NULL'
+    data_elements_processed_is_cla = data_elements_is_cla.present? ? conn.quote("{#{data_elements_is_cla.map{ |e| conn.quote(e) }&.join(', ')}}") : 'NULL'
 
     if !pg_search_document
       conn.execute <<-SQL
@@ -68,8 +70,8 @@ class Concept < Versioned
           #{conn.quote(category_id)} AS searchable_category_id,
           #{data_elements_years_from.min || 'NULL'} AS searchable_year_from,
           #{data_elements_years_to.max || 'NULL'} AS searchable_year_to,
-          #{data_elements_tab_names.present? ? "{#{data_elements_tab_names&.join(', ')}}" : 'NULL'} AS searchable_tab_names,
-          #{data_elements_is_cla.present? ? "{#{data_elements_is_cla&.join(', ')}}" : 'NULL'} AS searchable_is_cla,
+          #{data_elements_processed_tabs} AS searchable_tab_names,
+          #{data_elements_processed_is_cla} AS searchable_is_cla,
           #{conn.quote(created_at)} AS searchable_created_at,
           #{conn.quote(updated_at)} AS searchable_updated_at,
           now() AS created_at,
@@ -87,8 +89,8 @@ class Concept < Versioned
           searchable_category_id = #{conn.quote(category_id)},
           searchable_year_from = #{data_elements_years_from.min || 'NULL'},
           searchable_year_to = #{data_elements_years_to.max || 'NULL'},
-          searchable_tab_names = #{data_elements_tab_names.present? ? "{#{data_elements_tab_names&.join(', ')}}" : 'NULL'},
-          searchable_is_cla = #{data_elements_is_cla.present? ? "{#{data_elements_is_cla&.join(', ')}}" : 'NULL'},
+          searchable_tab_names = #{data_elements_processed_tabs},
+          searchable_is_cla = #{data_elements_processed_is_cla},
           searchable_created_at = #{conn.quote(created_at)},
           searchable_updated_at = #{conn.quote(updated_at)},
           updated_at = NOW()
@@ -154,8 +156,8 @@ class Concept < Versioned
       data_elements_body.push([de.description_en, de.description_cy, de.npd_alias, de.source_old_attribute_name, de.data_type].join(' '))
       data_elements_years_from.push(de.academic_year_collected_from) if de.academic_year_collected_from.present?
       data_elements_years_to.push(de.academic_year_collected_to) if de.academic_year_collected_to.present?
-      data_elements_tab_names.push(conn.quote(de.tab_name)) if de.tab_name.present?
-      data_elements_is_cla.push(conn.quote(de.is_cla)) if de.is_cla.present?
+      data_elements_tab_names.push(de.tab_name) if de.tab_name.present?
+      data_elements_is_cla.push(de.is_cla) if de.is_cla.present?
     end
     [data_elements_headers, data_elements_body, data_elements_years_from.compact,
      data_elements_years_to.compact, data_elements_tab_names.compact&.flatten&.uniq,
