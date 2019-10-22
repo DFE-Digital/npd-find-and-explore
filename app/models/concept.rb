@@ -50,7 +50,7 @@ class Concept < Versioned
     data_elements_headers, data_elements_body, data_elements_years_from,
       data_elements_years_to, data_elements_tab_names, data_elements_is_cla = extract_complex_fields
     data_elements_processed_tabs = data_elements_tab_names.present? ? conn.quote("{#{data_elements_tab_names.map { |e| conn.quote(e) }.join(', ')}}") : 'NULL'
-    data_elements_processed_is_cla = data_elements_is_cla.present? ? conn.quote("{#{data_elements_is_cla.map{ |e| conn.quote(e) }&.join(', ')}}") : 'NULL'
+    data_elements_processed_is_cla = data_elements_is_cla.present? ? conn.quote("{#{data_elements_is_cla.map { |e| conn.quote(e) }&.join(', ')}}") : 'NULL'
 
     if !pg_search_document
       conn.execute <<-SQL
