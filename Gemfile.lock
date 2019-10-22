@@ -24,6 +24,10 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_record_extended (1.3.1)
+      activerecord (>= 5.0, < 6.1)
+      ar_outer_joins (~> 0.2)
+      pg (< 2.0)
     activejob (5.2.3)
       activesupport (= 5.2.3)
       globalid (>= 0.3.6)
@@ -59,6 +63,8 @@ GEM
       selectize-rails (~> 0.6)
     ancestry (3.0.7)
       activerecord (>= 3.2.0)
+    ar_outer_joins (0.2.0)
+      activerecord (>= 3.2)
     arel (9.0.0)
     ast (2.4.0)
     autoprefixer-rails (9.6.4)
@@ -363,6 +369,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_record_extended (~> 1)
   activerecord-import (~> 1)
   administrate (~> 0.12)
   ancestry (~> 3.0)

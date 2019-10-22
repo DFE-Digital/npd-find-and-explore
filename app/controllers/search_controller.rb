@@ -25,7 +25,7 @@ private
   end
 
   def filtered_search
-    @filtered_search ||= filter_params.present? ? sorted_search.where(filter_params) : sorted_search
+    @filtered_search ||= filter_results(sorted_search)
   end
 
   def search_params
@@ -49,14 +49,50 @@ private
     5
   end
 
-  def filter_params
+  def filter_results(results)
     par = params.permit(filter: { category_id: [], tab_name: [], years: [], is_cla: [] })
-    par.dig(:filter)
+    pars = par&.dig(:filter) || {}
+    results = filter_categories(results, pars.dig(:category_id))
+    results = filter_years(results, pars.dig(:years))
+    results = filter_tab_names(results, pars.dig(:tab_name))
+    filter_is_cla(results, pars.dig(:is_cla))
   end
 
   def build_filters
     @categories, data_elements = build_categories_and_data_elements
     @years, @tabs = build_years_and_tabs(data_elements)
+  end
+
+  def filter_categories(results, category_ids)
+    return results if category_ids.blank?
+
+    results.where(searchable_category_id: category_ids)
+  end
+
+  def filter_years(results, years)
+    return results if years.blank?
+
+    query = []
+    query_params = []
+    years.each do |year|
+      query.push('(? BETWEEN searchable_year_from AND searchable_year_to OR ' \
+                 '(? >= searchable_year_from AND searchable_year_to IS NULL) OR ' \
+                 '(? <= searchable_year_to AND searchable_year_from IS NULL))')
+      query_params.push(year, year, year)
+    end
+    results.where(["(#{query.join(' OR ')})"].concat(query_params))
+  end
+
+  def filter_tab_names(results, tab_names)
+    return results if tab_names.blank?
+
+    results.where.overlap(searchable_tab_names: tab_names)
+  end
+
+  def filter_is_cla(results, is_cla)
+    return results if is_cla.blank?
+
+    results.where.overlap(searchable_is_cla: is_cla.uniq)
   end
 
   def build_categories_and_data_elements
