@@ -16,17 +16,23 @@ RSpec.describe InfArch::Upload, type: :model do
                         file_name: 'reduced_categories_table.xlsx',
                         data_table: reduced_table_path)
   end
-  let(:reduced_wrong_header_table_path) { 'spec/fixtures/files/reduced_categories_table_wrong_header.xlsx' }
-  let(:reduced_wrong_header_loader) do
+  let(:reduced_no_headers_table_path) { 'spec/fixtures/files/reduced_categories_table_no_headers.xlsx' }
+  let(:reduced_no_headers_loader) do
     InfArch::Upload.new(admin_user: admin_user,
-                        file_name: 'reduced_categories_table_wrong_header.xlsx',
-                        data_table: reduced_wrong_header_table_path)
+                        file_name: 'reduced_categories_table_no_headers.xlsx',
+                        data_table: reduced_no_headers_table_path)
   end
   let(:reduced_missing_tab_table_path) { 'spec/fixtures/files/reduced_categories_table_missing_tab.xlsx' }
   let(:reduced_missing_tab_loader) do
     InfArch::Upload.new(admin_user: admin_user,
                         file_name: 'reduced_categories_table_missing_tab.xlsx',
                         data_table: reduced_missing_tab_table_path)
+  end
+  let(:reduced_missing_header_table_path) { 'spec/fixtures/files/reduced_categories_table_missing_header.xlsx' }
+  let(:reduced_missing_header_loader) do
+    InfArch::Upload.new(admin_user: admin_user,
+                        file_name: 'reduced_categories_table_missing_header.xlsx',
+                        data_table: reduced_missing_header_table_path)
   end
   let(:de_table_path) { 'spec/fixtures/files/reduced_table.xlsx' }
   let(:de_loader) do
@@ -55,8 +61,8 @@ RSpec.describe InfArch::Upload, type: :model do
   end
 
   it 'will return errors if a tab is missing the headers' do
-    reduced_wrong_header_loader.preprocess
-    expect(reduced_wrong_header_loader.upload_errors)
+    reduced_no_headers_loader.preprocess
+    expect(reduced_no_headers_loader.upload_errors)
       .to eq(["Can't find a header row for tab 'IA_Demographics'. " \
               "The first cell of a header row should read 'Category (L0)', " \
               'are you sure the header row is present and the headers are spelt correctly?'])
@@ -68,6 +74,12 @@ RSpec.describe InfArch::Upload, type: :model do
       .to eq(["Can't find any suitable tab in the worksheet. " \
               "A suitable tab should start with the prefix 'IA_'. " \
               'If you proceed, all categories and concepts will be removed from the system.'])
+  end
+
+  it 'will return a warning if a header has missing columns' do
+    reduced_missing_header_loader.preprocess
+    expect(reduced_missing_header_loader.upload_errors)
+      .to eq(["Can't find a column with header 'Category L3 Description' for tab 'IA_Demographics'"])
   end
 
   it 'Will process within 2000ms' do

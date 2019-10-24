@@ -42,7 +42,7 @@ RSpec.describe 'Categories Import', type: :system do
 
   it 'Will error if a tab does not have the right headers' do
     visit 'admin/categories/import'
-    attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'reduced_categories_table_wrong_header.xlsx'))
+    attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'reduced_categories_table_no_headers.xlsx'))
     click_on('Upload')
 
     expect(page).to have_text("Can't find a header row for tab 'IA_Demographics'.")
@@ -54,6 +54,14 @@ RSpec.describe 'Categories Import', type: :system do
     click_on('Upload')
 
     expect(page).to have_text("Can't find any suitable tab in the worksheet.")
+  end
+
+  it 'Will error if a header column is missing' do
+    visit 'admin/categories/import'
+    attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'reduced_categories_table_missing_header.xlsx'))
+    click_on('Upload')
+
+    expect(page).to have_text("Can't find a column with header 'Category L3 Description' for tab 'IA_Demographics'")
   end
 
   it 'Will upload a file' do
