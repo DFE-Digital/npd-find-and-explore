@@ -23,15 +23,15 @@ RSpec.describe DataTable::Upload, type: :model do
                           data_table: table_del_path)
   end
 
-  it 'Will preprocess under 300ms' do
+  it 'Will preprocess under 250ms' do
     expect { loader.preprocess }
-      .to perform_under(300).ms.sample(10)
+      .to perform_under(250).ms.sample(10)
   end
 
-  it 'Will process under 225ms' do
+  it 'Will process under 230ms' do
     loader.preprocess
     expect { loader.process }
-      .to perform_under(225).ms.sample(10)
+      .to perform_under(230).ms.sample(10)
   end
 
   it 'Will preprocess the data table items' do
@@ -96,6 +96,6 @@ RSpec.describe DataTable::Upload, type: :model do
   it 'will destroy itself below 6ms' do
     loader.preprocess
     expect { loader.destroy }
-      .to perform_under(6).ms.sample(10)
+      .to perform_under(4).ms.sample(10)
   end
 end

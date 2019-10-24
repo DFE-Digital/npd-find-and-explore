@@ -3,9 +3,10 @@
 module DfEDataTables
   module DataElementParsers
     class Row
-      attr_reader :table_name, :headers, :row
+      attr_reader :table_name, :headers, :tab_name, :row
 
-      def initialize(table_name, headers, row)
+      def initialize(table_name, headers, tab_name, row)
+        @tab_name = tab_name
         @table_name = table_name
         @headers = headers
         @row = row
@@ -14,7 +15,7 @@ module DfEDataTables
       def process
         return nil if table_name.nil? || row.compact.first.nil?
 
-        data_element = { table_name: table_name }
+        data_element = { table_name: table_name, tab_name: tab_name }
 
         row.each_with_index do |cell, index|
           # Don't collect (generally empty) cells outside the table
@@ -62,6 +63,7 @@ module DfEDataTables
       def data_element_params(data_element)
         {
           npd_alias: data_element.dig(:npd_alias, 0),
+          tab_name: data_element.dig(:tab_name),
           source_table_name: data_element.dig(:table_name),
           source_attribute_name: data_element.dig(:field_reference),
           source_old_attribute_name: [data_element.dig(:old_alias), data_element.dig(:former_name)].flatten.compact,
@@ -69,6 +71,8 @@ module DfEDataTables
           sensitivity: data_element.dig(:sensitivity),
           academic_year_collected_from: data_element.dig(:years_populated, :from),
           academic_year_collected_to: data_element.dig(:years_populated, :to),
+          standard_extract: data_element.dig(:standard_extract),
+          is_cla: /CIN.?CLA/i.match?(data_element.dig(:standard_extract)),
           collection_terms: data_element.dig(:collection_term),
           values: data_element.dig(:values),
           description_en: data_element.dig(:description),

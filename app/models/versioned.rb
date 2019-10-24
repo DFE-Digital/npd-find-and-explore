@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
-class ApplicationRecord < ActiveRecord::Base
+class Versioned < ApplicationRecord
   self.abstract_class = true
+
+  has_paper_trail
 end

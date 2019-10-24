@@ -29,15 +29,16 @@ module ProcessRows
       'years_populated' => /Years Populated/i,
       'description' => /Description/,
       'values' => /(Values|Allowed Values)/,
-      'source' => /Source/,
-      'table' => /Table/,
-      'collection_term' => /Collection term/,
+      'source' => /Source/i,
+      'table' => /Table/i,
+      'standard_extract' => /(StandardExtract|Standard Extract)/i,
+      'collection_term' => /(CollectionTerm|Collection Term)/i,
       'tier_of_variable' => /(Tier of Variable|Old Tier of Variable)/,
       'available_from_udks' => /Available from UKDS/,
-      'identification_risk' => /(Identifiability|Identification Risk)/,
-      'sensitivity' => /Sensitivity/,
-      'data_type' => /Data Type/,
-      'educational_phase' => /Educational Phase/,
+      'identification_risk' => /(Identifiability|Identification Risk)/i,
+      'sensitivity' => /Sensitivity/i,
+      'data_type' => /Data Type/i,
+      'educational_phase' => /Educational Phase/i,
       'data_request_data_item_required' => /Data request data item required/,
       'data_request_years_required' => /Data request years required/
     }.freeze
@@ -72,7 +73,7 @@ module ProcessRows
     def extract_row(row)
       return if current_headers.nil? || current_table_name.nil?
 
-      element = DfEDataTables::DataElementParsers::Row.new(current_table_name, current_headers, row).process
+      element = DfEDataTables::DataElementParsers::Row.new(current_table_name, current_headers, tab_name, row).process
       return if element.nil?
 
       element

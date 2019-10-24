@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AdminUser < ApplicationRecord
+class AdminUser < Versioned
   # Include default devise modules. Others available are:
   # :confirmable and :omniauthable
   devise :database_authenticatable, :registerable,

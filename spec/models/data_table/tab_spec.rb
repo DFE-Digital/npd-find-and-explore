@@ -16,11 +16,11 @@ RSpec.describe DataTable::Tab, type: :model do
     expect(tab.sheet.class.name).to eq('Roo::Excelx::Sheet')
   end
 
-  it 'Will load the file and create the Sheet object under 50ms' do
+  it 'Will load the file and create the Sheet object under 40ms' do
     expect {
       workbook = Roo::Spreadsheet.open(workbook_path)
       DataTable::Tab.new(workbook: workbook)
-    }.to perform_under(50).ms.sample(10)
+    }.to perform_under(40).ms.sample(10)
   end
 
   it 'Will preprocess under 100ms' do
