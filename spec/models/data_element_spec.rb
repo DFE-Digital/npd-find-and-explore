@@ -7,6 +7,32 @@ RSpec.describe DataElement, type: :model do
     create_list(:concept, 2, :with_data_elements)
   end
 
+  it 'will return the en description by default' do
+    I18n.locale = :en
+    data_element = DataElement.first
+
+    expect(data_element.description).to eq(data_element.description_en)
+  end
+
+  it 'will return the cy description if locale is set to cy' do
+    I18n.locale = :cy
+    data_element = DataElement.first
+
+    expect(data_element.description).to eq(data_element.description_cy)
+  end
+
+  it 'will compose the title from table name and attribute name' do
+    data_element = DataElement.first
+
+    expect(data_element.title).to eq([data_element.source_table_name, data_element.source_attribute_name].join('.'))
+  end
+
+  it 'will print its own breadcrumb' do
+    data_element = DataElement.first
+    expect(data_element.breadcrumbs)
+      .to eq([data_element.concept, data_element.concept.category])
+  end
+
   it 'will recognise orphaned data elements - no orphaned data element' do
     expect(DataElement.orphaned.count).to eq(0)
   end
