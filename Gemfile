@@ -63,7 +63,8 @@ gem 'pg_search', '~> 2.1'
 # Pagination
 gem 'kaminari', '~>1.1'
 
-# Bulk import
+# Bulk import and ActiveRecord extensions
+gem 'active_record_extended', '~>1'
 gem 'activerecord-import', '~>1'
 
 gem 'azure-storage', require: false

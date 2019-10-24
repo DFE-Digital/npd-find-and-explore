@@ -40,29 +40,32 @@ class Category < Versioned
   end
 
   def create_or_update_pg_search_document
+    conn = ActiveRecord::Base.connection
     if !pg_search_document
-      ActiveRecord::Base.connection.execute <<-SQL
+      conn.execute <<-SQL
         INSERT INTO pg_search_documents (searchable_type, searchable_id, content,
           searchable_name, searchable_created_at, searchable_updated_at, created_at, updated_at)
         SELECT 'Category' AS searchable_type,
-        '#{id}' AS searchable_id,
-        setweight(to_tsvector('#{name}'), 'A') || setweight(to_tsvector('#{description}'), 'B') AS content,
-        '#{name}' AS searchable_name,
-        '#{created_at}' AS searchable_created_at,
-        '#{updated_at}' AS searchable_updated_at,
+        #{conn.quote(id)} AS searchable_id,
+        setweight(to_tsvector(#{conn.quote(name)}), 'A') ||
+          setweight(to_tsvector(#{conn.quote(description)}), 'B') AS content,
+        #{conn.quote(name)} AS searchable_name,
+        #{conn.quote(created_at)} AS searchable_created_at,
+        #{conn.quote(updated_at)} AS searchable_updated_at,
         now() AS created_at,
         now() AS updated_at
       SQL
     elsif should_update_pg_search_document?
-      ActiveRecord::Base.connection.execute <<-SQL
+      conn.execute <<-SQL
         UPDATE pg_search_documents
         SET
-          content = setweight(to_tsvector('#{name}'), 'A') || setweight(to_tsvector('#{description}'), 'B'),
-          searchable_name = '#{name}',
-          searchable_created_at = '#{created_at}',
-          searchable_updated_at = '#{updated_at}',
+          content = setweight(to_tsvector(#{conn.quote(name)}), 'A') ||
+                    setweight(to_tsvector(#{conn.quote(description)}), 'B'),
+          searchable_name = #{conn.quote(name)},
+          searchable_created_at = #{conn.quote(created_at)},
+          searchable_updated_at = #{conn.quote(updated_at)},
           updated_at = NOW()
-        WHERE searchable_type = 'Category' AND searchable_id = '#{id}'
+        WHERE searchable_type = 'Category' AND searchable_id = #{conn.quote(id)}
       SQL
     end
   end

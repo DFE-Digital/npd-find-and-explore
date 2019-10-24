@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_16_134854) do
+ActiveRecord::Schema.define(version: 2019_10_18_115721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -207,6 +207,11 @@ ActiveRecord::Schema.define(version: 2019_10_16_134854) do
     t.datetime "searchable_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "searchable_category_id"
+    t.integer "searchable_year_from"
+    t.integer "searchable_year_to"
+    t.string "searchable_tab_names", array: true
+    t.boolean "searchable_is_cla", array: true
     t.index ["content"], name: "index_pg_search_documents_on_content", using: :gin
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
   end

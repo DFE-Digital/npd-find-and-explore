@@ -1,0 +1,62 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full govuk-filters">
+    <div>
+      <h3 class="govuk-heading-s">
+        Categories
+      </h3>
+      <div class="govuk-checkboxes govuk-checkboxes-small collapsible">
+        <% @categories.each do |category| %>
+          <div class="govuk-checkboxes__item">
+            <%= check_box_tag 'filter[category_id][]', category.id, params.dig(:filter, :category_id)&.include?(category.id), id: "category_id-#{category.id}", class: 'govuk-checkboxes__input' %>
+            <%= label_tag "category_id-#{category.id}", category.name, class: %w[govuk-label govuk-checkboxes__label] %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    <div>
+      <h3 class="govuk-heading-s">
+        Years
+      </h3>
+      <div class="govuk-checkboxes govuk-checkboxes-small collapsible">
+        <% @years.each do |year| %>
+          <div class="govuk-checkboxes__item">
+            <%= check_box_tag 'filter[years][]', year, params.dig(:filter, :years)&.include?(year.to_s), id: "years-#{year}", class: 'govuk-checkboxes__input' %>
+            <%= label_tag "years-#{year}", year, class: %w[govuk-label govuk-checkboxes__label] %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    <div>
+      <h3 class="govuk-heading-s">
+        Data Set
+      </h3>
+      <div class="govuk-checkboxes govuk-checkboxes-small collapsible">
+        <% @tabs.each do |tab| %>
+          <div class="govuk-checkboxes__item">
+            <%= check_box_tag 'filter[tab_name][]', tab, params.dig(:filter, :tab_name)&.include?(tab), id: "tab_name-#{tab}", class: 'govuk-checkboxes__input' %>
+            <%= label_tag "tab_name-#{tab}", tab, class: %w[govuk-label govuk-checkboxes__label] %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    <div>
+      <h3 class="govuk-heading-s">
+        CLA
+      </h3>
+      <div class="govuk-checkboxes govuk-checkboxes-small">
+        <div class="govuk-checkboxes__item">
+          <%= check_box_tag 'filter[is_cla][]', true, params.dig(:filter, :is_cla)&.include?('true'), id: "is_cla-yes", class: 'govuk-checkboxes__input' %>
+          <%= label_tag "is_cla-yes", 'Yes', class: %w[govuk-label govuk-checkboxes__label] %>
+        </div>
+        <div class="govuk-checkboxes__item">
+          <%= check_box_tag 'filter[is_cla][]', false, params.dig(:filter, :is_cla)&.include?('false'), id: "is_cla-no", class: 'govuk-checkboxes__input' %>
+          <%= label_tag "is_cla-no", 'No', class: %w[govuk-label govuk-checkboxes__label] %>
+        </div>
+      </div>
+    </div>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+  </div>
+</div>
