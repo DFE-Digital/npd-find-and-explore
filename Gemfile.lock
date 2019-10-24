@@ -385,9 +385,9 @@ PLATFORMS
 DEPENDENCIES
   active_record_extended (~> 1)
   activerecord-import (~> 1)
-  administrate (~> 0.12)
+  administrate (~> 0.12, >= 0.12.0)
   ancestry (~> 3.0)
-  axlsx_rails
+  axlsx_rails (>= 0.6.0)
   azure-storage
   bootsnap (>= 1.1.0)
   byebug
@@ -395,14 +395,14 @@ DEPENDENCIES
   caxlsx
   coveralls
   devise (~> 4, >= 4.7.1)
-  dotenv-rails (~> 2.6)
+  dotenv-rails (~> 2.7, >= 2.7.5)
   factory_bot (~> 5.0)
-  factory_bot_rails (~> 5.0)
+  factory_bot_rails (~> 5.1, >= 5.1.1)
   faker (~> 1.9)
   govuk-lint (~> 3.11.0)
   high_voltage (~> 3.1)
   jbuilder (~> 2.5)
-  kaminari (~> 1.1)
+  kaminari (~> 1.1, >= 1.1.1)
   listen (>= 3.0.5, < 3.2)
   loaf (~> 0.8.1)
   paper_trail (~> 10)
@@ -410,18 +410,18 @@ DEPENDENCIES
   pg_search (~> 2.1)
   pry (~> 0.12.2)
   puma (~> 3.11)
-  rails (~> 5.2)
+  rails (~> 5.2, >= 5.2.3)
   roo (~> 2.8, >= 2.8.2)
   rspec
   rspec-benchmark
-  rspec-rails (~> 3.8)
+  rspec-rails (~> 3.9, >= 3.9.0)
   selenium-webdriver (~> 3.142)
   sentry-raven (~> 2.9)
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
-  web-console (>= 3.3.0)
-  webpacker (~> 4.0)
+  web-console (>= 3.7.0)
+  webpacker (~> 4.0, >= 4.0.7)
 
 RUBY VERSION
    ruby 2.6.1p33
