@@ -23,9 +23,9 @@ class AdminUser < Versioned
       password =~ /[A-Z]+/ && password =~ /[a-z]+/ && password =~ /\d+/ &&
       password =~ /\W+/
 
-    errors.add :password, 'is too simple. It should be minimum 8 characters
-    and include at least 1 uppercase letter, 1 lowercase letter, 1 number and
-    1 special character'
+    errors.add :password, 'is too simple. It should be minimum 8 characters ' \
+                          'and include at least 1 uppercase letter, 1 lowercase ' \
+                          'letter, 1 number and 1 special character'
   end
 
   def deactivate!
@@ -37,7 +37,7 @@ class AdminUser < Versioned
   end
 
   def update_unique_session_id!(unique_session_id)
-    self.update_attribute(:unique_session_id, unique_session_id)
+    update_attribute(:unique_session_id, unique_session_id)
   end
 
   def account_active?
