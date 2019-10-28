@@ -33,7 +33,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
         }
       }
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(root1.reload.children.count).to eq(2)
       expect(root2.reload.children.count).to eq(0)
     end
@@ -59,7 +59,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
         }
       }
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(root1.reload.children.count).to eq(1)
       expect(root2.reload.children.count).to eq(0)
       expect(Category.roots.count).to eq(3)
@@ -88,7 +88,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
         }
       }
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(root1.reload.children.count).to eq(2)
       expect(root2.reload.children.count).to eq(1)
       expect(Category.roots.count).to eq(1)

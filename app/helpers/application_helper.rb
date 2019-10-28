@@ -37,7 +37,7 @@ module ApplicationHelper
   end
 
   def searchable_description(result)
-    return result.description if result.respond_to?(:category)
+    return result.description if result.is_a?(Category)
 
     result.description || result.placeholder_description
   end
