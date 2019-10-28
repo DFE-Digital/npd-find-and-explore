@@ -16,19 +16,17 @@ RSpec.describe Admin::CategoriesController, type: :controller do
       root1, root2 = Category.roots
 
       sign_in admin_user
-      post :sort, {
-        params: {
-          tree_nodes: {
-            0 => {
-              id: root1.id,
-              children: {
-                0 => { id: root1.children.first.id },
-                1 => { id: root2.children.first.id },
-              }
-            },
-            1 => {
-              id: root2.id
+      post :sort, params: {
+        tree_nodes: {
+          0 => {
+            id: root1.id,
+            children: {
+              0 => { id: root1.children.first.id },
+              1 => { id: root2.children.first.id }
             }
+          },
+          1 => {
+            id: root2.id
           }
         }
       }
@@ -42,19 +40,17 @@ RSpec.describe Admin::CategoriesController, type: :controller do
       root1, root2 = Category.roots
 
       sign_in admin_user
-      post :sort, {
-        params: {
-          tree_nodes: {
-            0 => { id: root2.children.first.id },
-            1 => {
-              id: root1.id,
-              children: {
-                0 => { id: root1.children.first.id },
-              }
-            },
-            2 => {
-              id: root2.id
+      post :sort, params: {
+        tree_nodes: {
+          0 => { id: root2.children.first.id },
+          1 => {
+            id: root1.id,
+            children: {
+              0 => { id: root1.children.first.id }
             }
+          },
+          2 => {
+            id: root2.id
           }
         }
       }
@@ -69,18 +65,16 @@ RSpec.describe Admin::CategoriesController, type: :controller do
       root1, root2 = Category.roots
 
       sign_in admin_user
-      post :sort, {
-        params: {
-          tree_nodes: {
-            0 => {
-              id: root1.id,
-              children: {
-                0 => { id: root1.children.first.id },
-                1 => {
-                  id: root2.id,
-                  children: {
-                    0 => { id: root2.children.first.id }
-                  }
+      post :sort, params: {
+        tree_nodes: {
+          0 => {
+            id: root1.id,
+            children: {
+              0 => { id: root1.children.first.id },
+              1 => {
+                id: root2.id,
+                children: {
+                  0 => { id: root2.children.first.id }
                 }
               }
             }

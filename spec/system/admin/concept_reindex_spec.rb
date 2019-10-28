@@ -27,6 +27,6 @@ RSpec.describe 'Admin Concepts Reindex', type: :system do
     click_on 'Reindex Concepts'
     expect(page).to have_text('The concepts were reindexed correctly')
     expect(PgSearch::Document.count).to eq(1)
-    expect(PgSearch::Document.all.map(&:searchable_type).compact.uniq).to eq(['Concept'])
+    expect(PgSearch::Document.all.map(&:searchable_type).compact.uniq).to eq(%w[Concept])
   end
 end
