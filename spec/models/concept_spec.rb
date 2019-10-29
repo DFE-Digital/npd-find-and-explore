@@ -10,6 +10,23 @@ RSpec.describe Concept, type: :model do
     create_list(:category, 1, :with_concepts_and_data_elements)
   end
 
+  it 'will default the placeholder description to the longest amongst its data elements when description is missing' do
+    concept = Concept.first
+    concept.update(description: nil)
+
+    expected_placeholder = concept.data_elements&.max { |a, b| (a&.description&.length || 0) <=> (b&.description&.length || 0) }&.description
+    expect(concept.placeholder_description).to eq(expected_placeholder)
+  end
+
+  it 'will create a No Concept with its own description when deleting all other concepts' do
+    Concept.first.destroy
+
+    expect(Concept.count).to eq(1)
+    expect(Concept.first.name).to eq('No Concept')
+    expect(Concept.first.description)
+      .to eq('This Concept is used to house data elements that are waiting to be categorised')
+  end
+
   it 'will move orphaned concepts under "no category"' do
     concept = Concept.first
     category = concept.category

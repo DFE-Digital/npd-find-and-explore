@@ -1,4 +1,4 @@
 <div class="<%= wrap_class %>">
   <%= link_to concept.name, concept_path(concept), class: "govuk-body strong_link" %>
-  <p class="govuk-!-font-size-16 govuk-!-margin-top-1"><%= concept.description || concept.placeholder_description %></p>
+  <p class="govuk-!-font-size-16 govuk-!-margin-top-1"><%= searchable_description(concept) %></p>
 </div>

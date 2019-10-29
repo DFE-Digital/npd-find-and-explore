@@ -8,7 +8,7 @@
       <%= @title %>
     </h1>
 
-    <p><%= @concept.description || @concept.placeholder_description %></p>
+    <p><%= searchable_description(@concept) %></p>
   </div>
   <%= render how_to_access(@concept) %>
 </div>
