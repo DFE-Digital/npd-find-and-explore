@@ -7,7 +7,10 @@ RSpec.describe Admin::CategoriesController, type: :controller do
   let(:password) { 'paSSw0rd!' }
   let(:admin_user) { AdminUser.create!(email: 'admin@test.com', password: password) }
 
-  before do
+  before :each do
+    DataElement.destroy_all
+    Concept.destroy_all
+    Category.destroy_all
     create_list(:category, 2, :with_subcategories_concepts_and_data_elements)
   end
 
