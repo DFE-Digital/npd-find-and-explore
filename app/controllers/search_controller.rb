@@ -46,7 +46,7 @@ private
   end
 
   def per_page
-    5
+    10
   end
 
   def filter_results(results)
