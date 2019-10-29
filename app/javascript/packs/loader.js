@@ -1,5 +1,4 @@
 import '../src/loader.scss'
-
 import '../src/loader.js'
 import $ from 'jquery'
 

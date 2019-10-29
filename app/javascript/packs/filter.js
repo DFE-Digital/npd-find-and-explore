@@ -1,3 +1,7 @@
+import '../src/loader.scss'
+import '../src/loader.js'
+
+window.loader = new GOVUK.Loader()
 
 function submitFilter(event) {
   var target = event.currentTarget
@@ -13,6 +17,12 @@ function submitFilter(event) {
   } else {
     newQuery = query.filter(function (element) { return !regexp.test(element) })
   }
+
+  window.loader.init({
+    container: 'govuk-box-message',
+    label: true,
+    labelText: 'We are filtering your search, please wait'
+  })
 
   window.location.search = '?' + newQuery.join('&')
 }
