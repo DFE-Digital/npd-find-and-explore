@@ -116,10 +116,11 @@ RSpec.describe 'Search pages', type: :system do
       fill_in('search', with: 'FSM')
       click_button('Search')
       concept = Concept.first
+      check_id = concept.data_elements.first.is_cla? ? 'is_cla-yes' : 'is_cla-no'
 
       expect(page).to have_text('Showing all 2 results')
 
-      check('is_cla-yes', allow_label_click: true)
+      check(check_id, allow_label_click: true)
       expect(page).to have_text('Displaying 1 result')
       expect(page).to have_text(concept.category.name.upcase)
       expect(page).to have_text(concept.description)
