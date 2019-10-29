@@ -1,10 +1,14 @@
+import '../src/loader.scss'
+import '../src/loader.js'
+
+window.loader = new GOVUK.Loader()
 
 function submitFilter(event) {
   var target = event.currentTarget
   var name = target.name
   var value = target.value
   var query = window.location.search.replace(/^\?/, '').split('&')
-  var regexp = new RegExp('^' + name.replace(/\[/g, '\\[').replace(/\]/g, '\\]') + '=' + value)
+  var regexp = new RegExp('^' + name.replace(/\[/g, '\\[').replace(/\]/g, '\\]') + '=' + encodeURI(value))
 
   var newQuery
   if (target.checked) {
@@ -13,6 +17,12 @@ function submitFilter(event) {
   } else {
     newQuery = query.filter(function (element) { return !regexp.test(element) })
   }
+
+  window.loader.init({
+    container: 'govuk-box-message',
+    label: true,
+    labelText: 'We are filtering your search, please wait'
+  })
 
   window.location.search = '?' + newQuery.join('&')
 }

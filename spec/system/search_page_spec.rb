@@ -32,15 +32,16 @@ RSpec.describe 'Search pages', type: :system do
   end
 
   it 'Will find concepts' do
+    concept = Concept.first
     visit '/'
-    fill_in('search', with: Concept.first.name)
+    fill_in('search', with: concept.name)
     click_button('Search')
 
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
-    expect(page).to have_text("Results for '#{Concept.first.name}'")
-    expect(page).to have_text(Concept.first.category.name.upcase)
-    expect(page).to have_text(Concept.first.description)
+    expect(page).to have_text("Results for '#{concept.name}'")
+    expect(page).to have_text(concept.category.name.upcase)
+    expect(page).to have_text(concept.description)
   end
 
   it 'Will find concepts by element' do
@@ -115,10 +116,11 @@ RSpec.describe 'Search pages', type: :system do
       fill_in('search', with: 'FSM')
       click_button('Search')
       concept = Concept.first
+      check_id = concept.data_elements.first.is_cla? ? 'is_cla-yes' : 'is_cla-no'
 
       expect(page).to have_text('Showing all 2 results')
 
-      check('is_cla-yes', allow_label_click: true)
+      check(check_id, allow_label_click: true)
       expect(page).to have_text('Displaying 1 result')
       expect(page).to have_text(concept.category.name.upcase)
       expect(page).to have_text(concept.description)
