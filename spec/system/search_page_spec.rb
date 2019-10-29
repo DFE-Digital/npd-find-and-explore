@@ -32,15 +32,16 @@ RSpec.describe 'Search pages', type: :system do
   end
 
   it 'Will find concepts' do
+    concept = Concept.first
     visit '/'
-    fill_in('search', with: Concept.first.name)
+    fill_in('search', with: concept.name)
     click_button('Search')
 
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
-    expect(page).to have_text("Results for '#{Concept.first.name}'")
-    expect(page).to have_text(Concept.first.category.name.upcase)
-    expect(page).to have_text(Concept.first.description)
+    expect(page).to have_text("Results for '#{concept.name}'")
+    expect(page).to have_text(concept.category.name.upcase)
+    expect(page).to have_text(concept.description)
   end
 
   it 'Will find concepts by element' do
