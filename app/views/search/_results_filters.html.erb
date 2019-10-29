@@ -22,7 +22,7 @@
         <% @years.each do |year| %>
           <div class="govuk-checkboxes__item">
             <%= check_box_tag 'filter[years][]', year, params.dig(:filter, :years)&.include?(year.to_s), id: "years-#{year}", class: 'govuk-checkboxes__input' %>
-            <%= label_tag "years-#{year}", year, class: %w[govuk-label govuk-checkboxes__label] %>
+            <%= label_tag "years-#{year}", academic_year(year), class: %w[govuk-label govuk-checkboxes__label] %>
           </div>
         <% end %>
       </div>
