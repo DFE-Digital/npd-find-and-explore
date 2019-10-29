@@ -8,7 +8,7 @@ function submitFilter(event) {
   var name = target.name
   var value = target.value
   var query = window.location.search.replace(/^\?/, '').split('&')
-  var regexp = new RegExp('^' + name.replace(/\[/g, '\\[').replace(/\]/g, '\\]') + '=' + value)
+  var regexp = new RegExp('^' + name.replace(/\[/g, '\\[').replace(/\]/g, '\\]') + '=' + encodeURI(value))
 
   var newQuery
   if (target.checked) {

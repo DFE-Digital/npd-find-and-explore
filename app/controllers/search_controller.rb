@@ -49,18 +49,20 @@ private
     10
   end
 
+  def filters
+    @filters ||= params.permit(filter: { category_id: [], tab_name: [], years: [], is_cla: [] })&.dig(:filter) || {}
+  end
+
   def filter_results(results)
-    par = params.permit(filter: { category_id: [], tab_name: [], years: [], is_cla: [] })
-    pars = par&.dig(:filter) || {}
-    results = filter_categories(results, pars.dig(:category_id))
-    results = filter_years(results, pars.dig(:years))
-    results = filter_tab_names(results, pars.dig(:tab_name))
-    filter_is_cla(results, pars.dig(:is_cla))
+    results = filter_categories(results, filters.dig(:category_id))
+    results = filter_years(results, filters.dig(:years))
+    results = filter_tab_names(results, filters.dig(:tab_name))
+    filter_is_cla(results, filters.dig(:is_cla))
   end
 
   def build_filters
     @categories, data_elements = build_categories_and_data_elements
-    @years, @tabs = build_years_and_tabs(data_elements)
+    @years, @tabs, @is_cla = build_years_tabs_and_is_cla(data_elements)
   end
 
   def filter_categories(results, category_ids)
@@ -98,20 +100,25 @@ private
   def build_categories_and_data_elements
     categories = []
     data_elements = []
-    sorted_search.map(&:searchable).each do |searchable|
+    filtered_search.map(&:searchable).each do |searchable|
       categories.push(searchable.category)
       data_elements.push(searchable.data_elements)
     end
-    [categories.uniq.sort, data_elements.flatten.uniq]
+    extra_categories = Category.where(id: filters[:category_id]).to_a
+    [(categories + extra_categories).uniq.sort, data_elements.flatten.uniq]
   end
 
-  def build_years_and_tabs(data_elements)
+  def build_years_tabs_and_is_cla(data_elements)
     years = []
     tabs = []
+    is_cla = []
     data_elements.each do |de|
       years.push(de.academic_year_collected_from, de.academic_year_collected_to)
       tabs.push(de.tab_name)
+      is_cla.push(de.is_cla)
     end
-    [years.flatten.uniq.compact.sort, tabs.flatten.uniq.compact.sort]
+    [(years + (filters[:years] || []).map(&:to_i)).flatten.uniq.compact.sort,
+     (tabs + (filters[:tab_names] || [])).flatten.uniq.compact.sort,
+     is_cla.flatten.uniq.compact]
   end
 end
