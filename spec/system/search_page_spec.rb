@@ -69,6 +69,7 @@ RSpec.describe 'Search pages', type: :system do
         end
         concept.update(name: "FSM #{i}")
       end
+      PgSearch::Multisearch.rebuild(Concept)
     end
 
     it 'Will filter concepts by category' do
