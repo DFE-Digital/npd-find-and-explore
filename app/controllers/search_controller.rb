@@ -61,8 +61,8 @@ private
   end
 
   def build_filters
-    @categories, data_elements = build_categories_and_data_elements
-    @years, @tabs, @is_cla = build_years_tabs_and_is_cla(data_elements)
+    @categories, data_elements, active_data_elements = build_categories_and_data_elements
+    @years, @tabs, @is_cla = build_years_tabs_and_is_cla(data_elements, active_data_elements)
   end
 
   def filter_categories(results, category_ids)
@@ -100,25 +100,32 @@ private
   def build_categories_and_data_elements
     categories = []
     data_elements = []
-    filtered_search.map(&:searchable).each do |searchable|
-      categories.push(searchable.category)
+    active_data_elements = []
+    active_search = filtered_search.map(&:searchable).map(&:id).uniq.sort
+    sorted_search.map(&:searchable).each do |searchable|
+      is_active = active_search.include?(searchable.id)
+      categories.push(category: searchable.category, active: is_active)
       data_elements.push(searchable.data_elements)
+      active_data_elements.push(searchable.data_elements) if is_active
     end
-    extra_categories = Category.where(id: filters[:category_id]).to_a
-    [(categories + extra_categories).uniq.sort, data_elements.flatten.uniq]
+    [categories.uniq { |c| c[:category] }.sort { |a, b| a[:category].name <=> b[:category].name },
+     data_elements.flatten.uniq, active_data_elements.flatten.uniq]
   end
 
-  def build_years_tabs_and_is_cla(data_elements)
+  def build_years_tabs_and_is_cla(data_elements, active_data_elements)
     years = []
     tabs = []
-    is_cla = []
+    active_years = (active_data_elements.map(&:academic_year_collected_from) +
+             active_data_elements.map(&:academic_year_collected_to)).compact.uniq
+    active_tabs = active_data_elements.map(&:tab_name).compact.uniq
+    active_is_cla = active_data_elements.map(&:is_cla).compact.uniq
     data_elements.each do |de|
-      years.push(de.academic_year_collected_from, de.academic_year_collected_to)
-      tabs.push(de.tab_name)
-      is_cla.push(de.is_cla)
+      years.push(year: de.academic_year_collected_from, active: active_years.include?(de.academic_year_collected_from)) if de.academic_year_collected_from
+      years.push(year: de.academic_year_collected_to, active: active_years.include?(de.academic_year_collected_to)) if de.academic_year_collected_to
+      tabs.push(tab: de.tab_name, active: active_tabs.include?(de.tab_name))
     end
-    [(years + (filters[:years] || []).map(&:to_i)).flatten.uniq.compact.sort,
-     (tabs + (filters[:tab_names] || [])).flatten.uniq.compact.sort,
-     is_cla.flatten.uniq.compact]
+    [years.flatten.uniq { |y| y[:year] }.sort { |a, b| a[:year] <=> b[:year] },
+     tabs.flatten.uniq { |t| t[:tab] }.sort { |a, b| a[:tab] <=> b[:tab] },
+     [{ is_cla: true, active: active_is_cla.include?(true) }, { is_cla: false, active: active_is_cla.include?(false) }]]
   end
 end
