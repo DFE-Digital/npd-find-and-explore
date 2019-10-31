@@ -5,9 +5,11 @@
         Categories
       </h3>
       <div class="govuk-checkboxes govuk-checkboxes-small collapsible">
-        <% @categories.each do |category| %>
+        <% @categories.each do |element| %>
+          <% category = element[:category] %>
           <div class="govuk-checkboxes__item">
-            <%= check_box_tag 'filter[category_id][]', category.id, params.dig(:filter, :category_id)&.include?(category.id), id: "category_id-#{category.id}", class: 'govuk-checkboxes__input' %>
+            <%= check_box_tag 'filter[category_id][]', category.id, params.dig(:filter, :category_id)&.include?(category.id),
+              id: "category_id-#{category.id}", class: 'govuk-checkboxes__input', disabled: !element[:active] %>
             <%= label_tag "category_id-#{category.id}", category.name, class: %w[govuk-label govuk-checkboxes__label] %>
           </div>
         <% end %>
@@ -19,9 +21,11 @@
         Years
       </h3>
       <div class="govuk-checkboxes govuk-checkboxes-small collapsible">
-        <% @years.each do |year| %>
+        <% @years.each do |element| %>
+          <% year = element[:year] %>
           <div class="govuk-checkboxes__item">
-            <%= check_box_tag 'filter[years][]', year, params.dig(:filter, :years)&.include?(year.to_s), id: "years-#{year}", class: 'govuk-checkboxes__input' %>
+            <%= check_box_tag 'filter[years][]', year, params.dig(:filter, :years)&.include?(year.to_s),
+              id: "years-#{year}", class: 'govuk-checkboxes__input', disabled: !element[:active] %>
             <%= label_tag "years-#{year}", academic_year(year), class: %w[govuk-label govuk-checkboxes__label] %>
           </div>
         <% end %>
@@ -33,9 +37,11 @@
         Data Set
       </h3>
       <div class="govuk-checkboxes govuk-checkboxes-small collapsible">
-        <% @tabs.each do |tab| %>
+        <% @tabs.each do |element| %>
+          <% tab = element[:tab] %>
           <div class="govuk-checkboxes__item">
-            <%= check_box_tag 'filter[tab_name][]', tab, params.dig(:filter, :tab_name)&.include?(tab), id: "tab_name-#{tab}", class: 'govuk-checkboxes__input' %>
+            <%= check_box_tag 'filter[tab_name][]', tab, params.dig(:filter, :tab_name)&.include?(tab),
+              id: "tab_name-#{tab}", class: 'govuk-checkboxes__input', disabled: !element[:active] %>
             <%= label_tag "tab_name-#{tab}", tab, class: %w[govuk-label govuk-checkboxes__label] %>
           </div>
         <% end %>
@@ -47,10 +53,12 @@
         CLA
       </h3>
       <div class="govuk-checkboxes govuk-checkboxes-small">
-        <% @is_cla.each do |is_cla| %>
+        <% @is_cla.each do |element| %>
+          <% is_cla = element[:is_cla] %>
           <% label = is_cla ? 'yes' : 'no' %>
           <div class="govuk-checkboxes__item">
-            <%= check_box_tag 'filter[is_cla][]', is_cla, params.dig(:filter, :is_cla)&.include?(is_cla.to_s), id: "is_cla-#{label}", class: 'govuk-checkboxes__input' %>
+            <%= check_box_tag 'filter[is_cla][]', is_cla, params.dig(:filter, :is_cla)&.include?(is_cla.to_s),
+              id: "is_cla-#{label}", class: 'govuk-checkboxes__input', disabled: !element[:active] %>
             <%= label_tag "is_cla-#{label}", label.capitalize, class: %w[govuk-label govuk-checkboxes__label] %>
           </div>
         <% end %>
