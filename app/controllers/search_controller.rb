@@ -105,7 +105,7 @@ private
       data_elements.push(searchable.data_elements)
     end
     extra_categories = Category.where(id: filters[:category_id]).to_a
-    [(categories + extra_categories).uniq.sort, data_elements.flatten.uniq]
+    [(categories + extra_categories).uniq.sort { |a, b| a.name <=> b.name }, data_elements.flatten.uniq]
   end
 
   def build_years_tabs_and_is_cla(data_elements)
