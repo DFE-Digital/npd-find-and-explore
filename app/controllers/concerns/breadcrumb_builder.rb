@@ -4,6 +4,7 @@
 module BreadcrumbBuilder
   extend ActiveSupport::Concern
 
+private
   # Builds the breadcrumbs for a category tree with an optional leaf-concept
   def breadcrumbs_for(category_leaf: nil, concept: nil, search: false)
     # start with the root
