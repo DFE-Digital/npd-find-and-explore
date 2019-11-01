@@ -28,8 +28,10 @@ module ProcessCategories
       PgSearch.disable_multisearch do
         upload(inf_arch_tabs.map(&:tree).flatten)
       end
+
       PgSearch::Multisearch.rebuild(Category)
       PgSearch::Multisearch.rebuild(Concept)
+      update(successful: true)
     end
 
   private

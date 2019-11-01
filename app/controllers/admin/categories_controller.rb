@@ -79,6 +79,7 @@ module Admin
       loader = InfArch::Upload.create(admin_user: current_admin_user,
                                       file_name: params['file-upload'].original_filename,
                                       data_table: params['file-upload'])
+      loader.data_table.attach(params['file-upload'])
       loader.preprocess
 
       render partial: 'preprocess', layout: false, locals: { loader: loader }
@@ -106,8 +107,6 @@ module Admin
     rescue StandardError => e
       Rails.logger.error(e)
       render partial: 'import_form', layout: false, locals: { success: false, errors: ['There has been an error while processing your file'] }
-    ensure
-      loader.destroy
     end
 
     def abort_import
