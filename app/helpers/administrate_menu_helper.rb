@@ -3,125 +3,173 @@
 module AdministrateMenuHelper
   include Administrate::ApplicationHelper
 
-  def links(params)
+  def links
     return '' if current_admin_user.blank?
 
-    namespace_value = defined?(namespace) ? namespace : 'admin'
-
-    links = Administrate::Namespace.new(namespace_value).resources.map do |resource|
-      links = [link_to(
-        display_resource_name(resource),
-        [namespace_value, resource_index_route_key(resource)],
-        class: ['navigation__link', "navigation__link--#{resource_state(resource, params)}"]
-      )]
-      links.push secondary_links(resource.name, params)
+    links = RESOURCES.map do |_label, resource|
+      resource_links = [generate_link('primary', resource[:main])]
+      resource[:secondary].each do |secondary|
+        resource_links.push(generate_link('secondary', secondary))
+      end
+      resource_links
     end
-    links.flatten.join.html_safe # rubocop:disable Rails/OutputSafety
+
+    links.flatten.join.html_safe
   end
 
 private
 
-  SECONDARY_LINKS = {
-    categories: [
-      {
-        name: 'Childless Categories',
-        url_params: %i[childless admin categories],
+  RESOURCES = {
+    categories: {
+      main: {
+        name: 'Categories',
+        url_params: %i[admin categories],
         conditions: {
           controller: 'admin/categories',
-          action: :childless
+          actions: %i[index show edit childless tree sort]
         }
       },
-      {
-        name: 'Sort Categories',
-        url_params: %i[tree admin categories],
+      secondary: [
+        {
+          parent: :categories,
+          name: 'Childless Categories',
+          url_params: %i[childless admin categories],
+          conditions: {
+            controller: 'admin/categories',
+            action: :childless
+          }
+        },
+        {
+          name: 'Sort Categories',
+          url_params: %i[tree admin categories],
+          conditions: {
+            controller: 'admin/categories',
+            action: :tree
+          }
+        },
+        {
+          name: 'Reindex Categories for search',
+          url_params: %i[reindex admin categories],
+          conditions: {
+            controller: 'admin/categories',
+            action: :reindex
+          }
+        }
+      ]
+    },
+    concepts: {
+      main: {
+        name: 'Categories',
+        url_params: %i[admin categories],
         conditions: {
           controller: 'admin/categories',
-          action: :tree
+          actions: %i[index show edit childless tree sort]
         }
       },
-      {
-        name: 'Import Categories and Concepts',
-        url_params: %i[import admin categories],
+      secondary: [
+        {
+          name: 'Childless Concepts',
+          url_params: %i[childless admin concepts],
+          conditions: {
+            controller: 'admin/concepts',
+            action: :childless
+          }
+        },
+        {
+          name: 'Reindex Concepts for search',
+          url_params: %i[reindex admin concepts],
+          conditions: {
+            controller: 'admin/concepts',
+            action: :reindex
+          }
+        }
+      ]
+    },
+    data_elements: {
+      main: {
+        name: 'Categories',
+        url_params: %i[admin categories],
         conditions: {
           controller: 'admin/categories',
-          action: :import
+          actions: %i[index show edit childless tree sort]
         }
       },
-      {
-        name: 'Export Categories and Concepts',
-        url_params: %i[export admin categories],
+      secondary: [
+        {
+          name: 'Orphaned Data Elements',
+          url_params: %i[orphaned admin data_elements],
+          conditions: {
+            controller: 'admin/data_elements',
+            action: :orphaned
+          }
+        }
+      ]
+    },
+    files: {
+      main: {
+        name: 'Uploads and Downloads'
+      },
+      secondary: [
+        {
+          name: 'Manage Uploads',
+          url_params: %i[admin uploads],
+          conditions: {
+            controller: 'admin/uploads',
+            action: :index
+          }
+        },
+        {
+          name: 'Import Data Elements',
+          url_params: %i[import admin data_elements],
+          conditions: {
+            controller: 'admin/data_elements',
+            action: :import
+          }
+        },
+        {
+          name: 'Import Categories and Concepts',
+          url_params: %i[import admin categories],
+          conditions: {
+            controller: 'admin/categories',
+            action: :import
+          }
+        },
+        {
+          name: 'Export Categories and Concepts',
+          url_params: %i[export admin categories],
+          conditions: {
+            controller: 'admin/categories',
+            action: :export
+          }
+        }
+      ]
+    },
+    admin_users: {
+      main: {
+        name: 'Admin Users',
+        url_params: %i[admin admin_users],
         conditions: {
-          controller: 'admin/categories',
-          action: :export
+          controller: 'admin/admin_users'
         }
       },
-      {
-        name: 'Reindex Categories for search',
-        url_params: %i[reindex admin categories],
-        conditions: {
-          controller: 'admin/categories',
-          action: :reindex
-        }
-      }
-    ],
-    concepts: [
-      {
-        name: 'Childless Concepts',
-        url_params: %i[childless admin concepts],
-        conditions: {
-          controller: 'admin/concepts',
-          action: :childless
-        }
-      },
-      {
-        name: 'Reindex Concepts for search',
-        url_params: %i[reindex admin concepts],
-        conditions: {
-          controller: 'admin/concepts',
-          action: :reindex
-        }
-      }
-    ],
-    data_elements: [
-      {
-        name: 'Orphaned Data Elements',
-        url_params: %i[orphaned admin data_elements],
-        conditions: {
-          controller: 'admin/data_elements',
-          action: :orphaned
-        }
-      },
-      {
-        name: 'Import Data Elements',
-        url_params: %i[import admin data_elements],
-        conditions: {
-          controller: 'admin/data_elements',
-          action: :import
-        }
-      }
-    ]
+      secondary: []
+    }
   }.freeze
 
-  def secondary_links(resource, params)
-    SECONDARY_LINKS[resource]&.map do |link|
-      link_to(
-        link[:name],
-        link[:url_params],
-        class: "navigation__link navigation__link--secondary navigation__link--#{active(link[:conditions], params)}"
-      )
-    end
+  def generate_link(level, params)
+    link_to(
+      params[:name],
+      params[:url_params] || '#',
+      class: "navigation__link navigation__link--#{level} navigation__link--#{active(params[:conditions], params)}"
+    )
   end
 
   def active(conditions, params)
+    return :inactive unless conditions && params
+
     return :active if params[:controller].to_s == conditions[:controller].to_s &&
       params[:action].to_s == conditions[:action].to_s
 
     :inactive
-  end
-
-  def resource_state(resource, params)
-    return nav_link_state(resource) if defined?(nav_link_state)
-
-    params[:controller] == resource.to_s ? :active : :inactive
   end
 end
