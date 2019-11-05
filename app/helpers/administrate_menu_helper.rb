@@ -15,7 +15,7 @@ module AdministrateMenuHelper
       resource_links
     end
 
-    links.flatten.join.html_safe
+    links.flatten.join.html_safe # rubocop:disable Rails/OutputSafety
   end
 
 private
