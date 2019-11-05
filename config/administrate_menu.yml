@@ -1,0 +1,171 @@
+default: &default
+  categories:
+    main:
+      name: Categories
+      url_params:
+        - admin
+        - categories
+      conditions:
+        - controller: admin/categories
+          actions:
+            - index
+            - show
+            - edit
+            - childless
+            - tree
+            - sort
+            - reindex
+            - do_reindex
+    secondary:
+      - name: Childless Categories
+        url_params:
+          - childless
+          - admin
+          - categories
+        conditions:
+          - controller: admin/categories
+            actions:
+              - childless
+      - sort:
+        name: Sort Categories
+        url_params:
+          - tree
+          - admin
+          - categories
+        conditions:
+          - controller: admin/categories
+            actions:
+              - tree
+      - reindex:
+        name: Reindex Categories for search
+        url_params:
+          - reindex
+          - admin
+          - categories
+        conditions:
+          - controller: admin/categories
+            actions:
+              - reindex
+  concepts:
+    main:
+      name: Concepts
+      url_params:
+        - admin
+        - concepts
+      conditions:
+        - controller: admin/concepts
+          actions:
+            - index
+            - show
+            - edit
+            - childless
+            - reindex
+            - do_reindex
+    secondary:
+      - name: Childless Concepts
+        url_params:
+          - childless
+          - admin
+          - concepts
+        conditions:
+          - controller: admin/concepts
+            actions:
+              - childless
+      - reindex:
+        name: Reindex concepts for search
+        url_params:
+          - reindex
+          - admin
+          - concepts
+        conditions:
+          - controller: admin/concepts
+            actions:
+              - reindex
+  data_elements:
+    main:
+      name: Data Elements
+      url_params:
+        - admin
+        - data_elements
+      conditions:
+        - controller: admin/data_elements
+          actions:
+            - index
+            - show
+            - edit
+            - orphaned
+    secondary:
+      - name: Orphaned Data Elements
+        url_params:
+          - orphaned
+          - admin
+          - data_elements
+        conditions:
+          - controller: admin/data_elements
+            actions:
+              - orphaned
+  files:
+    main:
+      name: Manage Uploads and Downloads
+      url_params:
+        - admin
+        - uploads
+      conditions:
+        - controller: admin/uploads
+          actions:
+            - index
+        - controller: admin/data_elements
+          actions:
+            - import
+        - controller: admin/categories
+          actions:
+            - import
+            - export
+    secondary:
+      - import_data_elements:
+        name: Import Data Table
+        url_params:
+          - import
+          - admin
+          - data_elements
+        conditions:
+          - controller: admin/data_elements
+            actions:
+              - import
+      - import_categories_and_concepts:
+        name: Import Information Architecture File
+        url_params:
+          - import
+          - admin
+          - categories
+        conditions:
+          - controller: admin/categories
+            actions:
+              - import
+      - export_categories_and_concepts:
+        name: Export Information Architecture File
+        url_params:
+          - export
+          - admin
+          - categories
+        conditions:
+          - controller: admin/categories
+            actions:
+              - export
+  admin_users:
+    main:
+      name: Admin Users
+      url_params:
+        - admin
+        - admin_users
+      conditions:
+        - controller: admin/admin_users
+
+production:
+  <<: *default
+staging:
+  <<: *default
+development:
+  <<: *default
+test:
+  <<: *default

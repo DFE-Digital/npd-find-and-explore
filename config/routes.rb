@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       put ':id/deactivate', to: 'admin_users#deactivate', as: :deactivate
       put ':id/reactivate', to: 'admin_users#reactivate', as: :reactivate
     end
+    resources :uploads, only: %i[index]
 
     root to: 'categories#index'
   end

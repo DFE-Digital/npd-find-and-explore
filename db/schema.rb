@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_18_115721) do
+ActiveRecord::Schema.define(version: 2019_11_01_152815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(version: 2019_10_18_115721) do
     t.json "upload_warnings", default: []
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "successful"
     t.index ["admin_user_id"], name: "index_inf_arch_uploads_on_admin_user_id"
   end
 
