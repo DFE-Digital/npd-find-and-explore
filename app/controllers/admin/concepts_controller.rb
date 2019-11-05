@@ -34,7 +34,7 @@ module Admin
     # for more information
 
     def childless
-      resources = Concept.childless
+      resources = Concept.childless.includes(:translations, category: :translations)
       resources = order.apply(resources)
       resources = resources.page(params[:page]).per(records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)

@@ -6,8 +6,14 @@ module Admin
       trim_data_table_uploads
       trim_inf_arch_uploads
 
-      @data_table_uploads = DataTable::Upload.where(successful: true).order(created_at: :desc)
-      @inf_arch_uploads = InfArch::Upload.where(successful: true).order(created_at: :desc)
+      @data_table_uploads = DataTable::Upload
+        .where(successful: true)
+        .order(created_at: :desc)
+        .includes(%i[admin_user])
+      @inf_arch_uploads = InfArch::Upload
+        .where(successful: true)
+        .order(created_at: :desc)
+        .includes(%i[admin_user])
     end
 
   private
