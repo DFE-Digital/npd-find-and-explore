@@ -5,6 +5,7 @@ module BreadcrumbBuilder
   extend ActiveSupport::Concern
 
 private
+
   # Builds the breadcrumbs for a category tree with an optional leaf-concept
   def breadcrumbs_for(category_leaf: nil, concept: nil, search: false)
     # start with the root
@@ -17,14 +18,14 @@ private
 
     # build the breadcrumbs for the category's parent-tree
     category_leaf.ancestors.each do |category|
-      breadcrumb category.name, category_path(category)
+      breadcrumb (category.name || ''), category_path(category)
     end
 
     # ancestors doesn't include the leaf category (just it's parents)
-    breadcrumb category_leaf.name, category_path(category_leaf)
+    breadcrumb (category_leaf.name || ''), category_path(category_leaf)
 
     # finally, add the concept if it's there
-    breadcrumb concept.name, concept_path(concept) if concept.present?
+    breadcrumb (concept.name || ''), concept_path(concept) if concept.present?
   end
 
   def admin_breadcrumbs_for(category_leaf:, concept: nil)
