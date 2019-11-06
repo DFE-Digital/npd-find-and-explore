@@ -14,6 +14,7 @@ class CategoriesController < ApplicationController
                         .find(params.require(:id))
 
     @title = @category.name
+    @description = @category.description
     breadcrumbs_for(category_leaf: @category)
   end
 end

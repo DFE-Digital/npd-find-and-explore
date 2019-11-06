@@ -7,6 +7,7 @@ class SearchController < ApplicationController
     @results = filtered_search.page(page).per(per_page)
     build_filters
     @title = t('search_title')
+    @title_size = 'xl'
     breadcrumbs_for(search: true)
 
     render action: :index
