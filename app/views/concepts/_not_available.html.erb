@@ -1,12 +1,8 @@
-<div class="govuk-grid-column-one-third">
-  <div class="govuk-grid-column-full govuk-!-padding-top-4 govuk-panel govuk-panel--alert">
-    <h2 class="govuk-heading-s"><%= t('concepts.show.not-available.title') %></h2>
+<h2 class="govuk-heading-s"><%= t('concepts.show.not-available.title') %></h2>
 
-    <p class="govuk-panel__body govuk-!-font-size-16">
-      <%= t(
-        'concepts.show.not-available.content',
-        link: link_to(t('concepts.show.not-available.link'), 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
-      ).html_safe %>
-    </p>
-  </div>
-</div>
+<p class="govuk-panel__body govuk-!-font-size-16">
+  <%= t(
+    'concepts.show.not-available.content',
+    link: link_to(t('concepts.show.not-available.link'), 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
+  ).html_safe %>
+</p>
