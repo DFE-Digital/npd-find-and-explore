@@ -130,7 +130,7 @@ module Admin
     end
 
     def download
-      @categories = Category.roots
+      @categories = Category.roots.includes(:translations, concepts: :data_elements)
       filename = "F&E IA #{DateTime.now.strftime('%d %m %Y %H_%M')}.xlsx"
       cookies['download'] = { value: 'download-ia-table' }
 

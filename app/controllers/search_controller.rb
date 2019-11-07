@@ -17,7 +17,7 @@ private
   def search
     PgSearch.multisearch(search_params[:search])
             .where(searchable_type: 'Concept')
-            .includes(searchable: %i[translations])
+            .includes(searchable: [:translations, :data_elements, category: :translations])
   end
 
   def sorted_search
