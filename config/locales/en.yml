@@ -75,6 +75,8 @@ en:
   data_tables:
     download:
       title: Download Data Tables file
+  saved_data:
+    panel: My list
 
   views:
     pagination:
