@@ -11,6 +11,7 @@ class DataTablesController < ApplicationController
   def show
     # Add id parsing when we'll need to let the user download data tables other
     # than the latest
+    @title = t('data_tables.download.title')
     @data_table = DataTable::Upload.where(successful: true).order(created_at: :asc).last
 
     respond_to do |format|

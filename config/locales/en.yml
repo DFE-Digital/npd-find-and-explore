@@ -71,6 +71,12 @@ en:
       data_table:
         cant_find_what_youre_looking_for: "Can't find what you're looking for?"
         download: Click here to download the latest version of the Data Tables
+      save_to_metadata: You can use the checkboxes below to save any items you may want to add to your application
+  data_tables:
+    download:
+      title: Download Data Tables file
+  saved_data:
+    panel: My list
 
   views:
     pagination:

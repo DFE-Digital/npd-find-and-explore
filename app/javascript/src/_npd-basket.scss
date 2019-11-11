@@ -1,0 +1,28 @@
+.metadataMenu {
+  position: fixed;
+  top: 0;
+  background: white;
+  width: 100%;
+  max-width: 975px;
+  padding: 10px 0 0 0;
+  display: none;
+  z-index: 50;
+}
+
+
+.npd-saved-data {
+  padding: 0.4em 0 0.4em 0.5em;
+  border: 2px solid govuk-colour("green");
+  text-decoration: none;
+  color: govuk-colour("black") !important;
+  float: right;
+
+  .npd-counter {
+    padding: 0.5em 0.8em;
+    margin-left: 0.5em;
+    font-weight: bold;
+    color: govuk-colour("white");
+    background: govuk-colour("green");
+
+  }
+}

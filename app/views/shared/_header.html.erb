@@ -1,0 +1,14 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-<%= size %>">
+      <%= @title %>
+    </h1>
+    <p><%= @description %></p>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <a class="npd-saved-data show-modal" href="">
+      <%= t('saved_data.panel') %>
+      <span class="npd-counter">0</span>
+    </a>
+  </div>
+</div>

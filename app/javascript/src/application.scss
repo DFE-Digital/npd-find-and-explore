@@ -14,6 +14,8 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 @import "tables";
 @import "step-by-step-navigation";
 @import "main_navigation";
+@import "npd-basket";
+@import "npd-modal";
 
 // Custom styles to refactor somewhere
 .strong_link {
