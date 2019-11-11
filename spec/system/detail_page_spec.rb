@@ -33,7 +33,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     concept.data_elements.all.first.update(identifiability: 1)
     visit concept_path(concept)
 
-    expect(page).to have_text('This data item is not available for research purposes')
+    expect(page).to have_text('These data items might not be available for research purposes')
     expect(page)
       .to have_link('4 exemptions',
                     href: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
@@ -46,7 +46,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     concept.data_elements.all.first.update(identifiability: 2)
     visit concept_path(concept)
 
-    expect(page).to have_text('This data item is not available for research purposes')
+    expect(page).to have_text('These data items might not be available for research purposes')
     expect(page)
       .to have_link('4 exemptions',
                     href: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
@@ -54,14 +54,13 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page).to have_text('As a researcher, this data is only available if you meet one or more of 4 exemptions following a successful application.')
   end
 
-  it 'Shows the link to the "how to access" page when identifiability rating > 1' do
+  it 'Does not shows the "not available" message when identifiability rating > 2' do
     concept.data_elements.all.each { |de| de.update(identifiability: 3) }
     visit concept_path(concept)
 
     expect(page)
-      .to have_link('applying for access',
-                    href: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
-    expect(page).to have_text('If you are applying for access to NPD data from the DfE you can copy and paste this title in your application form.')
+      .not_to have_link('4 exemptions',
+                        href: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
   end
 
   it 'Doesn\'t show the data type when no data element has data type' do
