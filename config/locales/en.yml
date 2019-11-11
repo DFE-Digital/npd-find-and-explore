@@ -77,6 +77,7 @@ en:
       title: Download Data Tables file
   saved_data:
     panel: My list
+    button: Save to my list
     instructions: You can use the checkboxes below to save any items you may want to add to your application
 
   views:
