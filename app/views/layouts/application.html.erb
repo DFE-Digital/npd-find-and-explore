@@ -50,6 +50,7 @@
     <%= render 'shared/breadcrumbs' %>
 
     <main class="govuk-main-wrapper " id="main-content" role="main">
+      <%= yield :messages %>
       <%= render 'shared/header', size: @title_size || 'l' %>
       <%= yield %>
     </main>

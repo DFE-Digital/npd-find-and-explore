@@ -53,8 +53,7 @@ module ApplicationHelper
 
   def how_to_access(concept)
     identifiability = concept.data_elements.map(&:identifiability).compact.min
-    return 'no_identifiability' if identifiability.nil?
-    return 'how_to_access' if identifiability > 2
+    return 'no_identifiability' if identifiability.nil? || identifiability > 2
 
     'not_available'
   end
