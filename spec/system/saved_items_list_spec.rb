@@ -37,7 +37,20 @@ RSpec.describe 'Saved item list', type: :system do
   end
 
   context 'Concept detail' do
-    before { visit "/concepts/#{Concept.first.id}" }
+    let(:concept) { Concept.first }
+    before { visit "/concepts/#{concept.id}" }
     include_examples 'Saved items panel'
+
+    context 'Checkboxes' do
+      it 'Will have a select all checkbox' do
+        expect(page).to have_css('#data-element-all', visible: :all)
+      end
+
+      it 'Will have a checkbox for each data element' do
+        concept.data_elements.each do |element|
+          expect(page).to have_css("#data-element-#{element.id}", visible: :all)
+        end
+      end
+    end
   end
 end
