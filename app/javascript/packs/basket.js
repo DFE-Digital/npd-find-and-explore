@@ -1,10 +1,14 @@
+import { showModal, hideModal } from '../src/toggle_modal.js'
+
 function getElementsList() {
   var list = localStorage.getItem('elementsList')
   return (list ? JSON.parse(localStorage.getItem('elementsList')) : {})
 }
 
 function checkboxToLabel(element) {
-  element.parentElement.outerHTML = '<a href="" class="show-modal"><strong class="saved govuk-tag govuk-!-font-size-14">saved</strong></a>'
+  var label = element.parentElement.previousElementSibling
+  element.parentElement.remove()
+  label.className = label.className.replace(/hidden/, '')
 }
 
 function addToMetadata(event) {
@@ -17,7 +21,7 @@ function addToMetadata(event) {
       checkboxToLabel(element)
     }
   })
-  count = Object.keys(elementsList).length
+  var count = Object.keys(elementsList).length
   document.querySelector('#npd-counter').innerText = count
 
   localStorage.setItem('elementsList', JSON.stringify(elementsList))
@@ -34,6 +38,14 @@ function checkAll(event) {
   document.querySelectorAll('.basket-checkbox').forEach(function(element) {
     element.checked = checked
   })
+}
+
+function addItemToList(element) {
+  var li = document.querySelector('#npd-saved-item-template').cloneNode(true)
+  li.className = li.className.replace(/hidden/, '')
+  li.querySelector('.item-name').innerHTML = element.tabName + '.' + element.attributeName
+  li.querySelector('.item-name').setAttribute('href', '/concepts/' + element.id)
+  document.querySelector('.npd-saved-items').append(li)
 }
 
 function activateAdd(event) {
@@ -59,17 +71,21 @@ function enableSaveButton(enable, count, length) {
 }
 
 $(document).ready(function() {
-  var selectedElements = Object.keys(getElementsList())
+  var selectedElements = getElementsList()
+  var selectedElementKeys = Object.keys(selectedElements)
 
-  document.querySelector('#npd-counter').innerText = selectedElements.length
+  document.querySelector('#npd-counter').innerText = selectedElementKeys.length
 
   document.querySelector('#save-to-metadata').addEventListener('click', addToMetadata)
   document.querySelector('#data-element-all').addEventListener('change', checkAll)
   document.querySelectorAll('.basket-checkbox').forEach(function(element) {
-    if (selectedElements.indexOf(element.dataset.id) > -1) {
+    if (selectedElementKeys.indexOf(element.dataset.id) > -1) {
       checkboxToLabel(element)
     } else {
       element.addEventListener('change', activateAdd)
     }
+  })
+  selectedElementKeys.forEach(function(key) {
+    addItemToList(selectedElements[key])
   })
 })
