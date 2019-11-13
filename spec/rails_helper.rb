@@ -68,6 +68,6 @@ RSpec.configure do |config|
   # Make Chrome headless so we don't have developers rage-quitting while the tests-run
   config.before(:each, type: :system) do
     driven_by :selenium, using: :headless_chrome,
-                         options: { args: %w[--no-sandbox --disable-dev-shm-usage] }
+      options: { args: %w[--no-sandbox --disable-dev-shm-usage] }
   end
 end

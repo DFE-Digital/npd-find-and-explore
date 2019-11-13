@@ -1,0 +1,35 @@
+.metadataMenu {
+  background: govuk-colour('white');
+  display: none;
+  max-width: 975px;
+  padding: 10px 0 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+}
+
+.npd-saved-items li {
+  clear: both;
+}
+
+.npd-saved-data {
+  border: 2px solid govuk-colour('green');
+  color: govuk-colour('black') !important;
+  float: right;
+  padding: .4em 0 .4em .5em;
+  text-decoration: none;
+
+  .npd-counter {
+    background: govuk-colour('green');
+    color: govuk-colour('white');
+    font-weight: bold;
+    margin-left: .5em;
+    padding: .5em .8em;
+  }
+}
+
+.saved {
+  background: govuk-colour('orange');
+  color: govuk-colour('white');
+}

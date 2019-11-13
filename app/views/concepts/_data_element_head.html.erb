@@ -1,0 +1,34 @@
+<tr class="govuk-table__row">
+  <th class="govuk-table__header" scope="col">
+    <div class="govuk-checkboxes govuk-checkboxes--small fixed-checkbox">
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="select-all" name="selectAll" type="checkbox" value="all">
+        <label class="govuk-label govuk-checkboxes__label" for="all"></label>
+        <%= check_box_tag 'data_element[]', 'all', false,
+          id: 'data-element-all', class: %w[govuk-checkboxes__input basket-checkbox-all] %>
+        <%= label_tag 'data-element-all', class: %w[govuk-label govuk-checkboxes__label] do %>
+          &nbsp;
+          <%= tag.span 'All', class: %w[govuk-checkboxes__label-hidden] %>
+        <% end %>
+      </div>
+    </div>
+  </th>
+  <th data-label="Name" class="govuk-table__header" scope="col">Name</th>
+  <th data-label="Old name" class="govuk-table__header govuk-table__header--numeric" scope="col">Old name</th>
+  <th data-label="Date collected" class="govuk-table__header govuk-table__header--numeric" scope="col">Date collected</th>
+  <th data-label="Sensitivity" class="govuk-table__header govuk-table__header--numeric" scope="col">
+    <%= t('concepts.show.sensitivity.label') %>
+    <%= render 'tooltip',
+      label: t('concepts.show.sensitivity.label'),
+      id: 'sensitivity-tip',
+      tooltip: t('concepts.show.sensitivity.tooltip') %>
+  </th>
+  <th data-label="Identification risk" class="govuk-table__header govuk-table__header--numeric" scope="col">
+    <%= t('concepts.show.identifiability.label') %>
+    <%= render 'tooltip',
+      label: t('concepts.show.identifiability.label'),
+      id: 'identifiability-tip',
+      tooltip: t('concepts.show.identifiability.tooltip') %>
+  </th>
+  <th data-label="Value" class="govuk-table__header govuk-table__header--numeric" scope="col">Values</th>
+</tr>

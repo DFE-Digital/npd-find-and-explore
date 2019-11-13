@@ -49,7 +49,7 @@ en:
         link: applying for access
         how_to_access: If you are %{link} to NPD data from the DfE you can copy and paste this title in your application form.
       not-available:
-        title: This data item is not available for research purposes
+        title: These data items might not be available for research purposes
         link: 4 exemptions
         content: The data in some or all of these variables has an <strong>identification risk of 1 or 2</strong>. As a researcher, this data is only available if you meet one or more of %{link} following a successful application.
       sensitivity:
@@ -71,6 +71,14 @@ en:
       data_table:
         cant_find_what_youre_looking_for: "Can't find what you're looking for?"
         download: Click here to download the latest version of the Data Tables
+      save_to_metadata: You can use the checkboxes below to save any items you may want to add to your application
+  data_tables:
+    download:
+      title: Download Data Tables file
+  saved_data:
+    panel: My list
+    button: Save to my list
+    instructions: You can use the checkboxes below to save any items you may want to add to your application
 
   views:
     pagination:

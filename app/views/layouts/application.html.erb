@@ -45,16 +45,18 @@
   <%= render 'shared/govuk_header' %>
 
   <div class="govuk-width-container">
-    <%= render "shared/phase_banner" %>
+    <%= render 'shared/phase_banner' %>
     <%= render 'shared/staging' unless Rails.env.production? %>
-    <%= render "shared/breadcrumbs" %>
+    <%= render 'shared/breadcrumbs' %>
 
     <main class="govuk-main-wrapper " id="main-content" role="main">
+      <%= yield :messages %>
+      <%= render 'shared/header', size: @title_size || 'l' %>
       <%= yield %>
     </main>
   </div>
 
-  <%= render "shared/govuk_footer" %>
+  <%= render 'shared/govuk_footer' %>
   <%= javascript_pack_tag 'application' %>
 </body>
 
