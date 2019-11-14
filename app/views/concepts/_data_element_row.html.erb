@@ -7,9 +7,8 @@
       <div class="govuk-checkboxes__item">
         <%= check_box_tag 'data_element[]', data_element_row.title, false,
           id: "data-element-#{data_element_row.id}", class: %w[govuk-checkboxes__input basket-checkbox],
-          data: { id: data_element_row.id, npd_alias: data_element_row.npd_alias,
-                  tab_name: data_element_row.tab_name,
-                  attribute_name: data_element_row.source_attribute_name } %>
+          data: { id: data_element_row.id, title: data_element_row.title,
+                  origin: "/concepts/#{@concept.id}" } %>
         <%= label_tag "data-element-#{data_element_row.id}", class: %w[govuk-label govuk-checkboxes__label] do %>
           &nbsp;
           <%= tag.span data_element_row.title, class: %w[govuk-checkboxes__label-hidden] %>

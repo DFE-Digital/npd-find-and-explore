@@ -25,7 +25,7 @@ function findModal(element) {
   // allow esc to close Modal
   element.on('keyup', function(event){
     if (event.keyCode === 27 ) {
-      closeModal(event)
+      hideModal(event)
     };
   });
 };

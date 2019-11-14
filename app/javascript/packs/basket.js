@@ -7,8 +7,14 @@ function getElementsList() {
 
 function checkboxToLabel(element) {
   var label = element.parentElement.previousElementSibling
-  element.parentElement.remove()
+  element.parentElement.className = element.parentElement.className + ' hidden'
   label.className = label.className.replace(/hidden/, '')
+}
+
+function labelToChecbox(element) {
+  var label = element.parentElement.previousElementSibling
+  element.parentElement.className = element.parentElement.className.replace(/hidden/, '')
+  label.className = label.className + ' hidden'
 }
 
 function addToMetadata(event) {
@@ -19,6 +25,7 @@ function addToMetadata(event) {
     if (element.checked) {
       elementsList[element.dataset.id] = element.dataset
       checkboxToLabel(element)
+      addItemToList(element.dataset)
     }
   })
   var count = Object.keys(elementsList).length
@@ -26,6 +33,18 @@ function addToMetadata(event) {
 
   localStorage.setItem('elementsList', JSON.stringify(elementsList))
   localStorage.setItem('countElements', count)
+}
+
+function removeFromMetadata(event) {
+  event.preventDefault()
+
+  var target = event.currentTarget
+  var elementsList = getElementsList()
+  delete elementsList[target.id]
+  target.parentElement.remove()
+  labelToChecbox(document.querySelector('#data-element-' + target.id))
+
+  localStorage.setItem('elementsList', JSON.stringify(elementsList))
 }
 
 function checkAll(event) {
@@ -41,11 +60,18 @@ function checkAll(event) {
 }
 
 function addItemToList(element) {
+  if (element === null) {
+    return
+  }
+
   var li = document.querySelector('#npd-saved-item-template').cloneNode(true)
   li.className = li.className.replace(/hidden/, '')
-  li.querySelector('.item-name').innerHTML = element.tabName + '.' + element.attributeName
-  li.querySelector('.item-name').setAttribute('href', '/concepts/' + element.id)
+  li.querySelector('.item-name').innerHTML = element.title
+  li.querySelector('.item-name').setAttribute('href', element.origin)
+  li.querySelector('.item-remove').setAttribute('id', element.id)
+  li.querySelector('.item-remove').setAttribute('href', 'remove-' + element.id)
   document.querySelector('.npd-saved-items').append(li)
+  li.querySelector('.item-remove').addEventListener('click', removeFromMetadata)
 }
 
 function activateAdd(event) {
