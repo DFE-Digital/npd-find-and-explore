@@ -25,7 +25,9 @@
   border: 2px solid govuk-colour('black');
   box-sizing: border-box;
   margin: 2em auto 0;
+  max-height: 100vh;
   max-width: 700px;
+  overflow: scroll;
   padding: 1em;
   position: relative;
   top: 0;
