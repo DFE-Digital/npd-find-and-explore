@@ -34,9 +34,18 @@
 
       <div class="govuk-grid-row govuk-!-margin-top-8" id="copyButton">
         <div class="govuk-grid-column-full">
-          <button class="copy govuk-button govuk-!-margin-bottom-1 right" data-module="govuk-button" onclick="copyToClipboard('#savedData')">
+          <button id="copy-to-clipboard" class="copy govuk-button govuk-!-margin-bottom-1 right" data-module="govuk-button">
             Copy all to clipboard
           </button>
+        </div>
+      </div>
+
+      <div class="govuk-grid-row npd-copy-success-container invisible hidden">
+        <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
+          <div class="npd-copy-success govuk-!-margin-bottom-1 govuk-!-margin-top-2">
+            <h2 class="govuk-heading-s">Items copied</h2>
+            <p class="govuk-!-font-size-16">Those data items are in your clipboard, head to your application and paste them into the Data section.</p>
+          </div>
         </div>
       </div>
     </div>

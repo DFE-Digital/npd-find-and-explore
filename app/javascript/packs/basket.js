@@ -74,7 +74,7 @@ function addItemToList(element) {
   li.querySelector('.item-remove').addEventListener('click', removeFromMetadata)
 }
 
-function activateAdd(event) {
+function enableSaveButton(event) {
   var list = document.querySelectorAll('.basket-checkbox')
   var enable = false
   var count = 0
@@ -82,10 +82,7 @@ function activateAdd(event) {
     enable = enable || list[i].checked
     if (list[i].checked) { count = count + 1 }
   }
-  enableSaveButton(enable, count, list.length)
-}
 
-function enableSaveButton(enable, count, length) {
   if (!enable) {
     document.querySelector('#data-element-all').checked = false
     document.querySelector('#save-to-metadata').setAttribute('disabled', true)
@@ -96,19 +93,43 @@ function enableSaveButton(enable, count, length) {
   }
 }
 
+function copyToClipboard(event) {
+  var elementsList = getElementsList()
+  var success = document.querySelector('.npd-copy-success-container')
+  var textarea = document.createElement('textarea')
+  textarea.textContent = Object.values(elementsList).map(function(e) { return e.title }).join("\n")
+  event.currentTarget.append(textarea)
+  textarea.focus()
+  textarea.select()
+  document.execCommand('copy')
+  textarea.remove()
+
+  success.className = success.className.replace(/hidden/, '')
+  setTimeout(function() {
+    success.className = success.className.replace(/invisible/, 'visible')
+  }, 50)
+  setTimeout(function() {
+    success.className = success.className.replace(/visible/, 'invisible')
+    setTimeout(function() {
+      success.className = success.className + ' hidden'
+    }, 1200)
+  }, 5000)
+}
+
 $(document).ready(function() {
   var selectedElements = getElementsList()
   var selectedElementKeys = Object.keys(selectedElements)
 
   document.querySelector('#npd-counter').innerText = selectedElementKeys.length
-
   document.querySelector('#save-to-metadata').addEventListener('click', addToMetadata)
   document.querySelector('#data-element-all').addEventListener('change', checkAll)
+  document.querySelector('#copy-to-clipboard').addEventListener('click', copyToClipboard)
+
   document.querySelectorAll('.basket-checkbox').forEach(function(element) {
     if (selectedElementKeys.indexOf(element.dataset.id) > -1) {
       checkboxToLabel(element)
     } else {
-      element.addEventListener('change', activateAdd)
+      element.addEventListener('change', enableSaveButton)
     }
   })
   selectedElementKeys.forEach(function(key) {
