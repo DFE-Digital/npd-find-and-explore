@@ -228,3 +228,15 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 .left {
   float: left;
 }
+
+.invisible {
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 1s;
+}
+
+.visible {
+  opacity: 100%;
+  transition-property: opacity;
+  transition-duration: 2s;
+}
