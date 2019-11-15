@@ -4,19 +4,15 @@
     <div class="npd-basket-modal-content npd-modal-content govuk-!-margin-4" role="document">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-          <h2 class="govuk-heading-l" id="npd-basket-modal-title">Your metadata</h2>
+          <h2 class="govuk-heading-l" id="npd-basket-modal-title"><%= t('saved_data.modal_title') %></h2>
         </div>
       </div>
 
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full how-to-access govuk-!-padding-top-4 govuk-!-margin-bottom-4">
-          <h2 class="govuk-heading-s">Add this to your application</h2>
+          <h2 class="govuk-heading-s"><%= t('saved_data.copy_title') %></h2>
 
-          <p class="govuk-panel__body govuk-!-font-size-16">
-            If you are
-            <a href="https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts">applying for access</a>
-            to NPD data from the DfE you can copy and paste these titles into your application form.
-          </p>
+          <p class="govuk-panel__body govuk-!-font-size-16"><%= t('saved_data.copy_instructions') %></p>
         </div>
       </div>
 
@@ -43,8 +39,8 @@
       <div class="govuk-grid-row npd-copy-success-container invisible hidden">
         <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
           <div class="npd-copy-success govuk-!-margin-bottom-1 govuk-!-margin-top-2">
-            <h2 class="govuk-heading-s">Items copied</h2>
-            <p class="govuk-!-font-size-16">Those data items are in your clipboard, head to your application and paste them into the Data section.</p>
+            <h2 class="govuk-heading-s"><%= t('saved_data.copy_success_title') %></h2>
+            <p class="govuk-!-font-size-16"><%= t('saved_data.copy_success') %></p>
           </div>
         </div>
       </div>

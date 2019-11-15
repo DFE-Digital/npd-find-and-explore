@@ -77,8 +77,13 @@ en:
       title: Download Data Tables file
   saved_data:
     panel: My list
+    modal_title: Your list
     button: Save to my list
     instructions: You can use the checkboxes below to save any items you may want to add to your application
+    copy_title: Saved in this session
+    copy_instructions: These items will disappear when you close the browser. You can copy and paste them into another document to save for later.
+    copy_success_title: Items copied
+    copy_success: Those data items are in your clipboard, you can now paste them into another document.
 
   views:
     pagination:
