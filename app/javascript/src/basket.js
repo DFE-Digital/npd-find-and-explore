@@ -29,9 +29,9 @@ function labelToCheckbox(element) {
 function checkAll(event) {
   var checked = event.currentTarget.checked
   if (checked) {
-    document.querySelector('#save-to-metadata').removeAttribute('disabled')
+    document.querySelector('#save-to-list').removeAttribute('disabled')
   } else {
-    document.querySelector('#save-to-metadata').setAttribute('disabled', true)
+    document.querySelector('#save-to-list').setAttribute('disabled', true)
   }
   document.querySelectorAll('.basket-checkbox').forEach(function(element) {
     element.checked = checked
@@ -62,9 +62,9 @@ function enableSaveButton(event) {
 
   if (!enable) {
     document.querySelector('#data-element-all').checked = false
-    document.querySelector('#save-to-metadata').setAttribute('disabled', true)
+    document.querySelector('#save-to-list').setAttribute('disabled', true)
   } else {
-    document.querySelector('#save-to-metadata').removeAttribute('disabled')
+    document.querySelector('#save-to-list').removeAttribute('disabled')
     if (count === length)
       document.querySelector('#data-element-all').checked = true
   }
@@ -87,7 +87,7 @@ function addItemToList(element) {
 
 function addToMetadata(event) {
   var elementsList = getElementsList()
-  document.querySelector('#save-to-metadata').setAttribute('disabled', true)
+  document.querySelector('#save-to-list').setAttribute('disabled', true)
 
   document.querySelectorAll('.basket-checkbox').forEach(function(element) {
     if (element.checked && !elementsList[element.dataset.id]) {
