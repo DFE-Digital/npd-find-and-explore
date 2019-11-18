@@ -17,6 +17,7 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 @import "main_navigation";
 @import "npd-basket";
 @import "npd-modal";
+@import "sticky";
 
 // Custom styles to refactor somewhere
 .strong_link {
@@ -219,4 +220,24 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
   .govuk-category-card {
     min-height: auto;
   }
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+.invisible {
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 1s;
+}
+
+.visible {
+  opacity: 100%;
+  transition-duration: 2s;
+  transition-property: opacity;
 }

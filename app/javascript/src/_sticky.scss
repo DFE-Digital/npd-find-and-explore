@@ -1,0 +1,34 @@
+.sticky-page-header {
+  background-color: govuk-colour('white');
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+.sticky-save-to-list {
+  background-color: govuk-colour('white');
+  margin-bottom: .5em;
+  margin-top: 0;
+  position: sticky;
+  top: 3.5rem;
+  z-index: 2;
+
+  button {
+    margin-bottom: 0;
+  }
+}
+
+.save-to-list-title {
+  .overflow {
+    max-height: 4rem;
+    overflow: visible;
+  }
+}
+
+.sticky-data-elements-header th {
+  background-color: govuk-colour('white');
+  padding: .4em .6em .3em 0;
+  position: sticky;
+  top: 5.7rem;
+  z-index: 1;
+}
