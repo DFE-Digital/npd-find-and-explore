@@ -58,13 +58,13 @@ RSpec.describe 'Search pages', type: :system do
 
   context 'Filter search results' do
     before do
-      tabs = %w[Year7 KS2 KS3 KS4 KS5 CLA]
+      tabs = create_list :dataset, 6
       cla = [true, false]
       Concept.all.each_with_index do |concept, i|
         concept.data_elements.each_with_index do |de, j|
           de.update(academic_year_collected_from: 1990 + j + (10 * i),
                     academic_year_collected_to: 1995 + j + (10 * i),
-                    tab_name: tabs[(j * (i + 1)) % 6],
+                    datasets: [tabs[(j * (i + 1)) % 6]],
                     is_cla: cla[i % 2])
         end
         concept.update(name: "FSM #{i}")
@@ -102,7 +102,8 @@ RSpec.describe 'Search pages', type: :system do
       fill_in('search', with: 'FSM')
       click_button('Search')
       concept = Concept.first
-      tabs = concept.data_elements.map(&:tab_name) - Concept.last.data_elements.map(&:tab_name)
+      tabs = concept.data_elements.map(&:datasets).map(&:to_a).flatten.map(&:tab_name) -
+        Concept.last.data_elements.map(&:datasets).map(&:to_a).flatten.map(&:tab_name)
 
       expect(page).to have_text('Showing all 2 results')
 

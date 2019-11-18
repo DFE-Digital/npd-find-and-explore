@@ -23,6 +23,13 @@ RSpec.describe DataTable::Upload, type: :model do
                           data_table: table_del_path)
   end
 
+  before do
+    Rails.configuration.datasets.each do |dataset|
+      Dataset.create!(name: dataset['name'], tab_name: dataset['tab_name'],
+                      tab_type: dataset['type'], description: dataset['description'])
+    end
+  end
+
   it 'Will preprocess under 250ms' do
     expect { loader.preprocess }
       .to perform_under(250).ms.sample(10)

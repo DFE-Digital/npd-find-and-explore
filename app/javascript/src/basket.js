@@ -7,7 +7,8 @@ function generateDescription(element) {
   if (element === null || element === undefined || element === {}) {
     return ''
   }
-  return [element.table, element.npdAlias].join('.')
+  var dataset = element.datasets[0]
+  return [dataset, element.npdAlias].join('.')
 }
 
 function checkboxToLabel(element) {
