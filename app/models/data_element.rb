@@ -15,7 +15,7 @@ class DataElement < Versioned
   end
 
   def title
-    [source_table_name, source_attribute_name].join('.')
+    [tab_name, npd_alias].join('.')
   end
 
   def breadcrumbs

@@ -120,7 +120,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     visit concept_path(concept)
 
     concept.data_elements.all.each do |element|
-      expect(page).to have_text("#{element.source_table_name}.#{element.source_attribute_name}")
+      expect(page).to have_text("#{element.tab_name}.#{element.npd_alias}")
     end
   end
 
