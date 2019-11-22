@@ -7,4 +7,6 @@ class Dataset < ApplicationRecord
 
   translates :name
   translates :description
+
+  default_scope -> { order(name: :asc) }
 end
