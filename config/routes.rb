@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       post :abort_import
     end
     resources :data_elements, only: %i[index show]
+    resources :datasets, except: %i[destroy]
     resources :admin_users
     resource :admin_user, only: [] do
       put ':id/deactivate', to: 'admin_users#deactivate', as: :deactivate
