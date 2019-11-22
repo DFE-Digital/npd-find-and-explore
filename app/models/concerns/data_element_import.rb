@@ -31,5 +31,22 @@ module DataElementImport
         }
       )
     end
+
+    def import_datasets(upload_id)
+      conn = ActiveRecord::Base.connection
+      conn.execute <<-SQL
+        INSERT INTO data_elements_datasets (data_element_id, dataset_id)
+        SELECT data_elements.id, datasets.id
+        FROM data_table_rows
+        LEFT OUTER JOIN data_elements ON data_table_rows.npd_alias = data_elements.npd_alias
+        LEFT OUTER JOIN data_table_tabs ON data_table_rows.data_table_tab_id = data_table_tabs.id
+        LEFT OUTER JOIN datasets ON data_table_tabs.type = datasets.tab_type
+        WHERE data_table_rows.data_table_upload_id = #{conn.quote(upload_id)}
+        AND data_elements.id IS NOT NULL
+        AND datasets.id IS NOT NULL
+        ON CONFLICT (data_element_id, dataset_id)
+        DO NOTHING
+      SQL
+    end
   end
 end

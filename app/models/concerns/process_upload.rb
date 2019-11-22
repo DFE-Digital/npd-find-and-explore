@@ -44,20 +44,22 @@ module ProcessUpload
           el.merge('data_table_tab_id' => tab.id, 'data_table_upload_id' => id,
                    'concept_id' => no_concept.id)
         end
-        rows.concat(tab_rows)
+        rows.concat(tab_rows.uniq { |r| r[:npd_alias] || r['npd_alias'] })
         upload_errors.concat(tab.process_errors) if tab.process_errors&.any?
         upload_warnings.concat(tab.process_warnings) if tab.process_warnings&.any?
       end
       update(upload_errors: upload_errors.flatten, upload_warnings: upload_warnings.flatten)
-      import_elements(DataTable::Row, rows.compact.flatten.uniq { |r| r[:npd_alias] || r['npd_alias'] })
+      import_elements(DataTable::Row, rows.compact.flatten)
     end
 
     def process
-      # For each worksheet
       Rails.logger.info "Uploading #{file_name}"
 
-      import_elements(DataElement, data_table_rows.map(&:to_data_element_hash))
+      import_elements(DataElement, data_table_rows.map(&:to_data_element_hash).uniq { |r| r[:npd_alias] })
       DataElement.where(id: del_rows.pluck(:id)).destroy_all
+      import_datasets(id)
+      PgSearch::Multisearch.rebuild(Category)
+      PgSearch::Multisearch.rebuild(Concept)
 
       Rails.logger.info "Uploaded #{file_name}"
       update(successful: true)
