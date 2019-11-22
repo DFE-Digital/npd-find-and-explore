@@ -17,10 +17,10 @@
     <table class="govuk-table govuk-!-font-size-16">
       <caption class="govuk-table__caption govuk-!-font-size-24">Data elements</caption>
       <thead class="govuk-table__head">
-        <%= render partial: "data_element_head" %>
+        <%= render partial: 'shared/data_element_head' %>
       </thead>
       <tbody class="govuk-table__body">
-        <%= render partial: "data_element_row", collection: @concept.data_elements %>
+        <%= render partial: 'data_element_row', collection: @concept.data_elements %>
       </tbody>
     </table>
   </div>
