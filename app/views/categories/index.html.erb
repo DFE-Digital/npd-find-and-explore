@@ -1,9 +1,29 @@
 <%= render 'shared/search_bar' %>
 
 <div class="govuk-grid-row">
-  <h3 class="govuk-grid-column-full govuk-heading-m"><%= t('.title') %></h3>
 </div>
 
 <div class="govuk-grid-row">
-  <%= render partial: 'category', collection: @categories, locals: { wrap_class: 'govuk-grid-column-one-third govuk-grid-column-same-height' } %>
+  <div class="govuk-grid-column-two-thirds govuk-light-grey">
+    <div class="govuk-grid-row govuk-!-margin-top-5">
+      <div class="govuk-grid-column-full">
+        <h3 class="govuk-heading-m"><%= t('datasets.index.title') %></h3>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <%= render partial: 'datasets/dataset', collection: @datasets, locals: { wrap_class: 'govuk-grid-column-one-half govuk-grid-column-same-height' } %>
+    </div>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <div class="govuk-grid-row govuk-!-margin-top-5">
+      <div class="govuk-grid-column-full">
+        <h3 class="govuk-heading-m"><%= t('.title') %></h3>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <%= render partial: 'category', collection: @categories, locals: { wrap_class: '' } %>
+      </div>
+    </div>
+  </div>
 </div>
