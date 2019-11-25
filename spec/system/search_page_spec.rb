@@ -4,9 +4,15 @@ require 'rails_helper'
 
 RSpec.describe 'Search pages', type: :system do
   before do
+    Dataset.destroy_all
     DataElement.destroy_all
     Concept.destroy_all
     Category.destroy_all
+
+    Rails.configuration.datasets.each do |dataset|
+      Dataset.create!(name: dataset['name'], tab_name: dataset['tab_name'],
+                      tab_type: dataset['type'], description: dataset['description'])
+    end
 
     create_list(:category, 2, :with_subcategories_concepts_and_data_elements)
     PgSearch::Multisearch.rebuild(Category)
@@ -58,14 +64,14 @@ RSpec.describe 'Search pages', type: :system do
 
   context 'Filter search results' do
     before do
-      tabs = create_list :dataset, 6
+      datasets = Dataset.limit(6).to_a
       cla = [true, false]
       Concept.all.each_with_index do |concept, i|
         concept.data_elements.each_with_index do |de, j|
           de.update(academic_year_collected_from: 1990 + j + (10 * i),
                     academic_year_collected_to: 1995 + j + (10 * i),
-                    datasets: [tabs[(j * (i + 1)) % 6]],
                     is_cla: cla[i % 2])
+          datasets[(j * (i + 1)) % 6].data_elements << de
         end
         concept.update(name: "FSM #{i}")
       end
