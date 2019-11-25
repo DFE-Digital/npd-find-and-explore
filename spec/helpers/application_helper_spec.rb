@@ -27,8 +27,8 @@ RSpec.describe ApplicationHelper, type: :helper do
 
   context 'search_category_tag' do
     before { create :category, :with_subcategories_and_concepts }
-    let(:concept) { Concept.first }
     let(:root_category) { Category.roots.first }
+    let(:concept) { root_category.descendants.last.concepts.first }
 
     it 'Will return the category name if concept' do
       expect(search_category_tag(concept)).to eq(concept.category.name)

@@ -9,7 +9,7 @@ $(document).ready(function() {
   window.loader.init({
     container: 'govuk-box-message',
     label: true,
-    labelText: 'Loading, please wait'
+    labelText: 'Your data is being loaded'
   })
 
   $.ajax({

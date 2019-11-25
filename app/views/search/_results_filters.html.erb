@@ -48,22 +48,5 @@
       </div>
     </div>
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-    <div>
-      <h3 class="govuk-heading-s">
-        CLA
-      </h3>
-      <div class="govuk-checkboxes govuk-checkboxes-small">
-        <% @is_cla.each do |element| %>
-          <% is_cla = element[:is_cla] %>
-          <% label = is_cla ? 'yes' : 'no' %>
-          <div class="govuk-checkboxes__item">
-            <%= check_box_tag 'filter[is_cla][]', is_cla, params.dig(:filter, :is_cla)&.include?(is_cla.to_s),
-              id: "is_cla-#{label}", class: 'govuk-checkboxes__input', disabled: !element[:active] %>
-            <%= label_tag "is_cla-#{label}", label.capitalize, class: %w[govuk-label govuk-checkboxes__label] %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
   </div>
 </div>

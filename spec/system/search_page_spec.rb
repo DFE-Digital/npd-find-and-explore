@@ -115,20 +115,5 @@ RSpec.describe 'Search pages', type: :system do
       expect(page).to have_text(concept.category.name.upcase)
       expect(page).to have_text(concept.description)
     end
-
-    it 'Will filter concepts by is_cla value' do
-      visit '/'
-      fill_in('search', with: 'FSM')
-      click_button('Search')
-      concept = Concept.first
-      check_id = concept.data_elements.first.is_cla? ? 'is_cla-yes' : 'is_cla-no'
-
-      expect(page).to have_text('Showing all 2 results')
-
-      check(check_id, allow_label_click: true)
-      expect(page).to have_text('Displaying 1 result')
-      expect(page).to have_text(concept.category.name.upcase)
-      expect(page).to have_text(concept.description)
-    end
   end
 end
