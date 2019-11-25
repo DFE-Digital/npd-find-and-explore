@@ -71,7 +71,7 @@ RSpec.describe 'Search pages', type: :system do
           de.update(academic_year_collected_from: 1990 + j + (10 * i),
                     academic_year_collected_to: 1995 + j + (10 * i),
                     is_cla: cla[i % 2])
-          datasets[(j * (i + 1)) % 6].data_elements << de
+          datasets[(j * (i + 1)) % 6].data_elements << de if de.datasets.empty?
         end
         concept.update(name: "FSM #{i}")
       end
@@ -108,12 +108,9 @@ RSpec.describe 'Search pages', type: :system do
       fill_in('search', with: 'FSM')
       click_button('Search')
       concept = Concept.first
-      tabs = concept.data_elements.map(&:datasets).map(&:to_a).flatten.map(&:tab_name) -
-        Concept.last.data_elements.map(&:datasets).map(&:to_a).flatten.map(&:tab_name)
-
       expect(page).to have_text('Showing all 2 results')
 
-      check("tab_name-#{tabs.first}", allow_label_click: true)
+      find_all('[name="filter[tab_name][]"]', visible: :any).first.check(allow_label_click: true)
       expect(page).to have_text('Displaying 1 result')
       expect(page).to have_text(concept.category.name.upcase)
       expect(page).to have_text(concept.description)

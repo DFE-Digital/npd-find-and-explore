@@ -5,7 +5,9 @@ module DataTable
     include ProcessRows
 
     belongs_to :data_table_upload, class_name: 'DataTable::Upload', inverse_of: :data_table_tabs
-    has_many :data_table_rows, class_name: 'DataTable::Row', inverse_of: :data_table_tab
+    has_many :data_table_rows,
+             class_name: 'DataTable::Row', inverse_of: :data_table_tab,
+             foreign_key: :data_table_tab_id, dependent: :destroy
 
     attr_reader :sheet, :labels
 
