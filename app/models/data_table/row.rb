@@ -2,14 +2,14 @@
 
 module DataTable
   class Row < ApplicationRecord
-    belongs_to :data_table_upload, class_name: 'DataTable::Upload', inverse_of: :data_table_tabs
+    belongs_to :data_table_upload, class_name: 'DataTable::Upload', inverse_of: :data_table_rows
+    belongs_to :data_table_tab,    class_name: 'DataTable::Tab',    inverse_of: :data_table_rows
 
     def to_data_element_hash
       {
         id: id,
         concept_id: concept_id,
         npd_alias: npd_alias,
-        tab_name: tab_name,
         source_table_name: source_table_name,
         source_attribute_name: source_attribute_name,
         source_old_attribute_name: source_old_attribute_name,

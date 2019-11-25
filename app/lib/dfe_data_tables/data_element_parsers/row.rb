@@ -3,10 +3,9 @@
 module DfEDataTables
   module DataElementParsers
     class Row
-      attr_reader :table_name, :headers, :tab_name, :row
+      attr_reader :table_name, :headers, :row
 
-      def initialize(table_name, headers, tab_name, row)
-        @tab_name = tab_name
+      def initialize(table_name, headers, row)
         @table_name = table_name
         @headers = headers
         @row = row
@@ -15,7 +14,7 @@ module DfEDataTables
       def process
         return nil if table_name.nil? || row.compact.first.nil?
 
-        data_element = { table_name: table_name, tab_name: tab_name }
+        data_element = { table_name: table_name }
 
         row.each_with_index do |cell, index|
           # Don't collect (generally empty) cells outside the table
@@ -63,7 +62,6 @@ module DfEDataTables
       def data_element_params(data_element)
         {
           npd_alias: data_element.dig(:npd_alias, 0),
-          tab_name: data_element.dig(:tab_name),
           source_table_name: data_element.dig(:table_name),
           source_attribute_name: data_element.dig(:field_reference),
           source_old_attribute_name: [data_element.dig(:old_alias), data_element.dig(:former_name)].flatten.compact,

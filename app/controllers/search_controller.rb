@@ -118,12 +118,14 @@ private
     tabs = []
     active_years = (active_data_elements.map(&:academic_year_collected_from) +
              active_data_elements.map(&:academic_year_collected_to)).compact.uniq
-    active_tabs = active_data_elements.map(&:tab_name).compact.uniq
+    active_tabs = active_data_elements.map(&:datasets).map(&:to_a).flatten.map(&:tab_name).compact.uniq
     active_is_cla = active_data_elements.map(&:is_cla).compact.uniq
     data_elements.each do |de|
       years.push(year: de.academic_year_collected_from, active: active_years.include?(de.academic_year_collected_from)) if de.academic_year_collected_from
       years.push(year: de.academic_year_collected_to, active: active_years.include?(de.academic_year_collected_to)) if de.academic_year_collected_to
-      tabs.push(tab: de.tab_name, active: active_tabs.include?(de.tab_name))
+      de.datasets.map(&:tab_name).each do |tab|
+        tabs.push(tab: tab, active: active_tabs.include?(tab))
+      end
     end
     [years.flatten.uniq { |y| y[:year] }.sort { |a, b| a[:year] <=> b[:year] },
      tabs.flatten.uniq { |t| t[:tab] }.sort { |a, b| a[:tab] <=> b[:tab] },

@@ -5,6 +5,7 @@ class DataElement < Versioned
   include PgSearch::Model
 
   belongs_to :concept, inverse_of: :data_elements
+  has_and_belongs_to_many :datasets, inverse_of: :data_elements
 
   scope :orphaned, -> { where(concept_id: nil) }
 
@@ -14,8 +15,8 @@ class DataElement < Versioned
     description_en
   end
 
-  def title
-    [tab_name, npd_alias].join('.')
+  def title(dataset = datasets.first)
+    [dataset&.tab_name, npd_alias].join('.')
   end
 
   def breadcrumbs

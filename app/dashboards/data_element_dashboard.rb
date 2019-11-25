@@ -29,7 +29,8 @@ class DataElementDashboard < Administrate::BaseDashboard
     description_cy: Field::Text,
     npd_alias: Field::String,
     data_type: Field::String,
-    educational_phase: Field::String
+    educational_phase: Field::String,
+    datasets: HasManySortedField.with_options(order: %i[name])
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -41,6 +42,7 @@ class DataElementDashboard < Administrate::BaseDashboard
     source_table_name
     source_attribute_name
     concept
+    datasets
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -53,6 +55,7 @@ class DataElementDashboard < Administrate::BaseDashboard
     description_en
     description_cy
     concept
+    datasets
     identifiability
     sensitivity
     source_old_attribute_name

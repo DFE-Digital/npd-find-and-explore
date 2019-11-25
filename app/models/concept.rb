@@ -127,7 +127,7 @@ class Concept < Versioned
       category_id AS searchable_category_id,
       min(data_elements.academic_year_collected_from) AS searchable_year_from,
       max(data_elements.academic_year_collected_to) AS searchable_year_to,
-      array_agg(DISTINCT(data_elements.tab_name)) AS searchable_tab_names,
+      array_agg(DISTINCT(datasets.tab_name)) AS searchable_tab_names,
       array_agg(DISTINCT(data_elements.is_cla)) AS searchable_is_cla,
       MIN(concepts.created_at) AS searchable_created_at,
       MIN(concepts.updated_at) AS searchable_updated_at,
@@ -139,6 +139,10 @@ class Concept < Versioned
         ON concepts.id = concept_translations.concept_id
       LEFT OUTER JOIN data_elements
         ON concepts.id = data_elements.concept_id
+      LEFT OUTER JOIN data_elements_datasets
+        ON data_elements.id = data_elements_datasets.data_element_id
+      LEFT OUTER JOIN datasets
+        ON data_elements_datasets.dataset_id = datasets.id
       GROUP BY concepts.id
 
     SQL
@@ -156,7 +160,7 @@ class Concept < Versioned
       data_elements_body.push([de.description_en, de.description_cy, de.npd_alias, de.source_old_attribute_name, de.data_type].join(' '))
       data_elements_years_from.push(de.academic_year_collected_from) if de.academic_year_collected_from.present?
       data_elements_years_to.push(de.academic_year_collected_to) if de.academic_year_collected_to.present?
-      data_elements_tab_names.push(de.tab_name) if de.tab_name.present?
+      data_elements_tab_names.push(de.datasets.map(&:tab_name))
       data_elements_is_cla.push(de.is_cla) if de.is_cla.present?
     end
     [data_elements_headers, data_elements_body, data_elements_years_from.compact,
