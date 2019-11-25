@@ -1,7 +1,9 @@
 <%= content_for :additional_links do %>
+  <%= stylesheet_pack_tag 'loader' %>
   <%= javascript_pack_tag 'overlay' %>
   <%= javascript_pack_tag 'basket' %>
   <%= javascript_pack_tag 'sticky' %>
+  <%= javascript_pack_tag 'data_elements_loader' %>
 <%- end %>
 
 <%= render 'shared/save_to_metadata' %>
@@ -14,7 +16,7 @@
         <%= render partial: 'shared/data_element_head' %>
       </thead>
       <tbody class="govuk-table__body">
-        <%= render partial: 'data_element_row', collection: @dataset.data_elements %>
+        <%= render partial: 'data_elements_loading' %>
       </tbody>
     </table>
   </div>

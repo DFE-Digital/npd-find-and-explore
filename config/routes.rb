@@ -55,6 +55,9 @@ Rails.application.routes.draw do
   scope '(/:locale)', locale: /en|cy/, defaults: { locale: 'en' } do
     resources :categories,  only: %i[index show]
     resources :concepts,    only: %i[show]
+    resource :datasets, only: [] do
+      get 'data_elements/:id', to: 'datasets#data_elements'
+    end
     resources :datasets,    only: %i[show]
     resources :search,      only: %i[index]
     resources :data_tables, only: %i[show]
