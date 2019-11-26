@@ -26,7 +26,7 @@ RSpec.describe 'Search pages', type: :system do
 
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
-    expect(page).to have_text("Results for '#{category.name}'")
+    expect(page).to have_text("Results for '#{category.name}'", wait: 6)
     expect(page).not_to have_text(category.parent&.name&.upcase)
     expect(page).not_to have_text(category.description)
   end
@@ -39,7 +39,7 @@ RSpec.describe 'Search pages', type: :system do
 
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
-    expect(page).to have_text("Results for '#{concept.name}'")
+    expect(page).to have_text("Results for '#{concept.name}'", wait: 6)
     expect(page).to have_text(concept.category.name.upcase)
     expect(page).to have_text(concept.description)
   end
@@ -51,7 +51,7 @@ RSpec.describe 'Search pages', type: :system do
 
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
-    expect(page).to have_text("Results for '#{DataElement.first.source_attribute_name}'")
+    expect(page).to have_text("Results for '#{DataElement.first.source_attribute_name}'", wait: 6)
     expect(page).to have_text(DataElement.first.concept.category.name.upcase)
     expect(page).to have_text(DataElement.first.concept.description)
   end
@@ -80,7 +80,7 @@ RSpec.describe 'Search pages', type: :system do
       expect(page).to have_text('Showing all 2 results')
 
       check("category_id-#{Concept.first.category_id}", allow_label_click: true)
-      expect(page).to have_text('Displaying 1 result')
+      expect(page).to have_text('Displaying 1 result', wait: 6)
       expect(page).to have_text(Concept.first.category.name.upcase)
       expect(page).to have_text(Concept.first.description)
     end
@@ -94,7 +94,7 @@ RSpec.describe 'Search pages', type: :system do
       expect(page).to have_text('Showing all 2 results')
 
       check("years-#{year}", allow_label_click: true)
-      expect(page).to have_text('Displaying 1 result')
+      expect(page).to have_text('Displaying 1 result', wait: 6)
     end
 
     it 'Will filter concepts by tab names' do
@@ -108,7 +108,7 @@ RSpec.describe 'Search pages', type: :system do
       concept = dataset.data_elements.first.concept
 
       tab.check(allow_label_click: true)
-      expect(page).to have_text('Displaying 1 result')
+      expect(page).to have_text('Displaying 1 result', wait: 6)
       expect(page).to have_text(concept.category.name.upcase)
       expect(page).to have_text(concept.description)
     end
