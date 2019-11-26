@@ -9,6 +9,8 @@ class DataElement < Versioned
 
   scope :orphaned, -> { where(concept_id: nil) }
 
+  before_validation :assign_concept
+
   def description
     return description_cy if I18n.locale == :cy
 
@@ -21,5 +23,17 @@ class DataElement < Versioned
 
   def breadcrumbs
     @breadcrumbs ||= [concept, concept&.category, concept&.category&.ancestors&.reverse].compact.flatten
+  end
+
+private
+
+  def assign_concept
+    return true if concept_id.present?
+
+    no_category = Category.find_or_create_by(name: 'No Category')
+    no_concept = Concept.find_or_create_by(name: 'No Concept', category: no_category) do |concept|
+      concept.description = 'This Concept is used to house data elements that are waiting to be categorised'
+    end
+    self.concept_id = no_concept.id
   end
 end
