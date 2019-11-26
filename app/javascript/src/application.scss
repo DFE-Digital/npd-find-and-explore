@@ -257,3 +257,13 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 .govuk-light-grey {
   background-color: govuk-colour('grey-4');
 }
+
+
+.field-unit__field {
+  width: 80% !important;
+}
+
+.tail-select-container.select-label .select-handle {
+  display: block;
+  width: fit-content;
+}

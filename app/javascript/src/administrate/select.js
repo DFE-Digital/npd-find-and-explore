@@ -3,6 +3,7 @@ $(document).ready(function() {
     deselect: true,
     multiple: true,
     multiContainer: true,
-    search: true
+    search: true,
+    width: '100%',
   })
 })
