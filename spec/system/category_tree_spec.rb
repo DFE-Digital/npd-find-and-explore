@@ -3,19 +3,32 @@
 require 'rails_helper'
 
 RSpec.describe 'Category hierarchy', type: :system do
-  before { create_list(:category, 10, :with_subcategories) }
+  before { create_list(:category, 4, :with_subcategories) }
 
   it 'View the categories page' do
     visit '/categories'
     expect(page).to have_text('Categories')
     expect(page).to have_title('Find and explore data in the National Pupil Database - GOV.UK')
 
-    top_level_categories = Category.includes(:translations).roots
+    top_level_categories = Category.real.includes(:translations).roots
 
     top_level_categories.each do |category|
       expect(page).to have_text(category.name)
       expect(page).to have_link(category.name, href: category_path(category))
       expect(page).to have_text(category.description)
+    end
+  end
+
+  it 'Has datasets in the categories page' do
+    visit '/categories'
+    expect(page).to have_text('Datasets')
+
+    datasets = Dataset.includes(:translations).all
+
+    datasets.each do |dataset|
+      expect(page).to have_text(dataset.name)
+      expect(page).to have_link(dataset.name, href: dataset_path(dataset))
+      expect(page).to have_text(dataset.description)
     end
   end
 
@@ -69,8 +82,5 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page).to have_link('Home', href: categories_path)
     expect(page).to have_link(root_category.name, href: category_path(root_category))
     expect(page).to have_link(child_category.name, href: category_path(child_category))
-  end
-
-  xit 'Shows related publications' do
   end
 end

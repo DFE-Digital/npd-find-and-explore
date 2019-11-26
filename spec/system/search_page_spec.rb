@@ -4,15 +4,9 @@ require 'rails_helper'
 
 RSpec.describe 'Search pages', type: :system do
   before do
-    Dataset.destroy_all
     DataElement.destroy_all
     Concept.destroy_all
     Category.destroy_all
-
-    Rails.configuration.datasets.each do |dataset|
-      Dataset.create!(name: dataset['name'], tab_name: dataset['tab_name'],
-                      tab_type: dataset['type'], description: dataset['description'])
-    end
 
     create_list(:category, 2, :with_subcategories_concepts_and_data_elements)
     PgSearch::Multisearch.rebuild(Category)
@@ -107,10 +101,13 @@ RSpec.describe 'Search pages', type: :system do
       visit '/'
       fill_in('search', with: 'FSM')
       click_button('Search')
-      concept = Concept.first
       expect(page).to have_text('Showing all 2 results')
 
-      find_all('[name="filter[tab_name][]"]', visible: :any).first.check(allow_label_click: true)
+      tab = all('[name="filter[tab_name][]"]', visible: :any).first
+      dataset = Dataset.where(tab_name: tab[:value]).select { |ds| ds.data_elements.any? }.first
+      concept = dataset.data_elements.first.concept
+
+      tab.check(allow_label_click: true)
       expect(page).to have_text('Displaying 1 result')
       expect(page).to have_text(concept.category.name.upcase)
       expect(page).to have_text(concept.description)
