@@ -1,0 +1,82 @@
+<tr class="govuk-table__row">
+  <td class="govuk-table__header" scope="col">
+    <div class="govuk-checkboxes govuk-checkboxes--small">
+      <a href="" class="show-modal hidden">
+        <strong class="saved govuk-tag govuk-!-font-size-14">saved</strong>
+      </a>
+      <div class="govuk-checkboxes__item">
+        <%= check_box_tag 'data_element[]', data_element_row.title(@dataset), false,
+          id: "data-element-#{data_element_row.id}", class: %w[govuk-checkboxes__input basket-checkbox],
+          data: { id: data_element_row.id, name: data_element_row.source_attribute_name,
+                  table: data_element_row.source_table_name, datasets: [@dataset.tab_name],
+                  npd_alias: data_element_row.npd_alias, origin: "/datasets/#{@dataset.id}" } %>
+        <%= label_tag "data-element-#{data_element_row.id}", class: %w[govuk-label govuk-checkboxes__label] do %>
+          &nbsp;
+          <%= tag.span data_element_row.title(@dataset), class: %w[govuk-checkboxes__label-hidden] %>
+        <% end %>
+      </div>
+    </div>
+  </td>
+  <th data-label="Name" class="govuk-table__header" scope="row">
+    <%= data_element_row.title(@dataset) %>
+  </th>
+  <td data-label="Old name" class="govuk-table__cell govuk-table__cell--numeric">
+    <%= [data_element_row.source_old_attribute_name].join(', ') %>
+  </td>
+  <td data-label="Date collected" class="govuk-table__cell govuk-table__cell--numeric">
+    <%= academic_year(data_element_row.academic_year_collected_from) %>
+    to
+    <%= academic_year(data_element_row.academic_year_collected_to) %>
+  </td>
+  <td data-label="Sensitivity" class="govuk-table__cell govuk-table__cell--numeric">
+    <span class="tooltip">
+      <a href="#sensitivity-tip-before" class="help" aria-describedby="sensitivity-tip-before" title="Help">
+        i<span>nformation about sensitivity</span>
+      </a>
+      <span class="visuallyhidden tooltip-content tooltip-top-left" role="tooltip" id="sensitivity-tip-before">
+        Data is given a sensitivity scale. Items are rated from A to E with A being highly sensitive and E being low.
+      </span>
+    </span>
+    <%= data_element_row&.sensitivity %>
+  </td>
+  <td data-label="Identification risk" class="govuk-table__cell govuk-table__cell--numeric">
+    <span class="tooltip">
+      <a href="#identifiability-tip-before" class="help" aria-describedby="identifiability-tip-before" title="Help">
+        i<span>nformation about identifiability</span>
+      </a>
+      <span class="visuallyhidden tooltip-content tooltip-top-left" role="tooltip" id="identifiability-tip-before">
+        Data is scored on identifiability scale from 1 to 5, the lower the number the higher the identifiability.
+      </span>
+    </span>
+    <%= data_element_row&.identifiability %>
+  </td>
+  <td data-label="Value" class="govuk-table__cell govuk-table__cell--numeric">
+    <%- if /\n/ =~ data_element_row.values %>
+      <div class="overlay-parent">
+        <a href="#" class="codeset" aria-describedby="codeset-<%= data_element_row.title.downcase %>" title="Codeset for <%= data_element_row.title(@dataset) %>">
+          Codeset<span class="codeset-specification">for <%= data_element_row.title(@dataset) %></span>
+        </a>
+        <div class="overlay" role="overlay" id="codeset-<%= data_element_row.title(@dataset).downcase %>">
+          <div class="overlay-content">
+            <span class="overlay-header">
+              <span>Codeset values for <%= data_element_row.title(@dataset) %></span>
+              <a href="#" class="overlay-close">X</a>
+            </span>
+            <%- data_element_row.values.split("\n") do |line| %>
+              <span><%= line %></span><br />
+            <%- end %>
+          </div>
+        </div>
+      </div>
+    <%- else %>
+      <%= data_element_row.values %>
+    <%- end %>
+  </td>
+</tr>
+<tr class="govuk-table__row">
+  <td class="govuk-table__cell" colspan="7">
+    <p class="variable-description govuk-background__gray-4 govuk-!-font-size-16 govuk-!-margin-bottom-0">
+      <%= data_element_row.description %>
+    </p>
+  </td>
+</tr>

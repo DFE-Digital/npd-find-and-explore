@@ -18,14 +18,14 @@
   <th data-label="Date collected" class="govuk-table__header govuk-table__header--numeric" scope="col">Date collected</th>
   <th data-label="Sensitivity" class="govuk-table__header govuk-table__header--numeric" scope="col">
     <%= t('concepts.show.sensitivity.label') %>
-    <%= render 'tooltip',
+    <%= render 'shared/tooltip',
       label: t('concepts.show.sensitivity.label'),
       id: 'sensitivity-tip',
       tooltip: t('concepts.show.sensitivity.tooltip') %>
   </th>
   <th data-label="Identification risk" class="govuk-table__header govuk-table__header--numeric" scope="col">
     <%= t('concepts.show.identifiability.label') %>
-    <%= render 'tooltip',
+    <%= render 'shared/tooltip',
       label: t('concepts.show.identifiability.label'),
       id: 'identifiability-tip',
       tooltip: t('concepts.show.identifiability.tooltip') %>

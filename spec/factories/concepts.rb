@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :concept do
-    after(:build) do |concept, _evaluator|
-      concept.name = Faker::Lorem.word
+    before(:create) do |concept, _evaluator|
+      concept.name = Faker::Lorem.unique.sentence(2)
       concept.description = Faker::Lorem.sentence(15)
     end
 

@@ -4,15 +4,9 @@ require 'rails_helper'
 
 RSpec.describe 'Search pages', type: :system do
   before do
-    Dataset.destroy_all
     DataElement.destroy_all
     Concept.destroy_all
     Category.destroy_all
-
-    Rails.configuration.datasets.each do |dataset|
-      Dataset.create!(name: dataset['name'], tab_name: dataset['tab_name'],
-                      tab_type: dataset['type'], description: dataset['description'])
-    end
 
     create_list(:category, 2, :with_subcategories_concepts_and_data_elements)
     PgSearch::Multisearch.rebuild(Category)
@@ -32,7 +26,7 @@ RSpec.describe 'Search pages', type: :system do
 
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
-    expect(page).to have_text("Results for '#{category.name}'")
+    expect(page).to have_text("Results for '#{category.name}'", wait: 6)
     expect(page).not_to have_text(category.parent&.name&.upcase)
     expect(page).not_to have_text(category.description)
   end
@@ -45,7 +39,7 @@ RSpec.describe 'Search pages', type: :system do
 
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
-    expect(page).to have_text("Results for '#{concept.name}'")
+    expect(page).to have_text("Results for '#{concept.name}'", wait: 6)
     expect(page).to have_text(concept.category.name.upcase)
     expect(page).to have_text(concept.description)
   end
@@ -57,7 +51,7 @@ RSpec.describe 'Search pages', type: :system do
 
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
-    expect(page).to have_text("Results for '#{DataElement.first.source_attribute_name}'")
+    expect(page).to have_text("Results for '#{DataElement.first.source_attribute_name}'", wait: 6)
     expect(page).to have_text(DataElement.first.concept.category.name.upcase)
     expect(page).to have_text(DataElement.first.concept.description)
   end
@@ -86,7 +80,7 @@ RSpec.describe 'Search pages', type: :system do
       expect(page).to have_text('Showing all 2 results')
 
       check("category_id-#{Concept.first.category_id}", allow_label_click: true)
-      expect(page).to have_text('Displaying 1 result')
+      expect(page).to have_text('Displaying 1 result', wait: 6)
       expect(page).to have_text(Concept.first.category.name.upcase)
       expect(page).to have_text(Concept.first.description)
     end
@@ -100,33 +94,21 @@ RSpec.describe 'Search pages', type: :system do
       expect(page).to have_text('Showing all 2 results')
 
       check("years-#{year}", allow_label_click: true)
-      expect(page).to have_text('Displaying 1 result')
+      expect(page).to have_text('Displaying 1 result', wait: 6)
     end
 
     it 'Will filter concepts by tab names' do
       visit '/'
       fill_in('search', with: 'FSM')
       click_button('Search')
-      concept = Concept.first
       expect(page).to have_text('Showing all 2 results')
 
-      find_all('[name="filter[tab_name][]"]', visible: :any).first.check(allow_label_click: true)
-      expect(page).to have_text('Displaying 1 result')
-      expect(page).to have_text(concept.category.name.upcase)
-      expect(page).to have_text(concept.description)
-    end
+      tab = all('[name="filter[tab_name][]"]', visible: :any).first
+      dataset = Dataset.where(tab_name: tab[:value]).select { |ds| ds.data_elements.any? }.first
+      concept = dataset.data_elements.first.concept
 
-    it 'Will filter concepts by is_cla value' do
-      visit '/'
-      fill_in('search', with: 'FSM')
-      click_button('Search')
-      concept = Concept.first
-      check_id = concept.data_elements.first.is_cla? ? 'is_cla-yes' : 'is_cla-no'
-
-      expect(page).to have_text('Showing all 2 results')
-
-      check(check_id, allow_label_click: true)
-      expect(page).to have_text('Displaying 1 result')
+      tab.check(allow_label_click: true)
+      expect(page).to have_text('Displaying 1 result', wait: 6)
       expect(page).to have_text(concept.category.name.upcase)
       expect(page).to have_text(concept.description)
     end

@@ -26,9 +26,8 @@ RSpec.describe ApplicationHelper, type: :helper do
   end
 
   context 'search_category_tag' do
-    before { create :category, :with_subcategories_and_concepts }
-    let(:concept) { Concept.first }
-    let(:root_category) { Category.roots.first }
+    let(:root_category) { create :category, :with_subcategories_and_concepts }
+    let(:concept) { root_category.descendants.last.concepts.first }
 
     it 'Will return the category name if concept' do
       expect(search_category_tag(concept)).to eq(concept.category.name)
@@ -44,9 +43,8 @@ RSpec.describe ApplicationHelper, type: :helper do
   end
 
   context 'searchable_description' do
-    before { create :category, :with_subcategories_concepts_and_data_elements }
-    let(:concept) { Concept.first }
-    let(:category) { Category.roots.first }
+    let(:category) { create :category, :with_subcategories_concepts_and_data_elements }
+    let(:concept) { category.descendants.last.concepts.first }
 
     it 'Will return the description if result a category' do
       expect(searchable_description(category)).to eq(category.description)

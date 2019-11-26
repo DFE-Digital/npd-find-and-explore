@@ -1,2 +1,23 @@
-<h1>Datasets#show</h1>
-<p>Find me in app/views/datasets/show.html.erb</p>
+<%= content_for :additional_links do %>
+  <%= stylesheet_pack_tag 'loader' %>
+  <%= javascript_pack_tag 'overlay' %>
+  <%= javascript_pack_tag 'basket' %>
+  <%= javascript_pack_tag 'sticky' %>
+  <%= javascript_pack_tag 'data_elements_loader' %>
+<%- end %>
+
+<%= render 'shared/save_to_metadata' %>
+
+<div class="govuk-grid-row govuk-!-margin-top-6">
+  <div class="govuk-grid-column-full">
+    <table class="govuk-table govuk-!-font-size-16">
+      <caption class="govuk-table__caption govuk-!-font-size-24">Data elements</caption>
+      <thead class="govuk-table__head">
+        <%= render partial: 'shared/data_element_head' %>
+      </thead>
+      <tbody class="govuk-table__body">
+        <%= render partial: 'data_elements_loading' %>
+      </tbody>
+    </table>
+  </div>
+</div>

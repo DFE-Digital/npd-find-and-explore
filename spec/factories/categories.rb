@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :category do
-    after(:build) do |category, _evaluator|
-      category.name = Faker::Creature::Animal.name.strip
+    before(:create) do |category, _evaluator|
+      category.name = Faker::Lorem.unique.sentence(2)
       category.description = Faker::Lorem.sentence(15)
     end
 
