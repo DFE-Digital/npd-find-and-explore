@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       post :abort_import
     end
     resources :data_elements, only: %i[index show]
+    resources :datasets, except: %i[destroy]
     resources :admin_users
     resource :admin_user, only: [] do
       put ':id/deactivate', to: 'admin_users#deactivate', as: :deactivate
@@ -54,6 +55,10 @@ Rails.application.routes.draw do
   scope '(/:locale)', locale: /en|cy/, defaults: { locale: 'en' } do
     resources :categories,  only: %i[index show]
     resources :concepts,    only: %i[show]
+    resource :datasets, only: [] do
+      get 'data_elements/:id', to: 'datasets#data_elements'
+    end
+    resources :datasets,    only: %i[show]
     resources :search,      only: %i[index]
     resources :data_tables, only: %i[show]
   end

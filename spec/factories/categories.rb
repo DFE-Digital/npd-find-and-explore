@@ -2,10 +2,10 @@
 
 FactoryBot.define do
   factory :category do
-    after(:build) do |category, _evaluator|
-      category.name = Faker::Creature::Animal.name.strip
-      category.description = Faker::Lorem.sentence(15)
-    end
+    name        { Faker::Lorem.unique.sentence(2) }
+    description { Faker::Lorem.sentence(15) }
+
+    after(:create, &:save)
 
     trait :with_subcategories do
       after(:create) do |category|

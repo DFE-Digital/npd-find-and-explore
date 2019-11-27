@@ -20,6 +20,8 @@ class Category < Versioned
   translates :name
   translates :description
 
+  scope :real, -> { where.not(name: 'No Category') }
+
   has_ancestry orphan_strategy: :rootify
 
   multisearchable against: %i[name description]

@@ -3,7 +3,6 @@
 FactoryBot.define do
   factory :data_element do
     sequence(:npd_alias)             { |n| "NPD_Alias[#{n}]" }
-    sequence(:tab_name)              { %w[KS2_Exam KS2_Pupil KS3_Candidate KS3_Indicators KS3_Result KS4_Exam KS4_Pupil KS5_Exam KS5_Student].sample }
     sequence(:source_table_name)     { %w[KS2_Exam KS2_Pupil KS3_Candidate KS3_Indicators KS3_Result KS4_Exam KS4_Pupil KS5_Exam KS5_Student].sample }
     sequence(:source_attribute_name) { |n| "#{Faker::Creature::Animal.name.strip}#{n}" }
     description_en                   { Faker::Lorem.sentence(3, false, 3) }
@@ -17,5 +16,11 @@ FactoryBot.define do
     values                           { '0/1' }
     data_type                        { %w[Continuous Categorical Dichotomous Text].sample }
     educational_phase                { %w[EY PRI SEC P-16].sample }
+
+    after(:create) do |data_element|
+      data_element.save
+      dataset = create(:dataset)
+      dataset.data_elements << data_element
+    end
   end
 end

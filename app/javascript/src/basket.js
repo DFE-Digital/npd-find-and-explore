@@ -7,7 +7,8 @@ function generateDescription(element) {
   if (element === null || element === undefined || element === {}) {
     return ''
   }
-  return [element.table, element.npdAlias].join('.')
+  var dataset = element.datasets[0]
+  return [dataset, element.npdAlias].join('.')
 }
 
 function checkboxToLabel(element) {
@@ -117,9 +118,8 @@ function copyToClipboard(event) {
   textarea.remove()
 
   success.className = success.className.replace(/hidden/, '')
-  setTimeout(function() {
-    success.className = success.className.replace(/invisible/, 'visible')
-  }, 50)
+  success.className = success.className.replace(/invisible/, 'visible')
+
   setTimeout(function() {
     success.className = success.className.replace(/visible/, 'invisible')
     setTimeout(function() {

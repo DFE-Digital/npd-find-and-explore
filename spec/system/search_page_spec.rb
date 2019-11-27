@@ -8,7 +8,8 @@ RSpec.describe 'Search pages', type: :system do
     Concept.destroy_all
     Category.destroy_all
 
-    create_list(:category, 2, :with_subcategories_concepts_and_data_elements)
+    create(:category, :with_subcategories_concepts_and_data_elements)
+    create(:category, :with_subcategories_concepts_and_data_elements)
     PgSearch::Multisearch.rebuild(Category)
     PgSearch::Multisearch.rebuild(Concept)
   end
@@ -58,14 +59,14 @@ RSpec.describe 'Search pages', type: :system do
 
   context 'Filter search results' do
     before do
-      tabs = %w[Year7 KS2 KS3 KS4 KS5 CLA]
+      datasets = Dataset.limit(6).to_a
       cla = [true, false]
       Concept.all.each_with_index do |concept, i|
         concept.data_elements.each_with_index do |de, j|
           de.update(academic_year_collected_from: 1990 + j + (10 * i),
                     academic_year_collected_to: 1995 + j + (10 * i),
-                    tab_name: tabs[(j * (i + 1)) % 6],
                     is_cla: cla[i % 2])
+          datasets[(j * (i + 1)) % 6].data_elements << de if de.datasets.empty?
         end
         concept.update(name: "FSM #{i}")
       end
@@ -101,27 +102,13 @@ RSpec.describe 'Search pages', type: :system do
       visit '/'
       fill_in('search', with: 'FSM')
       click_button('Search')
-      concept = Concept.first
-      tabs = concept.data_elements.map(&:tab_name) - Concept.last.data_elements.map(&:tab_name)
-
       expect(page).to have_text('Showing all 2 results')
 
-      check("tab_name-#{tabs.first}", allow_label_click: true)
-      expect(page).to have_text('Displaying 1 result')
-      expect(page).to have_text(concept.category.name.upcase)
-      expect(page).to have_text(concept.description)
-    end
+      tab = all('[name="filter[tab_name][]"]', visible: :any).first
+      dataset = Dataset.where(tab_name: tab[:value]).select { |ds| ds.data_elements.any? }.first
+      concept = dataset.data_elements.first.concept
 
-    it 'Will filter concepts by is_cla value' do
-      visit '/'
-      fill_in('search', with: 'FSM')
-      click_button('Search')
-      concept = Concept.first
-      check_id = concept.data_elements.first.is_cla? ? 'is_cla-yes' : 'is_cla-no'
-
-      expect(page).to have_text('Showing all 2 results')
-
-      check(check_id, allow_label_click: true)
+      tab.check(allow_label_click: true)
       expect(page).to have_text('Displaying 1 result')
       expect(page).to have_text(concept.category.name.upcase)
       expect(page).to have_text(concept.description)

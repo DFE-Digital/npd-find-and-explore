@@ -31,9 +31,9 @@ module ApplicationHelper
 
   def search_category_tag(result)
     return result.category.name if result.respond_to?(:category)
-    return result.parent.name if result.parent.present?
+    return result.parent.name if result&.parent&.present?
 
-    result.name
+    result&.name
   end
 
   def searchable_description(result)

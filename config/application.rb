@@ -30,6 +30,7 @@ module NpdFindAndExplore
     end
 
     config.administrate_menu = config_for(:administrate_menu)
+    config.datasets = config_for(:datasets)
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

@@ -43,7 +43,6 @@ RSpec.describe 'Admin Concepts Index', type: :system do
     search.send_keys(DataElement.first.source_table_name)
     search.send_key "\n"
 
-    expect(page).to have_field('search')
     expect(page).to have_text(DataElement.first.concept.name)
     expect(page).to have_text(DataElement.first.concept.category.name)
   end

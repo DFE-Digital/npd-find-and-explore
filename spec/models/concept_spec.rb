@@ -37,6 +37,16 @@ RSpec.describe Concept, type: :model do
     expect(concept.reload.category.name).to eq('No Category')
   end
 
+  it 'will move orphaned data elements under "no concept" when the element is removed' do
+    data_element = DataElement.first
+    concept = data_element.concept
+
+    expect(data_element.concept).to eq(concept)
+
+    concept.update(data_elements: [])
+    expect(data_element.reload.concept.name).to eq('No Concept')
+  end
+
   it 'will refuse to cancel a "no concept" with child data elements' do
     data_element = DataElement.first
     concept = data_element.concept
@@ -44,5 +54,15 @@ RSpec.describe Concept, type: :model do
     concept.category.update(name: 'No Category')
     concept.update(name: 'No Concept')
     expect { concept.destroy! }.to raise_error ActiveRecord::NotNullViolation
+  end
+
+  it 'will refuse to remove an element from "no concept"' do
+    data_element = DataElement.first
+    concept = data_element.concept
+
+    concept.category.update(name: 'No Category')
+    concept.update(name: 'No Concept')
+
+    expect { concept.update(data_elements: []) }.to raise_error ActiveRecord::NotNullViolation
   end
 end

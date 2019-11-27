@@ -6,7 +6,7 @@ module ProcessRows
   extend ActiveSupport::Concern
 
   included do
-    attr_accessor :current_table_name, :current_headers
+    attr_accessor :current_table_name, :current_headers, :tab_name
 
     def preprocess
       rows = (1..sheet.last_row).map do |idx|
@@ -15,7 +15,6 @@ module ProcessRows
 
         block_given? ? yield(element) : element
       end
-      check_headers_for_errors
       rows.flatten.compact
     end
 
@@ -73,7 +72,7 @@ module ProcessRows
     def extract_row(row)
       return if current_headers.nil? || current_table_name.nil?
 
-      element = DfEDataTables::DataElementParsers::Row.new(current_table_name, current_headers, tab_name, row).process
+      element = DfEDataTables::DataElementParsers::Row.new(current_table_name, current_headers, row).process
       return if element.nil?
 
       element

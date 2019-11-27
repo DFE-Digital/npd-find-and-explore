@@ -51,19 +51,18 @@ private
   end
 
   def filters
-    @filters ||= params.permit(filter: { category_id: [], tab_name: [], years: [], is_cla: [] })&.dig(:filter) || {}
+    @filters ||= params.permit(filter: { category_id: [], tab_name: [], years: [] })&.dig(:filter) || {}
   end
 
   def filter_results(results)
     results = filter_categories(results, filters.dig(:category_id))
     results = filter_years(results, filters.dig(:years))
-    results = filter_tab_names(results, filters.dig(:tab_name))
-    filter_is_cla(results, filters.dig(:is_cla))
+    filter_tab_names(results, filters.dig(:tab_name))
   end
 
   def build_filters
     @categories, data_elements, active_data_elements = build_categories_and_data_elements
-    @years, @tabs, @is_cla = build_years_tabs_and_is_cla(data_elements, active_data_elements)
+    @years, @tabs = build_years_tabs(data_elements, active_data_elements)
   end
 
   def filter_categories(results, category_ids)
@@ -92,12 +91,6 @@ private
     results.where.overlap(searchable_tab_names: tab_names)
   end
 
-  def filter_is_cla(results, is_cla)
-    return results if is_cla.blank?
-
-    results.where.overlap(searchable_is_cla: is_cla.uniq)
-  end
-
   def build_categories_and_data_elements
     categories = []
     data_elements = []
@@ -113,20 +106,20 @@ private
      data_elements.flatten.uniq, active_data_elements.flatten.uniq]
   end
 
-  def build_years_tabs_and_is_cla(data_elements, active_data_elements)
+  def build_years_tabs(data_elements, active_data_elements)
     years = []
     tabs = []
     active_years = (active_data_elements.map(&:academic_year_collected_from) +
              active_data_elements.map(&:academic_year_collected_to)).compact.uniq
-    active_tabs = active_data_elements.map(&:tab_name).compact.uniq
-    active_is_cla = active_data_elements.map(&:is_cla).compact.uniq
+    active_tabs = active_data_elements.map(&:datasets).map(&:to_a).flatten.map(&:tab_name).compact.uniq
     data_elements.each do |de|
       years.push(year: de.academic_year_collected_from, active: active_years.include?(de.academic_year_collected_from)) if de.academic_year_collected_from
       years.push(year: de.academic_year_collected_to, active: active_years.include?(de.academic_year_collected_to)) if de.academic_year_collected_to
-      tabs.push(tab: de.tab_name, active: active_tabs.include?(de.tab_name))
+      de.datasets.map(&:tab_name).each do |tab|
+        tabs.push(tab: tab, active: active_tabs.include?(tab))
+      end
     end
     [years.flatten.uniq { |y| y[:year] }.sort { |a, b| a[:year] <=> b[:year] },
-     tabs.flatten.uniq { |t| t[:tab] }.sort { |a, b| a[:tab] <=> b[:tab] },
-     [{ is_cla: true, active: active_is_cla.include?(true) }, { is_cla: false, active: active_is_cla.include?(false) }]]
+     tabs.flatten.uniq { |t| t[:tab] }.sort { |a, b| a[:tab] <=> b[:tab] }]
   end
 end

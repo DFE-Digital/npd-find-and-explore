@@ -12,22 +12,24 @@ RSpec.describe 'Admin Concepts Childless', type: :system do
     Category.destroy_all
 
     admin_user
-    create(:concept, :with_data_elements)
 
     visit '/admin'
     fill_in('admin_user_email', with: admin_user.email)
     fill_in('admin_user_password', with: password)
     click_on('Log in')
   end
+  let(:concept) { create(:concept, :with_data_elements) }
+  let(:empty_concept) { create(:concept) }
 
   it 'has no empty concepts' do
+    concept
     visit '/admin/concepts/childless'
 
     expect(page).not_to have_css('[data-url]')
   end
 
   it 'will show an empty concept' do
-    empty_concept = create(:concept)
+    empty_concept
     visit '/admin/concepts/childless'
 
     expect(page).to have_css('[data-url]')

@@ -104,6 +104,14 @@ default: &default
           - controller: admin/data_elements
             actions:
               - orphaned
+  datasets:
+    main:
+      name: Data Sets
+      url_params:
+        - admin
+        - datasets
+      conditions:
+        - controller: admin/datasets
   files:
     main:
       name: Manage Uploads and Downloads

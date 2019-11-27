@@ -5,20 +5,20 @@
         <strong class="saved govuk-tag govuk-!-font-size-14">saved</strong>
       </a>
       <div class="govuk-checkboxes__item">
-        <%= check_box_tag 'data_element[]', data_element_row.title, false,
+        <%= check_box_tag 'data_element[]', data_element_row.title(@dataset), false,
           id: "data-element-#{data_element_row.id}", class: %w[govuk-checkboxes__input basket-checkbox],
           data: { id: data_element_row.id, name: data_element_row.source_attribute_name,
-                  table: data_element_row.source_table_name, datasets: data_element_row.datasets.pluck(:tab_name),
-                  npd_alias: data_element_row.npd_alias, origin: "/concepts/#{@concept.id}" } %>
+                  table: data_element_row.source_table_name, datasets: [@dataset.tab_name],
+                  npd_alias: data_element_row.npd_alias, origin: "/datasets/#{@dataset.id}" } %>
         <%= label_tag "data-element-#{data_element_row.id}", class: %w[govuk-label govuk-checkboxes__label] do %>
           &nbsp;
-          <%= tag.span data_element_row.title, class: %w[govuk-checkboxes__label-hidden] %>
+          <%= tag.span data_element_row.title(@dataset), class: %w[govuk-checkboxes__label-hidden] %>
         <% end %>
       </div>
     </div>
   </td>
   <th data-label="Name" class="govuk-table__header" scope="row">
-    <%= data_element_row.title %>
+    <%= data_element_row.title(@dataset) %>
   </th>
   <td data-label="Old name" class="govuk-table__cell govuk-table__cell--numeric">
     <%= [data_element_row.source_old_attribute_name].join(', ') %>
@@ -53,13 +53,13 @@
   <td data-label="Value" class="govuk-table__cell govuk-table__cell--numeric">
     <%- if /\n/ =~ data_element_row.values %>
       <div class="overlay-parent">
-        <a href="#" class="codeset" aria-describedby="codeset-<%= data_element_row.title.downcase %>" title="Codeset for <%= data_element_row.title %>">
-          Codeset<span class="codeset-specification">for <%= data_element_row.title %></span>
+        <a href="#" class="codeset" aria-describedby="codeset-<%= data_element_row.title.downcase %>" title="Codeset for <%= data_element_row.title(@dataset) %>">
+          Codeset<span class="codeset-specification">for <%= data_element_row.title(@dataset) %></span>
         </a>
-        <div class="overlay" role="overlay" id="codeset-<%= data_element_row.title.downcase %>">
+        <div class="overlay" role="overlay" id="codeset-<%= data_element_row.title(@dataset).downcase %>">
           <div class="overlay-content">
             <span class="overlay-header">
-              <span>Codeset values for <%= data_element_row.title %></span>
+              <span>Codeset values for <%= data_element_row.title(@dataset) %></span>
               <a href="#" class="overlay-close">X</a>
             </span>
             <%- data_element_row.values.split("\n") do |line| %>

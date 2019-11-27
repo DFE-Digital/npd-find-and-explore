@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_01_152815) do
+ActiveRecord::Schema.define(version: 2019_11_18_101412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -119,11 +119,18 @@ ActiveRecord::Schema.define(version: 2019_11_01_152815) do
     t.string "npd_alias", null: false
     t.string "data_type"
     t.string "educational_phase", array: true
-    t.string "tab_name"
     t.string "standard_extract"
     t.boolean "is_cla", default: false
     t.index ["concept_id"], name: "index_data_elements_on_concept_id"
     t.index ["npd_alias"], name: "index_data_elements_on_npd_alias", unique: true
+  end
+
+  create_table "data_elements_datasets", id: false, force: :cascade do |t|
+    t.uuid "dataset_id", null: false
+    t.uuid "data_element_id", null: false
+    t.index ["data_element_id"], name: "index_data_elements_datasets_on_data_element_id"
+    t.index ["dataset_id", "data_element_id"], name: "index_data_elements_datasets_on_dataset_id_and_data_element_id", unique: true
+    t.index ["dataset_id"], name: "index_data_elements_datasets_on_dataset_id"
   end
 
   create_table "data_table_rows", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -146,11 +153,11 @@ ActiveRecord::Schema.define(version: 2019_11_01_152815) do
     t.text "description_cy"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "tab_name"
     t.string "standard_extract"
     t.boolean "is_cla", default: false
+    t.uuid "data_table_tab_id"
     t.index ["concept_id"], name: "index_data_table_rows_on_concept_id"
-    t.index ["data_table_upload_id", "npd_alias"], name: "index_data_table_rows_on_data_table_upload_id_and_npd_alias", unique: true
+    t.index ["data_table_tab_id", "npd_alias"], name: "index_data_table_rows_on_data_table_tab_id_and_npd_alias", unique: true
     t.index ["data_table_upload_id"], name: "index_data_table_rows_on_data_table_upload_id"
   end
 
@@ -175,6 +182,24 @@ ActiveRecord::Schema.define(version: 2019_11_01_152815) do
     t.json "upload_warnings"
     t.boolean "successful"
     t.index ["admin_user_id"], name: "index_data_table_uploads_on_admin_user_id"
+  end
+
+  create_table "dataset_translations", force: :cascade do |t|
+    t.uuid "dataset_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.text "description"
+    t.index ["dataset_id"], name: "index_dataset_translations_on_dataset_id"
+    t.index ["locale"], name: "index_dataset_translations_on_locale"
+  end
+
+  create_table "datasets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "tab_name", null: false
+    t.string "tab_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "inf_arch_tabs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
