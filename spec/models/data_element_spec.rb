@@ -42,13 +42,24 @@ RSpec.describe DataElement, type: :model do
     expect(DataElement.orphaned.count).to eq(1)
   end
 
-  it 'will move orphaned data elements under "no concept"' do
+  it 'will move orphaned data elements under "no concept" when the concept is destroyed' do
     data_element = DataElement.first
     concept = data_element.concept
 
     expect(data_element.concept).to eq(concept)
 
     concept.destroy!
+    expect(data_element.reload.concept.name).to eq('No Concept')
+  end
+
+  it 'will move orphaned data elements under "no concept" when the concept is removed' do
+    data_element = DataElement.first
+    concept = data_element.concept
+
+    expect(data_element.concept).to eq(concept)
+
+    data_element.concept = nil
+    data_element.save!
     expect(data_element.reload.concept.name).to eq('No Concept')
   end
 end

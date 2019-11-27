@@ -10,7 +10,9 @@ class Concept < Versioned
   include PgSearch::Model
 
   belongs_to :category, inverse_of: :concepts
-  has_many :data_elements, dependent: :nullify, inverse_of: :concept
+  has_many :data_elements,
+           dependent: :nullify, inverse_of: :concept,
+           after_remove: :reassign_to_no_concept
 
   validates :name, uniqueness: { scope: :category }
   before_destroy :reassign_data_elements, prepend: true
@@ -43,6 +45,17 @@ class Concept < Versioned
       data_element.update(concept: no_concept)
     end
     reload
+  end
+
+  def reassign_to_no_concept(data_element)
+    raise(ActiveRecord::NotNullViolation, 'Cannot delete "No Concept" with data elements') if name == 'No Concept'
+
+    no_category = Category.find_or_create_by(name: 'No Category')
+    no_concept = Concept.find_or_create_by(name: 'No Concept', category: no_category) do |concept|
+      concept.description = 'This Concept is used to house data elements that are waiting to be categorised'
+    end
+
+    data_element.update(concept: no_concept)
   end
 
   def create_or_update_pg_search_document
