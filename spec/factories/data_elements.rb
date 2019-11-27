@@ -18,6 +18,7 @@ FactoryBot.define do
     educational_phase                { %w[EY PRI SEC P-16].sample }
 
     after(:create) do |data_element|
+      data_element.save
       dataset = create(:dataset)
       dataset.data_elements << data_element
     end

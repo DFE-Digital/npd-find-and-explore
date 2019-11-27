@@ -2,12 +2,11 @@
 
 FactoryBot.define do
   factory :concept do
-    before(:create) do |concept, _evaluator|
-      concept.name = Faker::Lorem.unique.sentence(2)
-      concept.description = Faker::Lorem.sentence(15)
-    end
-
+    name        { Faker::Lorem.unique.sentence(2) }
+    description { Faker::Lorem.sentence(15) }
     category
+
+    after(:create, &:save)
 
     trait :with_data_elements do
       after(:create) do |concept|

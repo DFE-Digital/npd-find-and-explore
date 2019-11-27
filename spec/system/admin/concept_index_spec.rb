@@ -33,7 +33,7 @@ RSpec.describe 'Admin Concepts Index', type: :system do
     search.send_keys(Concept.first.name)
     search.send_key "\n"
 
-    expect(page).to have_text(Concept.first.name, wait: 6)
+    expect(page).to have_text(Concept.first.name)
     expect(page).to have_text(Concept.first.category.name)
   end
 
@@ -43,7 +43,7 @@ RSpec.describe 'Admin Concepts Index', type: :system do
     search.send_keys(DataElement.first.source_table_name)
     search.send_key "\n"
 
-    expect(page).to have_text(DataElement.first.concept.name, wait: 6)
+    expect(page).to have_text(DataElement.first.concept.name)
     expect(page).to have_text(DataElement.first.concept.category.name)
   end
 end
