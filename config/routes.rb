@@ -67,6 +67,4 @@ Rails.application.routes.draw do
       post 'export_to_csv', to: 'saved_items#export_to_csv'
     end
   end
-
-  root to: 'categories#index'
 end

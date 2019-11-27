@@ -52,7 +52,7 @@
 
     <main class="govuk-main-wrapper " id="main-content" role="main">
       <%= yield :messages %>
-      <%= render 'shared/header', size: @title_size || 'l' %>
+      <%= render 'shared/header', size: @title_size || 'l' if shared_header? %>
       <%= yield %>
     </main>
   </div>

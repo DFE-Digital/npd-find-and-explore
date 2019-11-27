@@ -65,4 +65,8 @@ module ApplicationHelper
   def saved_items_page?
     params[:controller] == 'saved_items'
   end
+
+  def shared_header?
+    params[:controller] != 'high_voltage/pages'
+  end
 end
