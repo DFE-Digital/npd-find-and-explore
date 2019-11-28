@@ -3,8 +3,8 @@
 wb = xlsx_package.workbook
 headers = ['Category (L0)', 'Category (L0) Description',
            'Category (L1)', 'Category (L1) Description',
-           'Sub-category (L2)', 'Category (L2) Description',
-           'Sub-category (L3)', 'Category (L3) Description',
+           'Category (L2)', 'Category (L2) Description',
+           'Category (L3)', 'Category (L3) Description',
            'Concept level', 'Concept Description',
            'NPD Alias 1', 'NPD Alias 2', 'NPD Alias 3', 'NPD Alias 4',
            'NPD Alias 5', 'NPD Alias 6', 'NPD Alias 7', 'NPD Alias 8',

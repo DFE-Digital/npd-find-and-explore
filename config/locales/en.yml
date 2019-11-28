@@ -40,7 +40,7 @@ en:
     index:
       title: Categories
     show:
-      sub_categories: Sub-categories
+      categories: Categories
       concepts: Concepts
   concepts:
     show:
