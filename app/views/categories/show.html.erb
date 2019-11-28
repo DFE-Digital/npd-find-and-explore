@@ -1,5 +1,5 @@
 <%= content_tag :div, class: 'govuk-grid-row' do %>
-  <h3 class="govuk-grid-column-full govuk-heading-m"><%= t('.sub_categories') %></h3>
+  <h3 class="govuk-grid-column-full govuk-heading-m"><%= t('.categories') %></h3>
   <%= render partial: 'category', collection: @category.children.includes(:translations),
              locals: { wrap_class: 'govuk-grid-column-one-half govuk-category-card' } %>
 <% end unless @category.children.empty? %>
