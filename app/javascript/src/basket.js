@@ -117,14 +117,10 @@ function copyToClipboard(event) {
   document.execCommand('copy')
   textarea.remove()
 
-  success.className = success.className.replace(/hidden/, '')
-  success.className = success.className.replace(/invisible/, 'visible')
+  success.className = success.className.replace(/invisible */g, 'visible ')
 
   setTimeout(function() {
-    success.className = success.className.replace(/visible/, 'invisible')
-    setTimeout(function() {
-      success.className = success.className + ' hidden'
-    }, 1200)
+    success.className = success.className.replace(/visible */g, 'invisible ')
   }, 5000)
 }
 
