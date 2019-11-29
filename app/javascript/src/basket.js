@@ -23,6 +23,7 @@ function labelToCheckbox(element) {
   }
 
   var label = element.parentElement.previousElementSibling
+  element.checked = false
   element.parentElement.className = element.parentElement.className.replace(/hidden/, '')
   label.className = label.className + ' hidden'
 }
@@ -47,6 +48,30 @@ function removeFromMetadata(event) {
   delete elementsList[target.id]
   target.parentElement.remove()
   labelToCheckbox(document.querySelector('#data-element-' + target.id))
+
+  document.querySelector('#npd-counter').innerText = Object.keys(elementsList).length
+  localStorage.setItem('elementsList', JSON.stringify(elementsList))
+}
+
+function removeAllFromMetadata(event) {
+  event.preventDefault()
+  if (!confirm('This will remove all saved items in this list')) {
+    return
+  }
+
+  var elementsList = getElementsList()
+  var buttons = document.querySelectorAll('.item-remove')
+
+  for(var i = 0; i < buttons.length; i++) {
+    var id = buttons[i].id
+    if (id === '') {
+      continue
+    }
+
+    delete elementsList[id]
+    buttons[i].parentElement.remove()
+    labelToCheckbox(document.querySelector('#data-element-' + id))
+  }
 
   document.querySelector('#npd-counter').innerText = Object.keys(elementsList).length
   localStorage.setItem('elementsList', JSON.stringify(elementsList))
@@ -117,17 +142,13 @@ function copyToClipboard(event) {
   document.execCommand('copy')
   textarea.remove()
 
-  success.className = success.className.replace(/hidden/, '')
-  success.className = success.className.replace(/invisible/, 'visible')
+  success.className = success.className.replace(/invisible */g, 'visible ')
 
   setTimeout(function() {
-    success.className = success.className.replace(/visible/, 'invisible')
-    setTimeout(function() {
-      success.className = success.className + ' hidden'
-    }, 1200)
+    success.className = success.className.replace(/visible */g, 'invisible ')
   }, 5000)
 }
 
 export { addItemToList, addToMetadata, checkAll, checkboxToLabel,
          copyToClipboard, enableSaveButton, generateDescription,
-         getElementsList, removeFromMetadata }
+         getElementsList, removeAllFromMetadata, removeFromMetadata }

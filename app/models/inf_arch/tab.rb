@@ -10,9 +10,9 @@ module InfArch
   # * Category (L0) Description
   # * Category (L1)
   # * Category (L1) Description
-  # * Sub-category (L2)
+  # * category (L2)
   # * Category (L2) Description
-  # * Sub-category (L3)
+  # * category (L3)
   # * Category (L3) Description
   # * Concept level
   # * Concept Description

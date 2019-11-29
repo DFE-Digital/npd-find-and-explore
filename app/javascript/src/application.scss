@@ -243,15 +243,27 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 }
 
 .invisible {
+  height: 0;
   opacity: 0;
-  transition-property: opacity;
-  transition-duration: 1s;
+  transition-property: opacity height;
+  transition-duration: 2s;
+
+  div {
+    height: inherit;
+    opacity: inherit;
+  }
 }
 
 .visible {
+  height: 100%;
   opacity: 100%;
   transition-duration: 2s;
-  transition-property: opacity;
+  transition-property: opacity height;
+
+  div {
+    height: inherit;
+    opacity: inherit;
+  }
 }
 
 .govuk-light-grey {
