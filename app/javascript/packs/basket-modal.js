@@ -1,5 +1,5 @@
 import { showModal, hideModal } from '../src/toggle_modal.js'
-import { addItemToList, copyToClipboard, getElementsList } from '../src/basket.js'
+import { addItemToList, copyToClipboard, getElementsList, removeAllFromMetadata } from '../src/basket.js'
 
 // Accessible Modal
 $(document).ready(function() {
@@ -11,6 +11,9 @@ $(document).ready(function() {
 
   // copy to clipboard
   document.querySelector('#copy-to-clipboard').addEventListener('click', copyToClipboard)
+
+  // copy to clipboard
+  document.querySelector('#remove-all').addEventListener('click', removeAllFromMetadata)
 
   // fill the modal
   selectedElementKeys.forEach(function(key) {
