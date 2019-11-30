@@ -11,12 +11,6 @@ class DataElement < Versioned
 
   before_validation :assign_concept
 
-  def description
-    return description_cy if I18n.locale == :cy
-
-    description_en
-  end
-
   def title(dataset = datasets.first)
     [dataset&.tab_name, npd_alias].join('.')
   end

@@ -10,7 +10,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page).to have_text('Categories')
     expect(page).to have_title('Find and explore data in the National Pupil Database - GOV.UK')
 
-    top_level_categories = Category.real.includes(:translations).roots
+    top_level_categories = Category.real.roots
 
     top_level_categories.each do |category|
       expect(page).to have_text(category.name)
@@ -23,7 +23,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     visit '/categories'
     expect(page).to have_text('Datasets')
 
-    datasets = Dataset.includes(:translations).all
+    datasets = Dataset.all
 
     datasets.each do |dataset|
       expect(page).to have_text(dataset.name)
@@ -33,7 +33,7 @@ RSpec.describe 'Category hierarchy', type: :system do
   end
 
   it 'View a category page' do
-    top_level_category = Category.includes(:translations).roots.first
+    top_level_category = Category.roots.first
     second_level_categories = top_level_category.children
 
     visit '/categories'

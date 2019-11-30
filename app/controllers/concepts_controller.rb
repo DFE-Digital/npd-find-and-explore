@@ -7,7 +7,7 @@ class ConceptsController < ApplicationController
 
   def show
     @concept = Concept
-               .includes(:translations, :data_elements, category: [:translations])
+               .includes(%i[data_elements category])
                .find(params.require(:id))
 
     @title = @concept.name

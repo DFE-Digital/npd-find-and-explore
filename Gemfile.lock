@@ -145,10 +145,6 @@ GEM
     ffi (1.11.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    globalize (5.3.0)
-      activemodel (>= 4.2, < 6.1)
-      activerecord (>= 4.2, < 6.1)
-      request_store (~> 1.0)
     govuk-lint (3.11.5)
       rubocop (~> 0.72)
       rubocop-rails (~> 2)
@@ -403,7 +399,6 @@ DEPENDENCIES
   factory_bot (~> 5.0)
   factory_bot_rails (~> 5.0)
   faker (~> 1.9)
-  globalize
   govuk-lint (~> 3.11.0)
   high_voltage (~> 3.1)
   jbuilder (~> 2.5)
