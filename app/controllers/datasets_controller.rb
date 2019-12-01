@@ -16,7 +16,7 @@ private
 
   def find_dataset
     @dataset = Dataset
-               .includes(:translations, :data_elements)
+               .includes(:data_elements)
                .find(params.require(:id))
   end
 end

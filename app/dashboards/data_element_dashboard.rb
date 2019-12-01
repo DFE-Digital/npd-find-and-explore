@@ -25,8 +25,7 @@ class DataElementDashboard < Administrate::BaseDashboard
     academic_year_collected_to: Field::Number,
     collection_terms: Field::String,
     values: Field::Text,
-    description_en: Field::Text,
-    description_cy: Field::Text,
+    description: Field::Text,
     npd_alias: Field::String,
     data_type: Field::String,
     educational_phase: Field::String,
@@ -52,8 +51,7 @@ class DataElementDashboard < Administrate::BaseDashboard
     npd_alias
     source_table_name
     source_attribute_name
-    description_en
-    description_cy
+    description
     concept
     datasets
     identifiability
@@ -84,8 +82,7 @@ class DataElementDashboard < Administrate::BaseDashboard
     academic_year_collected_to
     collection_terms
     values
-    description_en
-    description_cy
+    description
     data_type
     educational_phase
     concept

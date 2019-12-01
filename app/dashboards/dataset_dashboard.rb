@@ -10,7 +10,7 @@ class DatasetDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    data_elements: HasManySortedField.with_options(order: %i[tab_name]),
+    data_elements: HasManySortedField.with_options(order: %i[npd_alias]),
     data_table_tab: Field::Polymorphic,
     id: Field::String.with_options(searchable: false),
     name: Field::String,
@@ -48,9 +48,7 @@ class DatasetDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     name
-    tab_name
     description
-    data_elements
   ].freeze
 
   # COLLECTION_FILTERS

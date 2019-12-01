@@ -5,13 +5,13 @@ class CategoriesController < ApplicationController
   include BreadcrumbBuilder
 
   def index
-    @categories = Category.real.includes(:translations).roots
-    @datasets = Dataset.includes(:translations).all
+    @categories = Category.real.roots
+    @datasets = Dataset.all
     @title = t('site_title')
   end
 
   def show
-    @category = Category.includes(:translations, concepts: %i[data_elements])
+    @category = Category.includes(concepts: %i[data_elements])
                         .find(params.require(:id))
 
     @title = @category.name

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_18_101412) do
+ActiveRecord::Schema.define(version: 2019_11_29_114718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -67,36 +67,18 @@ ActiveRecord::Schema.define(version: 2019_11_18_101412) do
     t.datetime "updated_at", null: false
     t.string "ancestry"
     t.integer "position"
+    t.string "name"
+    t.text "description"
     t.index ["ancestry", "position"], name: "index_categories_on_ancestry_and_position"
     t.index ["ancestry"], name: "index_categories_on_ancestry"
-  end
-
-  create_table "category_translations", force: :cascade do |t|
-    t.uuid "category_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "name"
-    t.text "description"
-    t.index ["category_id"], name: "index_category_translations_on_category_id"
-    t.index ["locale"], name: "index_category_translations_on_locale"
-  end
-
-  create_table "concept_translations", force: :cascade do |t|
-    t.uuid "concept_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "name"
-    t.text "description"
-    t.index ["concept_id"], name: "index_concept_translations_on_concept_id"
-    t.index ["locale"], name: "index_concept_translations_on_locale"
   end
 
   create_table "concepts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.text "description"
     t.index ["category_id"], name: "index_concepts_on_category_id"
   end
 
@@ -114,8 +96,7 @@ ActiveRecord::Schema.define(version: 2019_11_18_101412) do
     t.integer "academic_year_collected_to"
     t.string "collection_terms", array: true
     t.text "values"
-    t.text "description_en"
-    t.text "description_cy"
+    t.text "description"
     t.string "npd_alias", null: false
     t.string "data_type"
     t.string "educational_phase", array: true
@@ -149,8 +130,7 @@ ActiveRecord::Schema.define(version: 2019_11_18_101412) do
     t.string "educational_phase", array: true
     t.string "data_type"
     t.text "values"
-    t.text "description_en"
-    t.text "description_cy"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "standard_extract"
@@ -184,22 +164,13 @@ ActiveRecord::Schema.define(version: 2019_11_18_101412) do
     t.index ["admin_user_id"], name: "index_data_table_uploads_on_admin_user_id"
   end
 
-  create_table "dataset_translations", force: :cascade do |t|
-    t.uuid "dataset_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "name"
-    t.text "description"
-    t.index ["dataset_id"], name: "index_dataset_translations_on_dataset_id"
-    t.index ["locale"], name: "index_dataset_translations_on_locale"
-  end
-
   create_table "datasets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "tab_name", null: false
     t.string "tab_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.text "description"
   end
 
   create_table "inf_arch_tabs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -254,7 +225,6 @@ ActiveRecord::Schema.define(version: 2019_11_18_101412) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "concept_translations", "concepts", on_delete: :cascade
   add_foreign_key "concepts", "categories", on_delete: :nullify
   add_foreign_key "data_elements", "concepts", on_delete: :nullify
   add_foreign_key "data_table_rows", "concepts"

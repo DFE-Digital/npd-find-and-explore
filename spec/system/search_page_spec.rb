@@ -99,6 +99,10 @@ RSpec.describe 'Search pages', type: :system do
     end
 
     it 'Will filter concepts by tab names' do
+      Concept.first.data_elements.each { |de| de.update(datasets: [Dataset.first]) }
+      Concept.last.data_elements.each { |de| de.update(datasets: [Dataset.last]) }
+      PgSearch::Multisearch.rebuild(Concept)
+
       visit '/'
       fill_in('search', with: 'FSM')
       click_button('Search')

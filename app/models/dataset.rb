@@ -5,8 +5,5 @@ class Dataset < ApplicationRecord
   has_and_belongs_to_many :data_elements,
                           inverse_of: :datasets, dependent: :nullify
 
-  translates :name
-  translates :description
-
   default_scope -> { order(name: :asc) }
 end

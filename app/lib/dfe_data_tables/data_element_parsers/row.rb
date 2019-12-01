@@ -73,8 +73,7 @@ module DfEDataTables
           is_cla: /CIN.?CLA/i.match?(data_element.dig(:standard_extract)),
           collection_terms: data_element.dig(:collection_term),
           values: data_element.dig(:values),
-          description_en: data_element.dig(:description),
-          description_cy: '',
+          description: data_element.dig(:description),
           data_type: data_element.dig(:data_type)&.split&.map(&:capitalize)&.join(' '),
           educational_phase: data_element.dig(:educational_phase)&.split(',')&.map(&:strip)&.map(&:upcase),
           additional_attributes: data_element

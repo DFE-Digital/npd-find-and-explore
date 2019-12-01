@@ -17,9 +17,6 @@ class Concept < Versioned
   validates :name, uniqueness: { scope: :category }
   before_destroy :reassign_data_elements, prepend: true
 
-  translates :name
-  translates :description
-
   multisearchable against: %i[name description]
 
   def placeholder_description
@@ -129,14 +126,13 @@ class Concept < Versioned
         searchable_created_at, searchable_updated_at, created_at, updated_at)
       SELECT 'Concept' AS searchable_type,
       concepts.id AS searchable_id,
-      setweight(to_tsvector(coalesce(string_agg(concept_translations.name, ' '), '')), 'A') ||
-      setweight(to_tsvector(coalesce(string_agg(concept_translations.description, ' '), '')), 'B') ||
+      setweight(to_tsvector(concepts.name), 'A') ||
+      setweight(to_tsvector(concepts.description), 'B') ||
       setweight(to_tsvector(coalesce(string_agg(concat_ws(' ', data_elements.source_table_name, data_elements.source_attribute_name), ' '), '')), 'C') ||
-      setweight(to_tsvector(coalesce(string_agg(concat_ws(' ', data_elements.description_en, data_elements.description_cy,
-                                                          data_elements.npd_alias, data_elements.source_old_attribute_name,
-                                                          data_elements.data_type), ' '), '')), 'D')
+      setweight(to_tsvector(coalesce(string_agg(concat_ws(' ', data_elements.description, data_elements.npd_alias,
+                                                          data_elements.source_old_attribute_name, data_elements.data_type), ' '), '')), 'D')
       AS content,
-      MIN(concept_translations.name) AS searchable_name,
+      concepts.name AS searchable_name,
       category_id AS searchable_category_id,
       min(data_elements.academic_year_collected_from) AS searchable_year_from,
       max(data_elements.academic_year_collected_to) AS searchable_year_to,
@@ -148,8 +144,6 @@ class Concept < Versioned
       now() AS updated_at
 
       FROM concepts
-      LEFT OUTER JOIN concept_translations
-        ON concepts.id = concept_translations.concept_id
       LEFT OUTER JOIN data_elements
         ON concepts.id = data_elements.concept_id
       LEFT OUTER JOIN data_elements_datasets
@@ -170,7 +164,7 @@ class Concept < Versioned
     data_elements_is_cla = []
     data_elements.each do |de|
       data_elements_headers.push([de.source_table_name, de.source_attribute_name].join(' '))
-      data_elements_body.push([de.description_en, de.description_cy, de.npd_alias, de.source_old_attribute_name, de.data_type].join(' '))
+      data_elements_body.push([de.description, de.npd_alias, de.source_old_attribute_name, de.data_type].join(' '))
       data_elements_years_from.push(de.academic_year_collected_from) if de.academic_year_collected_from.present?
       data_elements_years_to.push(de.academic_year_collected_to) if de.academic_year_collected_to.present?
       data_elements_tab_names.push(de.datasets.map(&:tab_name))

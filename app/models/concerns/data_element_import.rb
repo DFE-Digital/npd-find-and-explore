@@ -11,8 +11,8 @@ module DataElementImport
     COLUMNS = %i[source_table_name source_attribute_name additional_attributes
                  identifiability sensitivity source_old_attribute_name
                  academic_year_collected_from academic_year_collected_to
-                 standard_extract is_cla collection_terms values description_en
-                 description_cy data_type educational_phase updated_at].freeze
+                 standard_extract is_cla collection_terms values description
+                 data_type educational_phase updated_at].freeze
 
     def conflict_target(import_model)
       return %i[data_table_tab_id npd_alias] if import_model == DataTable::Row
