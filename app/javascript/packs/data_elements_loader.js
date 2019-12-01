@@ -1,5 +1,6 @@
 import '../src/loader.scss'
 import '../src/loader.js'
+import { getElementsList, checkboxToLabel, enableSaveButton } from '../src/basket.js'
 import $ from 'jquery'
 
 window.loader = new GOVUK.Loader()
@@ -17,11 +18,21 @@ $(document).ready(function() {
     url: location.pathname.replace(/datasets/, 'datasets/data_elements'),
     dataType: 'html',
     success: function(response, status, xhr) {
+      var selectedElements = getElementsList()
+      var selectedElementKeys = Object.keys(selectedElements)
+
       setTimeout(function() {
         $('#govuk-box-message').hide()
         window.loader.stop()
 
         $('.govuk-table__body').html(response)
+        document.querySelectorAll('.basket-checkbox').forEach(function(element) {
+          if (selectedElementKeys.indexOf(element.dataset.id) > -1) {
+            checkboxToLabel(element)
+          } else {
+            element.addEventListener('change', enableSaveButton)
+          }
+        })
       }, 500)
     }
   })
