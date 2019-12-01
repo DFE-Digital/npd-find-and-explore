@@ -7,20 +7,6 @@ RSpec.describe DataElement, type: :model do
     create_list(:concept, 2, :with_data_elements)
   end
 
-  it 'will return the en description by default' do
-    I18n.locale = :en
-    data_element = DataElement.first
-
-    expect(data_element.description).to eq(data_element.description_en)
-  end
-
-  it 'will return the cy description if locale is set to cy' do
-    I18n.locale = :cy
-    data_element = DataElement.first
-
-    expect(data_element.description).to eq(data_element.description_cy)
-  end
-
   it 'will compose the title from table name and attribute name' do
     data_element = DataElement.first
 

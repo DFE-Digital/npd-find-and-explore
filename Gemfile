@@ -18,9 +18,6 @@ gem 'jbuilder', '~> 2.5'
 # Static pages in Rails
 gem 'high_voltage', '~> 3.1'
 
-# I18n for models
-gem 'globalize'
-
 # Nested tree for categories
 gem 'ancestry', '~> 3.0'
 

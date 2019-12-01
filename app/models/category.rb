@@ -17,9 +17,6 @@ class Category < Versioned
 
   before_destroy :reassign_concepts, prepend: true
 
-  translates :name
-  translates :description
-
   scope :real, -> { where.not(name: 'No Category') }
 
   has_ancestry orphan_strategy: :rootify
@@ -89,18 +86,16 @@ class Category < Versioned
         searchable_name, searchable_created_at, searchable_updated_at, created_at, updated_at)
       SELECT 'Category' AS searchable_type,
       categories.id AS searchable_id,
-      setweight(to_tsvector(coalesce(string_agg(category_translations.name, ' '), '')), 'A') ||
-      setweight(to_tsvector(coalesce(string_agg(category_translations.description, ' '), '')), 'B')
+      setweight(to_tsvector(categories.name), 'A') ||
+      setweight(to_tsvector(categories.description), 'B')
       AS content,
-      MIN(category_translations.name) AS searchable_name,
+      categories.name AS searchable_name,
       MIN(categories.created_at) AS searchable_created_at,
       MIN(categories.updated_at) AS searchable_updated_at,
       now() AS created_at,
       now() AS updated_at
 
       FROM categories
-      LEFT OUTER JOIN category_translations
-        ON categories.id = category_translations.category_id
       GROUP BY categories.id
     SQL
   end

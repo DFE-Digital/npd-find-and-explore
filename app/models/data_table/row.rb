@@ -24,8 +24,7 @@ module DataTable
         educational_phase: educational_phase,
         data_type: data_type,
         values: values,
-        description_en: description_en,
-        description_cy: description_cy,
+        description: description,
         created_at: created_at,
         updated_at: updated_at
       }

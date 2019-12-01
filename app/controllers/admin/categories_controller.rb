@@ -47,7 +47,7 @@ module Admin
     end
 
     def tree
-      @categories = Category.includes(:translations).arrange(order: :position)
+      @categories = Category.arrange(order: :position)
     end
 
     def sort
@@ -130,7 +130,7 @@ module Admin
     end
 
     def download
-      @categories = Category.roots.includes(:translations, concepts: :data_elements)
+      @categories = Category.roots.includes(concepts: :data_elements)
       filename = "F&E IA #{DateTime.now.strftime('%d %m %Y %H_%M')}.xlsx"
       cookies['download'] = { value: 'download-ia-table' }
 
@@ -155,15 +155,8 @@ module Admin
       Category.where(id: PgSearch.multisearch(search_term)
                                  .where(searchable_type: 'Category')
                                  .pluck(:searchable_id))
-              .includes(:translations, concepts: :translations)
+              .includes(:concepts)
               .order(:name)
-    end
-
-    def order
-      @order ||= Administrate::OrderCategories.new(
-        params.fetch(resource_name, {}).fetch(:order, nil),
-        params.fetch(resource_name, {}).fetch(:direction, nil)
-      )
     end
 
     def generate_breadcrumbs

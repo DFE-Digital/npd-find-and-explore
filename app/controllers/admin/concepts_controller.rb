@@ -34,7 +34,7 @@ module Admin
     # for more information
 
     def childless
-      resources = Concept.childless.includes(:translations, category: :translations)
+      resources = Concept.childless.includes(:category)
       resources = order.apply(resources)
       resources = resources.page(params[:page]).per(records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)
@@ -66,15 +66,8 @@ module Admin
       Concept.where(id: PgSearch.multisearch(search_term)
                                 .where(searchable_type: 'Concept')
                                 .pluck(:searchable_id))
-             .includes(:translations, category: :translations)
+             .includes(:category)
              .order(:name)
-    end
-
-    def order
-      @order ||= Administrate::OrderConcepts.new(
-        params.fetch(resource_name, {}).fetch(:order, nil),
-        params.fetch(resource_name, {}).fetch(:direction, nil)
-      )
     end
 
     def generate_breadcrumbs
