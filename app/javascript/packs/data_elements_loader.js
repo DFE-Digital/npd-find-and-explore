@@ -1,6 +1,7 @@
 import '../src/loader.scss'
 import '../src/loader.js'
 import { getElementsList, checkboxToLabel, enableSaveButton } from '../src/basket.js'
+import { initializeOverlays } from '../src/overlay.js'
 import $ from 'jquery'
 
 window.loader = new GOVUK.Loader()
@@ -26,6 +27,7 @@ $(document).ready(function() {
         window.loader.stop()
 
         $('.govuk-table__body').html(response)
+        initializeOverlays()
         document.querySelectorAll('.basket-checkbox').forEach(function(element) {
           if (selectedElementKeys.indexOf(element.dataset.id) > -1) {
             checkboxToLabel(element)
