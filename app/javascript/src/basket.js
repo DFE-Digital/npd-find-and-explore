@@ -7,7 +7,7 @@ function generateDescription(element) {
   if (element === null || element === undefined || element === {}) {
     return ''
   }
-  var dataset = element.datasets[0]
+  var dataset = JSON.parse(element.datasets)[0]
   return [dataset, element.npdAlias].join('.')
 }
 
