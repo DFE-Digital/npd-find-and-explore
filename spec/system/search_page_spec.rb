@@ -15,13 +15,13 @@ RSpec.describe 'Search pages', type: :system do
   end
 
   it 'Has search' do
-    visit '/'
+    visit '/categories'
     expect(page).to have_field('search')
   end
 
   it 'Will not find categories' do
     category = Category.first.root.children.first
-    visit '/'
+    visit '/categories'
     fill_in('search', with: category.name)
     click_button('Search')
 
@@ -34,7 +34,7 @@ RSpec.describe 'Search pages', type: :system do
 
   it 'Will find concepts' do
     concept = Concept.first
-    visit '/'
+    visit '/categories'
     fill_in('search', with: concept.name)
     click_button('Search')
 
@@ -46,7 +46,7 @@ RSpec.describe 'Search pages', type: :system do
   end
 
   it 'Will find concepts by element' do
-    visit '/'
+    visit '/categories'
     fill_in('search', with: DataElement.first.source_attribute_name)
     click_button('Search')
 
@@ -74,7 +74,7 @@ RSpec.describe 'Search pages', type: :system do
     end
 
     it 'Will filter concepts by category' do
-      visit '/'
+      visit '/categories'
       fill_in('search', with: 'FSM')
       click_button('Search')
 
@@ -87,7 +87,7 @@ RSpec.describe 'Search pages', type: :system do
     end
 
     it 'Will filter concepts by years' do
-      visit '/'
+      visit '/categories'
       fill_in('search', with: 'FSM')
       click_button('Search')
       year = Concept.all.map(&:data_elements).flatten.map(&:academic_year_collected_from).min
@@ -103,7 +103,7 @@ RSpec.describe 'Search pages', type: :system do
       Concept.last.data_elements.each { |de| de.update(datasets: [Dataset.last]) }
       PgSearch::Multisearch.rebuild(Concept)
 
-      visit '/'
+      visit '/categories'
       fill_in('search', with: 'FSM')
       click_button('Search')
       expect(page).to have_text('Showing all 2 results')
