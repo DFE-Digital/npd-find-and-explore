@@ -35,10 +35,10 @@ RSpec.describe DataTable::Upload, type: :model do
       .to perform_under(250).ms.sample(10)
   end
 
-  it 'Will process under 250ms' do
+  it 'Will process under 275ms' do
     loader.preprocess
     expect { loader.process }
-      .to perform_under(250).ms.sample(10)
+      .to perform_under(275).ms.sample(10)
   end
 
   it 'Will preprocess the data table items' do

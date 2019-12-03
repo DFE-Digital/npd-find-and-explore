@@ -106,7 +106,7 @@ default: &default
               - orphaned
   datasets:
     main:
-      name: Data Sets
+      name: Datasets
       url_params:
         - admin
         - datasets
