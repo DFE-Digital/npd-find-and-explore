@@ -1,13 +1,13 @@
 .variable-description {
   background: govuk-colour('grey-4');
-  padding: 1em .5em;
-  margin-top: -10px;
   margin-bottom: -10px !important;
+  margin-top: -10px;
+  padding: 1em .5em;
 }
 
-table th:first-child {
-  word-break: break-all;
+th.govuk-table__header:nth-child(2) {
   max-width: 400px;
+  word-break: break-all;
 }
 
 table td .tooltip {

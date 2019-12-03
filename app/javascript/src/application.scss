@@ -245,7 +245,7 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 .invisible {
   height: 0;
   opacity: 0;
-  transition-property: opacity height;
+  transition-property: opacity, height;
   transition-duration: 2s;
 
   div {
@@ -256,9 +256,9 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 
 .visible {
   height: 100%;
-  opacity: 100%;
+  opacity: 1;
   transition-duration: 2s;
-  transition-property: opacity height;
+  transition-property: opacity, height;
 
   div {
     height: inherit;

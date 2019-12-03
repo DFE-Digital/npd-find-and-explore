@@ -5,9 +5,12 @@ class DataElement < Versioned
   include PgSearch::Model
 
   belongs_to :concept, inverse_of: :data_elements
-  has_and_belongs_to_many :datasets, inverse_of: :data_elements
+  has_and_belongs_to_many :datasets,
+                          -> { order(name: :asc) },
+                          inverse_of: :data_elements
 
-  scope :orphaned, -> { where(concept_id: nil) }
+  default_scope -> { order(npd_alias: :asc) }
+  scope :orphaned, -> { where(concept_id: nil).order(npd_alias: :asc) }
 
   before_validation :assign_concept
 
