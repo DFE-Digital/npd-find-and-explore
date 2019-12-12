@@ -9,7 +9,7 @@
     "govuk-frontend": "^2.11.0",
     "jquery": "^3.4.1",
     "postcss-cssnext": "^3.1.0",
-    "snyk": "^1.230.5",
+    "snyk": "^1.258.2",
     "tail.select": "^0.5.15"
   },
   "devDependencies": {
