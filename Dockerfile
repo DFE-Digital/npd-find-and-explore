@@ -22,7 +22,10 @@ WORKDIR $HOME
 ARG BUNDLE_WITHOUT=test:development
 ENV BUNDLE_WITHOUT ${BUNDLE_WITHOUT}
 
-RUN gem update bundler
+# An update in Bundler 2.1 seems to make the CI fail.
+# Currently (failing) Bundler version is 2.1.4, please try again to upgrade when
+# a newer version will be available
+RUN gem uninstall bundler && gem install bundler -v=2.0.2
 ADD Gemfile* ./
 RUN bundle install
 
