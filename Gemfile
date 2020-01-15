@@ -73,11 +73,11 @@ group :development, :test do
   gem 'factory_bot', '~> 5.0'
   gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
   gem 'faker', '~> 1.9'
-  gem 'rubocop-govuk', '~> 2'
   gem 'pry', '~> 0.12.2'
   gem 'rspec'
   gem 'rspec-benchmark'
   gem 'rspec-rails', '~> 3.9', '>= 3.9.0'
+  gem 'rubocop-govuk', '~> 2'
 end
 
 group :development do

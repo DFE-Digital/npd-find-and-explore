@@ -1,7 +1,8 @@
 AllCops:
   TargetRubyVersion: 2.6.1
   TargetRailsVersion: 5.1
-  DisplayStyleGuide: true
+  DisplayStyleGuide:
+    Enabled: true
   Exclude:
     - 'node_modules/**/*'
     - 'vendor/**/*'
@@ -15,6 +16,7 @@ Metrics/BlockLength:
   Exclude:
     # Initialisers often have big config blocks...
     - config/initializers/**/*
+    - config/environments/development.rb
     # RSpec wraps everything in a block
     - spec/**/*
   ExcludedMethods:
@@ -33,6 +35,18 @@ Metrics/MethodLength:
   Exclude:
     - db/migrate/*.rb
 
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: no_comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: no_comma
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: no_comma
+
 Style/Documentation:
   # Don't worry about Rails standard classes for top-level docs
   Exclude:
@@ -48,3 +62,7 @@ Rails/LexicallyScopedActionFilter:
   Exclude:
     - app/controllers/admin/categories_controller.rb
     - app/controllers/admin/concepts_controller.rb
+
+inherit_gem:
+  rubocop-govuk:
+    - config/default.yml

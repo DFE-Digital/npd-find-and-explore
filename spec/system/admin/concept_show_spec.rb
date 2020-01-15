@@ -25,8 +25,8 @@ RSpec.describe 'Admin Concepts Show', type: :system do
   it 'Will have the breadcrumbs' do
     concept = Concept.first
     breadcrumbs = ['Home', concept.category.ancestors.map(&:name).reverse, concept.category.name]
-      .flatten
-      .join("\n")
+                  .flatten
+                  .join("\n")
 
     visit "/admin/concepts/#{concept.id}"
     expect(page).to have_text(breadcrumbs)

@@ -18,7 +18,7 @@ module NestableHelper
       end
     end
 
-    nodes.join.html_safe # rubocop:disable Rails/OutputSafety
+    nodes.join.html_safe
   end
 
   def object_label(tree_node)

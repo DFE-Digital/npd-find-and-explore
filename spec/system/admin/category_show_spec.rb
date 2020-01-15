@@ -25,8 +25,8 @@ RSpec.describe 'Admin Categories Show', type: :system do
   it 'Will have the breadcrumbs' do
     category = Category.first
     breadcrumbs = ['Home', category.ancestors.map(&:name).reverse]
-      .flatten
-      .join("\n")
+                  .flatten
+                  .join("\n")
 
     visit "/admin/categories/#{category.id}"
     expect(page).to have_text(breadcrumbs)
