@@ -38,20 +38,24 @@ RSpec.describe DataTable::Upload, type: :model do
   it 'Will process under 275ms' do
     loader.preprocess
     expect { loader.process }
-      .to perform_under(275).ms.sample(10)
+      .to perform_under(300).ms.sample(10)
   end
 
   it 'Will preprocess the data table items' do
     expect { loader.preprocess }
-      .to change(DataTable::Upload, :count).by(1)
-      .and change(DataTable::Tab, :count).by(23)
-      .and change(DataTable::Row, :count).by(279)
+      .to change(DataTable::Upload, :count)
+      .by(1)
+      .and change(DataTable::Tab, :count)
+      .by(23)
+      .and change(DataTable::Row, :count)
+      .by(279)
   end
 
   it 'Will process the data elements' do
     loader.preprocess
     expect { loader.process }
-      .to change(DataElement, :count).by(274)
+      .to change(DataElement, :count)
+      .by(274)
   end
 
   it 'Will add the appropriate data elements' do
@@ -59,7 +63,8 @@ RSpec.describe DataTable::Upload, type: :model do
     loader.process
     add_loader.preprocess
     expect { add_loader.process }
-      .to change(DataElement, :count).by(3)
+      .to change(DataElement, :count)
+      .by(3)
   end
 
   it 'Will remove the appropriate data elements' do
@@ -67,7 +72,8 @@ RSpec.describe DataTable::Upload, type: :model do
     loader.process
     del_loader.preprocess
     expect { del_loader.process }
-      .to change(DataElement, :count).by(-3)
+      .to change(DataElement, :count)
+      .by(-3)
   end
 
   it 'Will know which new elements will be created' do

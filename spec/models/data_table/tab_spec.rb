@@ -10,6 +10,10 @@ RSpec.describe DataTable::Tab, type: :model do
   let(:wrong_workbook_path) { 'spec/fixtures/files/single_sheet_table_wrong_name.xlsx' }
   let(:wrong_workbook) { Roo::Spreadsheet.open(wrong_workbook_path) }
   let(:wrong_tab) { DataTable::Tab.new(workbook: wrong_workbook) }
+  let(:new_tab) do
+    workbook = Roo::Spreadsheet.open(workbook_path)
+    DataTable::Tab.new(workbook: workbook)
+  end
 
   it 'Will extract the tab_name from table model' do
     expect(tab.tab_name).to eq('Tab')
@@ -24,10 +28,7 @@ RSpec.describe DataTable::Tab, type: :model do
   end
 
   it 'Will load the file and create the Sheet object under 40ms' do
-    expect {
-      workbook = Roo::Spreadsheet.open(workbook_path)
-      DataTable::Tab.new(workbook: workbook)
-    }.to perform_under(40).ms.sample(10)
+    expect { new_tab }.to perform_under(40).ms.sample(10)
   end
 
   it 'Will preprocess under 100ms' do
