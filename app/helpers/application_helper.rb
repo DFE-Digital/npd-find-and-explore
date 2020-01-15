@@ -61,4 +61,8 @@ module ApplicationHelper
   def root_page?
     params[:controller] == 'search' || (params[:controller] == 'categories' && params[:action] == 'index')
   end
+
+  def basket_page?
+    params[:controller] == 'basket'
+  end
 end

@@ -1,0 +1,33 @@
+<% data_element = element.dig(:object) %>
+<% year_from = data_element&.academic_year_collected_from %>
+<% year_to = data_element&.academic_year_collected_to %>
+<% years_options = (year_from..(year_to || Time.now.year)).map { |y| [academic_year(y), y] } %>
+<tr class="govuk-table__row">
+  <th data-label="Name" class="govuk-table__header" scope="row">
+    <%= link_to element.dig(:npdAlias), element.dig(:origin) %>
+  </th>
+  <td data-label="Date collected" class="govuk-table__cell govuk-table__cell--numeric">
+    <%= academic_year(year_from) %> to
+    <%= academic_year(year_to) %>
+  </td>
+  <td data-label="Sensitivity" class="govuk-table__cell govuk-table__cell--numeric">
+    <%= data_element&.sensitivity %>
+  </td>
+  <td data-label="Identification risk" class="govuk-table__cell govuk-table__cell--numeric">
+    <%= data_element&.identifiability %>
+  </td>
+  <td data-label="Years required" class="govuk-table__cell govuk-table__cell--numeric align-left">
+    <%= select_tag "element[#{element.dig(:id)}][years_from]", options_for_select(years_options),
+      class: %w[govuk-select govuk-!-font-size-14 govuk-!-margin-left-4 govuk-!-margin-right-2] %>
+    to
+    <%= select_tag "element[#{element.dig(:id)}][years_to]", options_for_select(years_options),
+      class: %w[govuk-select govuk-!-font-size-14 govuk-!-margin-left-4 govuk-!-margin-right-2] %>
+  </td>
+  <td data-label="Additional notes" class="govuk-table__cell govuk-table__cell--numeric">
+    <%= text_field_tag "element[#{element.dig(:id)}][notes]", nil,
+      class: %[govuk-input govuk-input--width-5 govuk-!-font-size-14] %>
+  </td>
+  <td data-label="Value" class="govuk-table__cell govuk-table__cell--numeric">
+    <a href="remove-<%= element.dig(:id) %>" class="item-remove" id="<%= element.dig(:id) %>">remove</a>
+  </td>
+</tr>

@@ -1,6 +1,6 @@
 import { showModal, hideModal } from '../src/toggle_modal.js'
-import { addItemToList, addToMetadata, checkAll, checkboxToLabel, enableSaveButton,
-         getElementsList, generateDescription } from '../src/basket.js'
+import { addToMetadata, checkAll, checkboxToLabel, enableSaveButton,
+         getElementsList } from '../src/basket.js'
 
 $(document).ready(function() {
   var selectedElements = getElementsList()

@@ -179,6 +179,10 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
   margin-bottom: 15px;
 }
 
+.govuk-text {
+  font-family: "nta", Arial, sans-serif;
+}
+
 @media print {
   .govuk-warning-message {
     font-family: sans-serif;
