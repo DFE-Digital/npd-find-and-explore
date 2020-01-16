@@ -1,7 +1,7 @@
 import '../src/loader.scss'
 import '../src/loader.js'
 import { copyToClipboard, getElementsList, removeAllFromMetadata,
-         removeFromMetadata } from '../src/basket.js'
+         removeDatasetFromMetadata, removeFromMetadata } from '../src/basket.js'
 import $ from 'jquery'
 
 window.loader = new GOVUK.Loader()
@@ -32,6 +32,9 @@ $(document).ready(function() {
         $('.saved_items_table').html(response)
         document.querySelectorAll('.item-remove').forEach(function(element) {
           element.addEventListener('click', removeFromMetadata)
+        })
+        document.querySelectorAll('.dataset-remove').forEach(function(element) {
+          element.addEventListener('click', removeDatasetFromMetadata)
         })
 
         if(document.querySelector('#copy-to-clipboard')) {

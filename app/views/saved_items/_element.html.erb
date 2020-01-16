@@ -24,6 +24,7 @@
       class: %[govuk-input govuk-input--width-10 govuk-!-font-size-14] %>
   </td>
   <td data-label="Remove" class="govuk-table__cell govuk-table__cell--numeric">
-    <a href="remove-<%= element.dig(:id) %>" class="item-remove" id="<%= element.dig(:id) %>">remove</a>
+    <a href="remove-<%= element.dig(:id) %>" class="item-remove"
+      id="<%= element.dig(:id) %>" data-dataset-id="<%= dataset.id %>">remove</a>
   </td>
 </tr>
