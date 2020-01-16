@@ -44,9 +44,10 @@
     transform: scale(.5);
   }
 
-  .npd-copy-success {
-    border: 4px solid govuk-colour('yellow');
-    clear: both;
-    padding: .5em 1em;
-  }
+}
+
+.npd-copy-success {
+  border: 4px solid govuk-colour('yellow');
+  clear: both;
+  padding: .5em 1em;
 }

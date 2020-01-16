@@ -1,0 +1,11 @@
+default: &default
+  applying_for_access: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts'
+
+production:
+  *default
+staging:
+  *default
+development:
+  *default
+test:
+  *default

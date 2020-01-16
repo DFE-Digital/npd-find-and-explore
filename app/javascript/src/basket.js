@@ -46,7 +46,7 @@ function removeFromMetadata(event) {
   var target = event.currentTarget
   var elementsList = getElementsList()
   delete elementsList[target.id]
-  target.parentElement.remove()
+  target.parentElement.parentElement.remove()
   labelToCheckbox(document.querySelector('#data-element-' + target.id))
 
   document.querySelector('#npd-counter').innerText = Object.keys(elementsList).length
@@ -69,7 +69,7 @@ function removeAllFromMetadata(event) {
     }
 
     delete elementsList[id]
-    buttons[i].parentElement.remove()
+    buttons[i].parentElement.parentElement.remove()
     labelToCheckbox(document.querySelector('#data-element-' + id))
   }
 
@@ -96,21 +96,6 @@ function enableSaveButton(event) {
   }
 }
 
-function addItemToList(element) {
-  if (element === null) {
-    return
-  }
-
-  var li = document.querySelector('#npd-saved-item-template').cloneNode(true)
-  li.className = li.className.replace(/hidden/, '')
-  li.querySelector('.item-name').innerHTML = generateDescription(element)
-  li.querySelector('.item-name').setAttribute('href', element.origin)
-  li.querySelector('.item-remove').setAttribute('id', element.id)
-  li.querySelector('.item-remove').setAttribute('href', 'remove-' + element.id)
-  document.querySelector('.npd-saved-items').append(li)
-  li.querySelector('.item-remove').addEventListener('click', removeFromMetadata)
-}
-
 function addToMetadata(event) {
   var elementsList = getElementsList()
   document.querySelector('#save-to-list').setAttribute('disabled', true)
@@ -119,7 +104,6 @@ function addToMetadata(event) {
     if (element.checked && !elementsList[element.dataset.id]) {
       elementsList[element.dataset.id] = element.dataset
       checkboxToLabel(element)
-      addItemToList(element.dataset)
     }
   })
   var count = Object.keys(elementsList).length
@@ -149,6 +133,5 @@ function copyToClipboard(event) {
   }, 5000)
 }
 
-export { addItemToList, addToMetadata, checkAll, checkboxToLabel,
-         copyToClipboard, enableSaveButton, generateDescription,
+export { addToMetadata, checkAll, checkboxToLabel, copyToClipboard, enableSaveButton,
          getElementsList, removeAllFromMetadata, removeFromMetadata }

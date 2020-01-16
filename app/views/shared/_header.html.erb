@@ -5,16 +5,14 @@
     </h1>
   </div>
   <div class="govuk-grid-column-one-third">
-    <a class="npd-saved-data show-modal" href="">
-      <%= t('saved_data.panel') %>
-      <span id="npd-counter" class="npd-counter">0</span>
-    </a>
+    <%= render partial: 'shared/saved_data_panel' unless saved_items_page? %>
   </div>
 </div>
 <div class="govuk-grid-row govuk-!-margin-top-5">
   <div class="govuk-grid-column-two-thirds">
-    <p class="description"><%= @description %></p>
+    <p class="description"><%= @description&.html_safe %></p>
   </div>
   <div class="govuk-grid-column-one-third">
+    <%= render partial: 'shared/transient_data_warning' if saved_items_page? %>
   </div>
 </div>
