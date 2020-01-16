@@ -84,6 +84,7 @@ en:
       description: <p>You can export these data items into a CSV file. If you’re %{link} to DfE data, please attach the file to an email along with your completed application form.</p><p>Please complete the <strong>‘Years required’</strong> fields and then click <strong>‘Export to CSV’</strong>.</p>
       link: applying for access
       no_elements: You currently have no elements saved in your list
+      additional_notes: Additional notes
     button: Save to my list
     instructions: You can use the checkboxes below to save any items you may want to add to your application
     copy_title: Saved in this session
