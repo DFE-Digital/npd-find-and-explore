@@ -5,7 +5,7 @@
     </h1>
   </div>
   <div class="govuk-grid-column-one-third">
-    <%= render partial:  'shared/saved_data_panel' unless basket_page? %>
+    <%= render partial: 'shared/saved_data_panel' unless saved_items_page? %>
   </div>
 </div>
 <div class="govuk-grid-row govuk-!-margin-top-5">
@@ -13,6 +13,6 @@
     <p class="description"><%= @description&.html_safe %></p>
   </div>
   <div class="govuk-grid-column-one-third">
-    <%= render partial: 'shared/transient_data_warning' if basket_page? %>
+    <%= render partial: 'shared/transient_data_warning' if saved_items_page? %>
   </div>
 </div>

@@ -62,7 +62,7 @@ module ApplicationHelper
     params[:controller] == 'search' || (params[:controller] == 'categories' && params[:action] == 'index')
   end
 
-  def basket_page?
-    params[:controller] == 'basket'
+  def saved_items_page?
+    params[:controller] == 'saved_items'
   end
 end

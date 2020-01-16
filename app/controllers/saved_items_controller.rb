@@ -9,10 +9,10 @@ class SavedItemsController < ApplicationController
     @title_size = 'xl'
     @description = t('saved_data.my_list.description',
                      link: link_to(t('saved_data.my_list.link'),
-                           Rails.configuration.outgoing_links.dig('applying_for_access') || 'https://www.google.com',
-                           class: 'govuk-link',
-                           data: { outgoing_link: true,
-                                   outgoing_page: 'Applying for Access' }))
+                                   Rails.configuration.outgoing_links.dig('applying_for_access') || 'https://www.google.com',
+                                   class: 'govuk-link',
+                                   data: { outgoing_link: true,
+                                           outgoing_page: 'Applying for Access' }))
 
     render action: :index
   end
