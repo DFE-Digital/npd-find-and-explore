@@ -10,24 +10,20 @@
     <%= academic_year(year_from) %> to
     <%= academic_year(year_to) %>
   </td>
-  <td data-label="Sensitivity" class="govuk-table__cell govuk-table__cell--numeric">
-    <%= data_element&.sensitivity %>
-  </td>
-  <td data-label="Identification risk" class="govuk-table__cell govuk-table__cell--numeric">
-    <%= data_element&.identifiability %>
-  </td>
   <td data-label="Years required" class="govuk-table__cell govuk-table__cell--numeric align-left">
     <%= select_tag "element[#{element.dig(:id)}][years_from]", options_for_select(years_options),
-      class: %w[govuk-select govuk-!-font-size-14 govuk-!-margin-left-4 govuk-!-margin-right-2] %>
-    to
+      include_blank: true, required: true,
+      class: %w[govuk-select govuk-!-font-size-14] %>
+    <span class="govuk-!-margin-left-2 govuk-!-margin-right-2">to</span>
     <%= select_tag "element[#{element.dig(:id)}][years_to]", options_for_select(years_options),
-      class: %w[govuk-select govuk-!-font-size-14 govuk-!-margin-left-4 govuk-!-margin-right-2] %>
+      include_blank: true, required: true,
+      class: %w[govuk-select govuk-!-font-size-14] %>
   </td>
   <td data-label="Additional notes" class="govuk-table__cell govuk-table__cell--numeric">
-    <%= text_field_tag "element[#{element.dig(:id)}][notes]", nil,
-      class: %[govuk-input govuk-input--width-5 govuk-!-font-size-14] %>
+    <%= text_field_tag "element[#{element.dig(:id)}][notes]", nil, placeholder: t('saved_data.my_list.additional_notes'),
+      class: %[govuk-input govuk-input--width-10 govuk-!-font-size-14] %>
   </td>
-  <td data-label="Value" class="govuk-table__cell govuk-table__cell--numeric">
+  <td data-label="Remove" class="govuk-table__cell govuk-table__cell--numeric">
     <a href="remove-<%= element.dig(:id) %>" class="item-remove" id="<%= element.dig(:id) %>">remove</a>
   </td>
 </tr>
