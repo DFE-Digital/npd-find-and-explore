@@ -1,12 +1,19 @@
 <%- if grouped_elements.any? %>
   <%- grouped_elements.each do |dataset, group| %>
-    <table class="govuk-table govuk-!-font-size-16 ">
+    <table class="govuk-table govuk-!-font-size-16" data-dataset-id="<%= dataset.id %>">
       <caption class="govuk-table__caption govuk-heading-m">
         <%= link_to dataset.tab_name.upcase, dataset_url(dataset) %>
       </caption>
       <%= render partial: 'saved_items/saved_items_thead' %>
       <tbody class="govuk-table__body">
-        <%= render partial: 'saved_items/element', collection: group, as: :element %>
+        <%= render partial: 'saved_items/element', collection: group, as: :element, locals: { dataset: dataset } %>
+        <tr class="govuk-table__row">
+          <th data-label="Remove this dataset" class="govuk-table__header govuk-table__cell--numeric" scope="row" colspan="5">
+            <a href="remove-dataset-<%= dataset.id %>" class="dataset-remove" id="<%= dataset.id %>">
+              Remove this dataset
+            </a>
+          </th>
+        </tr>
       </tbody>
     </table>
   <%- end %>

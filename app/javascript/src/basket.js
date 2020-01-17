@@ -43,14 +43,31 @@ function checkAll(event) {
 function removeFromMetadata(event) {
   event.preventDefault()
 
-  var target = event.currentTarget
+  removeElementFromMetadata(event.currentTarget)
+}
+
+function removeElementFromMetadata(target) {
   var elementsList = getElementsList()
   delete elementsList[target.id]
   target.parentElement.parentElement.remove()
   labelToCheckbox(document.querySelector('#data-element-' + target.id))
 
-  document.querySelector('#npd-counter').innerText = Object.keys(elementsList).length
+  if (document.querySelector('#npd-counter')) {
+    document.querySelector('#npd-counter').innerText = Object.keys(elementsList).length
+  }
   localStorage.setItem('elementsList', JSON.stringify(elementsList))
+}
+
+function removeDatasetFromMetadata(event) {
+  event.preventDefault()
+  var target = event.currentTarget
+
+  document.querySelectorAll('.item-remove[data-dataset-id="' + target.id + '"]').forEach(function(element) {
+    removeElementFromMetadata(element)
+  })
+  if (document.querySelector('table[data-dataset-id="' + target.id + '"]')) {
+    document.querySelector('table[data-dataset-id="' + target.id + '"]').remove()
+  }
 }
 
 function removeAllFromMetadata(event) {
@@ -60,21 +77,12 @@ function removeAllFromMetadata(event) {
   }
 
   var elementsList = getElementsList()
-  var buttons = document.querySelectorAll('.item-remove')
-
-  for(var i = 0; i < buttons.length; i++) {
-    var id = buttons[i].id
-    if (id === '') {
-      continue
-    }
-
-    delete elementsList[id]
-    buttons[i].parentElement.parentElement.remove()
-    labelToCheckbox(document.querySelector('#data-element-' + id))
-  }
-
-  document.querySelector('#npd-counter').innerText = Object.keys(elementsList).length
-  localStorage.setItem('elementsList', JSON.stringify(elementsList))
+  document.querySelectorAll('.item-remove').forEach(function(element) {
+    removeElementFromMetadata(element)
+  })
+  document.querySelectorAll('table[data-dataset-id]').forEach(function(element) {
+    element.remove()
+  })
 }
 
 function enableSaveButton(event) {
@@ -133,5 +141,6 @@ function copyToClipboard(event) {
   }, 5000)
 }
 
-export { addToMetadata, checkAll, checkboxToLabel, copyToClipboard, enableSaveButton,
-         getElementsList, removeAllFromMetadata, removeFromMetadata }
+export { addToMetadata, checkAll, checkboxToLabel, copyToClipboard,
+         enableSaveButton, getElementsList, removeAllFromMetadata,
+         removeDatasetFromMetadata, removeFromMetadata }
