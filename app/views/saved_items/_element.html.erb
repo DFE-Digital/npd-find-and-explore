@@ -3,7 +3,7 @@
 <% year_to = data_element&.academic_year_collected_to %>
 <% years_options = (year_from..(year_to || Time.now.year)).map { |y| [academic_year(y), y] } %>
 <tr class="govuk-table__row">
-  <th data-label="Name" class="govuk-table__header" scope="row">
+  <th data-label="Name" class="govuk-table__header force-break" scope="row">
     <%= link_to element.dig(:npdAlias), element.dig(:origin) %>
   </th>
   <td data-label="Date collected" class="govuk-table__cell govuk-table__cell--numeric">

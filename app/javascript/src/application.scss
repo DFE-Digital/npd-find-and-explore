@@ -279,6 +279,10 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
   width: 80% !important;
 }
 
+.force-break {
+  word-break: break-all;
+}
+
 .tail-select-container.select-label .select-handle {
   display: block;
   width: fit-content;
