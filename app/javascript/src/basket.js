@@ -77,21 +77,12 @@ function removeAllFromMetadata(event) {
   }
 
   var elementsList = getElementsList()
-  var buttons = document.querySelectorAll('.item-remove')
-
-  for(var i = 0; i < buttons.length; i++) {
-    var id = buttons[i].id
-    if (id === '') {
-      continue
-    }
-
-    delete elementsList[id]
-    buttons[i].parentElement.parentElement.remove()
-    labelToCheckbox(document.querySelector('#data-element-' + id))
-  }
-
-  document.querySelector('#npd-counter').innerText = Object.keys(elementsList).length
-  localStorage.setItem('elementsList', JSON.stringify(elementsList))
+  document.querySelectorAll('.item-remove').forEach(function(element) {
+    removeElementFromMetadata(element)
+  })
+  document.querySelectorAll('table[data-dataset-id]').forEach(function(element) {
+    element.remove()
+  })
 }
 
 function enableSaveButton(event) {
