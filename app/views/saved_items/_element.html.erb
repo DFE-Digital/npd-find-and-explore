@@ -1,30 +1,32 @@
 <% data_element = element.dig(:object) %>
+<% id = element.dig(:id) %>
 <% year_from = data_element&.academic_year_collected_from %>
 <% year_to = data_element&.academic_year_collected_to %>
 <% years_options = (year_from..(year_to || Time.now.year)).map { |y| [academic_year(y), y] } %>
 <tr class="govuk-table__row">
   <th data-label="Name" class="govuk-table__header force-break" scope="row">
     <%= link_to element.dig(:npdAlias), element.dig(:origin) %>
+    <%= hidden_field_tag "elements[#{id}][id]", id %>
   </th>
   <td data-label="Date collected" class="govuk-table__cell govuk-table__cell--numeric">
     <%= academic_year(year_from) %> to
     <%= academic_year(year_to) %>
   </td>
   <td data-label="Years required" class="govuk-table__cell govuk-table__cell--numeric align-left">
-    <%= select_tag "element[#{element.dig(:id)}][years_from]", options_for_select(years_options),
+    <%= select_tag "elements[#{id}][years_from]", options_for_select(years_options),
       include_blank: true, required: true,
-      class: %w[govuk-select govuk-!-font-size-14] %>
+      class: %w[years-required years-required-from govuk-select govuk-!-font-size-14] %>
     <span class="govuk-!-margin-left-2 govuk-!-margin-right-2">to</span>
-    <%= select_tag "element[#{element.dig(:id)}][years_to]", options_for_select(years_options),
+    <%= select_tag "elements[#{id}][years_to]", options_for_select(years_options),
       include_blank: true, required: true,
-      class: %w[govuk-select govuk-!-font-size-14] %>
+      class: %w[years-required years-required-to govuk-select govuk-!-font-size-14] %>
   </td>
   <td data-label="Additional notes" class="govuk-table__cell govuk-table__cell--numeric">
-    <%= text_field_tag "element[#{element.dig(:id)}][notes]", nil, placeholder: t('saved_data.my_list.additional_notes'),
+    <%= text_field_tag "elements[#{id}][notes]", nil, placeholder: t('saved_data.my_list.additional_notes'),
       class: %[govuk-input govuk-input--width-10 govuk-!-font-size-14] %>
   </td>
   <td data-label="Remove" class="govuk-table__cell govuk-table__cell--numeric">
-    <a href="remove-<%= element.dig(:id) %>" class="item-remove"
-      id="<%= element.dig(:id) %>" data-dataset-id="<%= dataset.id %>">remove</a>
+    <a href="remove-<%= id %>" class="item-remove"
+      id="<%= id %>" data-dataset-id="<%= dataset.id %>">remove</a>
   </td>
 </tr>

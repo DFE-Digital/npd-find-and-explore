@@ -141,6 +141,29 @@ function copyToClipboard(event) {
   }, 5000)
 }
 
+function validateDateRange(event) {
+  var id = event.currentTarget.id
+  if (!/element_(.+)_years_(from|to)/.test(id)) {
+    return
+  }
+
+  var selectFrom = document.querySelector('#' + id.replace(/(from|to)/, 'from'))
+  var selectTo = document.querySelector('#' + id.replace(/(from|to)/, 'to'))
+
+  if (selectFrom.value === '' || selectTo.value === '') {
+    return
+  }
+
+  if (parseInt(selectFrom.value) > parseInt(selectTo.value)) {
+    selectFrom.setCustomValidity('Must be before the end year')
+    selectTo.setCustomValidity('Must be after the start year')
+    event.currentTarget.reportValidity()
+  } else {
+    selectFrom.setCustomValidity('')
+    selectTo.setCustomValidity('')
+  }
+}
+
 export { addToMetadata, checkAll, checkboxToLabel, copyToClipboard,
          enableSaveButton, getElementsList, removeAllFromMetadata,
-         removeDatasetFromMetadata, removeFromMetadata }
+         removeDatasetFromMetadata, removeFromMetadata, validateDateRange }

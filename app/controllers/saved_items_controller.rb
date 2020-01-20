@@ -21,6 +21,14 @@ class SavedItemsController < ApplicationController
     render action: :saved_items, layout: false, locals: { grouped_elements: grouped_elements }
   end
 
+  def export_to_csv
+    filename = "NPD My List #{DateTime.now.strftime('%d-%m-%Y %H_%M')}.xlsx"
+    cookies['download'] = { value: 'download-saved-items' }
+
+    render xlsx: 'export_to_csv.xlsx.axlsx', disposition: :inline, filename: filename,
+           locals: { grouped_elements: grouped_elements }
+  end
+
 private
 
   def elements

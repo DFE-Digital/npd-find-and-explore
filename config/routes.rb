@@ -64,6 +64,7 @@ Rails.application.routes.draw do
     resources :saved_items, only: %i[index]
     resource :saved_items, only: [] do
       post 'saved_items', to: 'saved_items#saved_items'
+      post 'export_to_csv', to: 'saved_items#export_to_csv'
     end
   end
 
