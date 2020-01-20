@@ -1,41 +1,33 @@
 <%- if grouped_elements.any? %>
-  <%- grouped_elements.each do |dataset, group| %>
-    <table class="govuk-table govuk-!-font-size-16" data-dataset-id="<%= dataset.id %>">
-      <caption class="govuk-table__caption govuk-heading-m">
-        <%= link_to dataset.tab_name.upcase, dataset_url(dataset) %>
-      </caption>
-      <%= render partial: 'saved_items/saved_items_thead' %>
-      <tbody class="govuk-table__body">
-        <%= render partial: 'saved_items/element', collection: group, as: :element, locals: { dataset: dataset } %>
-        <tr class="govuk-table__row">
-          <th data-label="Remove this dataset" class="govuk-table__header govuk-table__cell--numeric" scope="row" colspan="5">
-            <a href="remove-dataset-<%= dataset.id %>" class="dataset-remove" id="<%= dataset.id %>">
-              Remove this dataset
-            </a>
-          </th>
-        </tr>
-      </tbody>
-    </table>
-  <%- end %>
+  <%= form_with url: export_to_csv_saved_items_path do -%>
+    <%- grouped_elements.each do |dataset, group| %>
+      <table class="govuk-table govuk-!-font-size-16" data-dataset-id="<%= dataset.id %>">
+        <caption class="govuk-table__caption govuk-heading-m">
+          <%= link_to dataset.tab_name.upcase, dataset_url(dataset) %>
+        </caption>
+        <%= render partial: 'saved_items/saved_items_thead' %>
+        <tbody class="govuk-table__body">
+          <%= render partial: 'saved_items/element', collection: group, as: :element, locals: { dataset: dataset } %>
+          <tr class="govuk-table__row">
+            <th data-label="Remove this dataset" class="govuk-table__header govuk-table__cell--numeric" scope="row" colspan="5">
+              <a href="remove-dataset-<%= dataset.id %>" class="dataset-remove" id="<%= dataset.id %>">
+                Remove this dataset
+              </a>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    <%- end %>
 
-  <div class="govuk-grid-row govuk-!-margin-top-8" id="copyButton">
-    <div class="govuk-grid-column-full govuk-text">
-      <button id="copy-to-clipboard" class="copy govuk-button govuk-!-margin-bottom-1" data-module="govuk-button">
-        Copy all to clipboard
-      </button>
-      <span class="govuk-!-margin-left-1">or</span>
-      <a href="" id="remove-all" class="govuk-!-font-size-16 govuk-!-padding-1 govuk-!-margin-bottom-1">Remove all</a>
-  </div>
-
-  <div class="govuk-grid-row npd-copy-success-container invisible">
-    <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
-      <div class="npd-copy-success govuk-!-margin-bottom-1 govuk-!-margin-top-2">
-        <h2 class="govuk-heading-s"><%= t('saved_data.copy_success_title') %></h2>
-        <p class="govuk-!-font-size-16"><%= t('saved_data.copy_success') %></p>
-      </div>
+    <div class="govuk-grid-row govuk-!-margin-top-8" id="copyButton">
+      <div class="govuk-grid-column-full govuk-text">
+        <button id="export-to-csv" class="copy govuk-button govuk-!-margin-bottom-1" data-module="govuk-button">
+          Export to CSV file
+        </button>
+        <span class="govuk-!-margin-left-1">or</span>
+        <a href="" id="remove-all" class="govuk-!-font-size-16 govuk-!-padding-1 govuk-!-margin-bottom-1">Remove all</a>
     </div>
-  </div>
-
+  <%- end %>
 <%- else %>
   <div class="govuk-inset-text">
     <%= t('saved_data.my_list.no_elements') %>

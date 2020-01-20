@@ -1,7 +1,8 @@
 import '../src/loader.scss'
 import '../src/loader.js'
 import { copyToClipboard, getElementsList, removeAllFromMetadata,
-         removeDatasetFromMetadata, removeFromMetadata } from '../src/basket.js'
+         removeDatasetFromMetadata, removeFromMetadata,
+         validateDateRange } from '../src/basket.js'
 import $ from 'jquery'
 
 window.loader = new GOVUK.Loader()
@@ -30,6 +31,9 @@ $(document).ready(function() {
         $('#govuk-box-message').hide()
         window.loader.stop()
         $('.saved_items_table').html(response)
+        document.querySelectorAll('.years-required').forEach(function(element) {
+          element.addEventListener('change', validateDateRange)
+        })
         document.querySelectorAll('.item-remove').forEach(function(element) {
           element.addEventListener('click', removeFromMetadata)
         })

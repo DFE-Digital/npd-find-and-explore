@@ -13,11 +13,11 @@
   <td data-label="Years required" class="govuk-table__cell govuk-table__cell--numeric align-left">
     <%= select_tag "element[#{element.dig(:id)}][years_from]", options_for_select(years_options),
       include_blank: true, required: true,
-      class: %w[govuk-select govuk-!-font-size-14] %>
+      class: %w[years-required years-required-from govuk-select govuk-!-font-size-14] %>
     <span class="govuk-!-margin-left-2 govuk-!-margin-right-2">to</span>
     <%= select_tag "element[#{element.dig(:id)}][years_to]", options_for_select(years_options),
       include_blank: true, required: true,
-      class: %w[govuk-select govuk-!-font-size-14] %>
+      class: %w[years-required years-required-to govuk-select govuk-!-font-size-14] %>
   </td>
   <td data-label="Additional notes" class="govuk-table__cell govuk-table__cell--numeric">
     <%= text_field_tag "element[#{element.dig(:id)}][notes]", nil, placeholder: t('saved_data.my_list.additional_notes'),
