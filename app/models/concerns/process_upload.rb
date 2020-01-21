@@ -57,6 +57,7 @@ module ProcessUpload
 
       import_elements(DataElement, data_table_rows.map(&:to_data_element_hash).uniq { |r| r[:npd_alias] })
       DataElement.where(id: del_rows.pluck(:id)).destroy_all
+      del_datasets.each { |ds| ds.data_elements.clear }
       import_datasets(id)
       PgSearch::Multisearch.rebuild(Category)
       PgSearch::Multisearch.rebuild(Concept)

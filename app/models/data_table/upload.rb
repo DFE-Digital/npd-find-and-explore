@@ -31,5 +31,11 @@ module DataTable
     def del_rows
       DataElement.where('npd_alias NOT IN (SELECT npd_alias FROM data_table_rows WHERE data_table_upload_id = ?)', id)
     end
+
+    def del_datasets
+      invalid_tabs = DataTable::Tab.where('data_table_upload_id = ? AND process_warnings IS NOT NULL AND ' \
+                                          'json_array_length(process_warnings) > 0', id).pluck(:type)
+      Dataset.where(tab_type: invalid_tabs)
+    end
   end
 end
