@@ -18,26 +18,43 @@ class SavedItemsController < ApplicationController
   end
 
   def saved_items
-    render action: :saved_items, layout: false, locals: { grouped_elements: grouped_elements }
+    render partial: 'saved_items', layout: false, locals: { grouped_elements: grouped_elements, range_errors: [] }
   end
 
   def export_to_csv
-    filename = "NPD My List #{DateTime.now.strftime('%d-%m-%Y %H_%M')}.xlsx"
-    cookies['download'] = { value: 'download-saved-items' }
+    if invalid_ranges.any?
+      render action: :index, locals: { grouped_elements: grouped_elements, range_errors: invalid_ranges }
+    else
+      filename = "NPD My List #{DateTime.now.strftime('%d-%m-%Y %H_%M')}.xlsx"
+      cookies['download'] = { value: 'download-saved-items' }
 
-    render xlsx: 'export_to_csv.xlsx.axlsx', disposition: :inline, filename: filename,
-           locals: { grouped_elements: grouped_elements }
+      render xlsx: 'export_to_csv.xlsx.axlsx', disposition: :inline, filename: filename,
+             locals: { grouped_elements: grouped_elements }
+    end
   end
 
 private
 
   def elements
-    params.permit(elements: {}).to_h.dig(:elements)
+    @elements ||= params.permit(elements: {}).to_h.dig(:elements)
   end
 
   def grouped_elements
-    elements
-      &.map { |k, v| v.merge('object' => DataElement.find(k)) }
-      &.group_by { |e| e.dig(:object).datasets.first } || []
+    @grouped_elements ||= elements
+                            &.map { |k, v| v.merge('object' => DataElement.find(k)) }
+                            &.group_by { |e| e.dig(:object).datasets.first } || []
+  end
+
+  def invalid_ranges
+    @invalid_ranges ||= begin
+                          ranges = elements.map do |_key, el|
+                            el.dig(:years_from) > el.dig(:years_to) ? range_error(el.dig(:npd_alias)) : nil
+                          end
+                          ranges.compact
+                        end
+  end
+
+  def range_error(npd_alias)
+    "#{npd_alias}: Start date must be before end date"
   end
 end

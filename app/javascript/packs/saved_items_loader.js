@@ -1,8 +1,7 @@
 import '../src/loader.scss'
 import '../src/loader.js'
-import { copyToClipboard, getElementsList, removeAllFromMetadata,
-         removeDatasetFromMetadata, removeFromMetadata,
-         validateDateRange } from '../src/basket.js'
+import { getElementsList, persistAdditionalNotes, removeAllFromMetadata,
+         removeDatasetFromMetadata, removeFromMetadata, validateDateRange } from '../src/basket.js'
 import $ from 'jquery'
 
 window.loader = new GOVUK.Loader()
@@ -33,6 +32,10 @@ $(document).ready(function() {
         $('.saved_items_table').html(response)
         document.querySelectorAll('.years-required').forEach(function(element) {
           element.addEventListener('change', validateDateRange)
+          element.dispatchEvent(new Event('change'))
+        })
+        document.querySelectorAll('.additional-notes').forEach(function(element) {
+          element.addEventListener('change', persistAdditionalNotes)
         })
         document.querySelectorAll('.item-remove').forEach(function(element) {
           element.addEventListener('click', removeFromMetadata)
@@ -41,9 +44,6 @@ $(document).ready(function() {
           element.addEventListener('click', removeDatasetFromMetadata)
         })
 
-        if(document.querySelector('#copy-to-clipboard')) {
-          document.querySelector('#copy-to-clipboard').addEventListener('click', copyToClipboard)
-        }
         if(document.querySelector('#remove-all')) {
           document.querySelector('#remove-all').addEventListener('click', removeAllFromMetadata)
         }
