@@ -3,12 +3,14 @@ function getElementsList() {
   return (list ? JSON.parse(localStorage.getItem('elementsList')) : {})
 }
 
-function generateDescription(element) {
-  if (element === null || element === undefined || element === {}) {
-    return ''
+function addDetailToList(id, name, value) {
+  if (!id) {
+    return
   }
-  var dataset = JSON.parse(element.datasets)[0]
-  return [dataset, element.npdAlias].join('.')
+
+  var elementsList = getElementsList()
+  elementsList[id][name] = value
+  localStorage.setItem('elementsList', JSON.stringify(elementsList))
 }
 
 function checkboxToLabel(element) {
@@ -121,49 +123,66 @@ function addToMetadata(event) {
   localStorage.setItem('countElements', count)
 }
 
-function copyToClipboard(event) {
-  var elementsList = getElementsList()
-  var success = document.querySelector('.npd-copy-success-container')
-  var textarea = document.createElement('textarea')
-  textarea.textContent = Object.values(elementsList)
-                               .map(function(e) { return generateDescription(e) })
-                               .join("\n")
-  event.currentTarget.append(textarea)
-  textarea.focus()
-  textarea.select()
-  document.execCommand('copy')
-  textarea.remove()
-
-  success.className = success.className.replace(/invisible */g, 'visible ')
-
-  setTimeout(function() {
-    success.className = success.className.replace(/visible */g, 'invisible ')
-  }, 5000)
-}
-
 function validateDateRange(event) {
-  var id = event.currentTarget.id
-  if (!/element_(.+)_years_(from|to)/.test(id)) {
+  var target = event.currentTarget
+  var id = target.id
+  var match = /elements_(.+)_years_(from|to)/.exec(id)
+  if (!match) {
     return
   }
 
+  var elementId = match[1]
   var selectFrom = document.querySelector('#' + id.replace(/(from|to)/, 'from'))
   var selectTo = document.querySelector('#' + id.replace(/(from|to)/, 'to'))
 
-  if (selectFrom.value === '' || selectTo.value === '') {
+  if (match[2] === 'from' && !!selectFrom.value) {
+    var fromValue = parseInt(selectFrom.value)
+    addDetailToList(elementId, 'yearFrom', selectFrom.value)
+
+    selectTo.querySelectorAll('option').forEach(function(option) {
+      if (!option.value) { return }
+
+      parseInt(option.value) >= fromValue
+        ? option.disabled = false
+        : option.disabled = true
+    })
+  } else if(match[2] === 'to' && !!selectTo.value) {
+    var toValue = parseInt(selectTo.value)
+    addDetailToList(elementId, 'yearTo', selectTo.value)
+
+    selectFrom.querySelectorAll('option').forEach(function(option) {
+      if (!option.value) { return }
+
+      parseInt(option.value) <= toValue
+        ? option.disabled = false
+        : option.disabled = true
+    })
+  }
+
+  if (!selectFrom.value || !selectTo.value) {
     return
   }
 
   if (parseInt(selectFrom.value) > parseInt(selectTo.value)) {
     selectFrom.setCustomValidity('Must be before the end year')
     selectTo.setCustomValidity('Must be after the start year')
-    event.currentTarget.reportValidity()
+    target.reportValidity()
   } else {
+    addDetailToList(elementId, 'yearFrom', selectFrom.value)
+    addDetailToList(elementId, 'yearTo', selectTo.value)
     selectFrom.setCustomValidity('')
     selectTo.setCustomValidity('')
   }
 }
 
-export { addToMetadata, checkAll, checkboxToLabel, copyToClipboard,
-         enableSaveButton, getElementsList, removeAllFromMetadata,
+function persistAdditionalNotes(event) {
+  var id = event.currentTarget.id
+  var match = /elements_(.+)_notes/.exec(id)
+  var elementId = match[1]
+
+  addDetailToList(elementId, 'notes', event.currentTarget.value)
+}
+
+export { addToMetadata, checkAll, checkboxToLabel, enableSaveButton,
+         getElementsList, persistAdditionalNotes, removeAllFromMetadata,
          removeDatasetFromMetadata, removeFromMetadata, validateDateRange }

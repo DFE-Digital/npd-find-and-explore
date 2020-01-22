@@ -1,5 +1,20 @@
 <%- if grouped_elements.any? %>
-  <%= form_with url: export_to_csv_saved_items_path do -%>
+  <%= form_with url: export_to_csv_saved_items_path, remote: true do -%>
+    <% if range_errors.any? -%>
+      <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+          Can't export the information
+        </h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            <% range_errors.each do |error| -%>
+              <li><a href="#"><%= error %></a></li>
+            <%- end %>
+          </ul>
+        </div>
+      </div>
+    <%- end %>
+
     <%- grouped_elements.each do |dataset, group| %>
       <table class="govuk-table govuk-!-font-size-16" data-dataset-id="<%= dataset.id %>">
         <caption class="govuk-table__caption govuk-heading-m">

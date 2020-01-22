@@ -7,7 +7,12 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
     <div class="saved_items_table govuk-text">
-      <%= render partial: 'saved_items_loading' %>
+      <% if defined? grouped_elements -%>
+        <%= render partial: 'saved_items',
+          locals: { grouped_elements: grouped_elements, range_errors: ((defined? range_errors) ? range_errors : []) } %>
+      <%- else -%>
+        <%= render partial: 'saved_items_loading' %>
+      <%- end %>
     </div>
   </div>
 </div>

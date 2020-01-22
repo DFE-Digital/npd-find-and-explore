@@ -7,23 +7,25 @@
   <th data-label="Name" class="govuk-table__header force-break" scope="row">
     <%= link_to element.dig(:npdAlias), element.dig(:origin) %>
     <%= hidden_field_tag "elements[#{id}][id]", id %>
+    <%= hidden_field_tag "elements[#{id}][npd_alias]", element.dig(:npdAlias) %>
   </th>
   <td data-label="Date collected" class="govuk-table__cell govuk-table__cell--numeric">
     <%= academic_year(year_from) %> to
     <%= academic_year(year_to) %>
   </td>
   <td data-label="Years required" class="govuk-table__cell govuk-table__cell--numeric align-left">
-    <%= select_tag "elements[#{id}][years_from]", options_for_select(years_options),
+    <%= select_tag "elements[#{id}][years_from]", options_for_select(years_options, element.dig(:yearFrom)),
       include_blank: true, required: true,
       class: %w[years-required years-required-from govuk-select govuk-!-font-size-14] %>
     <span class="govuk-!-margin-left-2 govuk-!-margin-right-2">to</span>
-    <%= select_tag "elements[#{id}][years_to]", options_for_select(years_options),
+    <%= select_tag "elements[#{id}][years_to]", options_for_select(years_options, element.dig(:yearTo)),
       include_blank: true, required: true,
       class: %w[years-required years-required-to govuk-select govuk-!-font-size-14] %>
   </td>
   <td data-label="Additional notes" class="govuk-table__cell govuk-table__cell--numeric">
-    <%= text_field_tag "elements[#{id}][notes]", nil, placeholder: t('saved_data.my_list.additional_notes'),
-      class: %[govuk-input govuk-input--width-10 govuk-!-font-size-14] %>
+    <%= text_field_tag "elements[#{id}][notes]", element.dig(:notes),
+      placeholder: t('saved_data.my_list.additional_notes'),
+      class: %[additional-notes govuk-input govuk-input--width-10 govuk-!-font-size-14] %>
   </td>
   <td data-label="Remove" class="govuk-table__cell govuk-table__cell--numeric">
     <a href="remove-<%= id %>" class="item-remove"
