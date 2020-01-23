@@ -14,7 +14,7 @@ class SavedItemsController < ApplicationController
                                    class: 'govuk-link',
                                    data: { outgoing_link: true,
                                            outgoing_page: 'Applying for Access' }))
-    breadcrumbs_for(custom: { name: 'My List', path: saved_items_path})
+    breadcrumbs_for(custom: { name: 'My List', path: saved_items_path })
 
     render action: :index
   end

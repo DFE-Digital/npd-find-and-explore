@@ -12,7 +12,7 @@ private
     breadcrumb 'home', categories_path, match: :exact
 
     # basic breadcrumbs for custom
-    breadcrumb custom.dig(:name), custom.dig(:path) if (custom.present?)
+    breadcrumb custom.dig(:name), custom.dig(:path) if custom.present?
 
     # basic breadcrumbs for dataset
     breadcrumb (dataset.name || ''), dataset_path(dataset) if dataset.present?
