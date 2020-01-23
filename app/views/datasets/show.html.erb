@@ -6,6 +6,10 @@
   <%= javascript_pack_tag 'data_elements_loader' %>
 <%- end %>
 
+<%= content_for :messages do %>
+  <%= render 'datasets/not_available' %>
+<%- end %>
+
 <%= render 'shared/save_to_metadata' %>
 
 <div class="govuk-grid-row govuk-!-margin-top-6">

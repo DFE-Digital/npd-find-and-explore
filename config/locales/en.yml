@@ -74,6 +74,10 @@ en:
   datasets:
     index:
       title: Datasets
+      not-available:
+        title: Some of these data elements might not be available for research purposes
+        link: 4 exemptions
+        content: The data in some or all of these variables has an <strong>identification risk of 1 or 2</strong>. As a researcher, this data is only available if you meet one or more of %{link} following a successful application.
   data_tables:
     download:
       title: Download Data Tables file
