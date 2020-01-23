@@ -12,6 +12,7 @@
 # concepts.
 class Category < Versioned
   include PgSearch::Model
+  include SanitizeSpace
 
   has_many :concepts, dependent: :destroy, inverse_of: :category
 

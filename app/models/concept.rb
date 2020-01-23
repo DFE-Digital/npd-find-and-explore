@@ -8,6 +8,7 @@
 #       - SchoolCensus.FSM6
 class Concept < Versioned
   include PgSearch::Model
+  include SanitizeSpace
 
   belongs_to :category, inverse_of: :concepts
   has_many :data_elements,
