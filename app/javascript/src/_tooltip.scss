@@ -48,12 +48,17 @@
   }
 
   .tooltip-bottom-left {
-    top: 34px;
+    top: 38px;
     left: 0;
   }
 
   .tooltip-top-right {
     bottom: 34px;
+    right: 0;
+  }
+
+  .tooltip-bottom-right {
+    top: 38px;
     right: 0;
   }
 }

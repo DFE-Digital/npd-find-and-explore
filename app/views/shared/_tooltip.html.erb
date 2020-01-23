@@ -1,8 +1,9 @@
+<% position = nil if !defined? position %>
 <span class="tooltip">
   <a href="#<%= id %>" class="help" aria-describedby="<%= id %>" title="Help">
     i<span>nformation about <%= label.downcase %></span>
   </a>
-  <span class="visuallyhidden tooltip-content tooltip-top-left" role="tooltip" id="<%= id %>">
+  <span class="visuallyhidden tooltip-content tooltip-<%= position || 'top-left' %>" role="tooltip" id="<%= id %>">
     <%= tooltip %>
   </span>
 </span>
