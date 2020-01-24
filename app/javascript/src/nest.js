@@ -1,5 +1,6 @@
 import $ from 'jquery';
-import './jquery.nestable'
+import './jquery.scrollparent';
+import 'nestable2'
 
 jQuery(function() {
   const updateNodes = function(tree_nodes) {
@@ -32,7 +33,7 @@ jQuery(function() {
   }
 
   const $tree_nodes = $('#tree_nodes')
-  const $tree_nodes_options = {}
+  const $tree_nodes_options = { scroll: true, scrollSensitivity: 100, scrollSpeed: 8 }
   const $tree_nodes_max_depth = $tree_nodes.data('max-depth')
   const $live_update = $('#nestable input[type=checkbox]')
   const $update_button = $('#nestable button')
@@ -53,10 +54,10 @@ jQuery(function() {
   return $tree_nodes
     .nestable( $tree_nodes_options )
     .on({
-      change(event) {
+      'change': function(e) {
         if (live_update_mode) {
           return updateNodes($tree_nodes)
         }
-      }
+      },
     })
 })
