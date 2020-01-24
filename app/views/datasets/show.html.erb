@@ -6,9 +6,13 @@
   <%= javascript_pack_tag 'data_elements_loader' %>
 <%- end %>
 
+<%= content_for :messages do %>
+  <%= render 'datasets/not_available' %>
+<%- end %>
+
 <%= render 'shared/save_to_metadata' %>
 
-<div class="govuk-grid-row govuk-!-margin-top-6">
+<div class="govuk-grid-row govuk-!-margin-top-0">
   <div class="govuk-grid-column-full">
     <table class="govuk-table govuk-!-font-size-16">
       <caption class="govuk-table__caption govuk-!-font-size-24">Data elements</caption>

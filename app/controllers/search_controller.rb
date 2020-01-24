@@ -8,7 +8,7 @@ class SearchController < ApplicationController
     build_filters
     @title = t('search_title')
     @title_size = 'xl'
-    breadcrumbs_for(search: true)
+    breadcrumbs_for(custom: { name: 'Search', path: search_index_path })
 
     render action: :index
   end

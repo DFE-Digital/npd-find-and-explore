@@ -49,12 +49,12 @@ en:
         link: applying for access
         how_to_access: If you are %{link} to NPD data from the DfE you can copy and paste this title in your application form.
       not-available:
-        title: These data items might not be available for research purposes
+        title: These data elements might not be available for research purposes
         link: 4 exemptions
         content: The data in some or all of these variables has an <strong>identification risk of 1 or 2</strong>. As a researcher, this data is only available if you meet one or more of %{link} following a successful application.
       sensitivity:
         label: Sensitivity
-        tooltip: Data is given a sensitivity scale. Items are rated from A to E with A being highly sensitive and E being low.
+        tooltip: Data is given a sensitivity scale. Elements are rated from A to E with A being highly sensitive and E being low.
       identifiability:
         label: Identifiability
         tooltip: Data is scored on identifiability scale from 1 to 5, the lower the number the higher the identifiability.
@@ -74,6 +74,10 @@ en:
   datasets:
     index:
       title: Datasets
+      not-available:
+        title: Some of these data elements might not be available for research purposes
+        link: 4 exemptions
+        content: The data in some or all of these variables has an <strong>identification risk of 1 or 2</strong>. As a researcher, this data is only available if you meet one or more of %{link} following a successful application.
   data_tables:
     download:
       title: Download Data Tables file
@@ -81,16 +85,14 @@ en:
     panel: My list
     my_list:
       title: My list
-      description: <p>You can export these data items into a CSV file. If you’re %{link} to DfE data, please attach the file to an email along with your completed application form.</p><p>Please complete the <strong>‘Years required’</strong> fields and then click <strong>‘Export to CSV’</strong>.</p>
+      description: <p>You can export these data elements into a .xlsx file. If you’re %{link} to DfE data, please attach the file to an email along with your completed application form.</p><p>Please complete the <strong>‘Years required’</strong> fields and then click <strong>‘Export to .xlsx file’</strong>.</p>
       link: applying for access
       no_elements: You currently have no elements saved in your list
       additional_notes: Additional notes
     button: Save to my list
-    instructions: You can use the checkboxes below to save any items you may want to add to your application
+    instructions: You can use the checkboxes below to save any elements you may want to add to your application
     copy_title: Saved in this session
-    copy_instructions: These items will disappear when you close the browser. You can copy and paste them into another document to save for later.
-    copy_success_title: Items copied
-    copy_success: Those data items are in your clipboard, you can now paste them into another document.
+    copy_instructions: These elements will disappear when you clear your cookies for this site or by selecting 'Remove all' below. You can output them by clicking 'Export to .xlsx file'.
 
   views:
     pagination:

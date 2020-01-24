@@ -7,12 +7,12 @@ module BreadcrumbBuilder
 private
 
   # Builds the breadcrumbs for a category tree with an optional leaf-concept
-  def breadcrumbs_for(category_leaf: nil, concept: nil, dataset: nil, search: false)
+  def breadcrumbs_for(category_leaf: nil, concept: nil, dataset: nil, custom: false)
     # start with the root
     breadcrumb 'home', categories_path, match: :exact
 
-    # basic breadcrumbs for search
-    breadcrumb 'search', search_index_path if search == true
+    # basic breadcrumbs for custom
+    breadcrumb custom.dig(:name), custom.dig(:path) if custom.present?
 
     # basic breadcrumbs for dataset
     breadcrumb (dataset.name || ''), dataset_path(dataset) if dataset.present?

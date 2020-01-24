@@ -33,7 +33,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     concept.data_elements.all.first.update(identifiability: 1)
     visit concept_path(concept)
 
-    expect(page).to have_text('These data items might not be available for research purposes')
+    expect(page).to have_text('These data elements might not be available for research purposes')
     expect(page)
       .to have_link('4 exemptions',
                     href: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
@@ -46,7 +46,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     concept.data_elements.all.first.update(identifiability: 2)
     visit concept_path(concept)
 
-    expect(page).to have_text('These data items might not be available for research purposes')
+    expect(page).to have_text('These data elements might not be available for research purposes')
     expect(page)
       .to have_link('4 exemptions',
                     href: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')

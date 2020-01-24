@@ -21,14 +21,16 @@
     <%= render 'shared/tooltip',
       label: t('concepts.show.sensitivity.label'),
       id: 'sensitivity-tip',
-      tooltip: t('concepts.show.sensitivity.tooltip') %>
+      tooltip: t('concepts.show.sensitivity.tooltip'),
+      position: 'bottom-left' %>
   </th>
   <th data-label="Identification risk" class="govuk-table__header govuk-table__header--numeric" scope="col">
     <%= t('concepts.show.identifiability.label') %>
     <%= render 'shared/tooltip',
       label: t('concepts.show.identifiability.label'),
       id: 'identifiability-tip',
-      tooltip: t('concepts.show.identifiability.tooltip') %>
+      tooltip: t('concepts.show.identifiability.tooltip'),
+      position: 'bottom-right' %>
   </th>
   <th data-label="Value" class="govuk-table__header govuk-table__header--numeric" scope="col">Values</th>
 </tr>
