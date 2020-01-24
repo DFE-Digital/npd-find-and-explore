@@ -20,12 +20,12 @@ module Admin
 
     def trim_data_table_uploads
       DataTable::Upload.where.not(successful: true).offset(5).destroy_all
-      DataTable::Upload.order(created_at: :desc).offset(5).destroy_all
+      DataTable::Upload.where(successful: true).order(created_at: :desc).offset(5).destroy_all
     end
 
     def trim_inf_arch_uploads
       InfArch::Upload.where.not(successful: true).offset(5).destroy_all
-      InfArch::Upload.order(created_at: :desc).offset(5).destroy_all
+      InfArch::Upload.where(successful: true).order(created_at: :desc).offset(5).destroy_all
     end
   end
 end
