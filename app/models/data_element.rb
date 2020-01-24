@@ -11,6 +11,7 @@ class DataElement < Versioned
 
   default_scope -> { order(npd_alias: :asc) }
   scope :orphaned, -> { where(concept_id: nil).order(npd_alias: :asc) }
+  scope :misplaced, -> { includes(:concept).where(concept_id: nil).or(DataElement.includes(:concept).where(concepts: { name: 'No Concept' })).order(npd_alias: :asc) }
 
   before_validation :assign_concept
 
