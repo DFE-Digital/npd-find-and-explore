@@ -1,4 +1,5 @@
 default: &default
+  govuk: 'https://www.gov.uk/'
   applying_for_access: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts'
 
 production:
