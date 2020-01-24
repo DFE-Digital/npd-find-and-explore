@@ -8,6 +8,7 @@
     "flatpickr": "^4.5.7",
     "govuk-frontend": "^2.11.0",
     "jquery": "^3.4.1",
+    "nestable2": "^1.6.0",
     "postcss-cssnext": "^3.1.0",
     "snyk": "^1.258.2",
     "tail.select": "^0.5.15"
