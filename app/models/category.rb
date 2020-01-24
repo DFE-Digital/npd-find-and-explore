@@ -12,6 +12,7 @@
 # concepts.
 class Category < Versioned
   include PgSearch::Model
+  include SanitizeSpace
 
   has_many :concepts, dependent: :destroy, inverse_of: :category
 
@@ -46,8 +47,8 @@ class Category < Versioned
           searchable_name, searchable_created_at, searchable_updated_at, created_at, updated_at)
         SELECT 'Category' AS searchable_type,
         #{conn.quote(id)} AS searchable_id,
-        setweight(to_tsvector(#{conn.quote(name)}), 'A') ||
-          setweight(to_tsvector(#{conn.quote(description)}), 'B') AS content,
+        setweight(to_tsvector(#{conn.quote(name || '')}), 'A') ||
+          setweight(to_tsvector(#{conn.quote(description || '')}), 'B') AS content,
         #{conn.quote(name)} AS searchable_name,
         #{conn.quote(created_at)} AS searchable_created_at,
         #{conn.quote(updated_at)} AS searchable_updated_at,
@@ -58,8 +59,8 @@ class Category < Versioned
       conn.execute <<-SQL
         UPDATE pg_search_documents
         SET
-          content = setweight(to_tsvector(#{conn.quote(name)}), 'A') ||
-                    setweight(to_tsvector(#{conn.quote(description)}), 'B'),
+          content = setweight(to_tsvector(#{conn.quote(name || '')}), 'A') ||
+                    setweight(to_tsvector(#{conn.quote(description || '')}), 'B'),
           searchable_name = #{conn.quote(name)},
           searchable_created_at = #{conn.quote(created_at)},
           searchable_updated_at = #{conn.quote(updated_at)},
@@ -86,8 +87,8 @@ class Category < Versioned
         searchable_name, searchable_created_at, searchable_updated_at, created_at, updated_at)
       SELECT 'Category' AS searchable_type,
       categories.id AS searchable_id,
-      setweight(to_tsvector(categories.name), 'A') ||
-      setweight(to_tsvector(categories.description), 'B')
+      setweight(to_tsvector(coalesce(categories.name, '')), 'A') ||
+      setweight(to_tsvector(coalesce(categories.description, '')), 'B')
       AS content,
       categories.name AS searchable_name,
       MIN(categories.created_at) AS searchable_created_at,

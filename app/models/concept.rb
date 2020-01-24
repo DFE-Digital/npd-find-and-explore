@@ -8,6 +8,7 @@
 #       - SchoolCensus.FSM6
 class Concept < Versioned
   include PgSearch::Model
+  include SanitizeSpace
 
   belongs_to :category, inverse_of: :concepts
   has_many :data_elements,
@@ -71,8 +72,8 @@ class Concept < Versioned
         SELECT
           'Concept' AS searchable_type,
           #{conn.quote(id)} AS searchable_id,
-          setweight(to_tsvector(#{conn.quote(name)}), 'A') ||
-          setweight(to_tsvector(#{conn.quote(description)}), 'B') ||
+          setweight(to_tsvector(#{conn.quote(name || '')}), 'A') ||
+          setweight(to_tsvector(#{conn.quote(description || '')}), 'B') ||
           setweight(to_tsvector(#{conn.quote(data_elements_headers.join(' '))}), 'C') ||
           setweight(to_tsvector(#{conn.quote(data_elements_body.join(' '))}), 'D')
           AS content,
@@ -91,8 +92,8 @@ class Concept < Versioned
       conn.execute <<-SQL
         UPDATE pg_search_documents
         SET
-          content = setweight(to_tsvector(#{conn.quote(name)}), 'A') ||
-                    setweight(to_tsvector(#{conn.quote(description)}), 'B') ||
+          content = setweight(to_tsvector(#{conn.quote(name || '')}), 'A') ||
+                    setweight(to_tsvector(#{conn.quote(description || '')}), 'B') ||
                     setweight(to_tsvector(#{conn.quote(data_elements_headers.join(' '))}), 'C') ||
                     setweight(to_tsvector(#{conn.quote(data_elements_body.join(' '))}), 'D'),
           searchable_name = #{conn.quote(name)},
@@ -126,8 +127,8 @@ class Concept < Versioned
         searchable_created_at, searchable_updated_at, created_at, updated_at)
       SELECT 'Concept' AS searchable_type,
       concepts.id AS searchable_id,
-      setweight(to_tsvector(concepts.name), 'A') ||
-      setweight(to_tsvector(concepts.description), 'B') ||
+      setweight(to_tsvector(coalesce(concepts.name, '')), 'A') ||
+      setweight(to_tsvector(coalesce(concepts.description, '')), 'B') ||
       setweight(to_tsvector(coalesce(string_agg(concat_ws(' ', data_elements.source_table_name, data_elements.source_attribute_name), ' '), '')), 'C') ||
       setweight(to_tsvector(coalesce(string_agg(concat_ws(' ', data_elements.description, data_elements.npd_alias,
                                                           data_elements.source_old_attribute_name, data_elements.data_type), ' '), '')), 'D')
