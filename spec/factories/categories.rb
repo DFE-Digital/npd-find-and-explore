@@ -4,6 +4,7 @@ FactoryBot.define do
   factory :category do
     name        { Faker::Lorem.unique.sentence(2) }
     description { Faker::Lorem.sentence(15) }
+    sequence(:position)
 
     after(:create, &:save)
 

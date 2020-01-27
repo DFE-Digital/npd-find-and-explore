@@ -17,6 +17,7 @@ class Category < Versioned
   has_many :concepts, dependent: :destroy, inverse_of: :category
 
   before_destroy :reassign_concepts, prepend: true
+  before_create :sort_categories
 
   scope :real, -> { where.not(name: 'No Category') }
 
@@ -99,5 +100,14 @@ class Category < Versioned
       FROM categories
       GROUP BY categories.id
     SQL
+  end
+
+private
+
+  def sort_categories
+    return unless is_root?
+
+    Category.roots.each { |root| root.update(position: (root.position || 1) + 1) }
+    self.position = 1
   end
 end

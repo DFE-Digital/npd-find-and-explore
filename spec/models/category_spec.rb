@@ -10,6 +10,13 @@ RSpec.describe Category, type: :model do
     create_list(:category, 2, :with_subcategories_concepts_and_data_elements)
   end
 
+  it 'will put the newly created category first' do
+    category = Category.create(name: 'New Category', description: 'Description')
+
+    expect(category.position).to eq(1)
+    expect(Category.roots.pluck(:position).sort).to eq([1, 2, 3])
+  end
+
   it 'will rootify orphaned nodes' do
     root = Category.first.root
     children = root.children

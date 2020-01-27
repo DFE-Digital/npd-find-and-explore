@@ -25,7 +25,32 @@
   }
 }
 
-.dd-collapsed .dd-list {
+button.dd-expand, button.dd-collapse {
+  &:before {
+    color: govuk-colour('grey-1');
+  }
+}
+
+button.dd-expand {
+  margin-left: 0 !important;
+}
+
+button.dd-collapse {
+  margin-left: 30px !important;
+}
+
+.dd-collapsed {
+  .dd-list, .dd-collapse {
+    display: none;
+  }
+
+  .dd-expand {
+    display: block;
+    margin-left: 30px !important;
+  }
+}
+
+.dd-item:not(.dd-collapsed) > .dd-expand {
   display: none;
 }
 
