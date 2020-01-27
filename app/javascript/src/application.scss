@@ -1,8 +1,8 @@
 // we're starting from scratch, so use global styles
 // https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/installing-with-npm.md#global-styles
 $govuk-global-styles: true;
-$govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
-@import "node_modules/govuk-frontend/all";
+$govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
+@import "node_modules/govuk-frontend/govuk/all";
 @import "colours";
 @import "related-items";
 @import "tooltip";
@@ -25,7 +25,7 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 }
 
 .govuk-background__gray-4 {
-  background-color: govuk-colour("grey-4");
+  background-color: govuk-colour("light-grey");
 }
 
 .govuk-\!-display-inline-block {
@@ -209,10 +209,10 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 }
 
 .js-table-row-inactive {
-  color: govuk-colour('grey-1');
+  color: govuk-colour('dark-grey');
 
   a {
-    color: govuk-colour('grey-1');
+    color: govuk-colour('dark-grey');
   }
 }
 
@@ -271,7 +271,7 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 }
 
 .govuk-light-grey {
-  background-color: govuk-colour('grey-4');
+  background-color: govuk-colour('light-grey');
 }
 
 
@@ -322,4 +322,32 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/assets/';
 
 .govuk-\!-width-nine-tenths {
   width: 90% !important;
+}
+
+.app-contact-panel {
+  margin-top: 40px;
+  padding-top: 15px;
+  border-top: 2px solid #1d70b8
+}
+
+@media (min-width: 40.0625em) {
+  .app-contact-panel {
+    margin-top:60px
+  }
+}
+
+.app-contact-panel__heading, .app-contact-panel__body, .app-contact-panel__link {
+  max-width: 100%
+}
+
+.app-contact-panel__heading {
+  padding-top: 10px
+}
+
+.app-contact-panel__heading:first-child {
+  padding-top: 0
+}
+
+.app-contact-panel__body:last-child {
+  margin-bottom: 0
 }

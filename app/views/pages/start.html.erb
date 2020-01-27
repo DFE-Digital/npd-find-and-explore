@@ -1,47 +1,73 @@
-<% @title = 'Find and explore data in the National Pupil Database' %>
+<% @title = 'National Pupil Database (NPD) find and explore service' %>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">
-      <%= @title %>
-    </h1>
-  </div>
+<div class="govuk-breadcrumbs govuk-!-margin-bottom-5 govuk-!-margin-top-0">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a href="<%= Rails.configuration.outgoing_links.dig('dfe_home') %>"
+         target="_blank" rel="external" data-outgoing-page="DfE home page on GOV.uk">
+         Home
+      </a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a href="<%= Rails.configuration.outgoing_links.dig('govuk_education') %>"
+         target="_blank" rel="external" data-outgoing-page="Education, Training and Skills page on GOV.uk">
+         Education, Training and Skills
+      </a>
+    </li>
+  </ol>
 </div>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <p>
-      The National Pupil Database (NPD) is a key DfE data store covering education, skills and children services data for individual learners in England.
-      Use this tool to find and explore data in the NPD before
-      <a href="https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts" target="_blank"
+    <div class="gem-c-title">
+      <p class="govuk-caption-l">
+        <%= 'Guidance' %>
+      </p>
+      <h1 class="govuk-heading-l govuk-!-margin-top-0 govuk-!-padding-top-0">
+        <%= @title %>
+      </h1>
+    </div>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5">
+    <p class="govuk-body-l">
+      Use this tool to find and explore data in the NPD, before
+      <a href="<%= Rails.configuration.outgoing_links.dig('applying_for_access') %>" target="_blank"
         rel="external" data-outgoing-page="DfE How To Access Data Extracts">
-        applying to access DfE data extracts
-      </a>.
+        applying to access
+      </a>
+      Department for Education (DfE) data extracts.
     </p>
+  </div>
+  <div class="govuk-grid-column-full govuk-section-break--visible">
+    &nbsp;
+  </div>
+</div>
 
-    <h2 class="govuk-heading-m">How to use the tool</h2>
-
-    <p>There are two ways you can explore the type of data the NPD holds:</p>
-
-    <h3 class="govuk-heading-s">Browsing via categories</h3>
-
-    <p>
-      If you are a new user, you might find it easier to browse the tool using the four high level categories: Attainment, Demographics, Absence and Exclusion, and Children in need and children looked after.
-      You would then search for smaller and smaller categories until you found the group of data items you are interested in.
-      For example, the <strong>‘Authorised absence due to study leave’</strong> category contains 6 similar data items.
-      You can also find specific categories using a simple text search.
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-2">
+    <p class="govuk-body">
+      From:
+      <a href="<%= Rails.configuration.outgoing_links.dig('dfe_home') %>" target="_blank"
+        rel="external" data-outgoing-page="DfE home page on GOV.uk">
+        Department for Education
+      </a>
     </p>
+  </div>
+</div>
 
-    <h3 class="govuk-heading-s">Browsing via datasets</h3>
-
-    <p>
-    If you are a more experienced user, you may want to search for the data items you are interested in using the names of the DfE collections as we hold them in the NPD.
-    There are 23 collections within NPD – for example the termly School Census.
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5">
+    <p class="govuk-body-m">
+      The National Pupil Database (NPD) is a key DfE data store, covering education,
+      skills and children services data for individual learners in England.
     </p>
-
-    <h3 class="govuk-heading-s">Saving a list of favourite data items</h3>
-    <p>If you would like to save your favourite data items you can use ‘My List’.</p>
-
+    <p class="govuk-body-m">
+      Use this tool to find and explore data in the NPD before applying to access
+      DfE data extracts.
+    </p>
     <p>
       <a href="<%= categories_path %>" role="button" draggable="false" class="govuk-button govuk-button--start">
         Start now
@@ -50,5 +76,57 @@
         </svg>
       </a>
     </p>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5">
+    <h2 class="govuk-heading-m">How to use the tool</h2>
+
+    <p class="govuk-body">There are two ways you can explore the type of data the NPD holds:</p>
+
+    <h3 class="govuk-heading-s">Browsing via categories</h3>
+
+    <p class="govuk-body">Browsing the tool using the 4 high level categories:</p>
+    <ul class="govuk-body">
+      <li>attainment</li>
+      <li>demographics</li>
+      <li>absence and exclusion</li>
+      <li>children in need and children looked after</li>
+    </ul>
+    <p class="govuk-body">
+      You can then search for more precise categories until you find the group of
+      data items in which you are interested.
+    </p>
+    <p class="govuk-body">
+      For example, the 'Authorised absence due to study leave' contains 6 similar
+      data items.
+    </p>
+    <p class="govuk-body">
+      You can also find specific categories using a simple text search.
+    </p>
+
+    <h3 class="govuk-heading-s">Browsing via datasets</h3>
+
+    <p class="govuk-body">
+      If you are a more experienced user, you may want to search for the data items
+      you are interested in using the names of the DfE collections as we hold them in the NPD.
+    </p>
+    <p class="govuk-body">
+      There are 23 collections within NPD – for example the termly School Census.
+    </p>
+
+    <h3 class="govuk-heading-s">Saving a list of favourite data items</h3>
+    <p>If you would like to save your favourite data items you can use ‘My List’.</p>
+
+    <div class="app-contact-panel">
+      <h2 class="govuk-heading-s app-contact-panel__heading">Explore the topic</h2>
+      <p class="govuk-body app-contact-panel__body">
+        <a href="<%= Rails.configuration.outgoing_links.dig('govuk_education') %>"
+           target="_blank" rel="external" data-outgoing-page="Education, Training and Skills page on GOV.uk">
+           Education, Training and Skills
+        </a>
+      </p>
+    </div>
   </div>
 </div>

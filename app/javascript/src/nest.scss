@@ -1,4 +1,4 @@
-@import 'node_modules/govuk-frontend/settings/all';
+@import 'node_modules/govuk-frontend/govuk/settings/all';
 @import 'colours';
 
 // jQuery Nestable
@@ -67,12 +67,12 @@ button.dd-collapse {
 }
 
 .dd-handle {
-  background: -webkit-gradient(linear, left top, left bottom, from(govuk-colour('grey-4')), to(govuk-colour('grey-3')));
-  background: -webkit-linear-gradient(top, govuk-colour('grey-4') 0%, govuk-colour('grey-3') 100%);
-  background: -o-linear-gradient(top, govuk-colour('grey-4') 0%, govuk-colour('grey-3') 100%);
-  background: linear-gradient(to bottom, govuk-colour('grey-4') 0%, govuk-colour('grey-3') 100%);
-  background: govuk-colour('grey-4');
-  border: 1px solid govuk-colour('grey-2');
+  background: -webkit-gradient(linear, left top, left bottom, from(govuk-colour('light-grey')), to(govuk-colour('mid-grey')));
+  background: -webkit-linear-gradient(top, govuk-colour('light-grey') 0%, govuk-colour('mid-grey') 100%);
+  background: -o-linear-gradient(top, govuk-colour('light-grey') 0%, govuk-colour('mid-grey') 100%);
+  background: linear-gradient(to bottom, govuk-colour('light-grey') 0%, govuk-colour('mid-grey') 100%);
+  background: govuk-colour('light-grey');
+  border: 1px solid govuk-colour('mid-grey');
   -webkit-border-radius: 3px;
   border-radius: 3px;
   -moz-box-sizing: border-box;
@@ -135,7 +135,7 @@ button.dd-collapse {
 }
 
 .dd-empty {
-  border: 1px dashed govuk-colour('grey-2');
+  border: 1px dashed govuk-colour('mid-grey');
   min-height: 100px;
   background-image: -webkit-linear-gradient(45deg, govuk-colour('white') 25%, transparent 25%, transparent 75%, govuk-colour('white') 75%, govuk-colour('white')),
                     -webkit-linear-gradient(45deg, govuk-colour('white') 25%, transparent 25%, transparent 75%, govuk-colour('white') 75%, govuk-colour('white'));
@@ -165,8 +165,8 @@ button.dd-collapse {
 
 .nestable-lists {
   border: 0;
-  border-bottom: 2px solid govuk-colour('grey-3');
-  border-top: 2px solid govuk-colour('grey-3');
+  border-bottom: 2px solid govuk-colour('light-grey');
+  border-top: 2px solid govuk-colour('light-grey');
   clear: both;
   display: block;
   padding: 30px 0;
@@ -193,15 +193,15 @@ button.dd-collapse {
 #nestable2 .dd-handle {
   color: govuk-colour('white');
   border: 1px solid $grey-1-2;
-  background: govuk-colour('grey-2');
-  background: -webkit-gradient(linear, left top, left bottom, from(govuk-colour('grey-2')), to($grey-1-2));
-  background: -webkit-linear-gradient(top, govuk-colour('grey-2') 0%, $grey-1-2 100%);
-  background: -o-linear-gradient(top, govuk-colour('grey-2') 0%, $grey-1-2 100%);
-  background: linear-gradient(to bottom, govuk-colour('grey-2') 0%, $grey-1-2 100%);
+  background: govuk-colour('mid-grey');
+  background: -webkit-gradient(linear, left top, left bottom, from(govuk-colour('mid-grey')), to($grey-1-2));
+  background: -webkit-linear-gradient(top, govuk-colour('mid-grey') 0%, $grey-1-2 100%);
+  background: -o-linear-gradient(top, govuk-colour('mid-grey') 0%, $grey-1-2 100%);
+  background: linear-gradient(to bottom, govuk-colour('mid-grey') 0%, $grey-1-2 100%);
 }
 
 #nestable2 .dd-handle:hover {
-  background: govuk-colour('grey-2');
+  background: govuk-colour('mid-grey');
 }
 
 #nestable2 .dd-item > button:before {
@@ -226,12 +226,12 @@ button.dd-collapse {
 // Nestable Draggable Handles
 
 .dd3-content {
-  background: -webkit-gradient(linear, left top, left bottom, from(govuk-colour('grey-4')), to(govuk-colour('grey-3')));
-  background: -webkit-linear-gradient(top, govuk-colour('grey-4') 0%, govuk-colour('grey-3') 100%);
-  background: -o-linear-gradient(top, govuk-colour('grey-4') 0%, govuk-colour('grey-3') 100%);
-  background: linear-gradient(to bottom, govuk-colour('grey-4') 0%, govuk-colour('grey-3') 100%);
-  background: govuk-colour('grey-4');
-  border: 1px solid govuk-colour('grey-2');
+  background: -webkit-gradient(linear, left top, left bottom, from(govuk-colour('light-grey')), to(govuk-colour('mid-grey')));
+  background: -webkit-linear-gradient(top, govuk-colour('light-grey') 0%, govuk-colour('mid-grey') 100%);
+  background: -o-linear-gradient(top, govuk-colour('light-grey') 0%, govuk-colour('mid-grey') 100%);
+  background: linear-gradient(to bottom, govuk-colour('light-grey') 0%, govuk-colour('mid-grey') 100%);
+  background: govuk-colour('light-grey');
+  border: 1px solid govuk-colour('mid-grey');
   -webkit-border-radius: 3px;
   border-radius: 3px;
   -moz-box-sizing: border-box;
@@ -259,12 +259,12 @@ button.dd-collapse {
 }
 
 .dd3-handle {
-  background: -webkit-gradient(linear, left top, left bottom, from(govuk-colour('grey-3')), to(govuk-colour('grey-2')));
-  background: -webkit-linear-gradient(top, govuk-colour('grey-3') 0%, govuk-colour('grey-2') 100%);
-  background: -o-linear-gradient(top, govuk-colour('grey-3') 0%, govuk-colour('grey-2') 100%);
-  background: linear-gradient(to bottom, govuk-colour('grey-3') 0%, govuk-colour('grey-2') 100%);
-  background: govuk-colour('grey-3');
-  border: 1px solid govuk-colour('grey-2');
+  background: -webkit-gradient(linear, left top, left bottom, from(govuk-colour('light-grey')), to(govuk-colour('mid-grey')));
+  background: -webkit-linear-gradient(top, govuk-colour('light-grey') 0%, govuk-colour('mid-grey') 100%);
+  background: -o-linear-gradient(top, govuk-colour('light-grey') 0%, govuk-colour('mid-grey') 100%);
+  background: linear-gradient(to bottom, govuk-colour('light-grey') 0%, govuk-colour('mid-grey') 100%);
+  background: govuk-colour('light-grey');
+  border: 1px solid govuk-colour('mid-grey');
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   cursor: pointer;
@@ -279,7 +279,7 @@ button.dd-collapse {
 }
 
 .dd3-handle:before {
-  color: govuk-colour('grey-1');
+  color: govuk-colour('dark-grey');
   content: '≡';
   display: block;
   font-size: 20px;
@@ -293,7 +293,7 @@ button.dd-collapse {
 }
 
 .dd3-handle:hover {
-  background: govuk-colour('grey-3');
+  background: govuk-colour('light-grey');
 }
 
 .dd3-content .links {

@@ -1,5 +1,5 @@
 .variable-description {
-  background: govuk-colour('grey-4');
+  background: govuk-colour('light-grey');
   margin-bottom: -10px !important;
   margin-top: -10px;
   padding: 1em .5em;
@@ -40,7 +40,7 @@ table td .tooltip {
 
   table td,
   table th {
-    border-bottom: 1px solid govuk-colour('grey-3');
+    border-bottom: 1px solid govuk-colour('mid-grey');
     display: block;
     min-height: 1.2em;
     text-align: right;
