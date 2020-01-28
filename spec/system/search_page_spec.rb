@@ -10,6 +10,10 @@ RSpec.describe 'Search pages', type: :system do
 
     create(:category, :with_subcategories_concepts_and_data_elements)
     create(:category, :with_subcategories_concepts_and_data_elements)
+    no_category = Category.find_or_create_by(name: 'No Category')
+    Concept.find_or_create_by(name: 'No Concept', category: no_category) do |concept|
+      concept.description = 'This Concept is used to house data elements that are waiting to be categorised'
+    end
     PgSearch::Multisearch.rebuild(Category)
     PgSearch::Multisearch.rebuild(Concept)
   end
@@ -20,7 +24,7 @@ RSpec.describe 'Search pages', type: :system do
   end
 
   it 'Will not find categories' do
-    category = Category.first.root.children.first
+    category = Category.where.not(name: 'No Category').first.root.children.first
     visit '/categories'
     fill_in('search', with: category.name)
     click_button('Search')
@@ -33,7 +37,7 @@ RSpec.describe 'Search pages', type: :system do
   end
 
   it 'Will find concepts' do
-    concept = Concept.first
+    concept = Concept.where.not(name: 'No Concept').first
     visit '/categories'
     fill_in('search', with: concept.name)
     click_button('Search')
@@ -43,6 +47,18 @@ RSpec.describe 'Search pages', type: :system do
     expect(page).to have_text("Results for '#{concept.name}'")
     expect(page).to have_text(concept.category.name.upcase)
     expect(page).to have_text(concept.description)
+  end
+
+  it 'Will not find no concept' do
+    concept = Concept.find_by(name: 'No Concept')
+    visit '/categories'
+    fill_in('search', with: concept.name)
+    click_button('Search')
+
+    expect(page).to have_field('search')
+    expect(page).to have_title('Search results - GOV.UK')
+    expect(page).to have_text("Results for '#{concept.name}'")
+    expect(page).to have_text('No result found')
   end
 
   it 'Will find concepts by element' do
