@@ -29,7 +29,8 @@ class DataElementDashboard < Administrate::BaseDashboard
     npd_alias: Field::String,
     data_type: Field::String,
     educational_phase: Field::String,
-    datasets: HasManySortedField.with_options(order: %i[name])
+    datasets: HasManySortedField.with_options(order: %i[name]),
+    dataset: Field::String
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -38,8 +39,8 @@ class DataElementDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    source_table_name
-    source_attribute_name
+    dataset
+    npd_alias
     concept
     datasets
   ].freeze
