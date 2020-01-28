@@ -3,7 +3,6 @@
     <div class="govuk-checkboxes govuk-checkboxes--small fixed-checkbox">
       <div class="govuk-checkboxes__item">
         <input class="govuk-checkboxes__input" id="select-all" name="selectAll" type="checkbox" value="all">
-        <label class="govuk-label govuk-checkboxes__label" for="all"></label>
         <%= check_box_tag 'data_element[]', 'all', false,
           id: 'data-element-all', class: %w[govuk-checkboxes__input basket-checkbox-all] %>
         <%= label_tag 'data-element-all', class: %w[govuk-label govuk-checkboxes__label] do %>
