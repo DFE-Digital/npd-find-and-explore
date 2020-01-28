@@ -52,6 +52,13 @@ class RemoveTranslations < ActiveRecord::Migration[5.2]
         AND dataset_translations.locale = 'en'
     UPDATE_DATASETS
 
+    # 2020-01-28 moved here from the previous migration following the removal of
+    # the Globalize gem
+    Rails.configuration.datasets.each do |dataset|
+      Dataset.create!(name: dataset['name'], tab_name: dataset['tab_name'],
+                      tab_type: dataset['type'], description: dataset['description'])
+    end
+
     # remove translation tables
     drop_table :category_translations
     drop_table :concept_translations
