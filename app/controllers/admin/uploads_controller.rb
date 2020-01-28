@@ -8,11 +8,11 @@ module Admin
 
       @data_table_uploads = DataTable::Upload
         .where(successful: true)
-        .order(created_at: :desc)
+        .reorder(created_at: :desc)
         .includes(%i[admin_user])
       @inf_arch_uploads = InfArch::Upload
         .where(successful: true)
-        .order(created_at: :desc)
+        .reorder(created_at: :desc)
         .includes(%i[admin_user])
     end
 
