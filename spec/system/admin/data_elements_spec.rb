@@ -24,8 +24,8 @@ RSpec.describe 'Admin Data Elements', type: :system do
     visit '/admin/data_elements'
 
     expect(page).to have_text('Data Elements')
-    expect(page).to have_text('Source Table Name')
-    expect(page).to have_text('Source Attribute Name')
+    expect(page).to have_text('Dataset')
+    expect(page).to have_text('NPD Alias')
     expect(page).to have_text('Concept')
   end
 
