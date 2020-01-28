@@ -8,14 +8,16 @@ class CreateCategories < ActiveRecord::Migration[5.2]
       t.references :parent, type: :uuid, index: true, foreign_key: { to_table: :categories }
     end
 
-    reversible do |dir|
-      dir.up do
-        Category.create_translation_table! name: :string, description: :text
-      end
+    create_table :category_translations do |t|
+      t.references :category, null: false, index: false, type: :uuid
+      t.string     :locale, null: false
+      t.string     :name
+      t.text       :description
 
-      dir.down do
-        Category.drop_translation_table!
-      end
+      t.timestamps
     end
+
+    add_index :category_translations, :category_id, name: :index_category_translations_on_category_id
+    add_index :category_translations, :locale, name: :index_category_translations_on_locale
   end
 end

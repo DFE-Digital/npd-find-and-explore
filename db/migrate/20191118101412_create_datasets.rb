@@ -15,12 +15,24 @@ class CreateDatasets < ActiveRecord::Migration[5.2]
       t.index %i[dataset_id data_element_id], unique: true
     end
 
-    Dataset.create_translation_table! name: :string, description: :text
+    create_table :dataset_translations do |t|
+      t.references :dataset, null: false, index: false, type: :uuid
+      t.string     :locale, null: false
+      t.string     :name
+      t.text       :description
 
-    Rails.configuration.datasets.each do |dataset|
-      Dataset.create!(name: dataset['name'], tab_name: dataset['tab_name'],
-                      tab_type: dataset['type'], description: dataset['description'])
+      t.timestamps
     end
+
+    add_index :dataset_translations, :dataset_id, name: :index_dataset_translations_on_dataset_id
+    add_index :dataset_translations, :locale, name: :index_dataset_translations_on_locale
+
+    # 2020-01-28 Kept as historical documentation and moved to a later migration,
+    # as removing the Globalize gem renders this inoperable at this point of the development
+    # Rails.configuration.datasets.each do |dataset|
+    #   Dataset.create!(name: dataset['name'], tab_name: dataset['tab_name'],
+    #                   tab_type: dataset['type'], description: dataset['description'])
+    # end
 
     remove_column :data_table_rows, :tab_name
     remove_column :data_elements, :tab_name
@@ -38,7 +50,7 @@ class CreateDatasets < ActiveRecord::Migration[5.2]
     add_column :data_elements, :tab_name, :string
     add_column :data_table_rows, :tab_name, :string
 
-    Dataset.drop_translation_table!
+    drop_table :dataset_translations
     drop_join_table :datasets, :data_elements
     drop_table :datasets
   end
