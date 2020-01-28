@@ -3,4 +3,6 @@
 # set / to the service start page
 HighVoltage.configure do |config|
   config.route_drawer = HighVoltage::RouteDrawers::Root
+
+  config.home_page = 'start'
 end
