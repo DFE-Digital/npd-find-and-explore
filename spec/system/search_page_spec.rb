@@ -10,6 +10,10 @@ RSpec.describe 'Search pages', type: :system do
 
     create(:category, :with_subcategories_concepts_and_data_elements)
     create(:category, :with_subcategories_concepts_and_data_elements)
+    no_category = Category.find_or_create_by(name: 'No Category')
+    Concept.find_or_create_by(name: 'No Concept', category: no_category) do |concept|
+      concept.description = 'This Concept is used to house data elements that are waiting to be categorised'
+    end
     PgSearch::Multisearch.rebuild(Category)
     PgSearch::Multisearch.rebuild(Concept)
   end
@@ -20,7 +24,7 @@ RSpec.describe 'Search pages', type: :system do
   end
 
   it 'Will not find categories' do
-    category = Category.first.root.children.first
+    category = Category.where.not(name: 'No Category').first.root.children.first
     visit '/categories'
     fill_in('search', with: category.name)
     click_button('Search')
@@ -33,7 +37,7 @@ RSpec.describe 'Search pages', type: :system do
   end
 
   it 'Will find concepts' do
-    concept = Concept.first
+    concept = Concept.where.not(name: 'No Concept').first
     visit '/categories'
     fill_in('search', with: concept.name)
     click_button('Search')
@@ -43,6 +47,18 @@ RSpec.describe 'Search pages', type: :system do
     expect(page).to have_text("Results for '#{concept.name}'")
     expect(page).to have_text(concept.category.name.upcase)
     expect(page).to have_text(concept.description)
+  end
+
+  it 'Will not find no concept' do
+    concept = Concept.find_by(name: 'No Concept')
+    visit '/categories'
+    fill_in('search', with: concept.name)
+    click_button('Search')
+
+    expect(page).to have_field('search')
+    expect(page).to have_title('Search results - GOV.UK')
+    expect(page).to have_text("Results for '#{concept.name}'")
+    expect(page).to have_text('No result found')
   end
 
   it 'Will find concepts by element' do
@@ -61,7 +77,7 @@ RSpec.describe 'Search pages', type: :system do
     before do
       datasets = Dataset.limit(6).to_a
       cla = [true, false]
-      Concept.all.each_with_index do |concept, i|
+      Concept.where.not(name: 'No Concept').all.each_with_index do |concept, i|
         concept.data_elements.each_with_index do |de, j|
           de.update(academic_year_collected_from: 1990 + j + (10 * i),
                     academic_year_collected_to: 1995 + j + (10 * i),
@@ -74,16 +90,17 @@ RSpec.describe 'Search pages', type: :system do
     end
 
     it 'Will filter concepts by category' do
+      concept = Concept.where.not(name: 'No Concept').first
       visit '/categories'
       fill_in('search', with: 'FSM')
       click_button('Search')
 
       expect(page).to have_text('Showing all 2 results')
 
-      check("category_id-#{Concept.first.category_id}", allow_label_click: true)
+      check("category_id-#{concept.category_id}", allow_label_click: true)
       expect(page).to have_text('Displaying 1 result')
-      expect(page).to have_text(Concept.first.category.name.upcase)
-      expect(page).to have_text(Concept.first.description)
+      expect(page).to have_text(concept.category.name.upcase)
+      expect(page).to have_text(concept.description)
     end
 
     it 'Will filter concepts by years' do
@@ -99,8 +116,9 @@ RSpec.describe 'Search pages', type: :system do
     end
 
     it 'Will filter concepts by tab names' do
-      Concept.first.data_elements.each { |de| de.update(datasets: [Dataset.first]) }
-      Concept.last.data_elements.each { |de| de.update(datasets: [Dataset.last]) }
+      concepts = Concept.where.not(name: 'No Concept')
+      concepts.first.data_elements.each { |de| de.update(datasets: [Dataset.first]) }
+      concepts.last.data_elements.each { |de| de.update(datasets: [Dataset.last]) }
       PgSearch::Multisearch.rebuild(Concept)
 
       visit '/categories'

@@ -16,8 +16,10 @@ class SearchController < ApplicationController
 private
 
   def search
+    no_category_id = Category.find_by(name: 'No Category')&.id
     PgSearch.multisearch(search_params[:search])
             .where(searchable_type: 'Concept')
+            .where.not(searchable_name: 'No Concept', searchable_category_id: no_category_id)
             .includes(searchable: %i[data_elements category])
   end
 
