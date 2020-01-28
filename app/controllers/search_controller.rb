@@ -18,6 +18,7 @@ private
   def search
     PgSearch.multisearch(search_params[:search])
             .where(searchable_type: 'Concept')
+            .where.not(searchable_name: 'No Concept')
             .includes(searchable: %i[data_elements category])
   end
 
