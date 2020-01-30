@@ -30,7 +30,7 @@ class DataElementDashboard < Administrate::BaseDashboard
     data_type: Field::String,
     educational_phase: Field::String,
     datasets: HasManySortedField.with_options(order: %i[name]),
-    dataset: Field::String
+    dataset: Field::String.with_options(searchable: false)
   }.freeze
 
   # COLLECTION_ATTRIBUTES
