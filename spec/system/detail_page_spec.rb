@@ -35,10 +35,10 @@ RSpec.describe 'Category hierarchy', type: :system do
 
     expect(page).to have_text('These data elements might not be available for research purposes')
     expect(page)
-      .to have_link('4 exemptions',
+      .to have_link('the exemptions',
                     href: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
     expect(page).to have_text('The data in some or all of these variables has an identification risk of 1 or 2.')
-    expect(page).to have_text('As a researcher, this data is only available if you meet one or more of 4 exemptions following a successful application.')
+    expect(page).to have_text('As a researcher, this data is only available if you meet one or more of the exemptions following a successful application.')
   end
 
   it 'Shows the "not available" message when at least one has identifiability rating = 2' do
@@ -48,10 +48,10 @@ RSpec.describe 'Category hierarchy', type: :system do
 
     expect(page).to have_text('These data elements might not be available for research purposes')
     expect(page)
-      .to have_link('4 exemptions',
+      .to have_link('the exemptions',
                     href: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
     expect(page).to have_text('The data in some or all of these variables has an identification risk of 1 or 2.')
-    expect(page).to have_text('As a researcher, this data is only available if you meet one or more of 4 exemptions following a successful application.')
+    expect(page).to have_text('As a researcher, this data is only available if you meet one or more of the exemptions following a successful application.')
   end
 
   it 'Does not shows the "not available" message when identifiability rating > 2' do
@@ -59,7 +59,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     visit concept_path(concept)
 
     expect(page)
-      .not_to have_link('4 exemptions',
+      .not_to have_link('the exemptions',
                         href: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts')
   end
 
