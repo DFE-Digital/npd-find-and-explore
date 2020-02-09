@@ -85,7 +85,7 @@ en:
     panel: My list
     my_list:
       title: My list
-      description: <p>You can export these data elements into a .xlsx file. If you’re %{link} to DfE data, please attach the file to an email along with your completed application form.</p><p>Please complete the <strong>‘Years required’</strong> fields and then click <strong>‘Export to .xlsx file’</strong>.</p>
+      description: You can export these data elements into a .xlsx file. If you’re %{link} to DfE data, please attach the file to an email along with your completed application form.</p><p>Please complete the <strong>‘Years required’</strong> fields and then click <strong>‘Export to .xlsx file’</strong>.
       link: applying for access
       no_elements: You currently have no elements saved in your list
       additional_notes: Additional notes
