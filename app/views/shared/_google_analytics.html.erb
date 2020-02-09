@@ -50,7 +50,9 @@
         });
       }
 
-      $('a[data-outgoing-link]').each(function(node) {
+      var outgoing = document.querySelectorAll('a[data-outgoing-link]')
+      for(var i = 0; i < outgoing.length; i++) {
+        var node = outgoing[i]
         node.addEventListener('click', function(event) {
           var target = event.currentTarget;
           gtag('event', target.innerText, {
@@ -61,7 +63,7 @@
             title: target.innerText,
           });
         });
-      });
+      };
     });
   <%- end %>
   <!-- End Google Analytics -->
