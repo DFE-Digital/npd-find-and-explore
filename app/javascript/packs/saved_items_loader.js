@@ -30,17 +30,17 @@ $(document).ready(function() {
         $('#govuk-box-message').hide()
         window.loader.stop()
         $('.saved_items_table').html(response)
-        document.querySelectorAll('.years-required').forEach(function(element) {
+        $('.years-required').each(function(idx, element) {
           element.addEventListener('change', validateDateRange)
           element.dispatchEvent(new Event('change'))
         })
-        document.querySelectorAll('.additional-notes').forEach(function(element) {
+        $('.additional-notes').each(function(idx, element) {
           element.addEventListener('change', persistAdditionalNotes)
         })
-        document.querySelectorAll('.item-remove').forEach(function(element) {
+        $('.item-remove').each(function(idx, element) {
           element.addEventListener('click', removeFromMetadata)
         })
-        document.querySelectorAll('.dataset-remove').forEach(function(element) {
+        $('.dataset-remove').each(function(idx, element) {
           element.addEventListener('click', removeDatasetFromMetadata)
         })
 

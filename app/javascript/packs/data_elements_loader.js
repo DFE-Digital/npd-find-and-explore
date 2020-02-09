@@ -28,7 +28,7 @@ $(document).ready(function() {
 
         $('.govuk-table__body').html(response)
         initializeOverlays()
-        document.querySelectorAll('.basket-checkbox').forEach(function(element) {
+        $('.basket-checkbox').each(function(idx, element) {
           if (selectedElementKeys.indexOf(element.dataset.id) > -1) {
             checkboxToLabel(element)
           } else {

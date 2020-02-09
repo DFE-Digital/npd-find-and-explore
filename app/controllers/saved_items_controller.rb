@@ -48,9 +48,10 @@ private
   end
 
   def invalid_ranges
+    current_year = Time.now.year
     @invalid_ranges ||= begin
                           ranges = elements.map do |_key, el|
-                            el.dig(:years_from) > el.dig(:years_to) ? range_error(el.dig(:npd_alias)) : nil
+                            (el.dig(:years_from) || current_year) > (el.dig(:years_to) || current_year) ? range_error(el.dig(:npd_alias)) : nil
                           end
                           ranges.compact
                         end
