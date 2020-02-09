@@ -44,8 +44,6 @@ module ApplicationHelper
 
   def sort_options
     [
-      ['Recently added', 'published'],
-      ['Recently updated', 'updated'],
       %w[Relevance relevance],
       ['A - Z', 'az']
     ]
