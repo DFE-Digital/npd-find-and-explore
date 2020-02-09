@@ -37,7 +37,7 @@ function checkAll(event) {
   } else {
     document.querySelector('#save-to-list').setAttribute('disabled', true)
   }
-  document.querySelectorAll('.basket-checkbox').forEach(function(element) {
+  $('.basket-checkbox').each(function(idx, element) {
     element.checked = checked
   })
 }
@@ -51,7 +51,7 @@ function removeFromMetadata(event) {
 function removeElementFromMetadata(target) {
   var elementsList = getElementsList()
   delete elementsList[target.id]
-  target.parentElement.parentElement.remove()
+  $(target).parents('tr').remove()
   labelToCheckbox(document.querySelector('#data-element-' + target.id))
 
   if (document.querySelector('#npd-counter')) {
@@ -64,12 +64,10 @@ function removeDatasetFromMetadata(event) {
   event.preventDefault()
   var target = event.currentTarget
 
-  document.querySelectorAll('.item-remove[data-dataset-id="' + target.id + '"]').forEach(function(element) {
+  $('.item-remove[data-dataset-id="' + target.id + '"]').each(function(idx, element) {
     removeElementFromMetadata(element)
   })
-  if (document.querySelector('table[data-dataset-id="' + target.id + '"]')) {
-    document.querySelector('table[data-dataset-id="' + target.id + '"]').remove()
-  }
+  $(target).parents('table[data-dataset-id="' + target.id + '"]').remove()
 }
 
 function removeAllFromMetadata(event) {
@@ -78,13 +76,13 @@ function removeAllFromMetadata(event) {
     return
   }
 
+  var target = event.currentTarget
   var elementsList = getElementsList()
-  document.querySelectorAll('.item-remove').forEach(function(element) {
+  $('.item-remove').each(function(idx, element) {
     removeElementFromMetadata(element)
   })
-  document.querySelectorAll('table[data-dataset-id]').forEach(function(element) {
-    element.remove()
-  })
+  $(target).parents('form').siblings('.no-elements').removeClass('hidden')
+  $(target).parents('form').remove()
 }
 
 function enableSaveButton(event) {
@@ -110,7 +108,7 @@ function addToMetadata(event) {
   var elementsList = getElementsList()
   document.querySelector('#save-to-list').setAttribute('disabled', true)
 
-  document.querySelectorAll('.basket-checkbox').forEach(function(element) {
+  $('.basket-checkbox').each(function(idx, element) {
     if (element.checked && !elementsList[element.dataset.id]) {
       elementsList[element.dataset.id] = element.dataset
       checkboxToLabel(element)
@@ -139,7 +137,7 @@ function validateDateRange(event) {
     var fromValue = parseInt(selectFrom.value)
     addDetailToList(elementId, 'yearFrom', selectFrom.value)
 
-    selectTo.querySelectorAll('option').forEach(function(option) {
+    $(selectTo).children('option').each(function(idx, option) {
       if (!option.value) { return }
 
       parseInt(option.value) >= fromValue
@@ -150,7 +148,7 @@ function validateDateRange(event) {
     var toValue = parseInt(selectTo.value)
     addDetailToList(elementId, 'yearTo', selectTo.value)
 
-    selectFrom.querySelectorAll('option').forEach(function(option) {
+    $(selectFrom).children('option').each(function(idx, option) {
       if (!option.value) { return }
 
       parseInt(option.value) <= toValue

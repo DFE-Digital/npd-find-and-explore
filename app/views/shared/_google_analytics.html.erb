@@ -50,7 +50,7 @@
         });
       }
 
-      document.querySelectorAll('a[data-outgoing-link]').forEach(function(node) {
+      $('a[data-outgoing-link]').each(function(node) {
         node.addEventListener('click', function(event) {
           var target = event.currentTarget;
           gtag('event', target.innerText, {

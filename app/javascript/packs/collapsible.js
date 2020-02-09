@@ -39,7 +39,7 @@ function addCollapseLink(element) {
 }
 
 $(document).ready(function() {
-  document.querySelectorAll('.collapsible').forEach(function(element) {
+  $('.collapsible').each(function(element) {
     if (element.clientHeight >= 144) {
       hideOverflow(element)
       addExpandLink(element)

@@ -9,7 +9,7 @@ $(document).ready(function() {
   document.querySelector('#save-to-list').addEventListener('click', addToMetadata)
   document.querySelector('#data-element-all').addEventListener('change', checkAll)
 
-  document.querySelectorAll('.basket-checkbox').forEach(function(element) {
+  $('.basket-checkbox').each(function(idx, element) {
     if (selectedElementKeys.indexOf(element.dataset.id) > -1) {
       checkboxToLabel(element)
     } else {

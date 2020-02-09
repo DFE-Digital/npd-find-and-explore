@@ -41,10 +41,11 @@
         </button>
         <span class="govuk-!-margin-left-1">or</span>
         <a href="" id="remove-all" class="govuk-!-font-size-16 govuk-!-padding-1 govuk-!-margin-bottom-1">Remove all</a>
+      </div>
     </div>
   <%- end %>
-<%- else %>
-  <div class="govuk-inset-text">
-    <%= t('saved_data.my_list.no_elements') %>
-  </div>
 <%- end %>
+
+<div class="govuk-inset-text no-elements <%= grouped_elements.any? ? 'hidden' : ''%>">
+  <%= t('saved_data.my_list.no_elements') %>
+</div>
