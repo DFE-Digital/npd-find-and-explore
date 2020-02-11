@@ -22,6 +22,10 @@ table td .tooltip {
   word-break: break-word;
 }
 
+.govuk-table__cell--break {
+  word-break: break-all;
+}
+
 @include govuk-media-query($until: tablet) {
   table thead {
     border: 0;

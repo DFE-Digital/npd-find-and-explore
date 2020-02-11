@@ -17,7 +17,7 @@
       </div>
     </div>
   </td>
-  <th data-label="Name" class="govuk-table__header" scope="row">
+  <th data-label="Name" class="govuk-table__header govuk-table__cell--break" scope="row">
     <%= data_element_row.title %>
   </th>
   <td data-label="Old name" class="govuk-table__cell govuk-table__cell--numeric">
@@ -42,7 +42,7 @@
       tooltip: t('concepts.show.identifiability.tooltip') %>
     <%= data_element_row&.identifiability %>
   </td>
-  <td data-label="Value" class="govuk-table__cell govuk-table__cell--numeric">
+  <td data-label="Value" class="govuk-table__cell govuk-table__cell--numeric govuk-table__cell--break">
     <%- if /\n/ =~ data_element_row.values %>
       <div class="overlay-parent">
         <a href="#" class="codeset" aria-describedby="codeset-<%= data_element_row.title.downcase %>" title="Codeset for <%= data_element_row.title %>">
