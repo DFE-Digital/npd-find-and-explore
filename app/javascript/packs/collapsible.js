@@ -39,10 +39,12 @@ function addCollapseLink(element) {
 }
 
 $(document).ready(function() {
-  $('.collapsible').each(function(element) {
+  var collapsible = document.querySelectorAll('.collapsible')
+  for(var i = 0; i < collapsible.length; i++) {
+    var element = collapsible[i]
     if (element.clientHeight >= 144) {
       hideOverflow(element)
       addExpandLink(element)
     }
-  })
+  }
 })

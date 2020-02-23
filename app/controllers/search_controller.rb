@@ -84,7 +84,7 @@ private
                  '(? <= searchable_year_to AND searchable_year_from IS NULL))')
       query_params.push(year, year, year)
     end
-    results.where(["(#{query.join(' OR ')})"].concat(query_params))
+    results.where(["(#{query.join(' AND ')})"].concat(query_params))
   end
 
   def filter_tab_names(results, tab_names)
@@ -111,17 +111,21 @@ private
   def build_years_tabs(data_elements, active_data_elements)
     years = []
     tabs = []
-    active_years = (active_data_elements.map(&:academic_year_collected_from) +
-             active_data_elements.map(&:academic_year_collected_to)).compact.uniq
     active_tabs = active_data_elements.map(&:datasets).map(&:to_a).flatten.map(&:tab_name).compact.uniq
     data_elements.each do |de|
-      years.push(year: de.academic_year_collected_from, active: active_years.include?(de.academic_year_collected_from)) if de.academic_year_collected_from
-      years.push(year: de.academic_year_collected_to, active: active_years.include?(de.academic_year_collected_to)) if de.academic_year_collected_to
+      years.push(collect_years(de, active_data_elements.include?(de)))
       de.datasets.map(&:tab_name).each do |tab|
         tabs.push(tab: tab, active: active_tabs.include?(tab))
       end
     end
-    [years.flatten.uniq { |y| y[:year] }.sort { |a, b| a[:year] <=> b[:year] },
-     tabs.flatten.uniq { |t| t[:tab] }.sort { |a, b| a[:tab] <=> b[:tab] }]
+    [years.flatten.sort { |a, b| (a[:active] ? 0 : 1) <=> (b[:active] ? 0 : 1) }.uniq { |y| y[:year] }.sort { |a, b| a[:year] <=> b[:year] },
+     tabs.flatten.sort { |a, b| (a[:active] ? 0 : 1) <=> (b[:active] ? 0 : 1) }.uniq { |t| t[:tab] }.sort { |a, b| a[:tab] <=> b[:tab] }]
+  end
+
+  def collect_years(de, active)
+    current_year = Time.now.year
+    ((de.academic_year_collected_from || current_year)..(de.academic_year_collected_to || current_year)).map do |year|
+      { year: year, active: active }
+    end
   end
 end
