@@ -122,9 +122,9 @@ private
      tabs.flatten.sort { |a, b| (a[:active] ? 0 : 1) <=> (b[:active] ? 0 : 1) }.uniq { |t| t[:tab] }.sort { |a, b| a[:tab] <=> b[:tab] }]
   end
 
-  def collect_years(de, active)
+  def collect_years(data_element, active)
     current_year = Time.now.year
-    ((de.academic_year_collected_from || current_year)..(de.academic_year_collected_to || current_year)).map do |year|
+    ((data_element.academic_year_collected_from || current_year)..(data_element.academic_year_collected_to || current_year)).map do |year|
       { year: year, active: active }
     end
   end
