@@ -135,8 +135,8 @@ class Concept < Versioned
       AS content,
       concepts.name AS searchable_name,
       category_id AS searchable_category_id,
-      min(data_elements.academic_year_collected_from) AS searchable_year_from,
-      max(data_elements.academic_year_collected_to) AS searchable_year_to,
+      min(coalesce(data_elements.academic_year_collected_from, date_part('year', current_timestamp))) AS searchable_year_from,
+      max(coalesce(data_elements.academic_year_collected_to, date_part('year', current_timestamp))) AS searchable_year_to,
       array_agg(DISTINCT(datasets.tab_name)) AS searchable_tab_names,
       array_agg(DISTINCT(data_elements.is_cla)) AS searchable_is_cla,
       MIN(concepts.created_at) AS searchable_created_at,
@@ -157,6 +157,7 @@ class Concept < Versioned
   end
 
   def extract_complex_fields
+    current_year = Time.now.year
     data_elements_headers = []
     data_elements_body = []
     data_elements_years_from = []
@@ -166,8 +167,8 @@ class Concept < Versioned
     data_elements.each do |de|
       data_elements_headers.push([de.source_table_name, de.source_attribute_name].join(' '))
       data_elements_body.push([de.description, de.npd_alias, de.source_old_attribute_name, de.data_type].join(' '))
-      data_elements_years_from.push(de.academic_year_collected_from) if de.academic_year_collected_from.present?
-      data_elements_years_to.push(de.academic_year_collected_to) if de.academic_year_collected_to.present?
+      data_elements_years_from.push(de.academic_year_collected_from.present? ? de.academic_year_collected_from : current_year)
+      data_elements_years_to.push(de.academic_year_collected_to.present? ? de.academic_year_collected_to : current_year)
       data_elements_tab_names.push(de.datasets.map(&:tab_name))
       data_elements_is_cla.push(de.is_cla) if de.is_cla.present?
     end
