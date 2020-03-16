@@ -22,7 +22,7 @@ gem 'high_voltage', '~> 3.1'
 gem 'ancestry', '~> 3.0'
 
 # Lightweight admin functionality
-gem 'administrate', '~> 0.12', '>= 0.12.0'
+gem 'administrate', '~> 0.13', '>= 0.13.0'
 
 # Breadcrumb navigation
 gem 'loaf', '~> 0.8.1'
