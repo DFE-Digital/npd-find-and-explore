@@ -5,35 +5,10 @@
   z-index: 4;
 }
 
-.sticky-save-to-list {
-  background-color: govuk-colour('white');
-  margin-bottom: .5em;
-  margin-top: .5em;
-  position: sticky;
-  top: 3.5rem;
-  z-index: 2;
-
-  button {
-    margin-bottom: 0;
-  }
-}
-
-.save-to-list-title {
-  float: right;
-  position: relative;
-  top: -3.5rem;
-  z-index: 3;
-
-  .overflow {
-    max-height: 4rem;
-    overflow: visible;
-  }
-}
-
 .sticky-data-elements-header th {
   background-color: govuk-colour('white');
   padding: .4em .6em .3em 0;
   position: sticky;
-  top: 5.7rem;
+  top: 3.6rem;
   z-index: 1;
 }
