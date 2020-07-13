@@ -1,6 +1,6 @@
 import '../src/loader.scss'
 import '../src/loader.js'
-import { getElementsList, checkboxToLabel, enableSaveButton } from '../src/basket.js'
+import { getElementsList, toggleMetadata } from '../src/basket.js'
 import { initializeOverlays } from '../src/overlay.js'
 import $ from 'jquery'
 
@@ -30,10 +30,10 @@ $(document).ready(function() {
         initializeOverlays()
         $('.basket-checkbox').each(function(idx, element) {
           if (selectedElementKeys.indexOf(element.dataset.id) > -1) {
-            checkboxToLabel(element)
-          } else {
-            element.addEventListener('change', enableSaveButton)
+            element.checked = true
           }
+
+          element.addEventListener('change', toggleMetadata)
         })
       }, 500)
     }
