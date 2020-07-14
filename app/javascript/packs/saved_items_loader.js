@@ -16,7 +16,12 @@ $(document).ready(function() {
 
   var selectedElements = getElementsList()
 
-  var token = document.querySelector('meta[name="csrf-token"]').content
+  var meta = document.querySelector('meta[name="csrf-token"]')
+  var token = ''
+  if (meta) {
+    token = meta.content
+  }
+
   $.ajax({
     type: 'POST',
     url: location.pathname.replace(/saved_items/, 'saved_items/saved_items'),
