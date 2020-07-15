@@ -6,7 +6,9 @@ RSpec.describe 'Saved Items page', type: :system do
   it 'Will show the saved items page' do
     visit '/saved_items'
     expect(page).to have_text('My list', count: 1)
-    expect(page).to have_text('You can export this list of data elements into a .xlsx file.')
+    expect(page).to have_text(
+      'You can export this list of data elements into a .xlsx or .ods file.'
+    )
   end
 
   context 'with saved items' do
@@ -28,6 +30,7 @@ RSpec.describe 'Saved Items page', type: :system do
 
       concept.data_elements.each do |element|
         expect(page).to have_text(element.npd_alias)
+        expect(page).to have_text(element.description)
       end
     end
 

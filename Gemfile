@@ -45,8 +45,11 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'roo', '~> 2.8', '>= 2.8.2'
 
 # caxlsx to generate excel files
-gem 'axlsx_rails', '>= 0.6.1'
 gem 'caxlsx', '>= 3.0.1'
+gem 'caxlsx_rails', '>= 0.6.2'
+
+# rodf to generate odf files
+gem 'rodf'
 
 # Authentication for Rails Admin
 gem 'devise', '~> 4', '>= 4.7.1'
@@ -84,9 +87,13 @@ group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.7.0'
+
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  # Calculate spec coverage
+  gem 'simplecov', require: false
 end
 
 group :test do

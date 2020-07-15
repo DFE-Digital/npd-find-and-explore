@@ -7,3 +7,4 @@
 
 # Mime::Type.register "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", :xlsx
 Mime::Type.register 'application/xlsx', :xlsx
+Mime::Type.register 'application/vnd.oasis.opendocument.spreadsheet', :ods

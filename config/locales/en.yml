@@ -85,7 +85,7 @@ en:
     panel: My list
     my_list:
       title: My list
-      description: You can export this list of data elements into a .xlsx file.
+      description: You can export this list of data elements into a .xlsx or .ods file.
       link: applying for access
       no_elements: You currently have no elements saved in your list
       additional_notes: Additional notes
