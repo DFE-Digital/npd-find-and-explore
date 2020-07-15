@@ -90,7 +90,7 @@ en:
       no_elements: You currently have no elements saved in your list
       additional_notes: Additional notes
     button: Save to my list
-    instructions: You can use the checkboxes below to save any elements you may want to add to your application
+    instructions: You can use the checkboxes below to add an element to your list
     copy_title: Saved in this session
     copy_instructions: These elements will disappear when you clear your cookies for this site or by selecting 'Remove all' below. You can output them by clicking 'Export to .xlsx file'.
 
