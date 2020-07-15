@@ -1,34 +1,66 @@
 <% data_element = element.dig(:object) %>
-<% id = element.dig(:id) %>
-<% year_from = data_element&.academic_year_collected_from || Time.now.year %>
-<% year_to = data_element&.academic_year_collected_to || Time.now.year %>
-<% years_options = (year_from..year_to).map { |y| [academic_year(y), y] } %>
+
 <tr class="govuk-table__row">
-  <th data-label="Name" class="govuk-table__header force-break" scope="row">
-    <%= link_to element.dig(:npdAlias), element.dig(:origin) %>
-    <%= hidden_field_tag "elements[#{id}][id]", id %>
-    <%= hidden_field_tag "elements[#{id}][npd_alias]", element.dig(:npdAlias) %>
+  <td class="govuk-table__header govuk-table__cell--small" scope="col">
+    <a href="remove-<%= data_element.id %>" class="item-remove" id="<%= data_element.id %>"
+        data-dataset-id="<%= dataset.id %>">
+      remove
+    </a>
+  </td>
+  <th data-label="Name" class="govuk-table__header govuk-table__cell--break" scope="row">
+    <%= hidden_field_tag "elements[#{data_element.id}][id]", data_element.id %>
+    <%= hidden_field_tag "elements[#{data_element.id}][npd_alias]", data_element.npd_alias %>
+    <%= link_to data_element.title(dataset), element.dig(:origin) %>
   </th>
+  <td data-label="Old name" class="govuk-table__cell govuk-table__cell--numeric">
+    <%= [data_element.source_old_attribute_name].join(', ') %>
+  </td>
   <td data-label="Date collected" class="govuk-table__cell govuk-table__cell--numeric">
-    <%= academic_year(year_from) %> to
-    <%= academic_year(year_to) %>
+    <%= academic_year(data_element.academic_year_collected_from) %>
+    to
+    <%= academic_year(data_element.academic_year_collected_to) %>
   </td>
-  <td data-label="Years required" class="govuk-table__cell govuk-table__cell--numeric align-left">
-    <%= select_tag "elements[#{id}][years_from]", options_for_select(years_options, element.dig(:yearFrom)),
-      include_blank: true, required: true,
-      class: %w[years-required years-required-from govuk-select govuk-!-font-size-14] %>
-    <span class="govuk-!-margin-left-2 govuk-!-margin-right-2">to</span>
-    <%= select_tag "elements[#{id}][years_to]", options_for_select(years_options, element.dig(:yearTo)),
-      include_blank: true, required: true,
-      class: %w[years-required years-required-to govuk-select govuk-!-font-size-14] %>
+  <td data-label="Sensitivity" class="govuk-table__cell govuk-table__cell--numeric">
+    <%= render 'shared/tooltip',
+      label: t('concepts.show.sensitivity.label'),
+      id: 'sensitivity-tip-before',
+      tooltip: t('concepts.show.sensitivity.tooltip') %>
+    <%= data_element&.sensitivity %>
   </td>
-  <td data-label="Additional notes" class="govuk-table__cell govuk-table__cell--numeric">
-    <%= text_field_tag "elements[#{id}][notes]", element.dig(:notes),
-      placeholder: t('saved_data.my_list.additional_notes'),
-      class: %[additional-notes govuk-input govuk-input--width-10 govuk-!-font-size-14] %>
+  <td data-label="Identification risk" class="govuk-table__cell govuk-table__cell--numeric">
+    <%= render 'shared/tooltip',
+      label: t('concepts.show.identifiability.label'),
+      id: 'identifiability-tip-before',
+      tooltip: t('concepts.show.identifiability.tooltip') %>
+    <%= data_element&.identifiability %>
   </td>
-  <td data-label="Remove" class="govuk-table__cell govuk-table__cell--numeric">
-    <a href="remove-<%= id %>" class="item-remove"
-      id="<%= id %>" data-dataset-id="<%= dataset.id %>">remove</a>
+  <td data-label="Value" class="govuk-table__cell govuk-table__cell--numeric govuk-table__cell--break">
+    <%- if /\n/ =~ data_element.values %>
+      <div class="overlay-parent">
+        <a href="#" class="codeset" aria-describedby="codeset-<%= data_element.title.downcase %>" title="Codeset for <%= data_element.title(dataset) %>">
+          Codeset<span class="codeset-specification">for <%= data_element.title(dataset) %></span>
+        </a>
+        <div class="overlay" role="overlay" id="codeset-<%= data_element.title(dataset).downcase %>">
+          <div class="overlay-content">
+            <span class="overlay-header">
+              <span>Codeset values for <%= data_element.title(dataset) %></span>
+              <a href="#" class="overlay-close">X</a>
+            </span>
+            <%- data_element.values.split("\n") do |line| %>
+              <span><%= line %></span><br />
+            <%- end %>
+          </div>
+        </div>
+      </div>
+    <%- else %>
+      <%= data_element.values %>
+    <%- end %>
+  </td>
+</tr>
+<tr class="govuk-table__row">
+  <td class="govuk-table__cell" colspan="7">
+    <p class="variable-description govuk-background__gray-4 govuk-!-font-size-16 govuk-!-margin-bottom-0">
+      <%= data_element.description %>
+    </p>
   </td>
 </tr>

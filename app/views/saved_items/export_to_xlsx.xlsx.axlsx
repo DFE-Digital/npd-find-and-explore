@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 wb = xlsx_package.workbook
-headers = ['Dataset', 'NPD Alias', 'Date Collected', 'Sensitivity', 'Identifiability',
-           'Years required', 'Notes']
+headers = ['Dataset', 'NPD Alias', 'Date Collected', 'Sensitivity',
+           'Identifiability', 'Notes']
 title = wb.styles.add_style(b: true)
 
 grouped_elements.each do |dataset, elements|
@@ -14,10 +14,10 @@ grouped_elements.each do |dataset, elements|
       sheet.add_row [
         dataset.tab_name,
         de.npd_alias,
-        "#{academic_year(de.academic_year_collected_from)} to #{academic_year(de.academic_year_collected_to)}",
+        [academic_year(de.academic_year_collected_from),
+         academic_year(de.academic_year_collected_to)].join(' to '),
         de.sensitivity,
         de.identifiability,
-        "#{academic_year(element['years_from'].to_i)} to #{academic_year(element['years_to'].to_i)}",
         element['notes']
       ].flatten
     end

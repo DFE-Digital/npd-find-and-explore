@@ -1,13 +1,26 @@
 <thead class="govuk-table__head">
-  <tr class="govuk-table__row">
-    <th data-label="Name" class="govuk-table__header govuk-!-width-three-tenths" scope="col">Name</th>
-    <th data-label="Date collected" class="govuk-table__header govuk-table__header--numeric govuk-!-width-one-tenth" scope="col">Date collected</th>
-    <th data-label="Years required" class="govuk-table__header govuk-table__header--numeric govuk-!-width-three-tenths" scope="col">
-      Years required
+  <tr class="govuk-table__row" id="data-elements-header">
+    <th class="govuk-table__header" scope="col">
     </th>
-    <th data-label="Additional notes" class="govuk-table__header govuk-table__header--numeric govuk-!-width-two-tenths" scope="col">
-      Additional notes
+    <th data-label="Name" class="govuk-table__header" scope="col">Name</th>
+    <th data-label="Old name" class="govuk-table__header govuk-table__header--numeric" scope="col">Old name</th>
+    <th data-label="Date collected" class="govuk-table__header govuk-table__header--numeric" scope="col">Date collected</th>
+    <th data-label="Sensitivity" class="govuk-table__header govuk-table__header--numeric" scope="col">
+      <%= t('concepts.show.sensitivity.label') %>
+      <%= render 'shared/tooltip',
+        label: t('concepts.show.sensitivity.label'),
+        id: 'sensitivity-tip',
+        tooltip: t('concepts.show.sensitivity.tooltip'),
+        position: 'bottom-left' %>
     </th>
-    <th data-label="Remove" class="govuk-table__header govuk-!-width-one-tenth" scope="col"></th>
+    <th data-label="Identification risk" class="govuk-table__header govuk-table__header--numeric" scope="col">
+      <%= t('concepts.show.identifiability.label') %>
+      <%= render 'shared/tooltip',
+        label: t('concepts.show.identifiability.label'),
+        id: 'identifiability-tip',
+        tooltip: t('concepts.show.identifiability.tooltip'),
+        position: 'bottom-right' %>
+    </th>
+    <th data-label="Value" class="govuk-table__header govuk-table__header--numeric" scope="col">Values</th>
   </tr>
 </thead>

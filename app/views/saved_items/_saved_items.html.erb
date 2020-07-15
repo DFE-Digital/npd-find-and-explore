@@ -15,6 +15,8 @@
       </div>
     <%- end %>
 
+    <%= render partial: 'export_bar' %>
+
     <%- grouped_elements.each do |dataset, group| %>
       <table class="govuk-table govuk-!-font-size-16" data-dataset-id="<%= dataset.id %>">
         <caption class="govuk-table__caption govuk-heading-m">
@@ -24,7 +26,7 @@
         <tbody class="govuk-table__body">
           <%= render partial: 'saved_items/element', collection: group, as: :element, locals: { dataset: dataset } %>
           <tr class="govuk-table__row">
-            <th data-label="Remove this dataset" class="govuk-table__header govuk-table__cell--numeric" scope="row" colspan="5">
+            <th data-label="Remove this dataset" class="govuk-table__header govuk-table__cell--numeric" scope="row" colspan="7">
               <a href="remove-dataset-<%= dataset.id %>" class="dataset-remove" id="<%= dataset.id %>">
                 Remove this dataset
               </a>
@@ -34,15 +36,7 @@
       </table>
     <%- end %>
 
-    <div class="govuk-grid-row govuk-!-margin-top-8" id="copyButton">
-      <div class="govuk-grid-column-full govuk-text">
-        <button id="export-to-csv" class="copy govuk-button govuk-!-margin-bottom-1" data-module="govuk-button">
-          Export to .xlsx file
-        </button>
-        <span class="govuk-!-margin-left-1">or</span>
-        <a href="" id="remove-all" class="govuk-!-font-size-16 govuk-!-padding-1 govuk-!-margin-bottom-1">Remove all</a>
-      </div>
-    </div>
+    <%= render partial: 'export_bar' %>
   <%- end %>
 <%- end %>
 
