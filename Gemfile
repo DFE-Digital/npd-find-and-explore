@@ -6,11 +6,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.1'
 
 gem 'pg', '~> 1.0'
-gem 'rails', '~> 5.2', '>= 5.2.3'
+gem 'rails', '~> 5.2', '>= 5.2.4.1'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.12'
-gem 'webpacker', '~> 4.0', '>= 4.0.7'
+gem 'webpacker', '~> 4.2', '>= 4.2.2'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
@@ -45,8 +45,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'roo', '~> 2.8', '>= 2.8.2'
 
 # caxlsx to generate excel files
-gem 'axlsx_rails', '>= 0.6.0'
-gem 'caxlsx'
+gem 'axlsx_rails', '>= 0.6.1'
+gem 'caxlsx', '>= 3.0.1'
 
 # Authentication for Rails Admin
 gem 'devise', '~> 4', '>= 4.7.1'
@@ -58,7 +58,7 @@ gem 'paper_trail', '~> 10', '>= 10.3.1'
 gem 'pg_search', '~> 2.1'
 
 # Pagination
-gem 'kaminari', '~>1.1'
+gem 'kaminari', '~> 1.1', '>= 1.1.1'
 
 # Bulk import and ActiveRecord extensions
 gem 'active_record_extended', '~>1'
