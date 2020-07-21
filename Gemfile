@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.1'
 
 gem 'pg', '~> 1.0'
-gem 'rails', '~> 5.2', '>= 5.2.4.1'
+gem 'rails', '~> 5.2', '>= 5.2.4.2'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.12', '>= 3.12.4'
@@ -91,7 +91,7 @@ end
 
 group :test do
   gem 'capybara', '>= 3.29.0'
-  gem 'coveralls', require: false
+  gem 'coveralls', '>= 0.7.1', require: false
   gem 'selenium-webdriver', '~> 3.142'
 end
 
