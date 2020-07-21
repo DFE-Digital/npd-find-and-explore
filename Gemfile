@@ -58,7 +58,7 @@ gem 'paper_trail', '~> 10', '>= 10.3.1'
 gem 'pg_search', '~> 2.1'
 
 # Pagination
-gem 'kaminari', '~> 1.1', '>= 1.1.1'
+gem 'kaminari', '~> 1.2'
 
 # Bulk import and ActiveRecord extensions
 gem 'active_record_extended', '~>1'
