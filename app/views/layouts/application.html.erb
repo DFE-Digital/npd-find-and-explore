@@ -41,7 +41,14 @@
     document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
   <%- end %>
 
-  <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
+  <div id="skiplink-container">
+    <div>
+      <a href="#main-content" class="skiplink govuk-skip-link">Skip to main content</a>
+    </div>
+  </div>
+  <!-- <a href="#main-content" class="govuk-skip-link">Skip to main content</a> -->
+
+  <%= render 'shared/cookie_banner' unless cookie_choice_page? %>
 
   <%= render 'shared/govuk_header' %>
 

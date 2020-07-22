@@ -10,3 +10,6 @@
 import '../src/application.scss'
 
 import '../src/govuk-frontend.js'
+import { initCookies } from '../src/cookies.js'
+
+initCookies()

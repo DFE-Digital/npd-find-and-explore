@@ -60,4 +60,8 @@ module ApplicationHelper
   def shared_header?
     params[:controller] != 'high_voltage/pages'
   end
+
+  def cookie_choice_page?
+    params[:controller] == 'high_voltage/pages' && params[:id] == 'cookie-preferences'
+  end
 end
