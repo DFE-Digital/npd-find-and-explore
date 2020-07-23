@@ -66,7 +66,7 @@ var cookiePreferencesSubmit = (function($) {
     setCookie('cookies_preferences_set', 'true');
     $('.success-message').show();
     $('html, body').animate({
-      scrollTop: $('.success-message').offset().top
+      scrollTop: $('header.govuk-header').offset().top
     });
   }
 })($);
