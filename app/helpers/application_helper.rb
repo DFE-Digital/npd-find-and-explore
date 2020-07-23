@@ -67,7 +67,7 @@ module ApplicationHelper
 
   def usage_cookies_allowed?
     cookies_policy = begin
-                       JSON.parse(cookies['cookies_policy'])
+                       JSON.parse(cookies['cookies_policy'] || 'INVALID')
                      rescue JSON::ParserError
                        { 'essential' => true, 'usage' => false }
                      end
