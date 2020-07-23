@@ -13,46 +13,26 @@ function addDetailToList(id, name, value) {
   localStorage.setItem('elementsList', JSON.stringify(elementsList))
 }
 
-function checkboxToLabel(element) {
-  var label = element.parentElement.previousElementSibling
-  element.parentElement.className = element.parentElement.className + ' hidden'
-  label.className = label.className.replace(/hidden/, '')
-}
-
-function labelToCheckbox(element) {
-  if (element === null) {
-    return
-  }
-
-  var label = element.parentElement.previousElementSibling
-  element.checked = false
-  element.parentElement.className = element.parentElement.className.replace(/hidden/, '')
-  label.className = label.className + ' hidden'
-}
-
 function checkAll(event) {
   var checked = event.currentTarget.checked
-  if (checked) {
-    document.querySelector('#save-to-list').removeAttribute('disabled')
-  } else {
-    document.querySelector('#save-to-list').setAttribute('disabled', true)
-  }
   $('.basket-checkbox').each(function(idx, element) {
-    element.checked = checked
+    if (element.checked != checked) {
+      $(element).trigger('click')
+    }
   })
 }
 
 function removeFromMetadata(event) {
   event.preventDefault()
+  var target = event.currentTarget
 
-  removeElementFromMetadata(event.currentTarget)
+  $(target).parents('tr').remove()
+  removeElementFromMetadata(target)
 }
 
 function removeElementFromMetadata(target) {
   var elementsList = getElementsList()
   delete elementsList[target.id]
-  $(target).parents('tr').remove()
-  labelToCheckbox(document.querySelector('#data-element-' + target.id))
 
   if (document.querySelector('#npd-counter')) {
     document.querySelector('#npd-counter').innerText = Object.keys(elementsList).length
@@ -85,40 +65,22 @@ function removeAllFromMetadata(event) {
   $(target).parents('form').remove()
 }
 
-function enableSaveButton(event) {
-  var list = document.querySelectorAll('.basket-checkbox')
-  var enable = false
-  var count = 0
-  for(var i = 0; i < list.length; i++) {
-    enable = enable || list[i].checked
-    if (list[i].checked) { count = count + 1 }
-  }
-
-  if (!enable) {
-    document.querySelector('#data-element-all').checked = false
-    document.querySelector('#save-to-list').setAttribute('disabled', true)
-  } else {
-    document.querySelector('#save-to-list').removeAttribute('disabled')
-    if (count === length)
-      document.querySelector('#data-element-all').checked = true
-  }
-}
-
-function addToMetadata(event) {
+function toggleMetadata(event) {
   var elementsList = getElementsList()
-  document.querySelector('#save-to-list').setAttribute('disabled', true)
+  var element = event.currentTarget
 
-  $('.basket-checkbox').each(function(idx, element) {
-    if (element.checked && !elementsList[element.dataset.id]) {
-      elementsList[element.dataset.id] = element.dataset
-      checkboxToLabel(element)
-    }
-  })
-  var count = Object.keys(elementsList).length
-  document.querySelector('#npd-counter').innerText = count
+  console.log('toggle metadata for', element.dataset.id)
+  if (!element.checked) {
+    removeElementFromMetadata(element.dataset)
+  } else if (!elementsList[element.dataset.id]) {
+    elementsList[element.dataset.id] = element.dataset
 
-  localStorage.setItem('elementsList', JSON.stringify(elementsList))
-  localStorage.setItem('countElements', count)
+    var count = Object.keys(elementsList).length
+    document.querySelector('#npd-counter').innerText = count
+
+    localStorage.setItem('elementsList', JSON.stringify(elementsList))
+    localStorage.setItem('countElements', count)
+  }
 }
 
 function validateDateRange(event) {
@@ -181,6 +143,6 @@ function persistAdditionalNotes(event) {
   addDetailToList(elementId, 'notes', event.currentTarget.value)
 }
 
-export { addToMetadata, checkAll, checkboxToLabel, enableSaveButton,
-         getElementsList, persistAdditionalNotes, removeAllFromMetadata,
-         removeDatasetFromMetadata, removeFromMetadata, validateDateRange }
+export { toggleMetadata, checkAll, getElementsList, persistAdditionalNotes,
+         removeAllFromMetadata, removeDatasetFromMetadata, removeFromMetadata,
+         validateDateRange }

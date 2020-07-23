@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.shared_examples 'Saved items panel' do
   it 'Has the saved items panel' do
     expect(page).to have_css('.npd-saved-data', text: 'My list')
+    expect(page).to have_css('#npd-counter', text: '0')
   end
 end
 
@@ -50,6 +51,24 @@ RSpec.describe 'Saved item list', type: :system do
         concept.data_elements.each do |element|
           expect(page).to have_css("#data-element-#{element.id}", visible: :all)
         end
+      end
+
+      it 'Will change the count when checking an element' do
+        element = concept.data_elements.first
+
+        find("#data-element-#{element.id}", visible: :all).click
+        expect(page).to have_css('#npd-counter', text: '1')
+
+        find("#data-element-#{element.id}", visible: :all).click
+        expect(page).to have_css('#npd-counter', text: '0')
+      end
+
+      it 'Will change the count when clicking the select all checkbox' do
+        find('#data-element-all', visible: :all).click
+        expect(page).to have_css('#npd-counter', text: concept.data_elements.count)
+
+        find('#data-element-all', visible: :all).click
+        expect(page).to have_css('#npd-counter', text: '0')
       end
     end
   end
