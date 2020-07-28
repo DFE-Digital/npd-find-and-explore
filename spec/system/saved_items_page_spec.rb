@@ -6,7 +6,7 @@ RSpec.describe 'Saved Items page', type: :system do
   it 'Will show the saved items page' do
     visit '/saved_items'
     expect(page).to have_text('My list', count: 1)
-    expect(page).to have_text('You can export these data elements into a .xlsx file.')
+    expect(page).to have_text('You can export this list of data elements into a .xlsx file.')
   end
 
   context 'with saved items' do
