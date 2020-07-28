@@ -1,6 +1,6 @@
 <% data_element = element.dig(:object) %>
 
-<tr class="govuk-table__row">
+<tr class="govuk-table__row" id="<%= data_element.id %>_data">
   <td class="govuk-table__header govuk-table__cell--small" scope="col">
     <a href="remove-<%= data_element.id %>" class="item-remove" id="<%= data_element.id %>"
         data-dataset-id="<%= dataset.id %>">
@@ -57,7 +57,7 @@
     <%- end %>
   </td>
 </tr>
-<tr class="govuk-table__row">
+<tr class="govuk-table__row" id="<%= data_element.id %>_description">
   <td class="govuk-table__cell" colspan="7">
     <p class="variable-description govuk-background__gray-4 govuk-!-font-size-16 govuk-!-margin-bottom-0">
       <%= data_element.description %>
