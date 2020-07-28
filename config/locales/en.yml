@@ -85,15 +85,14 @@ en:
     panel: My list
     my_list:
       title: My list
-      # description: You can export these data elements into a .xlsx file. If you’re %{link} to DfE data, please attach the file to an email along with your completed application form.</p><p>Please complete the <strong>‘Years required’</strong> fields and then click <strong>‘Export to .xlsx file’</strong>.
-      description: You can export these data elements into a .xlsx file.
+      description: You can export this list of data elements into a .xlsx file.
       link: applying for access
       no_elements: You currently have no elements saved in your list
       additional_notes: Additional notes
     button: Save to my list
     instructions: You can use the checkboxes below to add data elements to your list
     copy_title: Saved in this session
-    copy_instructions: These elements will disappear when you clear your cookies for this site or by selecting 'Remove all' below. You can output them by clicking 'Export to .xlsx file'.
+    copy_instructions: This list of data elements will disappear when you clear your cookies for this site or by selecting 'Remove all' below.
 
   views:
     pagination:
