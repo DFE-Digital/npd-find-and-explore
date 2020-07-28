@@ -26,7 +26,8 @@ function removeFromMetadata(event) {
   event.preventDefault()
   var target = event.currentTarget
 
-  $(target).parents('tr').remove()
+  $('tr#' + target.id + '_data').remove()
+  $('tr#' + target.id + '_description').remove()
   removeElementFromMetadata(target)
 }
 
