@@ -93,7 +93,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   # Calculate spec coverage
-  gem 'simplecov', require: false
+  gem 'simplecov', '>= 0.17.1', require: false
 end
 
 group :test do
