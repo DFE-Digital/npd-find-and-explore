@@ -414,7 +414,7 @@ DEPENDENCIES
   rubocop-govuk (~> 2)
   selenium-webdriver (~> 3.142)
   sentry-raven (~> 2.9)
-  simplecov
+  simplecov (>= 0.17.1)
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
