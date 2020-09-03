@@ -23,14 +23,14 @@
   <td data-label="Sensitivity" class="govuk-table__cell govuk-table__cell--numeric">
     <%= render 'shared/tooltip',
       label: t('concepts.show.sensitivity.label'),
-      id: 'sensitivity-tip-before',
+      id: "sensitivity-tip-before-#{data_element.id}",
       tooltip: t('concepts.show.sensitivity.tooltip') %>
     <%= data_element&.sensitivity %>
   </td>
   <td data-label="Identification risk" class="govuk-table__cell govuk-table__cell--numeric">
     <%= render 'shared/tooltip',
       label: t('concepts.show.identifiability.label'),
-      id: 'identifiability-tip-before',
+      id: "identifiability-tip-before-#{data_element.id}",
       tooltip: t('concepts.show.identifiability.tooltip') %>
     <%= data_element&.identifiability %>
   </td>

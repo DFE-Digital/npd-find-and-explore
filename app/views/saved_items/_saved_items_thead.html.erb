@@ -1,5 +1,5 @@
 <thead class="govuk-table__head">
-  <tr class="govuk-table__row" id="data-elements-header">
+  <tr class="govuk-table__row" id="data-elements-header-<%= id %>">
     <th class="govuk-table__header" scope="col">
     </th>
     <th data-label="Name" class="govuk-table__header" scope="col">Name</th>
@@ -9,7 +9,7 @@
       <%= t('concepts.show.sensitivity.label') %>
       <%= render 'shared/tooltip',
         label: t('concepts.show.sensitivity.label'),
-        id: 'sensitivity-tip',
+        id: "sensitivity-tip-#{id}",
         tooltip: t('concepts.show.sensitivity.tooltip'),
         position: 'bottom-left' %>
     </th>
@@ -17,7 +17,7 @@
       <%= t('concepts.show.identifiability.label') %>
       <%= render 'shared/tooltip',
         label: t('concepts.show.identifiability.label'),
-        id: 'identifiability-tip',
+        id: "identifiability-tip-#{id}",
         tooltip: t('concepts.show.identifiability.tooltip'),
         position: 'bottom-right' %>
     </th>

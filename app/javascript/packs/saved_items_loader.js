@@ -49,9 +49,9 @@ $(document).ready(function() {
           element.addEventListener('click', removeDatasetFromMetadata)
         })
 
-        if(document.querySelector('#remove-all')) {
-          document.querySelector('#remove-all').addEventListener('click', removeAllFromMetadata)
-        }
+        $('.remove-all').each(function(idx, element) {
+          element.addEventListener('click', removeAllFromMetadata)
+        })
       }, 500)
     }
   })
