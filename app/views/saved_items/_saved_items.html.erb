@@ -22,7 +22,7 @@
         <caption class="govuk-table__caption govuk-heading-m">
           <%= link_to dataset.tab_name.upcase, dataset_url(dataset) %>
         </caption>
-        <%= render partial: 'saved_items/saved_items_thead' %>
+        <%= render partial: 'saved_items/saved_items_thead', locals: { id: dataset.id } %>
         <tbody class="govuk-table__body">
           <%= render partial: 'saved_items/element', collection: group, as: :element, locals: { dataset: dataset } %>
           <tr class="govuk-table__row">
