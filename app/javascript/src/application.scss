@@ -19,6 +19,14 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
 @import "npd-modal";
 @import "sticky";
 
+// visually hide text, let screen readers see it
+.screen-reader-text {
+  opacity: 0;
+  position: absolute;
+  top: -100px;
+  left: -100px;
+}
+
 // Custom styles to refactor somewhere
 .strong_link {
   font-weight: bold;
