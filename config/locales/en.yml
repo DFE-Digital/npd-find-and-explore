@@ -83,6 +83,9 @@ en:
       title: Download Data Tables file
   saved_data:
     panel: My list
+    counter:
+      contains: contains
+      elements_saved: elements saved
     my_list:
       title: My list
       description: You can export this list of data elements into a .xlsx or .ods file.
