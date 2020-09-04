@@ -29,6 +29,12 @@ module ApplicationHelper
     Rails.application.credentials.dig(Rails.env.to_sym, :google_manager_id)
   end
 
+  def search_concept_tag(result)
+    return result.concept.name if result.respond_to?(:concept)
+
+    result&.name
+  end
+
   def search_category_tag(result)
     return result.category.name if result.respond_to?(:category)
     return result.parent.name if result&.parent&.present?
