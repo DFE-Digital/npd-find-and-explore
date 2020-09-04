@@ -3,6 +3,7 @@
 # A Data Element represents a column of data in a database
 class DataElement < Versioned
   include PgSearch::Model
+  include Indexing::DataElement
 
   belongs_to :concept, inverse_of: :data_elements
   has_and_belongs_to_many :datasets,

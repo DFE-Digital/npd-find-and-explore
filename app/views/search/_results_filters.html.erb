@@ -2,15 +2,15 @@
   <div class="govuk-grid-column-full govuk-filters">
     <div>
       <h3 class="govuk-heading-s">
-        Categories
+        Concepts
       </h3>
       <div class="govuk-checkboxes govuk-checkboxes-small collapsible">
-        <% @categories.each do |element| %>
-          <% category = element[:category] %>
+        <% @concepts.each do |element| %>
+          <% concept = element[:concept] %>
           <div class="govuk-checkboxes__item">
-            <%= check_box_tag 'filter[category_id][]', category.id, params.dig(:filter, :category_id)&.include?(category.id),
-              id: "category_id-#{category.id}", class: 'govuk-checkboxes__input', disabled: !element[:active] %>
-            <%= label_tag "category_id-#{category.id}", category.name, class: %w[govuk-label govuk-checkboxes__label] %>
+            <%= check_box_tag 'filter[concept_id][]', concept.id, params.dig(:filter, :concept_id)&.include?(concept.id),
+              id: "concept_id-#{concept.id}", class: 'govuk-checkboxes__input', disabled: !element[:active] %>
+            <%= label_tag "concept_id-#{concept.id}", concept.name, class: %w[govuk-label govuk-checkboxes__label] %>
           </div>
         <% end %>
       </div>
