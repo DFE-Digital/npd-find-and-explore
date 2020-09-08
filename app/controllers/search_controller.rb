@@ -16,9 +16,10 @@ class SearchController < ApplicationController
 private
 
   def search
-    PgSearch.multisearch(search_params[:search])
-            .where(searchable_type: 'DataElement')
-            .includes(searchable: %i[concept])
+    no_category_id = Category.find_by(name: 'No Category')&.id
+    Concept.search(params[:search])
+            .where.not(name: 'No Concept', category_id: no_category_id)
+            .includes(%i[data_elements category])
   end
 
   def sorted_search
@@ -38,12 +39,15 @@ private
     {
       published: { searchable_created_at: :desc },
       updated: { searchable_updated_at: :desc },
-      az: { searchable_name: :asc }
+      az: { name: :asc }
     }[par]
   end
 
   def page
-    params.permit(:page).dig(:page) || 1
+    max_page = (filtered_search.count / per_page).floor
+    saved_page = (params.permit(:page).dig(:page) || 1).to_i
+
+    saved_page > max_page ? max_page : saved_page
   end
 
   def per_page
@@ -68,7 +72,7 @@ private
   def filter_concepts(results, concept_ids)
     return results if concept_ids.blank?
 
-    results.where(searchable_category_id: concept_ids)
+    results.where(category_id: category_ids)
   end
 
   def filter_years(results, years)

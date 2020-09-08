@@ -59,8 +59,8 @@ module ProcessUpload
       DataElement.where(id: del_rows.pluck(:id)).destroy_all
       del_datasets.each { |ds| ds.data_elements.clear }
       import_datasets(id)
-      PgSearch::Multisearch.rebuild(Category)
-      PgSearch::Multisearch.rebuild(Concept)
+      Category.rebuild_pg_search_documents
+      Concept.rebuild_pg_search_documents
 
       Rails.logger.info "Uploaded #{file_name}"
       update(successful: true)

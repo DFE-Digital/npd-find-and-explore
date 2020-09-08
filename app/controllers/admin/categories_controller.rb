@@ -56,10 +56,7 @@ module Admin
       begin
         update = -> { update_tree(params[:tree_nodes], params[:parent]) }
 
-        PgSearch.disable_multisearch do
-          ActiveRecord::Base.transaction { update.call }
-        end
-        PgSearch::Multisearch.rebuild(Category)
+        ActiveRecord::Base.transaction { update.call }
 
         message = "<strong>#{I18n.t('admin.actions.nestable.success')}!</strong>"
       rescue StandardError => e
@@ -121,7 +118,7 @@ module Admin
     end
 
     def do_reindex
-      PgSearch::Multisearch.rebuild(Category)
+      Category.rebuild_pg_search_documents
 
       render :reindex, layout: 'admin/application', locals: { success: true, errors: [] }
     rescue StandardError => e
@@ -152,9 +149,7 @@ module Admin
     def find_resources(search_term = nil)
       return Category.all.order(:name) if search_term.blank?
 
-      Category.where(id: PgSearch.multisearch(search_term)
-                                 .where(searchable_type: 'Category')
-                                 .pluck(:searchable_id))
+      Category.search(search_term)
               .includes(:concepts)
               .order(:name)
     end

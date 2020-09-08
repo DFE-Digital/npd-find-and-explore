@@ -13,8 +13,8 @@ RSpec.describe 'Admin Categories Index', type: :system do
 
     admin_user
     create(:category, :with_subcategories_concepts_and_data_elements)
-    PgSearch::Multisearch.rebuild(Category)
-    PgSearch::Multisearch.rebuild(Concept)
+    Category.rebuild_pg_search_documents
+    Concept.rebuild_pg_search_documents
 
     visit '/admin'
     fill_in('admin_user_email', with: admin_user.email)

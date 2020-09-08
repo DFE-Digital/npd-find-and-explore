@@ -13,7 +13,7 @@ RSpec.describe 'Admin Categories Reindex', type: :system do
 
     admin_user
     create(:category, :with_subcategories_concepts_and_data_elements)
-    PgSearch::Document.delete_all
+    Category.update_all(tsvector_content_tsearch: nil)
 
     visit '/admin'
     fill_in('admin_user_email', with: admin_user.email)
@@ -26,7 +26,6 @@ RSpec.describe 'Admin Categories Reindex', type: :system do
 
     click_on 'Reindex Categories'
     expect(page).to have_text('The categories were reindexed correctly')
-    expect(PgSearch::Document.count).to eq(2)
-    expect(PgSearch::Document.all.map(&:searchable_type).compact.uniq).to eq(%w[Category])
+    expect(Category.first.tsvector_content_tsearch).not_to be_nil
   end
 end
