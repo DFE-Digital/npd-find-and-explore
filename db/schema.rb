@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_29_114718) do
+ActiveRecord::Schema.define(version: 2020_09_07_092025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -69,6 +69,11 @@ ActiveRecord::Schema.define(version: 2019_11_29_114718) do
     t.integer "position"
     t.string "name"
     t.text "description"
+    t.tsvector "tsvector_content_tsearch"
+    t.integer "searchable_year_from"
+    t.integer "searchable_year_to"
+    t.string "searchable_tab_names", array: true
+    t.boolean "searchable_is_cla", array: true
     t.index ["ancestry", "position"], name: "index_categories_on_ancestry_and_position"
     t.index ["ancestry"], name: "index_categories_on_ancestry"
   end
@@ -79,6 +84,11 @@ ActiveRecord::Schema.define(version: 2019_11_29_114718) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.text "description"
+    t.tsvector "tsvector_content_tsearch"
+    t.integer "searchable_year_from"
+    t.integer "searchable_year_to"
+    t.string "searchable_tab_names", array: true
+    t.boolean "searchable_is_cla", array: true
     t.index ["category_id"], name: "index_concepts_on_category_id"
   end
 

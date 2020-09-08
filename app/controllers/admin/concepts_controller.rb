@@ -50,7 +50,7 @@ module Admin
     end
 
     def do_reindex
-      PgSearch::Multisearch.rebuild(Concept)
+      Concept.rebuild_pg_search_documents
 
       render :reindex, layout: 'admin/application', locals: { success: true, error: '' }
     rescue StandardError => e
@@ -63,9 +63,7 @@ module Admin
     def find_resources(search_term = nil)
       return Concept.all.order(:name) if search_term.blank?
 
-      Concept.where(id: PgSearch.multisearch(search_term)
-                                .where(searchable_type: 'Concept')
-                                .pluck(:searchable_id))
+      Concept.search(search_term)
              .includes(:category)
              .order(:name)
     end

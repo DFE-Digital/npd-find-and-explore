@@ -8,98 +8,85 @@ module Indexing
     include PgSearch::Model
 
     included do
-      multisearchable against: %i[name description]
+      mattr_accessor :skip_indexing
+      before_save :update_pg_search_document, unless: :skip_indexing
 
-      def create_or_update_pg_search_document
+      pg_search_scope :search,
+                      against: %i[name description],
+                      using: {
+                        tsearch: {
+                          dictionary: 'english',
+                          tsvector_column: 'tsvector_content_tsearch',
+                          prefix: true
+                        }
+                      }
+
+      def update_pg_search_document
         conn = ActiveRecord::Base.connection
         data_elements_headers, data_elements_body, data_elements_years_from,
           data_elements_years_to, data_elements_tab_names, data_elements_is_cla = extract_complex_fields
         data_elements_processed_tabs = data_elements_tab_names.present? ? conn.quote("{#{data_elements_tab_names.join(', ')}}") : 'NULL'
         data_elements_processed_is_cla = data_elements_is_cla.present? ? conn.quote("{#{data_elements_is_cla.join(', ')}}") : 'NULL'
 
-        if !pg_search_document
-          conn.execute <<-SQL
-            INSERT INTO pg_search_documents (searchable_type, searchable_id, content,
-              searchable_name, searchable_category_id, searchable_year_from,
-              searchable_year_to, searchable_tab_names, searchable_is_cla,
-              searchable_created_at, searchable_updated_at, created_at, updated_at)
-            SELECT
-              'Concept' AS searchable_type,
-              #{conn.quote(id)} AS searchable_id,
-              setweight(to_tsvector(#{conn.quote(name || '')}), 'A') ||
-              setweight(to_tsvector(#{conn.quote(description || '')}), 'B') ||
-              setweight(to_tsvector(#{conn.quote(data_elements_headers.join(' '))}), 'C') ||
-              setweight(to_tsvector(#{conn.quote(data_elements_body.join(' '))}), 'D')
-              AS content,
-              #{conn.quote(name)} AS searchable_name,
-              #{conn.quote(category_id)} AS searchable_category_id,
-              #{data_elements_years_from.min || 'NULL'} AS searchable_year_from,
-              #{data_elements_years_to.max || 'NULL'} AS searchable_year_to,
-              #{data_elements_processed_tabs} AS searchable_tab_names,
-              #{data_elements_processed_is_cla} AS searchable_is_cla,
-              #{conn.quote(created_at)} AS searchable_created_at,
-              #{conn.quote(updated_at)} AS searchable_updated_at,
-              now() AS created_at,
-              now() AS updated_at
-          SQL
-        elsif should_update_pg_search_document?
-          conn.execute <<-SQL
-            UPDATE pg_search_documents
-            SET
-              content = setweight(to_tsvector(#{conn.quote(name || '')}), 'A') ||
-                        setweight(to_tsvector(#{conn.quote(description || '')}), 'B') ||
-                        setweight(to_tsvector(#{conn.quote(data_elements_headers.join(' '))}), 'C') ||
-                        setweight(to_tsvector(#{conn.quote(data_elements_body.join(' '))}), 'D'),
-              searchable_name = #{conn.quote(name)},
-              searchable_category_id = #{conn.quote(category_id)},
-              searchable_year_from = #{data_elements_years_from.min || 'NULL'},
-              searchable_year_to = #{data_elements_years_to.max || 'NULL'},
-              searchable_tab_names = #{data_elements_processed_tabs},
-              searchable_is_cla = #{data_elements_processed_is_cla},
-              searchable_created_at = #{conn.quote(created_at)},
-              searchable_updated_at = #{conn.quote(updated_at)},
-              updated_at = NOW()
-            WHERE searchable_type = 'Concept' AND searchable_id = #{conn.quote(id)}
-          SQL
-        end
+        conn.execute <<-SQL
+          UPDATE concepts
+          SET
+            tsvector_content_tsearch = setweight(to_tsvector(#{conn.quote(name || '')}), 'A') ||
+                                       setweight(to_tsvector(#{conn.quote(description || '')}), 'B') ||
+                                       setweight(to_tsvector(#{conn.quote(data_elements_headers.join(' '))}), 'C') ||
+                                       setweight(to_tsvector(#{conn.quote(data_elements_body.join(' '))}), 'D'),
+            searchable_year_from = #{data_elements_years_from.min || 'NULL'},
+            searchable_year_to = #{data_elements_years_to.max || 'NULL'},
+            searchable_tab_names = #{data_elements_processed_tabs},
+            searchable_is_cla = #{data_elements_processed_is_cla},
+            updated_at = NOW()
+          WHERE id = #{conn.quote(id)}
+        SQL
       end
 
       def self.rebuild_pg_search_documents
         connection.execute <<-SQL
-          INSERT INTO pg_search_documents (searchable_type, searchable_id, content,
-            searchable_name, searchable_category_id, searchable_year_from,
-            searchable_year_to, searchable_tab_names, searchable_is_cla,
-            searchable_created_at, searchable_updated_at, created_at, updated_at)
-          SELECT 'Concept' AS searchable_type,
-          concepts.id AS searchable_id,
-          setweight(to_tsvector(coalesce(concepts.name, '')), 'A') ||
-          setweight(to_tsvector(coalesce(concepts.description, '')), 'B') ||
-          setweight(to_tsvector(coalesce(string_agg(concat_ws(' ', data_elements.source_table_name, data_elements.source_attribute_name), ' '), '')), 'C') ||
-          setweight(to_tsvector(coalesce(string_agg(concat_ws(' ', data_elements.description, data_elements.npd_alias,
-                                                              data_elements.source_old_attribute_name, data_elements.data_type), ' '), '')), 'D')
-          AS content,
-          concepts.name AS searchable_name,
-          category_id AS searchable_category_id,
-          min(coalesce(data_elements.academic_year_collected_from, date_part('year', current_timestamp))) AS searchable_year_from,
-          max(coalesce(data_elements.academic_year_collected_to, date_part('year', current_timestamp))) AS searchable_year_to,
-          array_agg(DISTINCT(datasets.tab_name)) AS searchable_tab_names,
-          array_agg(DISTINCT(data_elements.is_cla)) AS searchable_is_cla,
-          MIN(concepts.created_at) AS searchable_created_at,
-          MIN(concepts.updated_at) AS searchable_updated_at,
-          now() AS created_at,
-          now() AS updated_at
+          UPDATE concepts
 
-          FROM concepts
-          LEFT OUTER JOIN data_elements
-            ON concepts.id = data_elements.concept_id
-          LEFT OUTER JOIN data_elements_datasets
-            ON data_elements.id = data_elements_datasets.data_element_id
-          LEFT OUTER JOIN datasets
-            ON data_elements_datasets.dataset_id = datasets.id
-          GROUP BY concepts.id
+          SET
+            tsvector_content_tsearch = tsvector_query.content,
+            searchable_year_from = tsvector_query.year_from,
+            searchable_year_to = tsvector_query.year_to,
+            searchable_tab_names = tsvector_query.tab_names,
+            searchable_is_cla = tsvector_query.is_cla,
+            created_at = now(),
+            updated_at = now()
 
+          FROM (
+            SELECT
+              c.id,
+              setweight(to_tsvector(coalesce(c.name, '')), 'A') ||
+              setweight(to_tsvector(coalesce(c.description, '')), 'B') ||
+              setweight(to_tsvector(coalesce(string_agg(concat_ws(' ', data_elements.source_table_name, data_elements.source_attribute_name), ' '), '')), 'C') ||
+              setweight(to_tsvector(coalesce(string_agg(concat_ws(' ', data_elements.description, data_elements.npd_alias,
+                                                                  data_elements.source_old_attribute_name, data_elements.data_type), ' '), '')), 'D')
+                AS content,
+              min(coalesce(data_elements.academic_year_collected_from, date_part('year', current_timestamp))) AS year_from,
+              max(coalesce(data_elements.academic_year_collected_to, date_part('year', current_timestamp))) AS year_to,
+              array_agg(DISTINCT(datasets.tab_name)) AS tab_names,
+              array_agg(DISTINCT(data_elements.is_cla)) AS is_cla
+            FROM
+              concepts as c
+              LEFT OUTER JOIN data_elements
+                ON c.id = data_elements.concept_id
+              LEFT OUTER JOIN data_elements_datasets
+                ON data_elements.id = data_elements_datasets.data_element_id
+              LEFT OUTER JOIN datasets
+                ON data_elements_datasets.dataset_id = datasets.id
+
+            GROUP BY c.id
+          ) AS tsvector_query
+
+          WHERE tsvector_query.id = concepts.id
         SQL
       end
+
+    private
 
       def extract_complex_fields
         current_year = Time.now.year
