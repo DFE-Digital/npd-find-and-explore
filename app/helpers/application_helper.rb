@@ -49,13 +49,6 @@ module ApplicationHelper
     ]
   end
 
-  def how_to_access(concept)
-    identifiability = concept.data_elements.map(&:identifiability).compact.min
-    return 'no_identifiability' if identifiability.nil? || identifiability > 2
-
-    'not_available'
-  end
-
   def root_page?
     params[:controller] == 'search' || (params[:controller] == 'categories' && params[:action] == 'index')
   end

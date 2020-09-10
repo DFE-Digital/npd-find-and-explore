@@ -4,10 +4,6 @@
   <%= javascript_pack_tag 'sticky' %>
 <%- end %>
 
-<%= content_for :messages do %>
-  <%= render how_to_access(@concept) %>
-<%- end %>
-
 <%= render partial: 'concept_aggregate_data' %>
 
 <%= render 'shared/save_to_metadata' %>
