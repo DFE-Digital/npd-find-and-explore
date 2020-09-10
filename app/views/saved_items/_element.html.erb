@@ -2,9 +2,13 @@
 
 <tr class="govuk-table__row" id="<%= data_element.id %>_data">
   <td class="govuk-table__header govuk-table__cell--small" scope="col">
-    <a href="remove-<%= data_element.id %>" class="item-remove" id="<%= data_element.id %>"
+    <a href="remove-<%= data_element.id %>" class="item-remove govuk-body-s" id="<%= data_element.id %>"
         data-dataset-id="<%= dataset.id %>">
-      remove
+      Remove
+      <span class="screen-reader-text">
+        <%= data_element.title(dataset) %>
+        <%= t('saved_data.my_list.from_my_list') %>
+      </span>
     </a>
   </td>
   <th data-label="Name" class="govuk-table__header govuk-table__cell--break" scope="row">
