@@ -140,7 +140,7 @@ module Admin
   private
 
     def update_tree(tree_nodes, parent = nil)
-      parent_node = parent.nil? ? nil : Category.find(parent)
+      parent_node = parent.blank? ? nil : Category.find(parent)
       tree_nodes.each_with_index do |id, index|
         model = Category.find(id.to_s)
         model.parent = parent_node || nil
