@@ -20,18 +20,8 @@ RSpec.describe Admin::CategoriesController, type: :controller do
 
       sign_in admin_user
       post :sort, params: {
-        tree_nodes: {
-          0 => {
-            id: root1.id,
-            children: {
-              0 => { id: root1.children.first.id },
-              1 => { id: root2.children.first.id }
-            }
-          },
-          1 => {
-            id: root2.id
-          }
-        }
+        parent: root1.id,
+        tree_nodes: [root1.children.first.id, root2.children.first.id]
       }
 
       expect(response).to be_successful
@@ -44,18 +34,8 @@ RSpec.describe Admin::CategoriesController, type: :controller do
 
       sign_in admin_user
       post :sort, params: {
-        tree_nodes: {
-          0 => { id: root2.children.first.id },
-          1 => {
-            id: root1.id,
-            children: {
-              0 => { id: root1.children.first.id }
-            }
-          },
-          2 => {
-            id: root2.id
-          }
-        }
+        parent: nil,
+        tree_nodes: [root2.children.first.id, root1.id, root2.id]
       }
 
       expect(response).to be_successful
@@ -69,20 +49,8 @@ RSpec.describe Admin::CategoriesController, type: :controller do
 
       sign_in admin_user
       post :sort, params: {
-        tree_nodes: {
-          0 => {
-            id: root1.id,
-            children: {
-              0 => { id: root1.children.first.id },
-              1 => {
-                id: root2.id,
-                children: {
-                  0 => { id: root2.children.first.id }
-                }
-              }
-            }
-          }
-        }
+        parent: root1.id,
+        tree_nodes: [root1.children.first.id, root2.id]
       }
 
       expect(response).to be_successful

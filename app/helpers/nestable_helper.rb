@@ -5,7 +5,7 @@ module NestableHelper
     return if tree_nodes.nil?
 
     nodes = tree_nodes.map do |tree_node, sub_tree_nodes|
-      li_classes = 'dd-item dd3-item'
+      li_classes = 'list-group-item dd-item dd3-item'
 
       content_tag(:li, class: li_classes, 'data-id': tree_node.id) do
         output = content_tag :div, 'drag', class: 'dd-handle dd3-handle'
@@ -13,7 +13,7 @@ module NestableHelper
           link_to object_label(tree_node), edit_admin_category_path(tree_node.id)
         end
 
-        output += content_tag(:ol, nested_tree_nodes(sub_tree_nodes), class: 'dd-list') if sub_tree_nodes&.any?
+        output += content_tag(:ol, nested_tree_nodes(sub_tree_nodes), class: 'list-group nested-sortable dd-list') if sub_tree_nodes&.any?
         output
       end
     end

@@ -54,7 +54,7 @@ module Admin
       render plain: '' && return unless request.post? && params['tree_nodes'].present?
 
       begin
-        update = -> { update_tree(params[:tree_nodes]) }
+        update = -> { update_tree(params[:tree_nodes], params[:parent]) }
 
         PgSearch.disable_multisearch do
           ActiveRecord::Base.transaction { update.call }
@@ -139,13 +139,13 @@ module Admin
 
   private
 
-    def update_tree(tree_nodes, parent_node = nil)
-      tree_nodes.each do |key, value|
-        model = Category.find(value['id'].to_s)
+    def update_tree(tree_nodes, parent = nil)
+      parent_node = parent.blank? ? nil : Category.find(parent)
+      tree_nodes.each_with_index do |id, index|
+        model = Category.find(id.to_s)
         model.parent = parent_node || nil
-        model.position = key.to_i + 1
+        model.position = index.to_i + 1
         model.save!
-        update_tree(value['children'], model) if value.key?('children')
       end
     end
 
