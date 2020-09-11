@@ -26,7 +26,7 @@
 <section id="nestable" class="main-content__body main-content__body--flush">
   <% if @categories.present? %>
     <div id="tree_nodes" class="dd" data-update-path="<%= sort_admin_categories_path %>">
-      <ol id="categories" class="dd-list">
+      <ol id="categories" class="list-group nested-sortable dd-list">
         <%= nested_tree_nodes @categories %>
       </ol>
     </div>
