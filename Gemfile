@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.1'
 
 gem 'pg', '~> 1.0'
-gem 'rails', '~> 5.2', '>= 5.2.4.2'
+gem 'rails', '~> 5.2', '>= 5.2.4.4'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.12', '>= 3.12.4'
@@ -22,7 +22,7 @@ gem 'high_voltage', '~> 3.1'
 gem 'ancestry', '~> 3.0'
 
 # Lightweight admin functionality
-gem 'administrate', '~> 0.14'
+gem 'administrate', '~> 0.14', '>= 0.14.0'
 
 # Breadcrumb navigation
 gem 'loaf', '~> 0.8.1'
@@ -61,7 +61,7 @@ gem 'paper_trail', '~> 10', '>= 10.3.1'
 gem 'pg_search', '~> 2.1'
 
 # Pagination
-gem 'kaminari', '~> 1.2'
+gem 'kaminari', '~> 1.2', '>= 1.2.1'
 
 # Bulk import and ActiveRecord extensions
 gem 'active_record_extended', '~>1'
