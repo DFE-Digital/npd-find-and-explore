@@ -92,6 +92,7 @@ en:
       link: applying for access
       no_elements: You currently have no elements saved in your list
       additional_notes: Additional notes
+      from_my_list: from my list
     button: Save to my list
     instructions: You can use the checkboxes below to add data elements to your list
     copy_title: Saved in this session
