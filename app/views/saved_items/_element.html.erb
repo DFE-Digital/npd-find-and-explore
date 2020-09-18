@@ -38,7 +38,7 @@
       tooltip: t('concepts.show.identifiability.tooltip') %>
     <%= data_element&.identifiability %>
   </td>
-  <td data-label="Value" class="govuk-table__cell govuk-table__cell--numeric govuk-table__cell--break">
+  <td data-label="Value" class="govuk-table__cell govuk-table__cell--numeric govuk-table__cell--no-break">
     <%- if /\n/ =~ data_element.values %>
       <div class="overlay-parent">
         <a href="#" class="codeset" aria-describedby="codeset-<%= data_element.title.downcase %>" title="Codeset for <%= data_element.title(dataset) %>">

@@ -26,6 +26,11 @@ table td .tooltip {
   word-break: break-all;
 }
 
+.govuk-table__cell--no-break {
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
 @include govuk-media-query($until: tablet) {
   table thead {
     border: 0;
@@ -59,11 +64,6 @@ table td .tooltip {
     display: inline-block;
     left: -50%;
     position: relative;
-
-    .help {
-      font-weight: bold;
-      padding: 3px 12px 0;
-    }
   }
 
   table td .tooltip, h2 .tooltip {
