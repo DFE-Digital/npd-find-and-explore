@@ -33,7 +33,9 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5">
     <p class="govuk-body-l">
-      Use this tool to find and explore data in the NPD, before
+      Use this tool to find and explore data in the NPD, a key DfE data store,
+      covering education, skills and children services data for individual
+      learners in England, before 
       <a href="<%= Rails.configuration.outgoing_links.dig('applying_for_access') %>" target="_blank"
         rel="external" data-outgoing-page="DfE How To Access Data Extracts">
         applying to access
@@ -47,26 +49,15 @@
 </div>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-2">
-    <p class="govuk-body">
-      From:
-      <a href="<%= Rails.configuration.outgoing_links.dig('dfe_home') %>" target="_blank"
-        rel="external" data-outgoing-page="DfE home page on GOV.uk">
-        Department for Education
-      </a>
-    </p>
-  </div>
-</div>
-
-<div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5">
-    <p class="govuk-body-m">
-      The National Pupil Database (NPD) is a key DfE data store, covering education,
-      skills and children services data for individual learners in England.
-    </p>
-    <p class="govuk-body-m">
-      Use this tool to find and explore data in the NPD before applying to access
-      DfE data extracts.
+    <p>
+      Use this tool to:
+      <ul class="govuk-body">
+        <li>browse NPD via categories</li>
+        <li>browse NPD via dataset</li>
+        <li>search for NPD data items</li>
+        <li>save My List of data items</li>
+      </ul>
     </p>
     <p>
       <a href="<%= categories_path %>" role="button" draggable="false" class="govuk-button govuk-button--start">
@@ -81,13 +72,9 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5">
-    <h2 class="govuk-heading-m">How to use the tool</h2>
+    <h2 class="govuk-heading-s">Browsing via categories</h2>
 
-    <p class="govuk-body">There are two ways you can explore the type of data the NPD holds:</p>
-
-    <h3 class="govuk-heading-s">Browsing via categories</h3>
-
-    <p class="govuk-body">Browsing the tool using the 4 high level categories:</p>
+    <p class="govuk-body">Browse the NPD using the tool's 4 high level categories:</p>
     <ul class="govuk-body">
       <li>attainment</li>
       <li>demographics</li>
@@ -102,11 +89,8 @@
       For example, the 'Authorised absence due to study leave' contains 6 similar
       data items.
     </p>
-    <p class="govuk-body">
-      You can also find specific categories using a simple text search.
-    </p>
 
-    <h3 class="govuk-heading-s">Browsing via datasets</h3>
+    <h2 class="govuk-heading-s">Browsing via datasets</h2>
 
     <p class="govuk-body">
       If you are a more experienced user, you may want to search for the data items
@@ -116,7 +100,13 @@
       There are 23 collections within NPD – for example the termly School Census.
     </p>
 
-    <h3 class="govuk-heading-s">Saving a list of favourite data items</h3>
+    <h2 class="govuk-heading-s">Searching for data</h2>
+
+    <p class="govuk-body">
+      You can also find specific categories using a simple text search.
+    </p>
+
+    <h2 class="govuk-heading-s">Saving a list of favourite data items</h2>
     <p>If you would like to save your favourite data items you can use ‘My List’.</p>
 
     <div class="app-contact-panel">
@@ -125,6 +115,12 @@
         <a href="<%= Rails.configuration.outgoing_links.dig('govuk_education') %>"
            target="_blank" rel="external" data-outgoing-page="Education, Training and Skills page on GOV.uk">
            Education, Training and Skills
+        </a>
+      </p>
+      <p class="govuk-body app-contact-panel__body">
+        <a href="<%= Rails.configuration.outgoing_links.dig('dfe_home') %>" target="_blank"
+           rel="external" data-outgoing-page="DfE home page on GOV.uk">
+           Department for Education
         </a>
       </p>
     </div>
