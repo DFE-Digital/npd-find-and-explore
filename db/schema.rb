@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 2020_09_07_092025) do
     t.integer "position"
     t.string "name"
     t.text "description"
-    t.tsvector "tsvector_content_tsearch"
     t.integer "searchable_year_from"
     t.integer "searchable_year_to"
     t.string "searchable_tab_names", array: true
@@ -84,11 +83,6 @@ ActiveRecord::Schema.define(version: 2020_09_07_092025) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.text "description"
-    t.tsvector "tsvector_content_tsearch"
-    t.integer "searchable_year_from"
-    t.integer "searchable_year_to"
-    t.string "searchable_tab_names", array: true
-    t.boolean "searchable_is_cla", array: true
     t.index ["category_id"], name: "index_concepts_on_category_id"
   end
 
@@ -112,6 +106,10 @@ ActiveRecord::Schema.define(version: 2020_09_07_092025) do
     t.string "educational_phase", array: true
     t.string "standard_extract"
     t.boolean "is_cla", default: false
+    t.text "content_search"
+    t.tsvector "tsvector_content_tsearch"
+    t.text "dmetaphone_content_search"
+    t.string "searchable_tab_names", array: true
     t.index ["concept_id"], name: "index_data_elements_on_concept_id"
     t.index ["npd_alias"], name: "index_data_elements_on_npd_alias", unique: true
   end
@@ -203,24 +201,6 @@ ActiveRecord::Schema.define(version: 2020_09_07_092025) do
     t.datetime "updated_at", null: false
     t.boolean "successful"
     t.index ["admin_user_id"], name: "index_inf_arch_uploads_on_admin_user_id"
-  end
-
-  create_table "pg_search_documents", force: :cascade do |t|
-    t.tsvector "content"
-    t.string "searchable_type"
-    t.uuid "searchable_id"
-    t.text "searchable_name"
-    t.datetime "searchable_created_at"
-    t.datetime "searchable_updated_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "searchable_category_id"
-    t.integer "searchable_year_from"
-    t.integer "searchable_year_to"
-    t.string "searchable_tab_names", array: true
-    t.boolean "searchable_is_cla", array: true
-    t.index ["content"], name: "index_pg_search_documents_on_content", using: :gin
-    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
   end
 
   create_table "versions", force: :cascade do |t|
