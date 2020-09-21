@@ -12,7 +12,6 @@
 # concepts.
 class Category < Versioned
   include SanitizeSpace
-  include Indexing::Category
 
   has_many :concepts, dependent: :destroy, inverse_of: :category
 

@@ -5,25 +5,34 @@
   <%= javascript_pack_tag 'collapsible' %>
 <%- end %>
 
-<% if @results.any? %>
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-third">
-      <%= render 'results_filters' %>
-    </div>
-    <div class="govuk-grid-column-two-thirds">
-      <%= render 'results_header' %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
+    <%= render 'results_filters' %>
+  </div>
+  <div class="govuk-grid-column-two-thirds">
+    <%= render 'results_header' %>
+    <% if @exact_matches.any? -%>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <p class="govuk-body">
+            <%= t('helpers.page_entries_info.one_page.display_entries.exact_match', count: @results.count) %>
+          </p>
+        </div>
+      </div>
+    <%- else -%>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <p class="govuk-body">
+            <%= t('helpers.page_entries_info.one_page.display_entries.no_exact_match') %>
+          </p>
+        </div>
+      </div>
+    <%- end %>
+    <% if @results.any? -%>
       <%= render 'pagination' %>
       <%= render partial: "result", collection: @results %>
       <%= render 'pagination' %>
-    </div>
-  </div>
-<% else %>
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-third">
-      <%= render 'results_filters' %>
-    </div>
-    <div class="govuk-grid-column-two-thirds">
-      <%= render 'results_header'%>
+    <%- else -%>
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
           <p class="govuk-body">
@@ -31,6 +40,6 @@
           </p>
         </div>
       </div>
-    </div>
+    <%- end %>
   </div>
-<% end %>
+</div>

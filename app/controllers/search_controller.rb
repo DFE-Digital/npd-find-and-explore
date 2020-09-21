@@ -4,6 +4,7 @@ class SearchController < ApplicationController
   include BreadcrumbBuilder
 
   def index
+    @exact_matches = exact_matches
     @results = filtered_search.page(page).per(per_page)
     build_filters
     @title = t('search_title')
@@ -16,10 +17,15 @@ class SearchController < ApplicationController
 private
 
   def search
-    no_category_id = Category.find_by(name: 'No Category')&.id
-    Concept.search(params[:search])
-            .where.not(name: 'No Concept', category_id: no_category_id)
-            .includes(%i[data_elements category])
+    return exact_matches if exact_matches.any?
+
+    DataElement.search(search_params[:search])
+               .includes(%i[concept])
+  end
+
+  def exact_matches
+    @exact_matches ||= DataElement.exact(search_params[:search])
+                                  .includes(%i[concept])
   end
 
   def sorted_search

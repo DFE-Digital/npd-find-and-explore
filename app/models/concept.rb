@@ -8,7 +8,6 @@
 #       - SchoolCensus.FSM6
 class Concept < Versioned
   include SanitizeSpace
-  include Indexing::Concept
 
   belongs_to :category, inverse_of: :concepts
   has_many :data_elements,

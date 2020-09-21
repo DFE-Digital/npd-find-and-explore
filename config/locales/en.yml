@@ -111,6 +111,8 @@ en:
     page_entries_info:
       one_page:
         display_entries:
+          exact_match: "Found %{count} exact matches"
+          no_exact_match: "No exact matches found, showing approximate results"
           zero: "No result found"
           one: "Displaying 1 result"
           other: "Showing all %{count} results"
