@@ -14,8 +14,7 @@ RSpec.describe 'Search pages', type: :system do
     Concept.find_or_create_by(name: 'No Concept', category: no_category) do |concept|
       concept.description = 'This Concept is used to house data elements that are waiting to be categorised'
     end
-    Category.rebuild_pg_search_documents
-    Concept.rebuild_pg_search_documents
+    DataElement.rebuild_pg_search_documents
   end
 
   it 'Has search' do
@@ -86,7 +85,7 @@ RSpec.describe 'Search pages', type: :system do
         end
         concept.update(name: "FSM #{i}")
       end
-      Concept.rebuild_pg_search_documents
+      DataElement.rebuild_pg_search_documents
     end
 
     it 'Will filter concepts by category' do
@@ -119,7 +118,7 @@ RSpec.describe 'Search pages', type: :system do
       concepts = Concept.where.not(name: 'No Concept')
       concepts.first.data_elements.each { |de| de.update(datasets: [Dataset.first]) }
       concepts.last.data_elements.each { |de| de.update(datasets: [Dataset.last]) }
-      Concept.rebuild_pg_search_documents
+      DataElement.rebuild_pg_search_documents
 
       visit '/categories'
       fill_in('search', with: 'FSM')

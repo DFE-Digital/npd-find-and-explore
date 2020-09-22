@@ -118,7 +118,7 @@ module Admin
     end
 
     def do_reindex
-      Category.rebuild_pg_search_documents
+      # Category.rebuild_pg_search_documents
 
       render :reindex, layout: 'admin/application', locals: { success: true, errors: [] }
     rescue StandardError => e
