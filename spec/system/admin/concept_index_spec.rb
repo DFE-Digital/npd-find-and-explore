@@ -13,8 +13,7 @@ RSpec.describe 'Admin Concepts Index', type: :system do
 
     admin_user
     create(:category, :with_subcategories_concepts_and_data_elements)
-    Category.rebuild_pg_search_documents
-    Concept.rebuild_pg_search_documents
+    DataElement.rebuild_pg_search_documents
 
     visit '/admin'
     fill_in('admin_user_email', with: admin_user.email)

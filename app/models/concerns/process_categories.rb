@@ -25,12 +25,8 @@ module ProcessCategories
     end
 
     def process
-      Category.skip_indexing = true
-      Concept.skip_indexing = true
       upload(inf_arch_tabs.map(&:tree).flatten)
 
-      Category.rebuild_pg_search_documents
-      Concept.rebuild_pg_search_documents
       update(successful: true)
     end
 

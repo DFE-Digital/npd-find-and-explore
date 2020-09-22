@@ -50,7 +50,7 @@ module Admin
     end
 
     def do_reindex
-      Concept.rebuild_pg_search_documents
+      # Concept.rebuild_pg_search_documents
 
       render :reindex, layout: 'admin/application', locals: { success: true, error: '' }
     rescue StandardError => e
