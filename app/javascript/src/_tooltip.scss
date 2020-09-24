@@ -1,5 +1,7 @@
 .tooltip {
   position: relative;
+  display: block;
+  text-align: center;
 
   .help {
     background-color: $govuk-brand-colour;
