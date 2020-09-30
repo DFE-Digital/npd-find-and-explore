@@ -8,7 +8,7 @@
     <div class="saved_items_table govuk-text">
       <% if defined? grouped_elements -%>
         <%= render partial: 'saved_items',
-          locals: { grouped_elements: grouped_elements, range_errors: ((defined? range_errors) ? range_errors : []) } %>
+          locals: { grouped_elements: grouped_elements } %>
       <%- else -%>
         <%= render partial: 'saved_items_loading' %>
       <%- end %>
