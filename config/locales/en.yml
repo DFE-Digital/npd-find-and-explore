@@ -97,7 +97,9 @@ en:
     instructions: You can use the checkboxes below to add data elements to your list
     copy_title: Saved in this session
     copy_instructions: This list of data elements will disappear when you clear your cookies for this site or by selecting 'Remove all' below.
-
+  accessibility:
+    title: Accessibility statement for Find and Explore Data in the National Pupil Database
+    link: Accessibility statement
   views:
     pagination:
       first: "&laquo; First"

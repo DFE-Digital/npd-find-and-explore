@@ -2,10 +2,10 @@
   <%= javascript_pack_tag 'navigation' %>
 <%- end %>
 
-<% @title = 'Accessibility' %>
+<% @title = t('accessibility.title') %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-xl">
       <%= @title %>
     </h1>
@@ -14,7 +14,6 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h2 class="govuk-heading-m">Accessibility for Find and Explore data in the National Pupil Database</h2>
     <p>This service is part of the wider GOV.UK website. There’s a separate accessibility statement for the main GOV.UK website.</p>
     <p>This page only contains information about the Find and Explore data in the National Pupil Database service, available at
       <a href="https://find-npd-data.education.gov.uk">https://find-npd-data.education.gov.uk</a>.</p>
