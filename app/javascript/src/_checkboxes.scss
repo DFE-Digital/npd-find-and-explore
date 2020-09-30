@@ -1,24 +1,15 @@
-.govuk-checkboxes-small {
+.govuk-checkboxes--small {
   .govuk-checkboxes__item {
     margin-bottom: 0;
-    min-height: 40px;
-    padding: 0 0 0 20px;
-  }
-
-  .govuk-checkboxes__label {
-    padding: 0 15px 5px;
-  }
-
-  .govuk-checkboxes__input {
-    height: 20px;
-    width: 20px;
+    min-height: 20px;
+    padding: 0;
   }
 
   .govuk-checkboxes__input + .govuk-checkboxes__label::before
   {
     height: 20px;
     left: 0;
-    top: 0;
+    top: 1px;
     width: 20px;
   }
 
