@@ -25,7 +25,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     visit concept_path(concept)
 
     expect(page).to have_text('Can\'t find what you\'re looking for?')
-    expect(page).to have_link('Click here to download the latest version of the Data Tables')
+    expect(page).to have_link('Click here to download the latest version of the NPD Data Tables')
   end
 
   it 'Doesn\'t show the data type when no data element has data type' do
