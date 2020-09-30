@@ -16,7 +16,7 @@ class SavedItemsController < ApplicationController
   end
 
   def saved_items
-    render partial: 'saved_items', layout: false, locals: { grouped_elements: grouped_elements, range_errors: [] }
+    render partial: 'saved_items', layout: false, locals: { grouped_elements: grouped_elements }
   end
 
   def export_to_csv

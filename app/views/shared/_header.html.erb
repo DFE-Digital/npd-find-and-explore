@@ -3,16 +3,21 @@
     <h1 class="govuk-heading-<%= size %> govuk-!-margin-bottom-0">
       <%= @title %>
     </h1>
+    <% if saved_items_page? -%>
+      <p class="description govuk-!-margin-top-4"><%= @description&.html_safe %></p>
+    <%- end %>
   </div>
   <div class="govuk-grid-column-one-third">
     <%= render partial: 'shared/saved_data_panel' unless saved_items_page? %>
-  </div>
-</div>
-<div class="govuk-grid-row govuk-!-margin-top-5">
-  <div class="govuk-grid-column-two-thirds">
-    <p class="description"><%= @description&.html_safe %></p>
-  </div>
-  <div class="govuk-grid-column-one-third">
     <%= render partial: 'shared/transient_data_warning' if saved_items_page? %>
   </div>
 </div>
+<% unless saved_items_page? -%>
+  <div class="govuk-grid-row govuk-!-margin-top-5">
+    <div class="govuk-grid-column-two-thirds">
+      <p class="description"><%= @description&.html_safe %></p>
+    </div>
+    <div class="govuk-grid-column-one-third">
+    </div>
+  </div>
+<%- end %>
