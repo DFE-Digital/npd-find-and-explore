@@ -25,8 +25,12 @@ RSpec.describe DataTable::Upload, type: :model do
 
   before do
     Rails.configuration.datasets.each do |dataset|
-      Dataset.create!(name: dataset['name'], tab_name: dataset['tab_name'],
-                      tab_type: dataset['type'], description: dataset['description'])
+      Dataset.find_or_create_by!(tab_name: dataset['tab_name'],
+                                 name: dataset['name'],
+                                 description: dataset['description'],
+                                 tab_regex: dataset['tab_regex'],
+                                 headers_regex: dataset['headers_regex'],
+                                 first_row_regex: dataset['first_row_regex'])
     end
   end
 
@@ -46,9 +50,17 @@ RSpec.describe DataTable::Upload, type: :model do
       .to change(DataTable::Upload, :count)
       .by(1)
       .and change(DataTable::Tab, :count)
-      .by(23)
+      .by(48)
       .and change(DataTable::Row, :count)
       .by(279)
+  end
+
+  it 'Will recognise the datasets in the system' do
+    loader.preprocess
+    upload = DataTable::Upload.first
+    expect(upload.data_table_tabs.count).to eq(48)
+    expect(upload.data_table_tabs.recognised.count).to eq(23)
+    expect(upload.data_table_tabs.unrecognised.count).to eq(25)
   end
 
   it 'Will process the data elements' do

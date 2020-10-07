@@ -40,7 +40,7 @@ module DataElementImport
         FROM data_table_rows
         LEFT OUTER JOIN data_elements ON data_table_rows.npd_alias = data_elements.npd_alias
         LEFT OUTER JOIN data_table_tabs ON data_table_rows.data_table_tab_id = data_table_tabs.id
-        LEFT OUTER JOIN datasets ON data_table_tabs.type = datasets.tab_type
+        LEFT OUTER JOIN datasets ON data_table_tabs.dataset_id = datasets.id
         WHERE data_table_rows.data_table_upload_id = #{conn.quote(upload_id)}
         AND data_elements.id IS NOT NULL
         AND datasets.id IS NOT NULL

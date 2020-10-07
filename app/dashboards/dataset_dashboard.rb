@@ -11,7 +11,6 @@ class DatasetDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     data_elements: HasManySortedField.with_options(order: %i[npd_alias]),
-    data_table_tab: Field::Polymorphic,
     id: Field::String.with_options(searchable: false),
     name: Field::String,
     tab_name: Field::String,

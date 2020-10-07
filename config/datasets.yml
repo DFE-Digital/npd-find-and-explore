@@ -3,94 +3,163 @@ default: &default
     name: School Census Pupil Level
     tab_name: SC_Pupil
     description: School Census data. This has information on pupils attending maintained schools. From Spring 2013/14, this includes local authority (LA) maintained PRUs and alternative provision (AP) academies, including AP Free Schools.
+    tab_regex: '^SC.?Pupil'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::ScAddresses
     name: Pupil Addresses
     tab_name: SC_Addresses
     description: This has information on pupil addresses as collected in the School Census.
+    tab_regex: '^SC.?Addresses'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::PruCensus
     name: Pupil Referral Unit (PRU) Census
     tab_name: PRU_Census
     description: Pupil Referral Unit census data. This has information on children attending local authority (LA) maintained PRUs and alternative provision (AP) academies, including AP Free Schools. From Spring 2013/14, this data is collected as part of the School Census.
+    tab_regex: '^PRU.?Census'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::EarlyYearsCensus
     name: Early Years Census
     tab_name: EarlyYearsCensus
     description: Early years census data. This has information on children attending any private, voluntary and independent (PVI) sector nursery with one or more children receiving funding from the Department.
+    tab_regex: '^Early.?Years.?Census'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::AltProvision
     name: Alternative Provision Census
     tab_name: Alt_Provision
     description: Alternative Provision census data. This has information on children in Alternative Provision i.e. a school not maintained by an LA but which the authority is paying full tuition fees for.
+    tab_regex: '^Alt.?Provision'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::ApAddresses
     name: AP Pupil Addresses
     tab_name: AP addresses
     description: This has information on pupil addresses as collected in the Alternative Provision Census.
+    tab_regex: '^AP.?Addresses'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::Eyfsp
     name: Early Years Foundation Stage Profile
     tab_name: EYFSP
     description: Early Years Foundation Stage Profile data. This has information on the statutory assessment of children in the final year of the Foundation Stage (Reception year).
+    tab_regex: '^EYFSP'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::Phonics
     name: Phonics
     tab_name: Phonics
     description: Phonics Screening data. This has information on the Phonics assessment of learners by the end year 1 of schooling.
+    tab_regex: '^Phonics'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::Ks1
     name: Key Stage 1
     tab_name: KS1
     description: Key stage 1 attainment data. This has information on the assessment of learners by the end of year 2 of schooling.
+    tab_regex: '^KS1'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::Ks2
     name: Key Stage 2
     tab_name: KS2
     description: Key stage 2 attainment data. This has information on the assessment of learners by the end of year 6 of schooling.
+    tab_regex: '^KS2'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '(KS2.?Pupil.?table|KS2.?Exam.?table)'
   - type: DataTable::Year7
     name: Year 7 tests
     tab_name: Year_7
     description: Year 7 progress tests data. This has information on the assessment of learners by the end of year 7 of schooling.
+    tab_regex: '^Year.?7'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::Ks3
     name: Key Stage 3
     tab_name: KS3
     description: Key stage 3 attainment data. This has information on the assessment of learners by the end of year 9 of schooling.
+    tab_regex: '^KS3'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '(KS3.?Candidate|KS3.?Indicators|KS3.?Result.?Table)'
   - type: DataTable::Ks4
     name: Key Stage 4
     tab_name: KS4
     description: Key stage 4 attainment data (all methodologies). This has information on the assessment of learners by the end of year 11 of schooling.
+    tab_regex: '^KS4'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '(KS4.?Pupil.?Table|KS4.?Exam.?Table)'
   - type: DataTable::Ks5
     name: Key Stage 5
     tab_name: KS5
     description: Key stage 5 attainment data. This has information on the post-16 assessment of learners in school sixth forms and FE colleges.
+    tab_regex: '^KS5'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '(KS5.?Student.?Table|KS5.?Exam.?Table)'
   - type: DataTable::Cin
     name: Children in Need
     tab_name: CIN
     description: This has information covering all children who are referred to children’s social care services.
+    tab_regex: '^CIN'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '(n_Census_CIN_Overall|n_Census_CIN_Child|n_Census_CIN_CPP|n_Census_CIN_Details|n_Census_CIN_Disabilities|n_Census_CIN_OpenCase|n_Census_CIN_ServiceProvision)'
   - type: DataTable::Cla
     name: Children Looked After
     tab_name: CLA
     description: This has information on children looked after by local authorities in England.
+    tab_regex: '^CLA'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::Absence
     name: Absence
     tab_name: Absence
     description: This has information on pupil absences derived from the termly School Census.
+    tab_regex: '^Absence'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::ExclusionsUpTo2005
     name: Exclusions 2001-02 to 2004-05
     tab_name: Exclusions_01-02_to_04-05
     description: This has information on pupil exclusions as collected in the termly School Census.
+    tab_regex: '^Exclusions.?\d{2}.?\d{2}.?to.?04.?05'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::ExclusionsFrom2005
     name: Exclusions 2005-06 onwards
     tab_name: Exclusions_05-06_onwards
     description: This has information on pupil exclusions as collected in the termly School Census (new format).
+    tab_regex: '^Exclusions.?05.?06'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::Plams
     name: Post-16 Learning Aims (PLAMS)
     tab_name: PLAMS
     description: This has information on post-16 learning aims as collected in the School Census.
+    tab_regex: '^PLAMS'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::Nccis
     name: National Client Caseload Information
     tab_name: NCCIS
     description: This has information from the National Client Caseload Information System on employment destinations.
+    tab_regex: '^NCCIS'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '---'
   - type: DataTable::Isp
     name: Independent Specialist Providers
     tab_name: ISP
     description: This has information on Independent Specialist Providers.
+    tab_regex: '^ISP'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '(Placement.?Student|Funding|Support)'
   - type: DataTable::Ypmad
     name: Young Person's Matched Administrative Dataset (YPMAD)
     tab_name: YPMAD
     description: This has information on level of achievement at age 19
+    tab_regex: '^YPMAD'
+    headers_regex: 'NPD.?Alias'
+    first_row_regex: '(Chronological.?Indicators|Snapshot.?Indicators)'
 
 production:
   *default
