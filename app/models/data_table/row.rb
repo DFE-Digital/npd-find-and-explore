@@ -9,7 +9,7 @@ module DataTable
       {
         id: id,
         concept_id: concept_id,
-        npd_alias: npd_alias,
+        unique_alias: unique_alias,
         source_table_name: source_table_name,
         source_attribute_name: source_attribute_name,
         source_old_attribute_name: source_old_attribute_name,

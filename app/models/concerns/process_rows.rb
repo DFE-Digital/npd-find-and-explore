@@ -21,7 +21,7 @@ module ProcessRows
   private
 
     HEADERS = {
-      'npd_alias' => /(NPDAlias|NPD Alias)/,
+      # 'unique_alias' => /(NPDAlias|NPD Alias)/,
       'field_reference' => /(Field Reference|FieldReference|NPD Field Reference)/i,
       'old_alias' => /(OldAlias|Old Alias)/,
       'former_name' => /FormerName/,
@@ -42,6 +42,10 @@ module ProcessRows
       'data_request_years_required' => /Data request years required/
     }.freeze
 
+    def headers_match
+      { 'unique_alias' => Regexp.new(dataset.headers_regex) }.merge(HEADERS)
+    end
+
     def process_row(idx)
       row = sheet.row(idx)
       return if row[0].nil?
@@ -53,7 +57,7 @@ module ProcessRows
     def header(cell)
       return nil if cell.is_a?(String) && cell.empty?
 
-      HEADERS.find { |_k, v| v.match?(cell) }&.first || cell
+      headers_match.find { |_k, v| v.match?(cell) }&.first || cell
     end
 
     def check_headers_for_errors

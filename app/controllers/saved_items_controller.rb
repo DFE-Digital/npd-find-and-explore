@@ -62,7 +62,7 @@ private
         de = element['object']
         table.add_rows([
           dataset.tab_name,
-          de.npd_alias,
+          de.unique_alias,
           [academic_year(de.academic_year_collected_from),
            academic_year(de.academic_year_collected_to)].join(' to '),
           de.sensitivity,

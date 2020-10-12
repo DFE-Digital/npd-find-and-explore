@@ -5,7 +5,7 @@ class Dataset < ApplicationRecord
   include SanitizeSpace
 
   has_and_belongs_to_many :data_elements,
-                          -> { order(npd_alias: :asc) },
+                          -> { order(unique_alias: :asc) },
                           inverse_of: :datasets, dependent: :nullify
 
   default_scope -> { order(name: :asc) }

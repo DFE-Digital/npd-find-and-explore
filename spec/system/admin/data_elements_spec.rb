@@ -25,7 +25,7 @@ RSpec.describe 'Admin Data Elements', type: :system do
 
     expect(page).to have_text('Data Elements')
     expect(page).to have_text('Dataset')
-    expect(page).to have_text('NPD Alias')
+    expect(page).to have_text('Unique Alias')
     expect(page).to have_text('Concept')
   end
 
@@ -34,6 +34,6 @@ RSpec.describe 'Admin Data Elements', type: :system do
     visit "/admin/data_elements/#{data_element.id}"
 
     expect(page).to have_text(data_element.id)
-    expect(page).to have_text(data_element.npd_alias)
+    expect(page).to have_text(data_element.unique_alias)
   end
 end

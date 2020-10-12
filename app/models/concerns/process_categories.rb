@@ -51,14 +51,14 @@ module ProcessCategories
         concept = Concept.find_or_create_by!(name: concept_hash.dig('name'), category: category) do |c|
           c.description = concept_hash.dig('description')
         end
-        update_data_elements(concept, concept_hash.dig('npd_aliases'))
+        update_data_elements(concept, concept_hash.dig('unique_aliases'))
       end
     end
 
-    def update_data_elements(concept, npd_aliases)
-      return if concept.nil? || npd_aliases.blank?
+    def update_data_elements(concept, unique_aliases)
+      return if concept.nil? || unique_aliases.blank?
 
-      DataElement.where(npd_alias: npd_aliases).update_all(concept_id: concept.id)
+      DataElement.where(unique_alias: unique_aliases).update_all(concept_id: concept.id)
     end
 
     def find_or_create_category(hash, parent = nil)

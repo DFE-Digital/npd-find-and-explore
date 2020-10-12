@@ -109,7 +109,7 @@ RSpec.describe InfArch::Upload, type: :model do
     de_loader.preprocess
     de_loader.process
 
-    data_element = DataElement.find_by(npd_alias: 'KS4_ACTYRGRP')
+    data_element = DataElement.find_by(unique_alias: 'KS4_ACTYRGRP')
     no_concept = Concept.find_by(name: 'No Concept')
     expect(no_concept.data_elements.count).to eq(274)
     expect(data_element.concept).to eq(no_concept)

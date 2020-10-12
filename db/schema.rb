@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 2020_11_16_123334) do
     t.string "collection_terms", array: true
     t.text "values"
     t.text "description"
-    t.string "npd_alias", null: false
+    t.string "unique_alias", null: false
     t.string "data_type"
     t.string "educational_phase", array: true
     t.string "standard_extract"
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 2020_11_16_123334) do
     t.tsvector "tsvector_content_tsearch"
     t.string "searchable_tab_names", array: true
     t.index ["concept_id"], name: "index_data_elements_on_concept_id"
-    t.index ["npd_alias"], name: "index_data_elements_on_npd_alias", unique: true
+    t.index ["unique_alias"], name: "index_data_elements_on_unique_alias", unique: true
   end
 
   create_table "data_elements_datasets", id: false, force: :cascade do |t|
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 2020_11_16_123334) do
   create_table "data_table_rows", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "data_table_upload_id"
     t.uuid "concept_id"
-    t.string "npd_alias"
+    t.string "unique_alias"
     t.string "source_table_name"
     t.string "source_attribute_name"
     t.string "source_old_attribute_name", array: true
@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(version: 2020_11_16_123334) do
     t.boolean "is_cla", default: false
     t.uuid "data_table_tab_id"
     t.index ["concept_id"], name: "index_data_table_rows_on_concept_id"
-    t.index ["data_table_tab_id", "npd_alias"], name: "index_data_table_rows_on_data_table_tab_id_and_npd_alias", unique: true
+    t.index ["data_table_tab_id", "unique_alias"], name: "index_data_table_rows_on_data_table_tab_id_and_unique_alias", unique: true
     t.index ["data_table_upload_id"], name: "index_data_table_rows_on_data_table_upload_id"
   end
 

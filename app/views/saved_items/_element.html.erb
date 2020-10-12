@@ -6,15 +6,15 @@
         data-dataset-id="<%= dataset.id %>">
       Remove
       <span class="screen-reader-text">
-        <%= data_element.npd_alias %>
+        <%= data_element.unique_alias %>
         <%= t('saved_data.my_list.from_my_list') %>
       </span>
     </a>
   </td>
   <th data-label="Name" class="govuk-table__header govuk-table__cell--break" scope="row">
     <%= hidden_field_tag "elements[#{data_element.id}][id]", data_element.id %>
-    <%= hidden_field_tag "elements[#{data_element.id}][npd_alias]", data_element.npd_alias %>
-    <%= link_to data_element.npd_alias, data_element %>
+    <%= hidden_field_tag "elements[#{data_element.id}][unique_alias]", data_element.unique_alias %>
+    <%= link_to data_element.unique_alias, data_element %>
   </th>
   <td data-label="Old name" class="govuk-table__cell govuk-table__cell--numeric">
     <%= [data_element.source_old_attribute_name].join(', ') %>

@@ -10,9 +10,9 @@ class DataElement < ApplicationRecord
                           -> { order(name: :asc) },
                           inverse_of: :data_elements
 
-  default_scope -> { order(npd_alias: :asc) }
-  scope :orphaned, -> { where(concept_id: nil).order(npd_alias: :asc) }
-  scope :misplaced, -> { includes(:concept).where(concept_id: nil).or(DataElement.includes(:concept).where(concepts: { name: 'No Concept' })).order(npd_alias: :asc) }
+  default_scope -> { order(unique_alias: :asc) }
+  scope :orphaned, -> { where(concept_id: nil).order(unique_alias: :asc) }
+  scope :misplaced, -> { includes(:concept).where(concept_id: nil).or(DataElement.includes(:concept).where(concepts: { name: 'No Concept' })).order(unique_alias: :asc) }
 
   before_validation :assign_concept
 
@@ -21,7 +21,7 @@ class DataElement < ApplicationRecord
   end
 
   def title(dataset = datasets.first)
-    [dataset&.tab_name, npd_alias].join('.')
+    [dataset&.tab_name, unique_alias].join('.')
   end
 
   def breadcrumbs

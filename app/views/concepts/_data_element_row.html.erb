@@ -6,7 +6,7 @@
           id: "data-element-#{data_element_row.id}", class: %w[govuk-checkboxes__input basket-checkbox],
           data: { id: data_element_row.id, name: data_element_row.source_attribute_name,
                   table: data_element_row.source_table_name, datasets: data_element_row.datasets.pluck(:tab_name),
-                  npd_alias: data_element_row.npd_alias, origin: "/concepts/#{@concept.id}" } %>
+                  unique_alias: data_element_row.unique_alias, origin: "/concepts/#{@concept.id}" } %>
         <%= label_tag "data-element-#{data_element_row.id}", class: %w[govuk-label govuk-checkboxes__label] do %>
           &nbsp;
           <%= tag.span data_element_row.npd_alias, class: %w[govuk-checkboxes__label-hidden] %>

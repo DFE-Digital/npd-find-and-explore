@@ -34,6 +34,6 @@ RSpec.describe 'Admin Data Elements Orphaned', type: :system do
 
     expect(page).to have_css('[data-url]')
     expect(page).to have_text(orphaned_element.datasets.first.name)
-    expect(page).to have_text(orphaned_element.npd_alias)
+    expect(page).to have_text(orphaned_element.unique_alias)
   end
 end

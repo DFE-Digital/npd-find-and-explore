@@ -119,10 +119,10 @@ module ProcessCategoryTabs
     def concept(row)
       return nil if row[8].blank?
 
-      { name: row[8].strip.gsub(/\s+/, ' '), description: row[9], npd_aliases: npd_aliases(row) }
+      { name: row[8].strip.gsub(/\s+/, ' '), description: row[9], unique_aliases: unique_aliases(row) }
     end
 
-    def npd_aliases(row)
+    def unique_aliases(row)
       return [] if row[10].blank?
 
       row[10, row.length]
