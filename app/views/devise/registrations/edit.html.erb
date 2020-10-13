@@ -33,7 +33,7 @@
         <div class="govuk-hint">(leave blank if you don't want to change it)</div>
         <%= f.password_field :password, autocomplete: 'new-password', class: 'govuk-input' %>
         <% if @minimum_password_length %>
-          <div class="govuk-hint"><%= @minimum_password_length %> characters minimum</div>
+          <div class="govuk-hint"><%= t('devise.passwords.format', length: @minimum_password_length) %></div>
         <% end %>
         <% if f.object.errors[:password].present? %>
           <span class="govuk-error-message">
