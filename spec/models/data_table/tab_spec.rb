@@ -47,8 +47,8 @@ RSpec.describe DataTable::Tab, type: :model do
     expect { new_tab }.to perform_under(40).ms.sample(10)
   end
 
-  it 'Will preprocess under 110ms' do
+  it 'Will preprocess under 120ms' do
     expect { tab.preprocess }
-      .to perform_under(110).ms.sample(10)
+      .to perform_under(120).ms.sample(10)
   end
 end
