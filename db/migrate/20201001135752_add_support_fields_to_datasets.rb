@@ -22,7 +22,7 @@ class AddSupportFieldsToDatasets < ActiveRecord::Migration[5.2]
     Rails.configuration.datasets.each do |dataset|
       obj = Dataset.find_or_create_by!(tab_name: dataset['tab_name'])
       obj.update!(name: dataset['name'], description: dataset['description'],
-                  tab_name: dataset['tab_name'])
+                  tab_name: dataset['tab_name'], tab_type: dataset['type'])
     end
     remove_column :datasets, :tab_regex
     remove_column :datasets, :headers_regex
