@@ -94,6 +94,6 @@ class DataElementDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(data_element)
-    "#{data_element.source_table_name}.#{data_element.source_attribute_name}"
+    [data_element.dataset, data_element.npd_alias].compact.join('.')
   end
 end
