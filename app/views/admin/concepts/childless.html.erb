@@ -1,5 +1,5 @@
 <% content_for(:title) do %>
-  <%= display_resource_name(page.resource_name) %>
+  Childless Concepts
 <% end %>
 
 <header class="main-content__header" role="banner">
@@ -9,6 +9,11 @@
 </header>
 
 <section class="main-content__body main-content__body--flush">
+  <%= paginate resources %>
+  <span class="govuk-body govuk-!-font-size-14 float-right govuk-!-margin-top-5">
+    <%= page_entries_info resources %>
+  </span>
+
   <%= render(
     "collection",
     collection_presenter: page,
@@ -18,5 +23,8 @@
     table_title: "page-title"
   ) %>
 
-<%= paginate resources %>
+  <%= paginate resources %>
+  <span class="govuk-body govuk-!-font-size-14 float-right govuk-!-margin-top-5">
+    <%= page_entries_info resources %>
+  </span>
 </section>
