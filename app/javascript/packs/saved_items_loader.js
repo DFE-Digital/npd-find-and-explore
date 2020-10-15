@@ -2,6 +2,7 @@ import '../src/loader.scss'
 import '../src/loader.js'
 import { getElementsList, persistAdditionalNotes, removeAllFromMetadata,
          removeDatasetFromMetadata, removeFromMetadata, validateDateRange } from '../src/basket.js'
+import { initializeOverlays } from '../src/overlay.js'
 import $ from 'jquery'
 
 window.loader = new GOVUK.Loader()
@@ -35,13 +36,7 @@ $(document).ready(function() {
         $('#govuk-box-message').hide()
         window.loader.stop()
         $('.saved_items_table').html(response)
-        $('.years-required').each(function(idx, element) {
-          element.addEventListener('change', validateDateRange)
-          element.dispatchEvent(new Event('change'))
-        })
-        $('.additional-notes').each(function(idx, element) {
-          element.addEventListener('change', persistAdditionalNotes)
-        })
+        initializeOverlays()
         $('.item-remove').each(function(idx, element) {
           element.addEventListener('click', removeFromMetadata)
         })
