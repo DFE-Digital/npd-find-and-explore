@@ -13,7 +13,8 @@ module NestableHelper
           link_to object_label(tree_node), edit_admin_category_path(tree_node.id)
         end
 
-        output += content_tag(:ol, nested_tree_nodes(sub_tree_nodes), class: 'list-group nested-sortable dd-list') if sub_tree_nodes&.any?
+        content = sub_tree_nodes&.any? ? nested_tree_nodes(sub_tree_nodes) : ''
+        output += content_tag(:ol, content, class: 'list-group nested-sortable dd-list')
         output
       end
     end
