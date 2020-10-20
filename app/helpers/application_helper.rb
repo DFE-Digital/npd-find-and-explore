@@ -42,6 +42,14 @@ module ApplicationHelper
     result.description || result.placeholder_description
   end
 
+  def decompose_row_values(values)
+    if values && (/\n/ =~ values || values.length > 30)
+      { label: 'Allowed Values', extended: values.split("\n") }
+    else
+      { label: values }
+    end
+  end
+
   def sort_options
     [
       %w[Relevance relevance],

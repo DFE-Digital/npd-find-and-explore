@@ -1,0 +1,17 @@
+<div class="overlay-parent">
+  <a href="#" class="codeset" aria-describedby="codeset-<%= row.title.downcase %>"
+    title="<%= values.dig(:label) %> for <%= row.title %>">
+    <%= values.dig(:label) %><span class="codeset-specification">for <%= row.title %></span>
+  </a>
+  <div class="overlay" role="overlay" id="codeset-<%= row.title.downcase %>">
+    <div class="overlay-content">
+      <span class="overlay-header">
+        <span><%= values.dig(:label) %> for <%= row.title %></span>
+        <a href="#" class="overlay-close">X</a>
+      </span>
+      <%- values.dig(:extended).each do |line| %>
+        <span><%= line %></span><br />
+      <%- end %>
+    </div>
+  </div>
+</div>
