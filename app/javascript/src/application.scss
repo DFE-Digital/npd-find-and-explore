@@ -359,3 +359,12 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
 .app-contact-panel__body:last-child {
   margin-bottom: 0
 }
+
+.success-message {
+  border: 5px;
+  border-style: solid;
+  border-color: #28a197;
+  padding: 20px;
+  margin-bottom: 50px;
+  margin-top: 6px;
+}

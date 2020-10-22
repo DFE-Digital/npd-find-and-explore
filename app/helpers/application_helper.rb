@@ -68,4 +68,18 @@ module ApplicationHelper
   def shared_header?
     params[:controller] != 'high_voltage/pages'
   end
+
+  def cookie_choice_page?
+    params[:controller] == 'high_voltage/pages' && params[:id] == 'cookie-preferences'
+  end
+
+  def usage_cookies_allowed?
+    cookies_policy = begin
+                       JSON.parse(cookies['cookies_policy'] || 'INVALID')
+                     rescue JSON::ParserError
+                       { 'essential' => true, 'usage' => false }
+                     end
+
+    cookies_policy['usage']
+  end
 end
