@@ -23,7 +23,7 @@ private
   def generate_link(level, link_params)
     link_to(
       link_params['name'],
-      link_params['url_params'] || '#',
+      main_app.url_for(link_params['url_params'] || '#'),
       class: "navigation__link navigation__link--#{level} navigation__link--#{active(link_params['conditions'])}"
     )
   end
