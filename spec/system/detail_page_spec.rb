@@ -123,7 +123,7 @@ RSpec.describe 'Category hierarchy', type: :system do
   it 'Shows the elements values' do
     visit concept_path(concept)
 
-    expect(page).not_to have_link('Codeset')
+    expect(page).not_to have_link('Allowed Values')
     concept.data_elements.all.each do |element|
       expect(page).to have_text(element.values)
     end
@@ -134,10 +134,24 @@ RSpec.describe 'Category hierarchy', type: :system do
     element.update(values: "Value 1\nValue 2")
     visit concept_path(concept)
 
-    expect(page).to have_link('Codeset')
+    expect(page).to have_link('Allowed Values')
     expect(page).not_to have_text(element.values)
 
-    click_on('Codeset')
+    click_on('Allowed Values')
+    expect(page).to have_text(element.values)
+  end
+
+  it 'Shows an overlay when the value has more than 30 characters' do
+    element = concept.data_elements.all.first
+    element.update(
+      values: 'Value 1, Value 2, Value 3, Value 4, Value 5, Value 6, Value 7'
+    )
+    visit concept_path(concept)
+
+    expect(page).to have_link('Allowed Values')
+    expect(page).not_to have_text(element.values)
+
+    click_on('Allowed Values')
     expect(page).to have_text(element.values)
   end
 

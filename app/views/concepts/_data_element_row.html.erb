@@ -40,25 +40,11 @@
     <%= data_element_row&.identifiability %>
   </td>
   <td data-label="Value" class="govuk-table__cell govuk-table__cell--numeric govuk-table__cell--no-break">
-    <%- if /\n/ =~ data_element_row.values %>
-      <div class="overlay-parent">
-        <a href="#" class="codeset" aria-describedby="codeset-<%= data_element_row.title.downcase %>" title="Codeset for <%= data_element_row.title %>">
-          Codeset<span class="codeset-specification">for <%= data_element_row.title %></span>
-        </a>
-        <div class="overlay" role="overlay" id="codeset-<%= data_element_row.title.downcase %>">
-          <div class="overlay-content">
-            <span class="overlay-header">
-              <span>Codeset values for <%= data_element_row.title %></span>
-              <a href="#" class="overlay-close">X</a>
-            </span>
-            <%- data_element_row.values.split("\n") do |line| %>
-              <span><%= line %></span><br />
-            <%- end %>
-          </div>
-        </div>
-      </div>
+    <% row_values = decompose_row_values(data_element_row.values) %>
+    <%- if row_values.dig(:extended).present? %>
+      <%= render 'shared/values_overlay', row: data_element_row, values: row_values %>
     <%- else %>
-      <%= data_element_row.values %>
+      <%= row_values.dig(:label) %>
     <%- end %>
   </td>
 </tr>
