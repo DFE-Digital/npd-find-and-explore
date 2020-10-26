@@ -1,5 +1,5 @@
 import { showModal, hideModal } from '../src/toggle_modal.js'
-import { toggleMetadata, checkAll, getElementsList } from '../src/basket.js'
+import { toggleMetadata, getElementsList } from '../src/basket.js'
 
 $(document).ready(function() {
   var selectedElements = getElementsList()

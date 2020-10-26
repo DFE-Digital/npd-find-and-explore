@@ -13,15 +13,6 @@ function addDetailToList(id, name, value) {
   localStorage.setItem('elementsList', JSON.stringify(elementsList))
 }
 
-function checkAll(event) {
-  var checked = event.currentTarget.checked
-  $('.basket-checkbox').each(function(idx, element) {
-    if (element.checked != checked) {
-      $(element).trigger('click')
-    }
-  })
-}
-
 function removeFromMetadata(event) {
   event.preventDefault()
   var target = event.currentTarget
@@ -143,6 +134,6 @@ function persistAdditionalNotes(event) {
   addDetailToList(elementId, 'notes', event.currentTarget.value)
 }
 
-export { toggleMetadata, checkAll, getElementsList, persistAdditionalNotes,
+export { toggleMetadata, getElementsList, persistAdditionalNotes,
          removeAllFromMetadata, removeDatasetFromMetadata, removeFromMetadata,
          validateDateRange }

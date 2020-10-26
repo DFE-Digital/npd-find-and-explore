@@ -5,21 +5,20 @@
     padding: 0;
   }
 
-  .govuk-checkboxes__input + .govuk-checkboxes__label::before
-  {
+  .govuk-checkboxes__input + .govuk-checkboxes__label::before {
     height: 20px;
     left: 0;
     top: 1px;
     width: 20px;
   }
 
-  .govuk-checkboxes__input + .govuk-checkboxes__label::after
-  {
+  .govuk-checkboxes__input + .govuk-checkboxes__label::after {
     border-width: 0 0 3px 3px;
     height: 4px;
     left: 4px;
     top: 5px;
     width: 9px;
+    box-sizing: initial !important;
   }
 
 }
