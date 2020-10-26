@@ -1,0 +1,19 @@
+<tr class="govuk-table__row" id="data-elements-header">
+  <th class="govuk-table__header govuk-!-padding-left-0" scope="col">
+    <div class="govuk-checkboxes govuk-checkboxes--small fixed-checkbox">
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="select-all" name="selectAll" type="checkbox" value="all">
+        <%= check_box_tag 'data_element[]', 'all', false,
+          id: 'data-element-all', class: %w[govuk-checkboxes__input basket-checkbox-all],
+          data: { check_all: true, check_class: 'check-all-target' } %>
+        <%= label_tag 'data-element-all', class: %w[govuk-label govuk-checkboxes__label] do %>
+          <%= tag.span 'All', class: %w[govuk-checkboxes__label-hidden] %>
+        <% end %>
+      </div>
+    </div>
+  </th>
+  <th data-label="Dataset" class="govuk-table__header" scope="col">Dataset</th>
+  <th data-label="NPD Alias" class="govuk-table__header" scope="col">NPD Alias</th>
+  <th data-label="Datasets" class="govuk-table__header govuk-!-padding-right-0 right" scope="col">Datasets</th>
+</tr>
+

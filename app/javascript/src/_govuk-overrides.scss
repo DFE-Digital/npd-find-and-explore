@@ -1,5 +1,5 @@
 .govuk-background__gray-4 {
-  background-color: govuk-colour("light-grey");
+  background-color: govuk-colour('light-grey');
 }
 
 .govuk-\!-display-inline-block {
@@ -10,10 +10,14 @@
   border: none !important;
 }
 
+.govuk-\!-border-0 {
+  border: 0 !important;
+}
+
 .govuk-panel--alert {
   background: govuk-colour('red');
-  text-align: left;
   padding: 10px !important;
+  text-align: left;
 
   .govuk-panel__body, h2, a {
     color: govuk-colour('white');
@@ -32,12 +36,11 @@
   clear: both;
   color: govuk-colour('yellow');
   display: block;
-  font-family: "nta",Arial,sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: 700;
-  font-size: 16px;
+  font-family: 'nta',Arial,sans-serif;
   font-size: 1rem;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 700;
   line-height: 1.25;
   margin-bottom: 15px;
 }
@@ -93,22 +96,20 @@
 }
 
 .govuk-warning-message {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   clear: both;
   color: govuk-colour('orange');
   display: block;
-  font-family: "nta", Arial, sans-serif;
-  font-size: 16px;
-  font-size: 16px;
+  font-family: 'nta', Arial, sans-serif;
   font-size: 1rem;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   font-weight: 700;
   line-height: 1.25;
   margin-bottom: 15px;
 }
 
 .govuk-text {
-  font-family: "nta", Arial, sans-serif;
+  font-family: 'nta', Arial, sans-serif;
 }
 
 @media print {
@@ -119,7 +120,6 @@
 
 @media (min-width: 40.0625em) {
   .govuk-warning-message {
-    font-size: 19px;
     font-size: 1.1875rem;
     line-height: 1.31579;
   }
@@ -193,4 +193,3 @@
 .govuk-\!-width-nine-tenths {
   width: 90% !important;
 }
-

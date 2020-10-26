@@ -20,6 +20,7 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
 @import "npd-modal";
 @import "sticky";
 @import "govuk-overrides";
+@import "govuk-flashes";
 
 // visually hide text, let screen readers see it
 .screen-reader-text {
@@ -47,10 +48,6 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
   p, a, h2 {
     color: govuk-colour('white');
   }
-}
-
-.right {
-  text-align: right;
 }
 
 .navbar-list {
@@ -107,11 +104,19 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
   }
 }
 
-.right, .float-right {
+.right {
+  text-align: right;
+}
+
+.float-right {
   float: right;
 }
 
 .left {
+  text-align: left;
+}
+
+.float-left {
   float: left;
 }
 

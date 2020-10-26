@@ -136,6 +136,27 @@ en:
       nestable:
         success: Tree updated
         error: Error while updating the tree
+    data_elements:
+      orphaned:
+        title: Orphaned Data Elements
+        actions: Actions to perform
+        assign_to_concept:
+          title: Assign to concept
+          subtitle: Enter concept name to be assigned
+          success: The chosen data elements have been successfully assigned to the concept, the list below has been updated to reflect this.
+        assign_preview:
+          title: "Confirm data elements to be assigned to \"%{concept}\""
+          subtitle: "You have chosen a total of %{count} data elements to be assigned to the concept \"%{concept}\""
+          proceed_question: Proceed and assign the above data elements to the concept?
+          proceed_yes: Yes, assign the data elements
+          proceed_no: No, do not assign the data elements
+        errors:
+          missing_data: Can't assign data elements to concept if the data elements or the concept are missing.
+          refused: Action cancelled by the user, data elements not assigned.
+  forms:
+    continue: Continue
+    confirm_and_continue: Confirm and continue
+    cancel: Cancel
 
   date:
     formats:

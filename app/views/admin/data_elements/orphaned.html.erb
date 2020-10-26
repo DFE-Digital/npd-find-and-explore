@@ -1,31 +1,71 @@
 <% content_for(:title) do %>
-  Orphaned Data Elements
+  <%= t('admin.data_elements.orphaned.title') %>
 <% end %>
 
-<header class="main-content__header" role="banner">
-  <h1 class="main-content__page-title" id="page-title">
-    <%= content_for(:title) %>
-  </h1>
+<header class="main-content__header govuk-!-padding-left-0 govuk-!-border-0" role="banner">
+  <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
+    <h1 class="govuk-heading-l govuk-!-margin-top-5 govuk-!-margin-bottom-5" id="page-title">
+      <%= content_for(:title) %>
+    </h1>
+    <%= render 'admin/application/flashes' %>
+  </div>
 </header>
 
 <section class="main-content__body main-content__body--flush">
-  <%= paginate resources %>
-  <span class="govuk-body govuk-!-font-size-14 float-right govuk-!-margin-top-5">
-    <%= page_entries_info resources %>
-  </span>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third govuk-!-margin-bottom-2">
+      <p class="govuk-text govuk-!-margin-bottom-1">Show</p>
+      <%= select_tag :filter_dataset,
+                     options_from_collection_for_select(datasets, :id, :name),
+                     { multiple: false, include_blank: 'All datasets',
+                       class: 'govuk-select' } %>
+    </div>
+  </div>
+  <div class="govuk-grid-row govuk-!-margin-top-2">
+    <%= form_with url: orphaned_admin_data_elements_path,
+                  method: :post, local: true, multipart: true,
+                  id: 'upload-form' do |f| -%>
+      <%= f.hidden_field :target, value: :preview %>
+      <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5">
+        <table class="govuk-table govuk-!-font-size-16 govuk-!-margin-bottom-0">
+          <thead class="govuk-table__head">
+            <%= render partial: 'data_elements_reduced_head' %>
+          </thead>
+          <tbody class="govuk-table__body">
+            <%= render partial: 'data_element_reduced',
+                       collection: resources, as: :data_element %>
+          </tbody>
+        </table>
 
-  <%= render(
-    "collection",
-    collection_presenter: page,
-    collection_field_name: resource_name,
-    page: page,
-    resources: resources,
-    table_title: "page-title"
-  ) %>
+        <%= paginate resources %>
+        <span class="govuk-body govuk-!-font-size-14 float-right govuk-!-margin-top-5">
+          <%= page_entries_info resources %>
+        </span>
+      </div>
 
-  <%= paginate resources %>
-  <span class="govuk-body govuk-!-font-size-14 float-right govuk-!-margin-top-5">
-    <%= page_entries_info resources %>
-  </span>
+      <div class="govuk-grid-column-one-third">
+        <p class="govuk-heading-s govuk-!-font-size-16 govuk-top-border govuk-!-padding-top-4">
+          <%= t('admin.data_elements.orphaned.actions') %>
+        </p>
+        <p class="govuk-!-font-size-16 govuk-!-margin-bottom-1">
+          <%= t('admin.data_elements.orphaned.assign_to_concept.title') %>
+        </p>
+        <p class="govuk-!-font-size-16 govuk-caption-m">
+          <%= t('admin.data_elements.orphaned.assign_to_concept.subtitle') %>
+        </p>
+        <p>
+          <%= f.select :concept,
+                       options_from_collection_for_select(Concept.all, :id, :name),
+                       {},
+                       { multiple: false, include_blank: false,
+                         class: 'govuk-select' } %>
+        </p>
+        <p>
+          <%= f.button t('form.continue'),
+                       value: 'Continue', name: 'Continue', type: 'submit',
+                       class: 'govuk-button' %>
+        </p>
+      </div>
+    <%- end %>
+  </div>
 </section>
-

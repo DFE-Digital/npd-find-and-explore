@@ -1,0 +1,77 @@
+<% content_for(:title) do %>
+  <%= t('admin.data_elements.orphaned.assign_preview.title', concept: concept.name) %>
+<% end %>
+
+<header class="main-content__header govuk-!-padding-left-0 govuk-!-border-0" role="banner">
+  <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
+    <h1 class="govuk-heading-l govuk-!-margin-top-5 govuk-!-margin-bottom-5 govuk-!-border-0" id="page-title">
+      <%= content_for(:title) %>
+    </h1>
+    <p>
+      <%= t('admin.data_elements.orphaned.assign_preview.subtitle',
+            count: data_elements.count, concept: concept.name) %>
+    </p>
+    <%= render 'admin/application/flashes' %>
+  </div>
+</header>
+
+<section class="main-content__body main-content__body--flush">
+  <%= form_with url: orphaned_admin_data_elements_path,
+                method: :post, local: true, multipart: true,
+                id: 'upload-form' do |f| -%>
+    <%= f.hidden_field :target, value: :commit %>
+    <%= f.hidden_field :concept, value: concept.id %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <table class="govuk-table govuk-!-font-size-16 govuk-!-margin-bottom-0">
+          <thead class="govuk-table__head">
+            <%= render partial: 'data_elements_preview_head' %>
+          </thead>
+          <tbody class="govuk-table__body">
+            <%= render partial: 'data_element_preview',
+                       collection: data_elements, as: :data_element %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5">
+        <p class="govuk-heading-s govuk-!-font-size-16 govuk-!-padding-top-4">
+          <%= t('admin.data_elements.orphaned.assign_preview.proceed_question') %>
+        </p>
+      </div>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-radios govuk-radios--small ">
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="proceed-yes" name="proceed" type="radio" value="yes">
+            <label class="govuk-label govuk-radios__label" for="proceed-yes">
+              <%= t('admin.data_elements.orphaned.assign_preview.proceed_yes') %>
+            </label>
+          </div>
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input" id="proceed-no" name="proceed" type="radio" value="no">
+            <label class="govuk-label govuk-radios__label" for="proceed-no">
+              <%= t('admin.data_elements.orphaned.assign_preview.proceed_no') %>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds govuk-!-margin-top-3">
+        <p>
+          <%= f.button t('forms.confirm_and_continue'),
+                       value: 'Continue', name: 'Continue', type: 'submit',
+                       class: 'govuk-button' %>
+          <%= f.button t('forms.cancel'),
+                       value: 'Cancel', name: 'Cancel', type: 'submit',
+                       class: %w[govuk-button govuk-button--secondary] %>
+        </p>
+      </div>
+    </div>
+  <%- end %>
+</section>

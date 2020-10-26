@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noodp, noydir, index, follow">
+    <meta name="viewport" content="initial-scale=1">
+    <title>
+      <%= content_for(:title) || 'Dashboard' %> -
+      <%= Rails.application.class.parent_name.titlecase %>
+    </title>
+    <%= javascript_pack_tag 'check_all' %>
+    <%#= javascript_pack_tag 'administrate', 'data-turbolinks-track': 'reload' %>
+    <%#= stylesheet_pack_tag 'administrate' %>
+    <%= render 'administrate/application/stylesheet' %>
+    <%= stylesheet_pack_tag 'application' %>
+    <%= csrf_meta_tags %>
+    <%= yield :additional_tags %>
+    <meta name="turbolinks-root" content="/admin">
+  </head>
+  <body class="govuk-template__body">
+    <input type="hidden" id="timer-ms" value="<%= 1000 * (current_admin_user&.timeout_in&.seconds&.to_i || 1200) %>">
+    <div class="app-pane app-pane--enabled">
+      <%= render 'layouts/admin/government_header' %>
+    </div>
+    <div class="govuk-width-container">
+      <%= render 'shared/staging' unless Rails.env.production? %>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <%= render "shared/breadcrumbs" %>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+    <div class="icons" style="display: none; width: 0; height: 0; overflow: hidden; position: absolute">
+      <%= render 'administrate/application/icons' %>
+    </div>
+
+    <%= render 'administrate/application/javascript' %>
+    <%= render "shared/govuk_footer" %>
+  </body>
+</html>
