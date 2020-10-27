@@ -33,6 +33,11 @@ $(document).ready(function() {
       'X-CSRF-Token': token
     },
     success: function(response, status, xhr) {
+      if (/no-elements/.test(response)) {
+        localStorage.setItem('elementsList', JSON.stringify({}))
+        localStorage.setItem('count', 0)
+      }
+
       setTimeout(function() {
         $('#govuk-box-message').hide()
         window.loader.stop()

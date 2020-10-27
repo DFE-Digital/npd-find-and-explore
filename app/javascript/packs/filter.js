@@ -8,14 +8,20 @@ function submitFilter(event) {
   var name = target.name
   var value = target.value
   var query = window.location.search.replace(/^\?/, '').split('&')
-  var regexp = new RegExp('^' + name.replace(/\[/g, '\\[').replace(/\]/g, '\\]') + '=' + encodeURI(value))
 
-  var newQuery
-  if (target.checked) {
-    query.push(name + '=' + value)
-    newQuery = query.filter(function(value, index, self) { return self.indexOf(value) === index } )
+  var newQuery = []
+  if (target.tagName == 'SELECT') {
+    var regexp = new RegExp('^' + name.replace(/\[/g, '\\[').replace(/\]/g, '\\]') + '=');
+    newQuery = query.filter(function (element) { return !regexp.test(element) });
+    newQuery.push(name + '=' + value);
   } else {
-    newQuery = query.filter(function (element) { return !regexp.test(element) })
+    var regexp = new RegExp('^' + name.replace(/\[/g, '\\[').replace(/\]/g, '\\]') + '=' + encodeURI(value))
+    if (target.checked) {
+      query.push(name + '=' + value)
+      newQuery = query.filter(function(value, index, self) { return self.indexOf(value) === index } )
+    } else {
+      newQuery = query.filter(function (element) { return !regexp.test(element) })
+    }
   }
 
   window.loader.init({
@@ -28,5 +34,5 @@ function submitFilter(event) {
 }
 
 $(document).ready(function() {
-  $('.govuk-checkboxes__input.search-filter').on('change', submitFilter)
+  $('[data-filter=true]').on('change', submitFilter);
 })

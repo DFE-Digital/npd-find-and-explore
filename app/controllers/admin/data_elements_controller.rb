@@ -113,8 +113,17 @@ module Admin
     end
 
     def extract_resources
-      misplaced = DataElement.misplaced
-      [misplaced, misplaced.map(&:datasets).flatten.uniq]
+      misplaced = DataElement.misplaced.includes(:datasets)
+      [filterElements(misplaced), misplaced.map(&:datasets).flatten.uniq]
+    end
+
+    def filterElements(elements)
+      dataset_id = params.permit(:filter_dataset).dig(:filter_dataset)
+      if dataset_id.present?
+        elements.where(datasets: { id: dataset_id })
+      else
+        elements
+      end
     end
 
     def layout_by_resource

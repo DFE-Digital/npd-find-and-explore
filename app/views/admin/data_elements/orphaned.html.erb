@@ -2,6 +2,10 @@
   <%= t('admin.data_elements.orphaned.title') %>
 <% end %>
 
+<%= content_for :additional_tags do %>
+  <%= javascript_pack_tag 'filter' %>
+<% end %>
+
 <header class="main-content__header govuk-!-padding-left-0 govuk-!-border-0" role="banner">
   <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
     <h1 class="govuk-heading-l govuk-!-margin-top-5 govuk-!-margin-bottom-5" id="page-title">
@@ -18,7 +22,7 @@
       <%= select_tag :filter_dataset,
                      options_from_collection_for_select(datasets, :id, :name),
                      { multiple: false, include_blank: 'All datasets',
-                       class: 'govuk-select' } %>
+                       class: 'govuk-select', data: { filter: true } } %>
     </div>
   </div>
   <div class="govuk-grid-row govuk-!-margin-top-2">

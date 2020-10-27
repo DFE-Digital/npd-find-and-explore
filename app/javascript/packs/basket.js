@@ -6,8 +6,6 @@ $(document).ready(function() {
   var selectedElements = getFromLocalStorage('elementsList');
   var selectedElementKeys = Object.keys(selectedElements);
 
-  $('#data-element-all').change(checkAll);
-
   $('.basket-checkbox').each(function(idx, element) {
     if (selectedElementKeys.indexOf(element.dataset.id) > -1) {
       element.checked = true;
