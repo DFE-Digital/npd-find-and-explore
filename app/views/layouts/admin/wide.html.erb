@@ -9,10 +9,12 @@
       <%= Rails.application.class.parent_name.titlecase %>
     </title>
     <%= javascript_pack_tag 'check_all' %>
-    <%#= javascript_pack_tag 'administrate', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'save_to_local_storage' %>
+    <%= javascript_pack_tag 'administrate', 'data-turbolinks-track': 'reload' %>
     <%#= stylesheet_pack_tag 'administrate' %>
     <%= render 'administrate/application/stylesheet' %>
     <%= stylesheet_pack_tag 'application' %>
+    <%= stylesheet_pack_tag 'selectize_govuk' %>
     <%= csrf_meta_tags %>
     <%= yield :additional_tags %>
     <meta name="turbolinks-root" content="/admin">

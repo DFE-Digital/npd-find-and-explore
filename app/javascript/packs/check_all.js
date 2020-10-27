@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 function checkAll(event) {
   var checked = event.currentTarget.checked;
   var targets = event.currentTarget.dataset.checkClass;
@@ -10,5 +12,7 @@ function checkAll(event) {
 }
 
 $(document).ready(function() {
-  document.querySelector('[data-check-all=true]').addEventListener('change', checkAll);
+  if (document.querySelector('[data-check-all=true]')) {
+    document.querySelector('[data-check-all=true]').addEventListener('change', checkAll);
+  }
 })

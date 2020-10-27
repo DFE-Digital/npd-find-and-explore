@@ -6,6 +6,8 @@
           <%= link_to crumb.name, '', class: 'govuk-back-link' %>
         <% elsif crumb.current? %>
           <%= crumb.name %>
+        <% elsif /^back$/i =~ crumb.name %>
+          <%= link_to crumb.name, '', class: 'govuk-back-link' %>
         <% else %>
           <%= link_to crumb.name, crumb.url, class: "govuk-breadcrumbs__link" %>
         <% end %>

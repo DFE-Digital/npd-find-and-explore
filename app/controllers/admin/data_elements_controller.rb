@@ -25,8 +25,7 @@ module Admin
     end
 
     def assign_orphaned
-      custom_breadcrumbs_for(steps: [{name: 'Data Elements', path: admin_data_elements_path}],
-                             leaf: 'Orphaned Data Elements')
+      back_breadcrumbs
 
       if params[:data_elements].present? && params[:concept].present?
         concept = Concept.find(params[:concept])

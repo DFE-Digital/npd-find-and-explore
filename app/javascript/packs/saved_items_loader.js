@@ -1,6 +1,7 @@
 import '../src/loader.scss'
 import '../src/loader.js'
-import { getElementsList, persistAdditionalNotes, removeAllFromMetadata,
+import { getFromLocalStorage } from '../src/local_storage.js'
+import { persistAdditionalNotes, removeAllFromMetadata,
          removeDatasetFromMetadata, removeFromMetadata, validateDateRange } from '../src/basket.js'
 import { initializeOverlays } from '../src/overlay.js'
 import $ from 'jquery'
@@ -15,7 +16,7 @@ $(document).ready(function() {
     labelText: 'Your data is being loaded'
   })
 
-  var selectedElements = getElementsList()
+  var selectedElements = getFromLocalStorage('elementsList')
 
   var meta = document.querySelector('meta[name="csrf-token"]')
   var token = ''
