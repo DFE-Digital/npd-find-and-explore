@@ -4,6 +4,20 @@
 
 <header class="main-content__header govuk-!-padding-left-0 govuk-!-border-0" role="banner">
   <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
+    <div class="govuk-error-summary hidden" aria-labelledby="error-summary-title"
+      role="alert" tabindex="-1" data-module="govuk-error-summary">
+      <h2 class="govuk-error-summary__title" id="error-summary-title">
+        There is a problem
+      </h2>
+      <div class="govuk-error-summary__body">
+        <ul class="govuk-list govuk-error-summary__list">
+          <li data-reference="choice-error" class="hidden">
+            <a href="#choice-error">You must select an option.</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <h1 class="govuk-heading-l govuk-!-margin-top-5 govuk-!-margin-bottom-5 govuk-!-border-0" id="page-title">
       <%= content_for(:title) %>
     </h1>
@@ -18,7 +32,7 @@
 <section class="main-content__body main-content__body--flush">
   <%= form_with url: orphaned_admin_data_elements_path,
                 method: :post, local: true, multipart: true,
-                id: 'upload-form' do |f| -%>
+                data: { js_validate: true }, id: 'upload-form' do |f| -%>
     <%= f.hidden_field :target, value: :commit %>
     <%= f.hidden_field :concept, value: concept.id %>
     <div class="govuk-grid-row">
@@ -44,18 +58,26 @@
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        <div class="govuk-radios govuk-radios--small ">
-          <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="proceed-yes" name="proceed" type="radio" value="yes">
-            <label class="govuk-label govuk-radios__label" for="proceed-yes">
-              <%= t('admin.data_elements.orphaned.assign_preview.proceed_yes') %>
-            </label>
+        <div id="form-group" class="govuk-form-group">
+          <div class="error-message hidden">
+            <p id="choice-error" class="govuk-error-message govuk-!-margin-top-2">
+              <span class="govuk-visually-hidden">Error:</span>
+              <span class="message">You must select an option.</span>
+            </p>
           </div>
-          <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="proceed-no" name="proceed" type="radio" value="no">
-            <label class="govuk-label govuk-radios__label" for="proceed-no">
-              <%= t('admin.data_elements.orphaned.assign_preview.proceed_no') %>
-            </label>
+          <div class="govuk-radios govuk-radios--small">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="proceed-yes" name="proceed" type="radio" value="yes" required="true">
+              <label class="govuk-label govuk-radios__label" for="proceed-yes">
+                <%= t('admin.data_elements.orphaned.assign_preview.proceed_yes') %>
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="proceed-no" name="proceed" type="radio" value="no" required="true">
+              <label class="govuk-label govuk-radios__label" for="proceed-no">
+                <%= t('admin.data_elements.orphaned.assign_preview.proceed_no') %>
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -67,9 +89,6 @@
           <%= f.button t('forms.confirm_and_continue'),
                        value: 'Continue', name: 'Continue', type: 'submit',
                        class: 'govuk-button' %>
-          <%= f.button t('forms.cancel'),
-                       value: 'Cancel', name: 'Cancel', type: 'submit',
-                       class: %w[govuk-button govuk-button--secondary] %>
         </p>
       </div>
     </div>
