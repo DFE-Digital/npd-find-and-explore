@@ -20,16 +20,12 @@ Rails.application.routes.draw do
       post :preprocess
       post :import, to: 'categories#do_import'
       post :abort_import
-      get  :reindex
-      post :reindex, to: 'categories#do_reindex'
       get  :export
       get  :download
     end
     resources :categories
     resource :concepts, only: [] do
       get  :childless
-      get  :reindex
-      post :reindex, to: 'concepts#do_reindex'
     end
     resources :concepts
     resource :data_elements, only: [] do

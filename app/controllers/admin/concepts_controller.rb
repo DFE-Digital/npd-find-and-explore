@@ -45,19 +45,6 @@ module Admin
       }
     end
 
-    def reindex
-      render :reindex, layout: 'admin/application', locals: { success: nil, error: '' }
-    end
-
-    def do_reindex
-      # Concept.rebuild_pg_search_documents
-
-      render :reindex, layout: 'admin/application', locals: { success: true, error: '' }
-    rescue StandardError => e
-      Rails.logger.error(e)
-      render :reindex, layout: 'admin/application', locals: { success: false, error: 'There has been an error while reindexing the concepts' }
-    end
-
   private
 
     def find_resources(search_term = nil)

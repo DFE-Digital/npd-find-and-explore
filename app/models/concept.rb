@@ -8,6 +8,7 @@
 #       - SchoolCensus.FSM6
 class Concept < Versioned
   include SanitizeSpace
+  include PgSearch::Model
 
   belongs_to :category, inverse_of: :concepts
   has_many :data_elements,
@@ -16,6 +17,9 @@ class Concept < Versioned
 
   validates :name, uniqueness: { scope: :category }
   before_destroy :reassign_data_elements, prepend: true
+
+  pg_search_scope :search,
+                  against: %i[name description]
 
   def placeholder_description
     data_elements&.max { |a, b| (a&.description&.length || 0) <=> (b&.description&.length || 0) }&.description

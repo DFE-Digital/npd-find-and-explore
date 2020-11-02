@@ -8,6 +8,9 @@ module Indexing
     include PgSearch::Model
 
     included do
+      mattr_accessor :skip_indexing
+      before_save :update_pg_search_document, unless: :skip_indexing
+
       pg_search_scope :search,
                       against: %i[npd_alias source_table_name
                                   source_old_attribute_name description],
@@ -82,6 +85,7 @@ module Indexing
               ON data_elements_datasets.dataset_id = datasets.id
             GROUP BY data_elements.id
           ) AS tsvector_query
+          WHERE tsvector_query.id = data_elements.id
         SQL
       end
     end

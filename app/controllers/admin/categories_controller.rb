@@ -113,19 +113,6 @@ module Admin
       render partial: 'import_form', layout: false, locals: { success: false, errors: ['The upload has been cancelled by the user'] }
     end
 
-    def reindex
-      render :reindex, layout: 'admin/application', locals: { success: nil, errors: [] }
-    end
-
-    def do_reindex
-      # Category.rebuild_pg_search_documents
-
-      render :reindex, layout: 'admin/application', locals: { success: true, errors: [] }
-    rescue StandardError => e
-      Rails.logger.error(e)
-      render :reindex, layout: 'admin/application', locals: { success: false, errors: ['There has been an error while reindexing the categories'] }
-    end
-
     def download
       @categories = Category.roots.includes(concepts: :data_elements)
       filename = "F&E IA #{DateTime.now.strftime('%d %m %Y %H_%M')}.xlsx"

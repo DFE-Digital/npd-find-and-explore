@@ -34,15 +34,5 @@ RSpec.describe 'Admin Concepts Index', type: :system do
 
     expect(page).to have_text(Concept.first.name)
     expect(page).to have_text(Concept.first.category.name)
-  end
-
-  it 'Will find concepts by element' do
-    visit '/admin/concepts'
-    search = page.find('#search').native
-    search.send_keys(DataElement.first.source_table_name)
-    search.send_key "\n"
-
-    expect(page).to have_text(DataElement.first.concept.name)
-    expect(page).to have_text(DataElement.first.concept.category.name)
-  end
+ end
 end

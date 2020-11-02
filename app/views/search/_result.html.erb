@@ -1,11 +1,11 @@
 <div class="card govuk-!-width-full">
-  <a href="<%= url_for(result) %>" class="card__body">
+  <a href="<%= url_for(result.concept) %>" class="card__body">
     <span class="govuk-!-font-weight-bold govuk-!-font-size-19 govuk-!-margin-bottom-0 govuk-!-display-inline">
-      <%= result.name %>
+      <%= result.npd_alias %>
     </span>
     <span class="float-right govuk-!-display-inline">
       <strong class="govuk-tag">
-        <%= search_category_tag(result) %>
+        <%= search_concept_tag(result) %>
       </strong>
     </span>
   </a>
