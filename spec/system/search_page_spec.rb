@@ -35,7 +35,7 @@ RSpec.describe 'Search pages', type: :system do
     expect(page).not_to have_text(category.description)
   end
 
-  it 'Will find concepts' do
+  it 'Will not find concepts' do
     concept = Concept.where.not(name: 'No Concept').first
     visit '/categories'
     fill_in('search', with: concept.name)
@@ -44,8 +44,7 @@ RSpec.describe 'Search pages', type: :system do
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
     expect(page).to have_text("Results for '#{concept.name}'")
-    expect(page).to have_text(concept.category.name.upcase)
-    expect(page).to have_text(concept.description)
+    expect(page).to have_text('No result found')
   end
 
   it 'Will not find no concept' do
@@ -62,14 +61,15 @@ RSpec.describe 'Search pages', type: :system do
 
   it 'Will find concepts by element' do
     visit '/categories'
-    fill_in('search', with: DataElement.first.source_attribute_name)
+    fill_in('search', with: DataElement.first.npd_alias)
     click_button('Search')
 
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
-    expect(page).to have_text("Results for '#{DataElement.first.source_attribute_name}'")
-    expect(page).to have_text(DataElement.first.concept.category.name.upcase)
-    expect(page).to have_text(DataElement.first.concept.description)
+    expect(page).to have_text("Results for '#{DataElement.first.npd_alias}'")
+    expect(page).to have_text(DataElement.first.concept.name.upcase)
+    expect(page).to have_text(DataElement.first.npd_alias)
+    expect(page).to have_text(DataElement.first.description)
   end
 
   context 'Filter search results' do
@@ -78,28 +78,27 @@ RSpec.describe 'Search pages', type: :system do
       cla = [true, false]
       Concept.where.not(name: 'No Concept').all.each_with_index do |concept, i|
         concept.data_elements.each_with_index do |de, j|
-          de.update(academic_year_collected_from: 1990 + j + (10 * i),
+          de.update(description: "FSM #{de.description}",
+                    academic_year_collected_from: 1990 + j + (10 * i),
                     academic_year_collected_to: 1995 + j + (10 * i),
                     is_cla: cla[i % 2])
           datasets[(j * (i + 1)) % 6].data_elements << de if de.datasets.empty?
         end
-        concept.update(name: "FSM #{i}")
       end
       DataElement.rebuild_pg_search_documents
     end
 
-    it 'Will filter concepts by category' do
+    it 'Will filter data elements by concept' do
       concept = Concept.where.not(name: 'No Concept').first
       visit '/categories'
       fill_in('search', with: 'FSM')
       click_button('Search')
 
-      expect(page).to have_text('Showing all 2 results')
+      expect(page).to have_text('Found 6 exact matches')
 
-      check("category_id-#{concept.category_id}", allow_label_click: true)
-      expect(page).to have_text('Displaying 1 result')
-      expect(page).to have_text(concept.category.name.upcase)
-      expect(page).to have_text(concept.description)
+      check("concept_id-#{concept.id}", allow_label_click: true)
+      expect(page).to have_text("Found #{concept.data_elements.count} exact matches")
+      expect(page).to have_text(concept.name.upcase)
     end
 
     it 'Will filter concepts by years' do
@@ -108,7 +107,7 @@ RSpec.describe 'Search pages', type: :system do
       click_button('Search')
       year = Concept.all.map(&:data_elements).flatten.map(&:academic_year_collected_from).min
 
-      expect(page).to have_text('Showing all 2 results')
+      expect(page).to have_text('Found 6 exact matches')
 
       check("years-#{year}", allow_label_click: true)
       expect(page).to have_text('Displaying 1 result')
@@ -123,16 +122,16 @@ RSpec.describe 'Search pages', type: :system do
       visit '/categories'
       fill_in('search', with: 'FSM')
       click_button('Search')
-      expect(page).to have_text('Showing all 2 results')
+      expect(page).to have_text('Found 6 exact matches')
 
       tab = all('[name="filter[tab_name][]"]', visible: :any).first
       dataset = Dataset.where(tab_name: tab[:value]).select { |ds| ds.data_elements.any? }.first
       concept = dataset.data_elements.first.concept
 
       tab.check(allow_label_click: true)
-      expect(page).to have_text('Displaying 1 result')
-      expect(page).to have_text(concept.category.name.upcase)
-      expect(page).to have_text(concept.description)
+      expect(page).to have_text('Found 3 exact matches')
+      expect(page).to have_text(concept.name.upcase)
+      expect(page).to have_text(dataset.data_elements.first.description)
     end
   end
 end

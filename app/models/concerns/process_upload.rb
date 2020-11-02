@@ -54,11 +54,14 @@ module ProcessUpload
 
     def process
       Rails.logger.info "Uploading #{file_name}"
+      DataElement.skip_indexing = true
 
       import_elements(DataElement, data_table_rows.map(&:to_data_element_hash).uniq { |r| r[:npd_alias] })
       DataElement.where(id: del_rows.pluck(:id)).destroy_all
       del_datasets.each { |ds| ds.data_elements.clear }
       import_datasets(id)
+
+      DataElement.skip_indexing = false
       DataElement.rebuild_pg_search_documents
 
       Rails.logger.info "Uploaded #{file_name}"

@@ -12,6 +12,7 @@
 # concepts.
 class Category < Versioned
   include SanitizeSpace
+  include PgSearch::Model
 
   has_many :concepts, dependent: :destroy, inverse_of: :category
 
@@ -21,6 +22,9 @@ class Category < Versioned
   scope :real, -> { where.not(name: 'No Category') }
 
   has_ancestry orphan_strategy: :rootify
+
+  pg_search_scope :search,
+                  against: %i[name description]
 
   def child_categories
     children.count

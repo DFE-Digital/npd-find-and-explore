@@ -14,8 +14,6 @@ default: &default
             - childless
             - tree
             - sort
-            - reindex
-            - do_reindex
     secondary:
       - name: Childless Categories
         url_params:
@@ -36,16 +34,6 @@ default: &default
           - controller: admin/categories
             actions:
               - tree
-      - reindex:
-        name: Reindex Categories for search
-        url_params:
-          - reindex
-          - admin
-          - categories
-        conditions:
-          - controller: admin/categories
-            actions:
-              - reindex
   concepts:
     main:
       name: Concepts
@@ -59,8 +47,6 @@ default: &default
             - show
             - edit
             - childless
-            - reindex
-            - do_reindex
     secondary:
       - name: Childless Concepts
         url_params:
@@ -71,16 +57,6 @@ default: &default
           - controller: admin/concepts
             actions:
               - childless
-      - reindex:
-        name: Reindex concepts for search
-        url_params:
-          - reindex
-          - admin
-          - concepts
-        conditions:
-          - controller: admin/concepts
-            actions:
-              - reindex
   data_elements:
     main:
       name: Data Elements

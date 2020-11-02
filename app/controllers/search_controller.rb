@@ -43,8 +43,8 @@ private
   def sort_param
     par = params.permit(:sort).dig(:sort)&.to_sym
     {
-      published: { searchable_created_at: :desc },
-      updated: { searchable_updated_at: :desc },
+      published: { created_at: :desc },
+      updated: { updated_at: :desc },
       az: { name: :asc }
     }[par]
   end
@@ -78,7 +78,7 @@ private
   def filter_concepts(results, concept_ids)
     return results if concept_ids.blank?
 
-    results.where(category_id: category_ids)
+    results.where(concept_id: concept_ids)
   end
 
   def filter_years(results, years)
@@ -87,9 +87,9 @@ private
     query = []
     query_params = []
     years.each do |year|
-      query.push('(? BETWEEN searchable_year_from AND searchable_year_to OR ' \
-                 '(? >= searchable_year_from AND searchable_year_to IS NULL) OR ' \
-                 '(? <= searchable_year_to AND searchable_year_from IS NULL))')
+      query.push('(? BETWEEN academic_year_collected_from AND academic_year_collected_to OR ' \
+                 '(? >= academic_year_collected_from AND academic_year_collected_to IS NULL) OR ' \
+                 '(? <= academic_year_collected_to AND academic_year_collected_from IS NULL))')
       query_params.push(year, year, year)
     end
     results.where(["(#{query.join(' AND ')})"].concat(query_params))
@@ -103,10 +103,10 @@ private
 
   def build_concepts
     concepts = []
-    active_search = filtered_search.map(&:searchable).map(&:id).uniq.sort
-    sorted_search.map(&:searchable).each do |searchable|
-      is_active = active_search.include?(searchable.id)
-      concepts.push(concept: searchable.concept, active: is_active)
+    active_search = filtered_search.map(&:id).uniq.sort
+    sorted_search.each do |data_element|
+      is_active = active_search.include?(data_element.id)
+      concepts.push(concept: data_element.concept, active: is_active)
     end
     concepts.uniq { |c| c[:concept] }.sort { |a, b| a[:concept].name <=> b[:concept].name }
   end
@@ -114,8 +114,8 @@ private
   def build_years_tabs
     years = []
     tabs = []
-    active_tabs = @filtered_search.map(&:searchable).map(&:datasets).map(&:to_a).flatten.map(&:tab_name).compact.uniq
-    @sorted_search.map(&:searchable).each do |de|
+    active_tabs = @filtered_search.map(&:datasets).map(&:to_a).flatten.map(&:tab_name).compact.uniq
+    @sorted_search.each do |de|
       years.push(collect_years(de, @filtered_search.include?(de)))
       de.datasets.map(&:tab_name).each do |tab|
         tabs.push(tab: tab, active: active_tabs.include?(tab))
