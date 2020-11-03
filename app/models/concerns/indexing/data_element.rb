@@ -26,9 +26,9 @@ module Indexing
                           prefix: true
                         }
                       }
-      scope :exact, -> (search_terms) {
+      scope :exact, ->(search_terms) {
         search_words = search_terms.split(/\s+/)
-        where(search_words.map{ |word| "content_search LIKE #{connection.quote("%#{word}%")}" }.join(' AND '))
+        where(search_words.map { |word| "content_search LIKE #{connection.quote("%#{word}%")}" }.join(' AND '))
       }
 
       def update_pg_search_document
