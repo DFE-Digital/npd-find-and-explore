@@ -34,5 +34,5 @@ RSpec.describe 'Admin Concepts Index', type: :system do
 
     expect(page).to have_text(Concept.first.name)
     expect(page).to have_text(Concept.first.category.name)
- end
+  end
 end
