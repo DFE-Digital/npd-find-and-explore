@@ -50,7 +50,7 @@ private
   end
 
   def page
-    max_page = (filtered_search.count / per_page).floor
+    max_page = (filtered_search.count.to_f / per_page).ceil
     saved_page = (params.permit(:page).dig(:page) || 1).to_i
 
     saved_page > max_page ? max_page : saved_page
