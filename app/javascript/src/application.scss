@@ -27,6 +27,12 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
   left: -100px;
 }
 
+.card__tag {
+  position: relative;
+  top: 1em;
+  right: 0.5em;
+}
+
 // Custom styles to refactor somewhere
 .strong_link {
   font-weight: bold;

@@ -22,12 +22,13 @@
     width: 9px;
   }
 
-  &.collapsible.collapsed {
-    height: 9rem;
-    overflow: hidden;
-  }
 }
 
 .govuk-checkboxes__label-hidden {
   display: none;
+}
+
+.collapsible.collapsed {
+  max-height: 9rem;
+  overflow: hidden;
 }

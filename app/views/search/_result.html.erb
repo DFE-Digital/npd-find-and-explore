@@ -1,12 +1,14 @@
 <div class="card govuk-!-width-full">
+  <a href="<%= url_for(result.concept) %>" class="card__tag">
+    <span class="float-right govuk-!-display-inline">
+      <strong class="govuk-tag">
+        <%= search_concept_tag(result.concept) %>
+      </strong>
+    </span>
+  </a>
   <a href="<%= url_for(result) %>" class="card__body">
     <span class="govuk-!-font-weight-bold govuk-!-font-size-19 govuk-!-margin-bottom-0 govuk-!-display-inline">
       <%= result.npd_alias %>
-    </span>
-    <span class="float-right govuk-!-display-inline">
-      <strong class="govuk-tag">
-        <%= search_concept_tag(result) %>
-      </strong>
     </span>
   </a>
   <div class="card__footer govuk-body govuk-!-font-size-14">
