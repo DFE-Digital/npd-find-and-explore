@@ -49,16 +49,17 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   scope '(/:locale)', locale: /en|cy/, defaults: { locale: 'en' } do
-    resources :categories,  only: %i[index show]
-    resources :concepts,    only: %i[show]
-    resource :datasets, only: [] do
+    resources :categories,    only: %i[index show]
+    resources :concepts,      only: %i[show]
+    resources :data_elements, only: %i[show]
+    resource :datasets,       only: [] do
       get 'data_elements/:id', to: 'datasets#data_elements'
     end
-    resources :datasets,    only: %i[show]
-    resources :search,      only: %i[index]
-    resources :data_tables, only: %i[show]
-    resources :saved_items, only: %i[index]
-    resource :saved_items, only: [] do
+    resources :datasets,      only: %i[show]
+    resources :search,        only: %i[index]
+    resources :data_tables,   only: %i[show]
+    resources :saved_items,   only: %i[index]
+    resource :saved_items,    only: [] do
       post 'saved_items', to: 'saved_items#saved_items'
       post 'export_to_csv', to: 'saved_items#export_to_csv'
     end

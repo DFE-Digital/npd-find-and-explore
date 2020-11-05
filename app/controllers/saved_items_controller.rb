@@ -10,7 +10,7 @@ class SavedItemsController < ApplicationController
     @title = t('saved_data.my_list.title')
     @title_size = 'xl'
     @description = t('saved_data.my_list.description')
-    breadcrumbs_for(custom: { name: 'My List', path: saved_items_path })
+    custom_breadcrumbs_for(steps: [{ name: 'My List', path: saved_items_path }])
 
     render action: :index
   end
