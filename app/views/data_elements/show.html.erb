@@ -1,0 +1,94 @@
+<div class="govuk-grid-row govuk-!-padding-top-2 govuk-!-padding-bottom-2" id="page-header">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-2" id="page-header">
+      <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-m govuk-!-margin-bottom-0">
+          <%= @title %>
+        </h1>
+        <p class="description govuk-!-margin-top-4"><%= @description&.html_safe %></p>
+      </div>
+    </div>
+    <div class="govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-2" id="page-body">
+      <div class="govuk-grid-column-full">
+        <table class="govuk-table govuk-!-font-size-16">
+          <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+              <td class="govuk-table__header govuk-!-width-one-quarter" scope="col">
+                Old Name
+              </td>
+              <td class="govuk-table__cell govuk-!-width-three-quarters" scope="col">
+                <%= [@data_element.source_old_attribute_name].join(', ') %>
+              </td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__header govuk-!-width-one-quarter" scope="col">
+                Collected from
+              </td>
+              <td class="govuk-table__cell govuk-!-width-three-quarters" scope="col">
+                <%= academic_year(@data_element.academic_year_collected_from) %>
+                to
+                <%= academic_year(@data_element.academic_year_collected_to) %>
+              </td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__header govuk-!-width-one-quarter" scope="col">
+                Sensitivity
+              </td>
+              <td class="govuk-table__cell govuk-!-width-three-quarters" scope="col">
+                <%= @data_element.sensitivity %>
+                <br />
+                <%= t('concepts.show.sensitivity.tooltip') %>
+              </td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__header govuk-!-width-one-quarter" scope="col">
+                Identifiability
+              </td>
+              <td class="govuk-table__cell govuk-!-width-three-quarters" scope="col">
+                <%= @data_element.identifiability %>
+                <br />
+                <%= t('concepts.show.identifiability.tooltip') %>
+              </td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__header govuk-!-width-one-quarter" scope="col">
+                Datasets
+              </td>
+              <td class="govuk-table__cell govuk-!-width-three-quarters" scope="col">
+                <%= @data_element.datasets.map { |d| link_to d.name, d }.join(', ').html_safe %>
+              </td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__header govuk-!-width-one-quarter" scope="col">
+                Concept
+              </td>
+              <td class="govuk-table__cell govuk-!-width-three-quarters" scope="col">
+                <%= link_to @data_element.concept.name, @data_element.concept %>
+              </td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__header govuk-!-width-one-quarter" scope="col">
+                Values
+              </td>
+              <td class="govuk-table__cell govuk-!-width-three-quarters" scope="col">
+                <%= @data_element.values.split("\n").join('<br />').html_safe %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <div class="govuk-grid-row govuk-!-padding-top-0 govuk-!-padding-bottom-2" id="page-header">
+      <div class="govuk-grid-column-full">
+        <%= render partial: 'shared/saved_data_panel' %>
+      </div>
+    </div>
+    <div class="govuk-grid-row govuk-!-padding-top-6 govuk-!-padding-bottom-2" id="page-header">
+      <div class="govuk-grid-column-full">
+        <%= render partial: 'shared/side_actions/add_to_my_list' %>
+      </div>
+    </div>
+  </div>
+</div>

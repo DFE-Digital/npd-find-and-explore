@@ -10,8 +10,9 @@ class DataElementsController < ApplicationController
                     .includes(%i[concept datasets])
                     .find(params.require(:id))
 
-    @title = @data_element.title
+    @title = @data_element.npd_alias
     @description = @data_element.description
-    custom_breadcrumbs_for(steps: [{ name: @data_element.title, path: data_element_path(@data_element) }])
+    @skip_shared_header = true
+    custom_breadcrumbs_for(steps: [{ name: @data_element.npd_alias, path: data_element_path(@data_element) }])
   end
 end

@@ -72,7 +72,7 @@ module ApplicationHelper
   end
 
   def shared_header?
-    params[:controller] != 'high_voltage/pages'
+    params[:controller] != 'high_voltage/pages' && !@skip_shared_header
   end
 
   def cookie_choice_page?

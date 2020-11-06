@@ -33,6 +33,8 @@ en:
   site_title: Find and explore data in the National Pupil Database
   search_title: Search results
   staging_warning: You are currently on the Find and Explore staging environment
+  actions:
+    title: Actions to perform
   beta_banner:
     text: This is a new service – we are improving how the metadata from the NPD Data Tables can be displayed and therefore the content might change. Your %{link} will help us to improve it.
     link: feedback
@@ -71,6 +73,8 @@ en:
       data_table:
         cant_find_what_youre_looking_for: "Can't find what you're looking for?"
         download: Click here to download the latest version of the NPD Data Tables
+  data_elements:
+    add_to: Add to
   datasets:
     index:
       title: Datasets
