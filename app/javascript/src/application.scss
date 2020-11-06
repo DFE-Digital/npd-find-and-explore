@@ -38,6 +38,10 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
   font-weight: bold;
 }
 
+.govuk-top-border {
+  border-top: govuk-spacing(2) solid govuk-colour('blue');
+}
+
 .govuk-background__gray-4 {
   background-color: govuk-colour("light-grey");
 }
