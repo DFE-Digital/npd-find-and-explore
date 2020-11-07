@@ -1,5 +1,6 @@
 <%= content_for :additional_links do -%>
   <%= javascript_pack_tag 'basket' %>
+  <%= javascript_pack_tag 'collapsible' %>
 <%- end %>
 
 <div class="govuk-grid-row govuk-!-padding-top-2 govuk-!-padding-bottom-2" id="page-header">
@@ -21,7 +22,7 @@
                 Old Name
               </td>
               <td class="govuk-table__cell govuk-!-width-three-quarters" scope="col">
-                <%= [@data_element.source_old_attribute_name].join(', ') %>
+                <%= [@data_element.source_old_attribute_name].join(', ') || '-' %>
               </td>
             </tr>
             <tr class="govuk-table__row">
@@ -75,7 +76,9 @@
                 Values
               </td>
               <td class="govuk-table__cell govuk-!-width-three-quarters" scope="col">
-                <%= @data_element.values.split("\n").join('<br />').html_safe %>
+                <div class="collapsible">
+                  <%= @data_element.values&.split("\n")&.join('<br />')&.html_safe || '-' %>
+                </div>
               </td>
             </tr>
           </tbody>
