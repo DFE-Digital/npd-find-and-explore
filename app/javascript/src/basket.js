@@ -70,7 +70,6 @@ function toggleMetadata(event) {
   var elementsList = getElementsList()
   var element = event.currentTarget
 
-  console.log('toggle metadata for', element.dataset.id)
   if (!element.checked) {
     removeElementFromMetadata(element.dataset)
   } else if (!elementsList[element.dataset.id]) {
