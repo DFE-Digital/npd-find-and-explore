@@ -13,6 +13,7 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
 @import "search";
 @import "tables";
 @import "checkboxes";
+@import "collapsible";
 @import "step-by-step-navigation";
 @import "main_navigation";
 @import "npd-basket";
@@ -31,6 +32,7 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
   position: relative;
   top: 1em;
   right: 0.5em;
+  text-align: right;
 }
 
 // Custom styles to refactor somewhere

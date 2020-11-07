@@ -104,7 +104,6 @@ ActiveRecord::Schema.define(version: 2020_09_09_163040) do
     t.boolean "is_cla", default: false
     t.text "content_search"
     t.tsvector "tsvector_content_tsearch"
-    t.text "dmetaphone_content_search"
     t.string "searchable_tab_names", array: true
     t.index ["concept_id"], name: "index_data_elements_on_concept_id"
     t.index ["npd_alias"], name: "index_data_elements_on_npd_alias", unique: true
