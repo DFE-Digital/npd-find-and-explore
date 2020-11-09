@@ -380,3 +380,34 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
   margin-bottom: 50px;
   margin-top: 6px;
 }
+
+.truncate {
+  width: 6em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 760px) {
+  .truncate {
+    width: 8em;
+  }
+}
+
+@media (min-width: 860px) {
+  .truncate {
+    width: 14em;
+  }
+}
+
+@media (min-width: 960px) {
+  .truncate {
+    width: 16em;
+  }
+}
+
+@media (min-width: 1000px) {
+  .truncate {
+    width: 20em;
+  }
+}

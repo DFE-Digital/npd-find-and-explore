@@ -1,8 +1,10 @@
 <div class="card govuk-!-width-full">
-  <a href="<%= url_for(result.concept) %>" class="card__tag">
+  <% concept_tag = search_concept_tag(result) %>
+  <a href="<%= url_for(result.concept) %>" class="card__tag"
+    name="<%= concept_tag %>" title="<%= concept_tag %>">
     <span class="float-right govuk-!-display-inline">
-      <strong class="govuk-tag">
-        <%= search_concept_tag(result) %>
+      <strong class="govuk-tag truncate">
+        <%= concept_tag %>
       </strong>
     </span>
   </a>
