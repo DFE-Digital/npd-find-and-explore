@@ -60,8 +60,7 @@ Rails.application.configure do
 
   # ActionMailer configuration for Devise
   config.action_mailer.default_url_options = {
-    host: 'https://s112p01-find-npd-data-s112p01-staging.azurewebsites.net',
-    port: 22
+    host: 'https://s112p01-find-npd-data-s112p01-staging.azurewebsites.net'
   }
 
   config.action_mailer.default_options = {
