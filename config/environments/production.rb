@@ -60,8 +60,7 @@ Rails.application.configure do
 
   # ActionMailer configuration for Devise
   config.action_mailer.default_url_options = {
-    host: 'https://find-npd-data.education.gov.uk',
-    port: 22
+    host: 'https://find-npd-data.education.gov.uk'
   }
 
   config.action_mailer.default_options = {
