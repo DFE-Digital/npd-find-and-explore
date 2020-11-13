@@ -73,7 +73,11 @@ Rails.application.configure do
     address:              Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :smtp_address),
     port:                 Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :smtp_port),
     domain:               Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :domain),
-    enable_starttls_auto: Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :enable_starttls_auto)
+    user_name:            Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :user_name),
+    password:             Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :password),
+    authentication:       Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :authentication),
+    enable_starttls_auto: Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :enable_starttls_auto),
+    tsl:                  Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :tsl)
   }
 
   config.action_mailer.perform_caching = false
