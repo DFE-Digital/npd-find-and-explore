@@ -32,7 +32,7 @@ module Indexing
         conn.execute <<-SQL
           UPDATE data_elements
           SET
-            content_search = #{conn.quote([npd_alias.split('_'), source_table_name, source_attribute_name,
+            content_search = #{conn.quote([npd_alias, npd_alias.split('_'), source_table_name, source_attribute_name,
                                            description, source_old_attribute_name].flatten.compact.join(' '))},
             tsvector_content_tsearch = setweight(to_tsvector(#{conn.quote(npd_alias || '')}), 'A') ||
                                        setweight(to_tsvector(#{conn.quote([source_table_name, source_attribute_name].compact.join(' '))}), 'B') ||
@@ -55,7 +55,8 @@ module Indexing
           FROM (
             SELECT
               data_elements.id,
-              concat_ws(' ', replace(data_elements.npd_alias, '_', ' '),
+              concat_ws(' ', data_elements.npd_alias,
+                             replace(data_elements.npd_alias, '_', ' '),
                              data_elements.source_table_name,
                              data_elements.source_attribute_name,
                              data_elements.description,
