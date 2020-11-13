@@ -13,6 +13,6 @@ class DataElementsController < ApplicationController
     @title = @data_element.npd_alias
     @description = @data_element.description
     @skip_shared_header = true
-    custom_breadcrumbs_for(steps: [{ name: @data_element.npd_alias, path: data_element_path(@data_element) }])
+    back_breadcrumbs
   end
 end

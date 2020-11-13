@@ -63,4 +63,8 @@ private
     # finally, add the leaf if it's there
     breadcrumb leaf, '' if leaf.present?
   end
+
+  def back_breadcrumbs
+    breadcrumb 'Back', ''
+  end
 end
