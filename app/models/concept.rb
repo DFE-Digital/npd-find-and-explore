@@ -6,7 +6,7 @@
 # e.g. Free School Meals in Last 6 Years (concept) contains
 #       - KS2Pupil.EVERFSM_6
 #       - SchoolCensus.FSM6
-class Concept < Versioned
+class Concept < ApplicationRecord
   include SanitizeSpace
   include PgSearch::Model
 
