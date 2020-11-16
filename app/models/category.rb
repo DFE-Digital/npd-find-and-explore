@@ -10,7 +10,7 @@
 # A category contains one or more categories in a nested tree.
 # A leaf-category (one without sub-categories) contains one or more
 # concepts.
-class Category < Versioned
+class Category < ApplicationRecord
   include SanitizeSpace
   include PgSearch::Model
 
