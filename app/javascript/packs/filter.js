@@ -28,5 +28,5 @@ function submitFilter(event) {
 }
 
 $(document).ready(function() {
-  $('.govuk-checkboxes__input').on('change', submitFilter)
+  $('.govuk-checkboxes__input.search-filter').on('change', submitFilter)
 })
