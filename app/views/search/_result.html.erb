@@ -1,9 +1,25 @@
 <div class="card govuk-!-width-full">
-  <a href="<%= url_for(result) %>" class="card__body">
-    <span class="govuk-!-font-weight-bold govuk-!-font-size-19 govuk-!-margin-bottom-0 govuk-!-display-inline">
-      <%= result.npd_alias %>
-    </span>
-  </a>
+  <div class="card__body">
+    <div class="checkbox-white">
+      <div class="govuk-checkboxes govuk-checkboxes--small">
+        <div class="govuk-checkboxes__item">
+          <%= check_box_tag 'data_element[]', result.npd_alias, false,
+            id: "data-element-#{result.id}", class: %w[govuk-checkboxes__input basket-checkbox],
+            data: { id: result.id, name: result.source_attribute_name,
+                    table: result.source_table_name, datasets: result.datasets.pluck(:tab_name),
+                    npd_alias: result.npd_alias, origin: "/search?search=#{params[:search]}" } %>
+          <%= label_tag "data-element-#{result.id}", class: %w[govuk-label govuk-checkboxes__label] do %>
+            &nbsp;
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <a href="<%= url_for(result) %>">
+      <span class="govuk-!-font-weight-bold govuk-!-font-size-19 govuk-!-margin-bottom-0 govuk-!-display-inline">
+        <%= result.npd_alias %>
+      </span>
+    </a>
+  </div>
   <div class="card__footer govuk-body govuk-!-font-size-14">
     <p class="govuk-!-font-size-14 govuk-!-margin-bottom-2">
       <%= searchable_description(result) %>
