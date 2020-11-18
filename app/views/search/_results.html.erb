@@ -30,8 +30,21 @@
       </div>
     <%- end %>
     <% if @results.any? -%>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <div class="govuk-body govuk-inset-text">
+            <%= t('saved_data.instructions') %>
+          </div>
+        </div>
+      </div>
       <%= render 'pagination' %>
-      <%= render partial: "result", collection: @results %>
+
+      <table class="govuk-table govuk-!-font-size-16">
+        <tbody class="govuk-table__body">
+          <%= render partial: "result", collection: @results %>
+        </tbody>
+      </table>
+
       <%= render 'pagination' %>
     <%- else -%>
       <div class="govuk-grid-row">

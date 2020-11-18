@@ -42,7 +42,7 @@ $(document).ready(function() {
   var collapsible = document.querySelectorAll('.collapsible')
   for(var i = 0; i < collapsible.length; i++) {
     var element = collapsible[i]
-    if (element.clientHeight >= 144) {
+    if (element.scrollHeight >= 144) {
       hideOverflow(element)
       addExpandLink(element)
     }

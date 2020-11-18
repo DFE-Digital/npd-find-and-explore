@@ -1,28 +1,46 @@
-<div class="card govuk-!-width-full">
-  <div class="card__body">
-    <div class="checkbox-white">
-      <div class="govuk-checkboxes govuk-checkboxes--small">
-        <div class="govuk-checkboxes__item">
-          <%= check_box_tag 'data_element[]', result.npd_alias, false,
-            id: "data-element-#{result.id}", class: %w[govuk-checkboxes__input basket-checkbox],
-            data: { id: result.id, name: result.source_attribute_name,
-                    table: result.source_table_name, datasets: result.datasets.pluck(:tab_name),
-                    npd_alias: result.npd_alias, origin: "/search?search=#{params[:search]}" } %>
-          <%= label_tag "data-element-#{result.id}", class: %w[govuk-label govuk-checkboxes__label] do %>
-            &nbsp;
-          <% end %>
-        </div>
+<tr class="govuk-table__row">
+  <td class="govuk-table__header" scope="col">
+    <div class="govuk-checkboxes govuk-checkboxes--small">
+      <div class="govuk-checkboxes__item">
+        <%= check_box_tag 'data_element[]', result.npd_alias, false,
+          id: "data-element-#{result.id}", class: %w[govuk-checkboxes__input basket-checkbox],
+          data: { id: result.id, name: result.source_attribute_name,
+                  table: result.source_table_name, datasets: result.datasets.pluck(:tab_name),
+                  npd_alias: result.npd_alias, origin: "/concepts/#{result.concept.id}" } %>
+        <%= label_tag "data-element-#{result.id}", class: %w[govuk-label govuk-checkboxes__label] do %>
+          &nbsp;
+          <%= tag.span result.npd_alias, class: %w[govuk-checkboxes__label-hidden] %>
+        <% end %>
       </div>
     </div>
-    <a href="<%= url_for(result) %>">
-      <span class="govuk-!-font-weight-bold govuk-!-font-size-19 govuk-!-margin-bottom-0 govuk-!-display-inline">
-        <%= result.npd_alias %>
-      </span>
-    </a>
-  </div>
-  <div class="card__footer govuk-body govuk-!-font-size-14">
-    <p class="govuk-!-font-size-14 govuk-!-margin-bottom-2">
-      <%= searchable_description(result) %>
+  </td>
+  <th data-label="Name" class="govuk-table__header govuk-table__cell--break" scope="row">
+    <%= link_to result.npd_alias, result %>
+  </th>
+  <td data-label="Date collected" class="govuk-table__cell govuk-table__cell--numeric">
+    <%= academic_year(result.academic_year_collected_from) %>
+    to
+    <%= academic_year(result.academic_year_collected_to) %>
+  </td>
+  <td data-label="Sensitivity" class="govuk-table__cell govuk-table__cell--numeric">
+    <%= render 'shared/tooltip',
+      label: t('concepts.show.sensitivity.label'),
+      id: "sensitivity-tip-before-#{result.id}",
+      tooltip: t('concepts.show.sensitivity.tooltip') %>
+    <%= result&.sensitivity %>
+  </td>
+  <td data-label="Identification risk" class="govuk-table__cell govuk-table__cell--numeric">
+    <%= render 'shared/tooltip',
+      label: t('concepts.show.identifiability.label'),
+      id: "identifiability-tip-before-#{result.id}",
+      tooltip: t('concepts.show.identifiability.tooltip') %>
+    <%= result&.identifiability %>
+  </td>
+</tr>
+<tr class="govuk-table__row">
+  <td class="govuk-table__cell" colspan="5">
+    <p class="variable-description govuk-background__gray-4 govuk-!-font-size-16 govuk-!-margin-bottom-0">
+      <%= result.description %>
     </p>
-  </div>
-</div>
+  </td>
+</tr>

@@ -7,7 +7,7 @@ class SearchController < ApplicationController
     @exact_matches = exact_matches
     @results = filtered_search.page(page).per(per_page)
     build_filters
-    @title = t('search_title')
+    @title = t('search.title')
     @title_size = 'xl'
     custom_breadcrumbs_for(steps: [{ name: 'Search', path: search_index_path }])
 
@@ -45,7 +45,7 @@ private
     {
       published: { created_at: :desc },
       updated: { updated_at: :desc },
-      az: { name: :asc }
+      az: { npd_alias: :asc }
     }[par]
   end
 

@@ -31,7 +31,12 @@
 
 en:
   site_title: Find and explore data in the National Pupil Database
-  search_title: Search results
+  search:
+    title: Search results
+    filters:
+      categories: Categories
+      years: Years
+      dataset: Dataset
   staging_warning: You are currently on the Find and Explore staging environment
   actions:
     title: Actions to perform
