@@ -16,7 +16,7 @@ Metrics/BlockLength:
   Exclude:
     # Initialisers often have big config blocks...
     - config/initializers/**/*
-    - config/environments/development.rb
+    - config/environments/*
     # RSpec wraps everything in a block
     - spec/**/*
   ExcludedMethods:

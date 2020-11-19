@@ -58,11 +58,31 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "npd-find-and-explore_#{Rails.env}"
 
-  config.action_mailer.perform_caching = false
+  # ActionMailer configuration for Devise
+  config.action_mailer.default_url_options = {
+    host: 'https://s112p01-find-npd-data-s112p01-staging.azurewebsites.net'
+  }
 
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_options = {
+    from: 'svc-NPD-FIND-EXPLORE@service.education.gov.uk'
+  }
+
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    address:              Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :smtp_address),
+    port:                 Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :smtp_port),
+    domain:               Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :domain),
+    user_name:            Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :user_name),
+    password:             Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :password),
+    authentication:       Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :authentication),
+    enable_starttls_auto: Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :enable_starttls_auto),
+    tsl:                  Rails.application.credentials.dig(Rails.env.to_sym, :office_365, :tsl)
+  }
+
+  config.action_mailer.perform_caching = false
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
