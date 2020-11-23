@@ -4,6 +4,7 @@
 
 <%= content_for :additional_tags do %>
   <%= javascript_pack_tag 'filter' %>
+  <%= javascript_pack_tag 'select-to-link' %>
 <% end %>
 
 <header class="main-content__header govuk-!-padding-left-0 govuk-!-border-0" role="banner">
@@ -16,20 +17,20 @@
 </header>
 
 <section class="main-content__body main-content__body--flush">
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-third govuk-!-margin-bottom-2">
-      <p class="govuk-text govuk-!-margin-bottom-1">Show</p>
-      <%= select_tag :filter_dataset,
-                     options_from_collection_for_select(datasets, :id, :name),
-                     { multiple: false, include_blank: 'All datasets',
-                       class: 'govuk-select', data: { filter: true } } %>
+  <%= form_with url: orphaned_admin_data_elements_path,
+                method: :post, local: true, multipart: true,
+                id: 'upload-form' do |f| -%>
+    <%= f.hidden_field :target, value: :preview %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third govuk-!-margin-bottom-2">
+        <p class="govuk-text govuk-!-margin-bottom-1">Show</p>
+        <%= select_tag :filter_dataset,
+                       options_from_collection_for_select(datasets, :id, :name),
+                       { multiple: false, include_blank: 'All datasets',
+                         class: 'govuk-select', data: { filter: true } } %>
+      </div>
     </div>
-  </div>
-  <div class="govuk-grid-row govuk-!-margin-top-2">
-    <%= form_with url: orphaned_admin_data_elements_path,
-                  method: :post, local: true, multipart: true,
-                  id: 'upload-form' do |f| -%>
-      <%= f.hidden_field :target, value: :preview %>
+    <div class="govuk-grid-row govuk-!-margin-top-2">
       <div class="govuk-grid-column-two-thirds govuk-!-margin-top-5">
         <table class="govuk-table govuk-!-font-size-16 govuk-!-margin-bottom-0">
           <thead class="govuk-table__head">
@@ -54,22 +55,38 @@
         <p class="govuk-!-font-size-16 govuk-!-margin-bottom-1">
           <%= t('admin.data_elements.orphaned.assign_to_concept.title') %>
         </p>
-        <p class="govuk-!-font-size-16 govuk-caption-m">
-          <%= t('admin.data_elements.orphaned.assign_to_concept.subtitle') %>
-        </p>
-        <p>
-          <%= f.select :concept,
-                       options_from_collection_for_select(Concept.all, :id, :name),
-                       {},
-                       { multiple: false, include_blank: false,
-                         class: 'govuk-select' } %>
-        </p>
+        <div class="select-to-link">
+          <div class="select">
+            <p class="govuk-!-font-size-16 govuk-caption-m">
+              <%= t('admin.data_elements.orphaned.assign_to_concept.subtitle') %>
+            </p>
+            <%= f.select :concept,
+                         options_from_collection_for_select(Concept.all, :id, :name),
+                         {},
+                         { multiple: false, include_blank: true,
+                           class: 'govuk-select' } %>
+          </div>
+          <div class="govuk-!-margin-top-4 link hidden">
+            <ul class="govuk-list govuk-list--bullet">
+              <li>
+                <span class="govuk-heading-s govuk-!-font-size-16 text"></span>
+              </li>
+            </ul>
+            <a class="link-to-select">
+              <%= t('admin.data_elements.orphaned.assign_to_concept.remove_concept') %>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full govuk-!-margin-bottom-2">
         <p>
           <%= f.button t('form.continue'),
                        value: 'Continue', name: 'Continue', type: 'submit',
                        class: 'govuk-button' %>
         </p>
       </div>
-    <%- end %>
-  </div>
+    </div>
+  <%- end %>
 </section>

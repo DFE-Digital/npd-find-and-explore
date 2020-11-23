@@ -12,19 +12,16 @@
       </div>
     </div>
   </td>
-  <td data-label="Dataset" class="govuk-table__cell">
-    <%= link_to data_element.dataset,
-                [:admin, data_element.datasets.first],
-                { class: 'action-show' } %>
-  </td>
-  <td data-label="NPD Alias" class="govuk-table__cell">
+  <td data-label="Data element" class="govuk-table__cell">
     <%= link_to [data_element.npd_alias].join(', '),
                 [:admin, data_element],
                 { class: 'action-show' } %>
   </td>
-  <td data-label="Datasets" class="govuk-table__cell govuk-!-padding-right-0 right">
-    <%= link_to pluralize(data_element.datasets.count, 'dataset'),
-                [:admin, data_element],
-                { class: 'action-show' }  %>
+  <td data-label="Datasets" class="govuk-table__cell right">
+    <%= data_element.datasets.map do |dataset| -%>
+        <%= link_to dataset.name,
+                    [:admin, dataset],
+                    { class: 'action-show' } %>
+    <%- end.join('<br />') %>
   </td>
 </tr>
