@@ -13,6 +13,7 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
 @import "search";
 @import "tables";
 @import "checkboxes";
+@import "collapsible";
 @import "step-by-step-navigation";
 @import "main_navigation";
 @import "npd-basket";
@@ -27,9 +28,20 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
   left: -100px;
 }
 
+.card__tag {
+  position: relative;
+  top: 1em;
+  right: 0.5em;
+  text-align: right;
+}
+
 // Custom styles to refactor somewhere
 .strong_link {
   font-weight: bold;
+}
+
+.govuk-top-border {
+  border-top: govuk-spacing(2) solid govuk-colour('blue');
 }
 
 .govuk-background__gray-4 {
@@ -38,6 +50,10 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
 
 .govuk-\!-display-inline-block {
   display: inline-block !important;
+}
+
+.govuk-\!-border-none {
+  border: none !important;
 }
 
 .how-to-access {
@@ -367,4 +383,35 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
   padding: 20px;
   margin-bottom: 50px;
   margin-top: 6px;
+}
+
+.truncate {
+  width: 6em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 760px) {
+  .truncate {
+    width: 8em;
+  }
+}
+
+@media (min-width: 860px) {
+  .truncate {
+    width: 14em;
+  }
+}
+
+@media (min-width: 960px) {
+  .truncate {
+    width: 16em;
+  }
+}
+
+@media (min-width: 1000px) {
+  .truncate {
+    width: 20em;
+  }
 }

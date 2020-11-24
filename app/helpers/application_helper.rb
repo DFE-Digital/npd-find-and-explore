@@ -29,6 +29,12 @@ module ApplicationHelper
     Rails.application.credentials.dig(Rails.env.to_sym, :google_manager_id)
   end
 
+  def search_concept_tag(result)
+    return result.concept.name if result.respond_to?(:concept)
+
+    result&.name
+  end
+
   def search_category_tag(result)
     return result.category.name if result.respond_to?(:category)
     return result.parent.name if result&.parent&.present?
@@ -37,9 +43,9 @@ module ApplicationHelper
   end
 
   def searchable_description(result)
-    return result.description if result.is_a?(Category)
+    return result.description || result.placeholder_description if result.is_a?(Concept)
 
-    result.description || result.placeholder_description
+    result&.description || ''
   end
 
   def decompose_row_values(values)
@@ -66,7 +72,7 @@ module ApplicationHelper
   end
 
   def shared_header?
-    params[:controller] != 'high_voltage/pages'
+    params[:controller] != 'high_voltage/pages' && !@skip_shared_header
   end
 
   def cookie_choice_page?

@@ -5,7 +5,7 @@ $(document).ready(function() {
   var selectedElements = getElementsList()
   var selectedElementKeys = Object.keys(selectedElements)
 
-  document.querySelector('#data-element-all').addEventListener('change', checkAll)
+  $('#data-element-all').change(checkAll);
 
   $('.basket-checkbox').each(function(idx, element) {
     if (selectedElementKeys.indexOf(element.dataset.id) > -1) {

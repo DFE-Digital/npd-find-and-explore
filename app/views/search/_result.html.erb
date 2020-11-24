@@ -1,18 +1,39 @@
-<%- searchable = result.searchable %>
-<div class="card govuk-!-width-full">
-  <a href="<%= url_for(searchable) %>" class="card__body">
-    <span class="govuk-!-font-weight-bold govuk-!-font-size-19 govuk-!-margin-bottom-0 govuk-!-display-inline">
-      <%= searchable.name %>
-    </span>
-    <span class="float-right govuk-!-display-inline">
-      <strong class="govuk-tag">
-        <%= search_category_tag(searchable) %>
-      </strong>
-    </span>
-  </a>
-  <div class="card__footer govuk-body govuk-!-font-size-14">
-    <p class="govuk-!-font-size-14 govuk-!-margin-bottom-2">
-      <%= searchable_description(searchable) %>
-    </p>
-  </div>
-</div>
+<tr class="govuk-table__row">
+  <td rowspan="4" class="govuk-table__header" scope="col">
+    <div class="govuk-checkboxes govuk-checkboxes--small">
+      <div class="govuk-checkboxes__item">
+        <%= check_box_tag 'data_element[]', result.npd_alias, false,
+          id: "data-element-#{result.id}", class: %w[govuk-checkboxes__input basket-checkbox],
+          data: { id: result.id, name: result.source_attribute_name,
+                  table: result.source_table_name, datasets: result.datasets.pluck(:tab_name),
+                  npd_alias: result.npd_alias, origin: "/concepts/#{result.concept.id}" } %>
+        <%= label_tag "data-element-#{result.id}", class: %w[govuk-label govuk-checkboxes__label] do %>
+          &nbsp;
+          <%= tag.span result.npd_alias, class: %w[govuk-checkboxes__label-hidden] %>
+        <% end %>
+      </div>
+    </div>
+  </td>
+  <td data-label="Name" class="govuk-table__header govuk-table__cell--break govuk-!-border-none" scope="row">
+    <%= link_to result.npd_alias, result %>
+  </td>
+</tr>
+<tr class="govuk-table__row">
+  <td data-label="Description">
+    <%= searchable_description(result) %>
+  </td>
+</tr>
+<tr class="govuk-table__row">
+  <td data-label="Date collected" class="govuk-table__cell govuk-!-border-none">
+    <strong>Collected from</strong>
+    <%= academic_year(result.academic_year_collected_from) %>
+    to
+    <%= academic_year(result.academic_year_collected_to) %>
+  </td>
+</tr>
+<tr class="govuk-table__row">
+  <td data-label="Concept" class="govuk-table__cell govuk-!-padding-top-0">
+    <strong>Concept</strong>
+    <%= result.concept&.name %>
+  </td>
+</tr>

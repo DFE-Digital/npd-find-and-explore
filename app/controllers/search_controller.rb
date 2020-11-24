@@ -4,11 +4,12 @@ class SearchController < ApplicationController
   include BreadcrumbBuilder
 
   def index
+    @exact_matches = exact_matches
     @results = filtered_search.page(page).per(per_page)
     build_filters
-    @title = t('search_title')
+    @title = t('search.results', search_params: search_params[:search])
     @title_size = 'xl'
-    breadcrumbs_for(custom: { name: 'Search', path: search_index_path })
+    custom_breadcrumbs_for(steps: [{ name: 'Search', path: search_index_path }])
 
     render action: :index
   end
@@ -16,11 +17,15 @@ class SearchController < ApplicationController
 private
 
   def search
-    no_category_id = Category.find_by(name: 'No Category')&.id
-    PgSearch.multisearch(search_params[:search])
-            .where(searchable_type: 'Concept')
-            .where.not(searchable_name: 'No Concept', searchable_category_id: no_category_id)
-            .includes(searchable: %i[data_elements category])
+    return exact_matches if exact_matches.any?
+
+    DataElement.search(search_params[:search])
+               .includes(%i[concept])
+  end
+
+  def exact_matches
+    @exact_matches ||= DataElement.exact(search_params[:search])
+                                  .includes(%i[concept])
   end
 
   def sorted_search
@@ -38,14 +43,17 @@ private
   def sort_param
     par = params.permit(:sort).dig(:sort)&.to_sym
     {
-      published: { searchable_created_at: :desc },
-      updated: { searchable_updated_at: :desc },
-      az: { searchable_name: :asc }
+      published: { created_at: :desc },
+      updated: { updated_at: :desc },
+      az: { npd_alias: :asc }
     }[par]
   end
 
   def page
-    params.permit(:page).dig(:page) || 1
+    max_page = (filtered_search.count.to_f / per_page).ceil
+    saved_page = (params.permit(:page).dig(:page) || 1).to_i
+
+    saved_page > max_page ? max_page : saved_page
   end
 
   def per_page
@@ -53,24 +61,24 @@ private
   end
 
   def filters
-    @filters ||= params.permit(filter: { category_id: [], tab_name: [], years: [] })&.dig(:filter) || {}
+    @filters ||= params.permit(filter: { concept_id: [], tab_name: [], years: [] })&.dig(:filter) || {}
   end
 
   def filter_results(results)
-    results = filter_categories(results, filters.dig(:category_id))
+    results = filter_concepts(results, filters.dig(:concept_id))
     results = filter_years(results, filters.dig(:years))
     filter_tab_names(results, filters.dig(:tab_name))
   end
 
   def build_filters
-    @categories, data_elements, active_data_elements = build_categories_and_data_elements
-    @years, @tabs = build_years_tabs(data_elements, active_data_elements)
+    @concepts = build_concepts
+    @years, @tabs = build_years_tabs
   end
 
-  def filter_categories(results, category_ids)
-    return results if category_ids.blank?
+  def filter_concepts(results, concept_ids)
+    return results if concept_ids.blank?
 
-    results.where(searchable_category_id: category_ids)
+    results.where(concept_id: concept_ids)
   end
 
   def filter_years(results, years)
@@ -79,9 +87,9 @@ private
     query = []
     query_params = []
     years.each do |year|
-      query.push('(? BETWEEN searchable_year_from AND searchable_year_to OR ' \
-                 '(? >= searchable_year_from AND searchable_year_to IS NULL) OR ' \
-                 '(? <= searchable_year_to AND searchable_year_from IS NULL))')
+      query.push('(? BETWEEN academic_year_collected_from AND academic_year_collected_to OR ' \
+                 '(? >= academic_year_collected_from AND academic_year_collected_to IS NULL) OR ' \
+                 '(? <= academic_year_collected_to AND academic_year_collected_from IS NULL))')
       query_params.push(year, year, year)
     end
     results.where(["(#{query.join(' AND ')})"].concat(query_params))
@@ -93,27 +101,22 @@ private
     results.where.overlap(searchable_tab_names: tab_names)
   end
 
-  def build_categories_and_data_elements
-    categories = []
-    data_elements = []
-    active_data_elements = []
-    active_search = filtered_search.map(&:searchable).map(&:id).uniq.sort
-    sorted_search.map(&:searchable).each do |searchable|
-      is_active = active_search.include?(searchable.id)
-      categories.push(category: searchable.category, active: is_active)
-      data_elements.push(searchable.data_elements)
-      active_data_elements.push(searchable.data_elements) if is_active
+  def build_concepts
+    concepts = []
+    active_search = filtered_search.map(&:id).uniq.sort
+    sorted_search.each do |data_element|
+      is_active = active_search.include?(data_element.id)
+      concepts.push(concept: data_element.concept, active: is_active)
     end
-    [categories.uniq { |c| c[:category] }.sort { |a, b| a[:category].name <=> b[:category].name },
-     data_elements.flatten.uniq, active_data_elements.flatten.uniq]
+    concepts.uniq { |c| c[:concept] }.sort { |a, b| a[:concept].name <=> b[:concept].name }
   end
 
-  def build_years_tabs(data_elements, active_data_elements)
+  def build_years_tabs
     years = []
     tabs = []
-    active_tabs = active_data_elements.map(&:datasets).map(&:to_a).flatten.map(&:tab_name).compact.uniq
-    data_elements.each do |de|
-      years.push(collect_years(de, active_data_elements.include?(de)))
+    active_tabs = @filtered_search.map(&:datasets).map(&:to_a).flatten.map(&:tab_name).compact.uniq
+    @sorted_search.each do |de|
+      years.push(collect_years(de, @filtered_search.include?(de)))
       de.datasets.map(&:tab_name).each do |tab|
         tabs.push(tab: tab, active: active_tabs.include?(tab))
       end

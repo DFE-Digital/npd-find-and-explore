@@ -45,27 +45,12 @@ module Admin
       }
     end
 
-    def reindex
-      render :reindex, layout: 'admin/application', locals: { success: nil, error: '' }
-    end
-
-    def do_reindex
-      PgSearch::Multisearch.rebuild(Concept)
-
-      render :reindex, layout: 'admin/application', locals: { success: true, error: '' }
-    rescue StandardError => e
-      Rails.logger.error(e)
-      render :reindex, layout: 'admin/application', locals: { success: false, error: 'There has been an error while reindexing the concepts' }
-    end
-
   private
 
     def find_resources(search_term = nil)
       return Concept.all.order(:name) if search_term.blank?
 
-      Concept.where(id: PgSearch.multisearch(search_term)
-                                .where(searchable_type: 'Concept')
-                                .pluck(:searchable_id))
+      Concept.search(search_term)
              .includes(:category)
              .order(:name)
     end

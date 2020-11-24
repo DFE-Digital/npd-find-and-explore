@@ -25,12 +25,8 @@ module ProcessCategories
     end
 
     def process
-      PgSearch.disable_multisearch do
-        upload(inf_arch_tabs.map(&:tree).flatten)
-      end
+      upload(inf_arch_tabs.map(&:tree).flatten)
 
-      PgSearch::Multisearch.rebuild(Category)
-      PgSearch::Multisearch.rebuild(Concept)
       update(successful: true)
     end
 

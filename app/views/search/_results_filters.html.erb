@@ -2,47 +2,53 @@
   <div class="govuk-grid-column-full govuk-filters">
     <div>
       <h3 class="govuk-heading-s">
-        Categories
+        <%= t('search.filters.dataset') %>
       </h3>
-      <div class="govuk-checkboxes govuk-checkboxes-small collapsible">
-        <% @categories.each do |element| %>
-          <% category = element[:category] %>
-          <div class="govuk-checkboxes__item">
-            <%= check_box_tag 'filter[category_id][]', category.id, params.dig(:filter, :category_id)&.include?(category.id),
-              id: "category_id-#{category.id}", class: 'govuk-checkboxes__input', disabled: !element[:active] %>
-            <%= label_tag "category_id-#{category.id}", category.name, class: %w[govuk-label govuk-checkboxes__label] %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-    <div>
-      <h3 class="govuk-heading-s">
-        Years
-      </h3>
-      <div class="govuk-checkboxes govuk-checkboxes-small collapsible">
-        <% @years.each do |element| %>
-          <% year = element[:year] %>
-          <div class="govuk-checkboxes__item">
-            <%= check_box_tag 'filter[years][]', year, params.dig(:filter, :years)&.include?(year.to_s),
-              id: "years-#{year}", class: 'govuk-checkboxes__input', disabled: !element[:active] %>
-            <%= label_tag "years-#{year}", academic_year(year), class: %w[govuk-label govuk-checkboxes__label] %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-    <div>
-      <h3 class="govuk-heading-s">
-        Dataset
-      </h3>
-      <div class="govuk-checkboxes govuk-checkboxes-small collapsible">
+      <div class="govuk-checkboxes govuk-checkboxes--small collapsible">
         <% @tabs.each do |element| %>
           <% tab = element[:tab] %>
           <div class="govuk-checkboxes__item">
             <%= check_box_tag 'filter[tab_name][]', tab, params.dig(:filter, :tab_name)&.include?(tab),
-              id: "tab_name-#{tab}", class: 'govuk-checkboxes__input', disabled: !element[:active] %>
-            <%= label_tag "tab_name-#{tab}", tab, class: %w[govuk-label govuk-checkboxes__label] %>
+              id: "tab_name-#{tab}", class: 'govuk-checkboxes__input search-filter', disabled: !element[:active] %>
+            <%= label_tag "tab_name-#{tab}", class: %w[govuk-label govuk-checkboxes__label] do -%>
+              <%= content_tag :span, tab, class: %w[govuk-checkboxes__label-visible] %>
+            <%- end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    <div>
+      <h3 class="govuk-heading-s">
+        <%= t('search.filters.years') %>
+      </h3>
+      <div class="govuk-checkboxes govuk-checkboxes--small collapsible">
+        <% @years.each do |element| %>
+          <% year = element[:year] %>
+          <div class="govuk-checkboxes__item">
+            <%= check_box_tag 'filter[years][]', year, params.dig(:filter, :years)&.include?(year.to_s),
+              id: "years-#{year}", class: 'govuk-checkboxes__input search-filter', disabled: !element[:active] %>
+            <%= label_tag "years-#{year}", class: %w[govuk-label govuk-checkboxes__label] do -%>
+              <%= content_tag :span, academic_year(year), class: %w[govuk-checkboxes__label-visible] %>
+            <%- end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    <div>
+      <h3 class="govuk-heading-s">
+        <%= t('search.filters.concepts') %>
+      </h3>
+      <div class="govuk-checkboxes govuk-checkboxes--small collapsible">
+        <% @concepts.each do |element| %>
+          <% concept = element[:concept] %>
+          <div class="govuk-checkboxes__item">
+            <%= check_box_tag 'filter[concept_id][]', concept.id, params.dig(:filter, :concept_id)&.include?(concept.id),
+              id: "concept_id-#{concept.id}", class: 'govuk-checkboxes__input search-filter', disabled: !element[:active] %>
+            <%= label_tag "concept_id-#{concept.id}", class: %w[govuk-label govuk-checkboxes__label] do -%>
+              <%= content_tag :span, concept.name, class: %w[govuk-checkboxes__label-visible] %>
+            <%- end %>
           </div>
         <% end %>
       </div>
