@@ -35,15 +35,3 @@
   position: relative;
   top: -0.7em;
 }
-
-.checkbox-white {
-  display: inline-block;
-  background-color: white;
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-
-  label::before {
-    top: 0 !important;
-  }
-}

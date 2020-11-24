@@ -45,7 +45,7 @@ module ApplicationHelper
   def searchable_description(result)
     return result.description || result.placeholder_description if result.is_a?(Concept)
 
-    result.description || ''
+    result&.description || ''
   end
 
   def decompose_row_values(values)
