@@ -1,29 +1,35 @@
 <div class="govuk-grid-row">
-  <% if @results.any? %>
-    <div class="govuk-grid-column-one-half">
-      <h3 class="govuk-heading-m govuk-!-display-inline">
-        Results for '<%= params[:search] %>'
-      </h3>
+  <div class="govuk-grid-column-one-half">
+    <h3 class="govuk-heading-m govuk-!-display-inline">
+      <% if @exact_matches.any? %>
+        <%= t('helpers.page_entries_info.one_page.display_entries.exact_match', count: @results.total_count) %>
+      <% else %>
+        <%= t('helpers.page_entries_info.one_page.display_entries.no_exact_match') %>
+      <% end %>
+    </h3>
+  </div>
+  <div class="govuk-grid-column-one-half right">
+    <div class="govuk-form-group govuk-!-display-inline-block right">
+      <label class="govuk-label govuk-!-display-inline govuk-!-padding-right-2" for="sort">
+        Sort by
+      </label>
+      <%= select_tag :sort, options_for_select(sort_options, params[:sort]),
+        class: %w[govuk-select govuk-!-display-inline] %>
     </div>
-    <div class="govuk-grid-column-one-half right">
-      <div class="govuk-form-group govuk-!-display-inline-block right">
-        <label class="govuk-label govuk-!-display-inline govuk-!-padding-right-2" for="sort">
-          Sort by
-        </label>
-        <%= select_tag :sort, options_for_select(sort_options, params[:sort]),
-          class: %w[govuk-select govuk-!-display-inline] %>
-      </div>
-    </div>
-  <% else %>
-    <div class="govuk-grid-column-full">
-      <h3 class="govuk-heading-m govuk-!-display-inline">
-        Results for '<%= params[:search] %>'
-      </h3>
-    </div>
-  <% end %>
+  </div>
 </div>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full govuk-label">
-    <div class="govuk-box govuk-!-margin-3" id="govuk-box-message" aria-busy="true"></div>
+    <% if @results.any? -%>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full govuk-!-padding-top-1 govuk-!-padding-bottom-1">
+          <div class="govuk-body govuk-inset-text govuk-!-padding-3 govuk-!-margin-0">
+            <%= t('saved_data.instructions') %>
+          </div>
+        </div>
+      </div>
+    <%- else -%>
+      <div class="govuk-box govuk-!-margin-3" id="govuk-box-message" aria-busy="true"></div>
+    <%- end %>
   </div>
 </div>

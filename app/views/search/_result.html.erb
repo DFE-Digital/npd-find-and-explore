@@ -1,5 +1,5 @@
 <tr class="govuk-table__row">
-  <td class="govuk-table__header" scope="col">
+  <td rowspan="4" class="govuk-table__header" scope="col">
     <div class="govuk-checkboxes govuk-checkboxes--small">
       <div class="govuk-checkboxes__item">
         <%= check_box_tag 'data_element[]', result.npd_alias, false,
@@ -14,33 +14,26 @@
       </div>
     </div>
   </td>
-  <th data-label="Name" class="govuk-table__header govuk-table__cell--break" scope="row">
+  <td data-label="Name" class="govuk-table__header govuk-table__cell--break govuk-!-border-none" scope="row">
     <%= link_to result.npd_alias, result %>
-  </th>
-  <td data-label="Date collected" class="govuk-table__cell govuk-table__cell--numeric">
+  </td>
+</tr>
+<tr class="govuk-table__row">
+  <td data-label="Description">
+    <%= searchable_description(result) %>
+  </td>
+</tr>
+<tr class="govuk-table__row">
+  <td data-label="Date collected" class="govuk-table__cell govuk-!-border-none">
+    <strong>Collected from</strong>
     <%= academic_year(result.academic_year_collected_from) %>
     to
     <%= academic_year(result.academic_year_collected_to) %>
   </td>
-  <td data-label="Sensitivity" class="govuk-table__cell govuk-table__cell--numeric">
-    <%= render 'shared/tooltip',
-      label: t('concepts.show.sensitivity.label'),
-      id: "sensitivity-tip-before-#{result.id}",
-      tooltip: t('concepts.show.sensitivity.tooltip') %>
-    <%= result&.sensitivity %>
-  </td>
-  <td data-label="Identification risk" class="govuk-table__cell govuk-table__cell--numeric">
-    <%= render 'shared/tooltip',
-      label: t('concepts.show.identifiability.label'),
-      id: "identifiability-tip-before-#{result.id}",
-      tooltip: t('concepts.show.identifiability.tooltip') %>
-    <%= result&.identifiability %>
-  </td>
 </tr>
 <tr class="govuk-table__row">
-  <td class="govuk-table__cell" colspan="5">
-    <p class="variable-description govuk-background__gray-4 govuk-!-font-size-16 govuk-!-margin-bottom-0">
-      <%= result.description %>
-    </p>
+  <td data-label="Concept" class="govuk-table__cell govuk-!-padding-top-0">
+    <strong>Concept</strong>
+    <%= result.concept&.name %>
   </td>
 </tr>

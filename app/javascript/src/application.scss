@@ -52,6 +52,10 @@ $govuk-assets-path: '../../../node_modules/govuk-frontend/govuk/assets/';
   display: inline-block !important;
 }
 
+.govuk-\!-border-none {
+  border: none !important;
+}
+
 .how-to-access {
   background-color: $govuk-brand-colour;
 

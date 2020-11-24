@@ -12,39 +12,13 @@
   </div>
   <div class="govuk-grid-column-two-thirds">
     <%= render 'results_header' %>
-    <% if @exact_matches.any? -%>
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-          <p class="govuk-body">
-            <%= t('helpers.page_entries_info.one_page.display_entries.exact_match', count: @results.total_count) %>
-          </p>
-        </div>
-      </div>
-    <%- else -%>
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-          <p class="govuk-body">
-            <%= t('helpers.page_entries_info.one_page.display_entries.no_exact_match') %>
-          </p>
-        </div>
-      </div>
-    <%- end %>
     <% if @results.any? -%>
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-          <div class="govuk-body govuk-inset-text">
-            <%= t('saved_data.instructions') %>
-          </div>
-        </div>
-      </div>
       <%= render 'pagination' %>
-
       <table class="govuk-table govuk-!-font-size-16">
         <tbody class="govuk-table__body">
           <%= render partial: "result", collection: @results %>
         </tbody>
       </table>
-
       <%= render 'pagination' %>
     <%- else -%>
       <div class="govuk-grid-row">
