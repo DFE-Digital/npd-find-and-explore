@@ -30,7 +30,6 @@ RSpec.describe 'Search pages', type: :system do
 
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
-    expect(page).to have_text("Results for '#{category.name}'")
     expect(page).not_to have_text(category.parent&.name&.upcase)
     expect(page).not_to have_text(category.description)
   end
@@ -43,7 +42,6 @@ RSpec.describe 'Search pages', type: :system do
 
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
-    expect(page).to have_text("Results for '#{concept.name}'")
     expect(page).to have_text('No result found')
   end
 
@@ -55,7 +53,6 @@ RSpec.describe 'Search pages', type: :system do
 
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
-    expect(page).to have_text("Results for '#{concept.name}'")
     expect(page).to have_text('No result found')
   end
 
@@ -66,8 +63,7 @@ RSpec.describe 'Search pages', type: :system do
 
     expect(page).to have_field('search')
     expect(page).to have_title('Search results - GOV.UK')
-    expect(page).to have_text("Results for '#{DataElement.first.npd_alias}'")
-    expect(page).to have_text(DataElement.first.concept.name.upcase)
+    expect(page).to have_text(DataElement.first.concept.name)
     expect(page).to have_text(DataElement.first.npd_alias)
     expect(page).to have_text(DataElement.first.description)
   end
@@ -98,7 +94,7 @@ RSpec.describe 'Search pages', type: :system do
 
       check("concept_id-#{concept.id}", allow_label_click: true)
       expect(page).to have_text("Found #{concept.data_elements.count} exact matches")
-      expect(page).to have_text(concept.name.upcase)
+      expect(page).to have_text(concept.name)
     end
 
     it 'Will filter concepts by years' do
@@ -130,7 +126,7 @@ RSpec.describe 'Search pages', type: :system do
 
       tab.check(allow_label_click: true)
       expect(page).to have_text('Found 3 exact matches')
-      expect(page).to have_text(concept.name.upcase)
+      expect(page).to have_text(concept.name)
       expect(page).to have_text(dataset.data_elements.first.description)
     end
   end

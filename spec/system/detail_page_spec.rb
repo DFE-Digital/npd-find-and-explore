@@ -85,7 +85,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     visit concept_path(concept)
 
     concept.data_elements.all.each do |element|
-      expect(page).to have_text("#{element.datasets.first.tab_name}.#{element.npd_alias}")
+      expect(page).to have_text(element.npd_alias)
     end
   end
 
