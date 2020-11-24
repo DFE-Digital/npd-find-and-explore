@@ -33,6 +33,7 @@ en:
   site_title: Find and explore data in the National Pupil Database
   search:
     title: Search results
+    results: "Search results for ‘%{search_params}’"
     filters:
       categories: Categories
       years: Years

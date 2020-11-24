@@ -7,7 +7,7 @@ class SearchController < ApplicationController
     @exact_matches = exact_matches
     @results = filtered_search.page(page).per(per_page)
     build_filters
-    @title = t('search.title')
+    @title = t('search.results', search_params: search_params[:search])
     @title_size = 'xl'
     custom_breadcrumbs_for(steps: [{ name: 'Search', path: search_index_path }])
 
