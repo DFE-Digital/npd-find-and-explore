@@ -29,8 +29,9 @@ RSpec.describe 'Search pages', type: :system do
     click_button('Search')
 
     expect(page).to have_field('search')
-    expect(page).to have_title('Search results - GOV.UK')
-    expect(page).not_to have_text(category.parent&.name&.upcase)
+    expect(page).to have_title("Search results for ‘#{category.name}’ - GOV.UK")
+    expect(page).to have_text("Search results for ‘#{category.name}’")
+    expect(page).not_to have_text(category.parent&.name)
     expect(page).not_to have_text(category.description)
   end
 
@@ -41,7 +42,8 @@ RSpec.describe 'Search pages', type: :system do
     click_button('Search')
 
     expect(page).to have_field('search')
-    expect(page).to have_title('Search results - GOV.UK')
+    expect(page).to have_title("Search results for ‘#{concept.name}’ - GOV.UK")
+    expect(page).to have_text("Search results for ‘#{concept.name}’")
     expect(page).to have_text('No result found')
   end
 
@@ -52,7 +54,8 @@ RSpec.describe 'Search pages', type: :system do
     click_button('Search')
 
     expect(page).to have_field('search')
-    expect(page).to have_title('Search results - GOV.UK')
+    expect(page).to have_title("Search results for ‘#{concept.name}’ - GOV.UK")
+    expect(page).to have_text("Search results for ‘#{concept.name}’")
     expect(page).to have_text('No result found')
   end
 
@@ -62,7 +65,8 @@ RSpec.describe 'Search pages', type: :system do
     click_button('Search')
 
     expect(page).to have_field('search')
-    expect(page).to have_title('Search results - GOV.UK')
+    expect(page).to have_title("Search results for ‘#{DataElement.first.npd_alias}’ - GOV.UK")
+    expect(page).to have_text("Search results for ‘#{DataElement.first.npd_alias}’")
     expect(page).to have_text(DataElement.first.concept.name)
     expect(page).to have_text(DataElement.first.npd_alias)
     expect(page).to have_text(DataElement.first.description)
