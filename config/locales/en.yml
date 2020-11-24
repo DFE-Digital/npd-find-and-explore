@@ -36,7 +36,7 @@ en:
     filters:
       categories: Categories
       years: Years
-      dataset: Dataset
+      dataset: Datasets
   staging_warning: You are currently on the Find and Explore staging environment
   actions:
     title: Actions to perform
