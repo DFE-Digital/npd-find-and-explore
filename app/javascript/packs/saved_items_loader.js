@@ -33,7 +33,7 @@ $(document).ready(function() {
       'X-CSRF-Token': token
     },
     success: function(response, status, xhr) {
-      if (/no-elements/.test(response)) {
+      if (/no-elements/.test(response) && !/no-elements hidden/.test(response)) {
         localStorage.setItem('elementsList', JSON.stringify({}))
         localStorage.setItem('count', 0)
       }
