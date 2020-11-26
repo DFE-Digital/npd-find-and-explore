@@ -12,7 +12,7 @@ module Indexing
       before_save :update_pg_search_document, unless: :skip_indexing
 
       pg_search_scope :search,
-                      against: %i[npd_alias source_table_name
+                      against: %i[unique_alias source_table_name
                                   source_old_attribute_name description],
                       using: {
                         tsearch: {
@@ -32,9 +32,9 @@ module Indexing
         conn.execute <<-SQL
           UPDATE data_elements
           SET
-            content_search = #{conn.quote([npd_alias, npd_alias.split('_'), source_table_name, source_attribute_name,
+            content_search = #{conn.quote([unique_alias, unique_alias.split('_'), source_table_name, source_attribute_name,
                                            description, source_old_attribute_name].flatten.compact.join(' '))},
-            tsvector_content_tsearch = setweight(to_tsvector(#{conn.quote(npd_alias || '')}), 'A') ||
+            tsvector_content_tsearch = setweight(to_tsvector(#{conn.quote(unique_alias || '')}), 'A') ||
                                        setweight(to_tsvector(#{conn.quote([source_table_name, source_attribute_name].compact.join(' '))}), 'B') ||
                                        setweight(to_tsvector(#{conn.quote(description || '')}), 'C') ||
                                        setweight(to_tsvector(#{conn.quote(source_old_attribute_name.compact.join(' '))}), 'D'),
@@ -55,14 +55,14 @@ module Indexing
           FROM (
             SELECT
               data_elements.id,
-              concat_ws(' ', data_elements.npd_alias,
-                             replace(data_elements.npd_alias, '_', ' '),
+              concat_ws(' ', data_elements.unique_alias,
+                             replace(data_elements.unique_alias, '_', ' '),
                              data_elements.source_table_name,
                              data_elements.source_attribute_name,
                              data_elements.description,
                              array_to_string(data_elements.source_old_attribute_name, ' ', ''))
                 AS content,
-              setweight(to_tsvector(coalesce(data_elements.npd_alias, '')), 'A') ||
+              setweight(to_tsvector(coalesce(data_elements.unique_alias, '')), 'A') ||
               setweight(to_tsvector(coalesce(concat_ws(' ', data_elements.source_table_name, data_elements.source_attribute_name), '')), 'B') ||
               setweight(to_tsvector(coalesce(data_elements.description, '')), 'C') ||
               setweight(to_tsvector(array_to_string(data_elements.source_old_attribute_name, ' ', '')), 'D')

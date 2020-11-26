@@ -61,14 +61,14 @@ RSpec.describe 'Search pages', type: :system do
 
   it 'Will find concepts by element' do
     visit '/categories'
-    fill_in('search', with: DataElement.first.npd_alias)
+    fill_in('search', with: DataElement.first.unique_alias)
     click_button('Search')
 
     expect(page).to have_field('search')
-    expect(page).to have_title("Search results for ‘#{DataElement.first.npd_alias}’ - GOV.UK")
-    expect(page).to have_text("Search results for ‘#{DataElement.first.npd_alias}’")
+    expect(page).to have_title("Search results for ‘#{DataElement.first.unique_alias}’ - GOV.UK")
+    expect(page).to have_text("Search results for ‘#{DataElement.first.unique_alias}’")
     expect(page).to have_text(DataElement.first.concept.name)
-    expect(page).to have_text(DataElement.first.npd_alias)
+    expect(page).to have_text(DataElement.first.unique_alias)
     expect(page).to have_text(DataElement.first.description)
   end
 

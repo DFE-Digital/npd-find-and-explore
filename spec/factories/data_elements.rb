@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :data_element do
-    sequence(:unique_alias)          { |n| "NPD_Alias[#{n}]" }
+    sequence(:unique_alias)          { |n| "Unique_Alias[#{n}]" }
     sequence(:source_table_name)     { %w[KS2_Exam KS2_Pupil KS3_Candidate KS3_Indicators KS3_Result KS4_Exam KS4_Pupil KS5_Exam KS5_Student].sample }
     sequence(:source_attribute_name) { |n| "#{Faker::Creature::Animal.name.strip}#{n}" }
     description                      { Faker::Lorem.sentence(3, false, 3) }
