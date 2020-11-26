@@ -6,7 +6,8 @@ class AddTsvectorToDataElement < ActiveRecord::Migration[5.2]
     add_column :data_elements, :tsvector_content_tsearch, :tsvector
     add_column :data_elements, :searchable_tab_names, :string, array: true
 
-    DataElement.rebuild_pg_search_documents
+    # Skip for conflict with later development
+    # DataElement.rebuild_pg_search_documents
   end
 
   def down

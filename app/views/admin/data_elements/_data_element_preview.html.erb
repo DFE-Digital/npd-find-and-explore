@@ -5,7 +5,7 @@
                 { class: 'action-show' } %>
   </td>
   <td data-label="NPD Alias" class="govuk-table__cell">
-    <%= link_to [data_element.npd_alias].join(', '),
+    <%= link_to [data_element.unique_alias].join(', '),
                 [:admin, data_element],
                 { class: 'action-show' } %>
     <%= hidden_field_tag 'data_elements[]', data_element.id %>
