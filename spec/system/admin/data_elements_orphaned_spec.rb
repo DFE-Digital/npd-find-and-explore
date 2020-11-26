@@ -33,7 +33,7 @@ RSpec.describe 'Admin Data Elements Orphaned', type: :system do
     visit '/admin/data_elements/orphaned'
 
     expect(page).to have_css('[data-url]')
-    expect(page).to have_text(orphaned_element.dataset)
+    expect(page).to have_text(orphaned_element.datasets.first.name)
     expect(page).to have_text(orphaned_element.npd_alias)
   end
 end
