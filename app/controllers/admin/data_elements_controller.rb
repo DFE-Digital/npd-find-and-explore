@@ -12,10 +12,10 @@ module Admin
 
     def orphaned
       all_resources, datasets = extract_resources
-      resources = (order.apply(all_resources)).page(params[:page]).per(records_per_page)
+      resources = order.apply(all_resources).page(params[:page]).per(records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)
 
-      custom_breadcrumbs_for(steps: [{name: 'Data Elements', path: admin_data_elements_path}],
+      custom_breadcrumbs_for(steps: [{ name: 'Data Elements', path: admin_data_elements_path }],
                              leaf: 'Orphaned Data Elements')
       render locals: {
         datasets: datasets,
@@ -32,22 +32,20 @@ module Admin
         data_elements = DataElement.where(id: params[:data_elements])
 
         if params[:target] == 'preview'
-
           render locals: {
             concept: concept,
             data_elements: data_elements
           }
-          return
         elsif params[:target] == 'commit'
           if params[:proceed] == 'yes' && params['Continue'] == 'Continue'
             concept.data_elements << data_elements
 
             flash[:success] = t('admin.data_elements.orphaned.assign_to_concept.success')
-            redirect_to orphaned_admin_data_elements_path, status: 303
           else
             flash[:error] = t('admin.data_elements.orphaned.errors.refused')
-            redirect_to orphaned_admin_data_elements_path, status: 303
           end
+
+          redirect_to orphaned_admin_data_elements_path, status: 303
         end
       else
         flash[:error] = t('admin.data_elements.orphaned.errors.missing_data')
@@ -114,10 +112,10 @@ module Admin
 
     def extract_resources
       misplaced = DataElement.misplaced.includes(:datasets)
-      [filterElements(misplaced), misplaced.map(&:datasets).flatten.uniq]
+      [filter_elements(misplaced), misplaced.map(&:datasets).flatten.uniq]
     end
 
-    def filterElements(elements)
+    def filter_elements(elements)
       dataset_id = params.permit(:filter_dataset).dig(:filter_dataset)
       if dataset_id.present?
         elements.where(datasets: { id: dataset_id })
