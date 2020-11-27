@@ -15,7 +15,8 @@ module Admin
       resources = order.apply(all_resources).page(params[:page]).per(records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)
 
-      custom_breadcrumbs_for(steps: [{ name: 'Data Elements', path: admin_data_elements_path }],
+      custom_breadcrumbs_for(admin: true,
+                             steps: [{ name: 'Data Elements', path: admin_data_elements_path }],
                              leaf: 'Orphaned Data Elements')
       render locals: {
         datasets: datasets,
