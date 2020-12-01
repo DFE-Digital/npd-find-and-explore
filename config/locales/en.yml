@@ -146,7 +146,7 @@ en:
           success: The chosen data elements have been successfully assigned to the concept, the list below has been updated to reflect this.
           remove_concept: Remove assigned concept
         assign_preview:
-          title: "Confirm data elements to be assigned to \"%{concept}\""
+          title: "Confirm data elements to be assigned to \"%{concept}\" concept"
           subtitle: "You have chosen a total of %{count} data elements to be assigned to the concept \"%{concept}\""
           proceed_question: Proceed and assign the above data elements to the concept?
           proceed_yes: Yes, assign the data elements
