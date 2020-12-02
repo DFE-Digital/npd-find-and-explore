@@ -1,6 +1,7 @@
 import '../src/loader.scss'
 import '../src/loader.js'
-import { getElementsList, persistAdditionalNotes, removeAllFromMetadata,
+import { getFromLocalStorage } from '../src/local_storage.js'
+import { persistAdditionalNotes, removeAllFromMetadata,
          removeDatasetFromMetadata, removeFromMetadata, validateDateRange } from '../src/basket.js'
 import { initializeOverlays } from '../src/overlay.js'
 import $ from 'jquery'
@@ -15,7 +16,7 @@ $(document).ready(function() {
     labelText: 'Your data is being loaded'
   })
 
-  var selectedElements = getElementsList()
+  var selectedElements = getFromLocalStorage('elementsList')
 
   var meta = document.querySelector('meta[name="csrf-token"]')
   var token = ''
@@ -32,6 +33,11 @@ $(document).ready(function() {
       'X-CSRF-Token': token
     },
     success: function(response, status, xhr) {
+      if (/no-elements/.test(response) && !/no-elements hidden/.test(response)) {
+        localStorage.setItem('elementsList', JSON.stringify({}))
+        localStorage.setItem('count', 0)
+      }
+
       setTimeout(function() {
         $('#govuk-box-message').hide()
         window.loader.stop()

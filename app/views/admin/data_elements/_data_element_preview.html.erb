@@ -1,0 +1,18 @@
+<tr class="govuk-table__row" role="link" data-url="/admin/data_elements/<%= data_element.id %>">
+  <td data-label="Dataset" class="govuk-table__cell govuk-!-padding-left-0">
+    <%= link_to data_element.dataset,
+                [:admin, data_element.datasets.first],
+                { class: 'action-show' } %>
+  </td>
+  <td data-label="NPD Alias" class="govuk-table__cell">
+    <%= link_to [data_element.npd_alias].join(', '),
+                [:admin, data_element],
+                { class: 'action-show' } %>
+    <%= hidden_field_tag 'data_elements[]', data_element.id %>
+  </td>
+  <td data-label="Datasets" class="govuk-table__cell govuk-!-padding-right-0 right">
+    <%= link_to pluralize(data_element.datasets.count, 'dataset'),
+                [:admin, data_element],
+                { class: 'action-show' }  %>
+  </td>
+</tr>

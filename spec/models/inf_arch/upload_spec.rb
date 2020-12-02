@@ -49,7 +49,7 @@ RSpec.describe InfArch::Upload, type: :model do
 
   it 'Will preprocess under 175ms' do
     expect { reduced_loader.preprocess }
-      .to perform_under(150).ms.sample(10)
+      .to perform_under(175).ms.sample(10)
   end
 
   it 'Will preprocess the infrastructure architecture items' do

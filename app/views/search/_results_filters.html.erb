@@ -9,7 +9,8 @@
           <% tab = element[:tab] %>
           <div class="govuk-checkboxes__item">
             <%= check_box_tag 'filter[tab_name][]', tab, params.dig(:filter, :tab_name)&.include?(tab),
-              id: "tab_name-#{tab}", class: 'govuk-checkboxes__input search-filter', disabled: !element[:active] %>
+              id: "tab_name-#{tab}", class: 'govuk-checkboxes__input search-filter', disabled: !element[:active],
+              data: { filter: true } %>
             <%= label_tag "tab_name-#{tab}", class: %w[govuk-label govuk-checkboxes__label] do -%>
               <%= content_tag :span, tab, class: %w[govuk-checkboxes__label-visible] %>
             <%- end %>
@@ -27,7 +28,8 @@
           <% year = element[:year] %>
           <div class="govuk-checkboxes__item">
             <%= check_box_tag 'filter[years][]', year, params.dig(:filter, :years)&.include?(year.to_s),
-              id: "years-#{year}", class: 'govuk-checkboxes__input search-filter', disabled: !element[:active] %>
+              id: "years-#{year}", class: 'govuk-checkboxes__input search-filter', disabled: !element[:active],
+              data: { filter: true } %>
             <%= label_tag "years-#{year}", class: %w[govuk-label govuk-checkboxes__label] do -%>
               <%= content_tag :span, academic_year(year), class: %w[govuk-checkboxes__label-visible] %>
             <%- end %>
@@ -45,7 +47,8 @@
           <% concept = element[:concept] %>
           <div class="govuk-checkboxes__item">
             <%= check_box_tag 'filter[concept_id][]', concept.id, params.dig(:filter, :concept_id)&.include?(concept.id),
-              id: "concept_id-#{concept.id}", class: 'govuk-checkboxes__input search-filter', disabled: !element[:active] %>
+              id: "concept_id-#{concept.id}", class: 'govuk-checkboxes__input search-filter', disabled: !element[:active],
+              data: { filter: true } %>
             <%= label_tag "concept_id-#{concept.id}", class: %w[govuk-label govuk-checkboxes__label] do -%>
               <%= content_tag :span, concept.name, class: %w[govuk-checkboxes__label-visible] %>
             <%- end %>

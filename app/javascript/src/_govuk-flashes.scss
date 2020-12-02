@@ -1,0 +1,65 @@
+.govuk-flash {
+  display: block;
+  padding: 10px !important;
+  text-align: center;
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.govuk-flash-alert {
+  color: govuk-colour('yellow');
+  border: thick solid govuk-colour('yellow');
+
+  a {
+    color: mix(govuk-colour('black'), govuk-colour('yellow'), 70%);
+
+    &:focus,
+    &:hover {
+      color: mix(govuk-colour('black'), govuk-colour('yellow'), 90%);
+    }
+  }
+}
+
+.govuk-flash-error {
+  color: govuk-colour('red');
+  border: thick solid govuk-colour('red');
+
+  a {
+    color: mix(govuk-colour('black'), govuk-colour('red'), 70%);
+
+    &:focus,
+    &:hover {
+      color: mix(govuk-colour('black'), govuk-colour('red'), 90%);
+    }
+  }
+}
+
+.govuk-flash-notice {
+  color: govuk-colour('blue');
+  border: thick solid govuk-colour('blue');
+
+  a {
+    color: mix(govuk-colour('black'), govuk-colour('blue'), 70%);
+
+    &:focus,
+    &:hover {
+      color: mix(govuk-colour('black'), govuk-colour('blue'), 90%);
+    }
+  }
+}
+
+.govuk-flash-success {
+  color: govuk-colour('green');
+  border: thick solid govuk-colour('green');
+
+  a {
+    color: mix(govuk-colour('black'), govuk-colour('green'), 70%);
+
+    &:focus,
+    &:hover {
+      color: mix(govuk-colour('black'), govuk-colour('green'), 90%);
+    }
+  }
+}

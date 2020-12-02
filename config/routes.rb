@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :concepts
     resource :data_elements, only: [] do
       get  :orphaned
+      post :orphaned, to: 'data_elements#assign_orphaned'
       get  :import
       post :preprocess
       post :import, to: 'data_elements#do_import'

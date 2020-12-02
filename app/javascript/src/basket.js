@@ -1,26 +1,4 @@
-function getElementsList() {
-  var list = localStorage.getItem('elementsList')
-  return (list ? JSON.parse(localStorage.getItem('elementsList')) : {})
-}
-
-function addDetailToList(id, name, value) {
-  if (!id) {
-    return
-  }
-
-  var elementsList = getElementsList()
-  elementsList[id][name] = value
-  localStorage.setItem('elementsList', JSON.stringify(elementsList))
-}
-
-function checkAll(event) {
-  var checked = event.currentTarget.checked
-  $('.basket-checkbox').each(function(idx, element) {
-    if (element.checked != checked) {
-      $(element).trigger('click')
-    }
-  })
-}
+import { getFromLocalStorage, addToLocalStorage } from './local_storage.js'
 
 function removeFromMetadata(event) {
   event.preventDefault()
@@ -32,7 +10,7 @@ function removeFromMetadata(event) {
 }
 
 function removeElementFromMetadata(target) {
-  var elementsList = getElementsList()
+  var elementsList = getFromLocalStorage('elementsList')
   delete elementsList[target.id]
 
   if (document.querySelector('#npd-counter')) {
@@ -58,7 +36,7 @@ function removeAllFromMetadata(event) {
   }
 
   var target = event.currentTarget
-  var elementsList = getElementsList()
+  var elementsList = getFromLocalStorage('elementsList')
   $('.item-remove').each(function(idx, element) {
     removeElementFromMetadata(element)
   })
@@ -67,7 +45,7 @@ function removeAllFromMetadata(event) {
 }
 
 function toggleMetadata(event) {
-  var elementsList = getElementsList()
+  var elementsList = getFromLocalStorage('elementsList')
   var element = event.currentTarget
 
   if (!element.checked) {
@@ -97,7 +75,7 @@ function validateDateRange(event) {
 
   if (match[2] === 'from' && !!selectFrom.value) {
     var fromValue = parseInt(selectFrom.value)
-    addDetailToList(elementId, 'yearFrom', selectFrom.value)
+    addToLocalStorage('elementsList', elementId, 'yearFrom', selectFrom.value)
 
     $(selectTo).children('option').each(function(idx, option) {
       if (!option.value) { return }
@@ -108,7 +86,7 @@ function validateDateRange(event) {
     })
   } else if(match[2] === 'to' && !!selectTo.value) {
     var toValue = parseInt(selectTo.value)
-    addDetailToList(elementId, 'yearTo', selectTo.value)
+    addToLocalStorage('elementsList', elementId, 'yearTo', selectTo.value)
 
     $(selectFrom).children('option').each(function(idx, option) {
       if (!option.value) { return }
@@ -128,8 +106,8 @@ function validateDateRange(event) {
     selectTo.setCustomValidity('Must be after the start year')
     target.reportValidity()
   } else {
-    addDetailToList(elementId, 'yearFrom', selectFrom.value)
-    addDetailToList(elementId, 'yearTo', selectTo.value)
+    addToLocalStorage('elementsList', elementId, 'yearFrom', selectFrom.value)
+    addToLocalStorage('elementsList', elementId, 'yearTo', selectTo.value)
     selectFrom.setCustomValidity('')
     selectTo.setCustomValidity('')
   }
@@ -140,9 +118,9 @@ function persistAdditionalNotes(event) {
   var match = /elements_(.+)_notes/.exec(id)
   var elementId = match[1]
 
-  addDetailToList(elementId, 'notes', event.currentTarget.value)
+  addToLocalStorage('elementsList', elementId, 'notes', event.currentTarget.value)
 }
 
-export { toggleMetadata, checkAll, getElementsList, persistAdditionalNotes,
+export { toggleMetadata, persistAdditionalNotes,
          removeAllFromMetadata, removeDatasetFromMetadata, removeFromMetadata,
          validateDateRange }

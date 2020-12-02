@@ -1,6 +1,7 @@
 import '../src/loader.scss'
 import '../src/loader.js'
-import { getElementsList, toggleMetadata } from '../src/basket.js'
+import { getFromLocalStorage } from '../src/local_storage.js'
+import { toggleMetadata } from '../src/basket.js'
 import { initializeOverlays } from '../src/overlay.js'
 import $ from 'jquery'
 
@@ -19,7 +20,7 @@ $(document).ready(function() {
     url: location.pathname.replace(/datasets/, 'datasets/data_elements'),
     dataType: 'html',
     success: function(response, status, xhr) {
-      var selectedElements = getElementsList()
+      var selectedElements = getFromLocalStorage('elementsList')
       var selectedElementKeys = Object.keys(selectedElements)
 
       setTimeout(function() {

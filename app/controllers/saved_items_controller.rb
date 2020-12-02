@@ -47,7 +47,8 @@ private
 
   def grouped_elements
     @grouped_elements ||= elements
-                            &.map { |k, v| v.merge('object' => DataElement.find(k)) }
+                            &.map { |k, v| v.merge('object' => DataElement.find_by(id: k)) }
+                            &.select { |e| e.dig(:object).present? }
                             &.group_by { |e| e.dig(:object).datasets.first } || []
   end
 

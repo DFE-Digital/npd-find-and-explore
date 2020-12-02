@@ -1,17 +1,16 @@
 import { showModal, hideModal } from '../src/toggle_modal.js'
-import { toggleMetadata, checkAll, getElementsList } from '../src/basket.js'
+import { getFromLocalStorage } from '../src/local_storage.js'
+import { toggleMetadata } from '../src/basket.js'
 
 $(document).ready(function() {
-  var selectedElements = getElementsList()
-  var selectedElementKeys = Object.keys(selectedElements)
-
-  $('#data-element-all').change(checkAll);
+  var selectedElements = getFromLocalStorage('elementsList');
+  var selectedElementKeys = Object.keys(selectedElements);
 
   $('.basket-checkbox').each(function(idx, element) {
     if (selectedElementKeys.indexOf(element.dataset.id) > -1) {
-      element.checked = true
+      element.checked = true;
     }
 
-    element.addEventListener('change', toggleMetadata)
-  })
-})
+    element.addEventListener('change', toggleMetadata);
+  });
+});
