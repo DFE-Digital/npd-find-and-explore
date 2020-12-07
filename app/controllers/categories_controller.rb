@@ -3,11 +3,16 @@
 # Read resources for the Category tree
 class CategoriesController < ApplicationController
   include BreadcrumbBuilder
+  include ActionView::Helpers::UrlHelper
 
   def index
     @categories = Category.real.roots
     @datasets = Dataset.all
     @title = t('site_title')
+    @description = t('categories.index.instructions',
+                     link: link_to(t('categories.index.link'),
+                                   Rails.configuration.outgoing_links.dig('applying_for_access'),
+                                   target: :blank))
   end
 
   def show
