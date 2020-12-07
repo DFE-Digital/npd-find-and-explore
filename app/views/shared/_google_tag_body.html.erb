@@ -1,4 +1,4 @@
-<% if usage_cookies_allowed? -%>
+<% if (Rails.env == 'production') && usage_cookies_allowed? %>
   <!-- Google Tag Manager (noscript) -->
   <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=<%= google_manager_key %>"
