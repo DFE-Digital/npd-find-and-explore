@@ -58,7 +58,6 @@ Rails.application.routes.draw do
     end
     resources :datasets,      only: %i[show]
     resources :search,        only: %i[index]
-    resources :data_tables,   only: %i[show]
     resources :saved_items,   only: %i[index]
     resource :saved_items,    only: [] do
       post 'saved_items', to: 'saved_items#saved_items'

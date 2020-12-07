@@ -3,6 +3,7 @@ default: &default
   applying_for_access: 'https://www.gov.uk/guidance/how-to-access-department-for-education-dfe-data-extracts'
   dfe_home: 'https://www.gov.uk/government/organisations/department-for-education'
   govuk_education: 'https://www.gov.uk/education'
+  data_sharing_mail: 'data.sharing@education.gov.uk'
 
 production:
   *default
