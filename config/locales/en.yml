@@ -47,6 +47,8 @@ en:
   categories:
     index:
       title: Categories
+      instructions: Use this tool to find and explore information about the data that is held in the NPD, before %{link} Department for Education (DfE) data extracts. You can search for specific data items, browse through the data items in each dataset (the data collections that feed into the NPD) or browse down via high level data categories until you find the group of data items you’re interested in. You can add data items to My List.
+      link: applying to access
     show:
       categories: Categories
       concepts: Concepts
