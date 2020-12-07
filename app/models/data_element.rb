@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# A Data Element represents a column of data in a database
+# A Data Element (Data Item) represents a row of data in the database
 class DataElement < ApplicationRecord
   include PgSearch::Model
   include Indexing::DataElement
@@ -35,7 +35,7 @@ private
 
     no_category = Category.find_or_create_by(name: 'No Category')
     no_concept = Concept.find_or_create_by(name: 'No Concept', category: no_category) do |concept|
-      concept.description = 'This Concept is used to house data elements that are waiting to be categorised'
+      concept.description = 'This Concept is used to house data items that are waiting to be categorised'
     end
     self.concept_id = no_concept.id
   end

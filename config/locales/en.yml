@@ -57,7 +57,7 @@ en:
         link: applying for access
         how_to_access: If you are %{link} to NPD data from the DfE you can copy and paste this title in your application form.
       not-available:
-        title: These data elements might not be available for research purposes
+        title: These data items might not be available for research purposes
         link: the exemptions
         content: The data in some or all of these variables has an <strong>identification risk of 1 or 2</strong>. As a researcher, this data is only available if you meet one or more of %{link} following a successful application.
       sensitivity:
@@ -85,28 +85,28 @@ en:
     index:
       title: Datasets
       not-available:
-        title: Some of these data elements might not be available for research purposes
+        title: Some of these data items might not be available for research purposes
         link: the exemptions
         content: The data in some or all of these variables has an <strong>identification risk of 1 or 2</strong>. As a researcher, this data is only available if you meet one or more of %{link} following a successful application.
   data_tables:
     download:
       title: Download NPD Data Tables file
   saved_data:
-    panel: My list
+    panel: View My List
     counter:
       contains: contains
       elements_saved: elements saved
     my_list:
-      title: My list
-      description: You can export this list of data elements into a .xlsx or .ods file.
+      title: My List
+      description: You can export this list of data items into a .xlsx or .ods file.
       link: applying for access
       no_elements: You currently have no elements saved in your list
       additional_notes: Additional notes
       from_my_list: from my list
     button: Save to my list
-    instructions: You can use the checkboxes below to add data elements to your list
+    instructions: You can use the checkboxes below to add data items to your list
     copy_title: Saved in this session
-    copy_instructions: This list of data elements will disappear when you clear your cookies for this site or by selecting 'Remove all' below.
+    copy_instructions: This list of data items will disappear if you clear your cookies for this site or by selecting 'Remove all' below.
   accessibility:
     title: Accessibility statement for Find and Explore Data in the National Pupil Database
     link: Accessibility statement
@@ -143,17 +143,17 @@ en:
         assign_to_concept:
           title: Assign to concept
           subtitle: Enter concept name to be assigned
-          success: The chosen data elements have been successfully assigned to the concept, the list below has been updated to reflect this.
+          success: The chosen data items have been successfully assigned to the concept, the list below has been updated to reflect this.
           remove_concept: Remove assigned concept
         assign_preview:
-          title: "Confirm data elements to be assigned to \"%{concept}\" concept"
-          subtitle: "You have chosen a total of %{count} data elements to be assigned to the concept \"%{concept}\""
-          proceed_question: Proceed and assign the above data elements to the concept?
-          proceed_yes: Yes, assign the data elements
-          proceed_no: No, do not assign the data elements
+          title: "Confirm data items to be assigned to \"%{concept}\" concept"
+          subtitle: "You have chosen a total of %{count} data items to be assigned to the concept \"%{concept}\""
+          proceed_question: Proceed and assign the above data items to the concept?
+          proceed_yes: Yes, assign the data items
+          proceed_no: No, do not assign the data items
         errors:
-          missing_data: Can't assign data elements to concept if the data elements or the concept are missing.
-          refused: Action cancelled by the user, data elements not assigned.
+          missing_data: Can't assign data items to concept if the data items or the concept are missing.
+          refused: Action cancelled by the user, data items not assigned.
   forms:
     continue: Continue
     confirm_and_continue: Confirm and continue
