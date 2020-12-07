@@ -1,7 +1,0 @@
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <h4 class="govuk-heading-s"><%= @data_table.file_name %> (latest)</h4>
-    <p>Uploaded on <%= l(@data_table.created_at, format: :long) %></p>
-    <%= link_to 'Download', url_for(@data_table.data_table), class: 'govuk-button' %>
-  </div>
-</div>
