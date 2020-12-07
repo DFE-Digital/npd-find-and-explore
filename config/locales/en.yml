@@ -79,6 +79,8 @@ en:
       data_table:
         cant_find_what_youre_looking_for: "Can't find what you're looking for?"
         download: Click here to download the latest version of the NPD Data Tables
+        contact: Contact
+        subject: "Find & Explore query"
   data_elements:
     add_to: Add to
   datasets:

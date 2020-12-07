@@ -26,9 +26,8 @@
 <div class="govuk-grid-column-full govuk-!-padding-0">
   <div class="govuk-body-s govuk-!-margin-0 govuk-!-padding-bottom-0">
     <%= t('concepts.show.data_table.cant_find_what_youre_looking_for') %>
-    <%= link_to(t('concepts.show.data_table.download'),
-                Rails.application.credentials.dig(Rails.env.to_sym, :google_data_tables_form),
-                data: { outgoing_link: true,
-                        outgoing_page: 'Download the latest version of the Data Tables' } ) %>
+    <%= t('concepts.show.data_table.contact') %>
+    <%= link_to(Rails.configuration.outgoing_links.dig('data_sharing_mail'),
+                "mailto:#{Rails.configuration.outgoing_links.dig('data_sharing_mail')}?subject=#{CGI.escape(t('concepts.show.data_table.subject'))}") %>
   </div>
 </div>
