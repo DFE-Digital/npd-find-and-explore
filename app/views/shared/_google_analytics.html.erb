@@ -1,4 +1,4 @@
-<% if (Rails.env == 'production' || Rails.env == 'staging') && usage_cookies_allowed? %>
+<% if (Rails.env == 'production') && usage_cookies_allowed? %>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=<%= google_analytics_key %>"></script>
   <%= javascript_tag nonce: true, type: 'text/javascript' do %>
