@@ -8,7 +8,7 @@ class CategoriesController < ApplicationController
   def index
     @categories = Category.real.roots
     @datasets = Dataset.all
-    @title = t('categories.index.title')
+    @title = t('site_title')
     @description = t('categories.index.instructions',
                      link: link_to(
                              t('categories.index.link'),
