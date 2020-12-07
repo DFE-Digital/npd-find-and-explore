@@ -10,7 +10,7 @@ RSpec.describe Concept, type: :model do
     create_list(:category, 1, :with_concepts_and_data_elements)
   end
 
-  it 'will default the placeholder description to the longest amongst its data elements when description is missing' do
+  it 'will default the placeholder description to the longest amongst its data items when description is missing' do
     concept = Concept.first
     concept.update(description: nil)
 
@@ -24,7 +24,7 @@ RSpec.describe Concept, type: :model do
     expect(Concept.count).to eq(1)
     expect(Concept.first.name).to eq('No Concept')
     expect(Concept.first.description)
-      .to eq('This Concept is used to house data elements that are waiting to be categorised')
+      .to eq('This Concept is used to house data items that are waiting to be categorised')
   end
 
   it 'will move orphaned concepts under "no category"' do
@@ -37,7 +37,7 @@ RSpec.describe Concept, type: :model do
     expect(concept.reload.category.name).to eq('No Category')
   end
 
-  it 'will move orphaned data elements under "no concept" when the element is removed' do
+  it 'will move orphaned data items under "no concept" when the item is removed' do
     data_element = DataElement.first
     concept = data_element.concept
 
@@ -47,7 +47,7 @@ RSpec.describe Concept, type: :model do
     expect(data_element.reload.concept.name).to eq('No Concept')
   end
 
-  it 'will refuse to cancel a "no concept" with child data elements' do
+  it 'will refuse to cancel a "no concept" with child data items' do
     data_element = DataElement.first
     concept = data_element.concept
 
@@ -56,7 +56,7 @@ RSpec.describe Concept, type: :model do
     expect { concept.destroy! }.to raise_error ActiveRecord::NotNullViolation
   end
 
-  it 'will refuse to remove an element from "no concept"' do
+  it 'will refuse to remove an item from "no concept"' do
     data_element = DataElement.first
     concept = data_element.concept
 

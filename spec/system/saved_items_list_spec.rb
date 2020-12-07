@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.shared_examples 'Saved items panel' do
   it 'Has the saved items panel' do
-    expect(page).to have_css('.npd-saved-data', text: 'My list')
+    expect(page).to have_css('.npd-saved-data', text: 'View My List')
     expect(page).to have_css('#npd-counter', text: '0')
   end
 end

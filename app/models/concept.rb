@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# A concept groups Data Elements that
+# A concept groups Data Items that
 # *mean the same thing*
 #
 # e.g. Free School Meals in Last 6 Years (concept) contains
@@ -34,11 +34,11 @@ class Concept < ApplicationRecord
 
   def reassign_data_elements
     return true if data_elements.count.zero?
-    raise(ActiveRecord::NotNullViolation, 'Cannot delete "No Concept" with data elements') if name == 'No Concept' && data_elements.count.positive?
+    raise(ActiveRecord::NotNullViolation, 'Cannot delete "No Concept" with data items') if name == 'No Concept' && data_elements.count.positive?
 
     no_category = Category.find_or_create_by(name: 'No Category')
     no_concept = Concept.find_or_create_by(name: 'No Concept', category: no_category) do |concept|
-      concept.description = 'This Concept is used to house data elements that are waiting to be categorised'
+      concept.description = 'This Concept is used to house data items that are waiting to be categorised'
     end
     data_elements.each do |data_element|
       data_element.update(concept: no_concept)
@@ -47,11 +47,11 @@ class Concept < ApplicationRecord
   end
 
   def reassign_to_no_concept(data_element)
-    raise(ActiveRecord::NotNullViolation, 'Cannot delete "No Concept" with data elements') if name == 'No Concept'
+    raise(ActiveRecord::NotNullViolation, 'Cannot delete "No Concept" with data items') if name == 'No Concept'
 
     no_category = Category.find_or_create_by(name: 'No Category')
     no_concept = Concept.find_or_create_by(name: 'No Concept', category: no_category) do |concept|
-      concept.description = 'This Concept is used to house data elements that are waiting to be categorised'
+      concept.description = 'This Concept is used to house data items that are waiting to be categorised'
     end
 
     data_element.update(concept: no_concept)

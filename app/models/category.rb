@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Categories are used to group related Concepts (and therefore Data Elements), for example:
+# Categories are used to group related Concepts (and therefore Data Items), for example:
 #
 #  Socio Economic Status (category)
 #   |- IDACI (category)
