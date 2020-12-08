@@ -193,3 +193,11 @@
 .govuk-\!-width-nine-tenths {
   width: 90% !important;
 }
+
+.govuk-border-bottom {
+  border-bottom: 1px solid govuk-colour('mid-grey');
+}
+
+.govuk-inset-text--thin-band {
+  border-left: 5px solid govuk-colour('mid-grey');
+}

@@ -1,0 +1,21 @@
+@import "node_modules/govuk-frontend/govuk/helpers/colour";
+@import "colours";
+
+.typeahead-standalone {
+  width: fit-content;
+
+  .tt-hint {
+    display: none;
+  }
+
+  .tt-list {
+    width: inherit !important;
+    min-width: 200px !important;
+    left: 2px !important;
+    word-break: keep-all;
+
+    .tt-suggestion:hover, .tt-suggestion.tt-selected {
+      background-color: govuk-colour('mid-grey') !important;
+    }
+  }
+}
