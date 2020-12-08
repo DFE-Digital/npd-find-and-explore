@@ -6,9 +6,10 @@ module ProcessRows
   extend ActiveSupport::Concern
 
   included do
-    attr_accessor :current_table_name, :current_headers, :tab_name
+    attr_accessor :current_table_name, :current_headers
 
     def preprocess
+      self.current_table_name = tab_name
       rows = (1..sheet.last_row).map do |idx|
         element = process_row(idx)
         next if element.nil?
@@ -43,7 +44,7 @@ module ProcessRows
     }.freeze
 
     def headers_match
-      { 'unique_alias' => Regexp.new(dataset.headers_regex) }.merge(HEADERS)
+      { 'unique_alias' => Regexp.new(dataset&.headers_regex) }.merge(HEADERS)
     end
 
     def process_row(idx)
@@ -75,9 +76,9 @@ module ProcessRows
     end
 
     def extract_row(row)
-      return if current_headers.nil? || current_table_name.nil?
+      return if current_headers.nil? && current_table_name.nil?
 
-      element = DfEDataTables::DataElementParsers::Row.new(current_table_name, current_headers, row).process
+      element = DfEDataTables::DataElementParsers::Row.new(current_table_name, current_headers || [], row).process
       return if element.nil?
 
       element

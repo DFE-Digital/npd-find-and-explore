@@ -14,7 +14,7 @@ module DfEDataTables
       def process
         return nil if table_name.nil? || row.compact.first.nil?
 
-        data_element = { table_name: table_name }
+        data_element = { table_name: table_name, original_row: row }
 
         row.each_with_index do |cell, index|
           # Don't collect (generally empty) cells outside the table
@@ -29,7 +29,8 @@ module DfEDataTables
         data_element[:unique_alias] = data_element[:unique_alias]&.split("\n")&.map(&:strip)&.select(&:present?)
         data_element[:years_populated] = process_years(data_element[:years_populated])
 
-        invalid?(data_element) ? nil : data_element_params(data_element)
+        # invalid?(data_element) ? nil : data_element_params(data_element)
+        data_element_params(data_element)
       end
 
     private

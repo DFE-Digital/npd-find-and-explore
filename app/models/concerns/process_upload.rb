@@ -12,8 +12,6 @@ module ProcessUpload
       upload_errors = []
       upload_warnings = []
       tabs_to_process.compact.each do |tab|
-        next if tab.dataset.nil?
-
         tab_rows = tab.preprocess do |el|
           el.merge('data_table_tab_id' => tab.id, 'data_table_upload_id' => id,
                    'concept_id' => no_concept.id)

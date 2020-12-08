@@ -12,6 +12,7 @@ module DataTable
 
     scope :recognised, -> { where('dataset_id IS NOT NULL') }
     scope :unrecognised, -> { where('dataset_id IS NULL') }
+    scope :selected, -> { where(selected: true) }
 
     attr_reader :sheet, :labels
 
