@@ -3,11 +3,9 @@
     <% breadcrumb_trail do |crumb| %>
       <li class="govuk-breadcrumbs__list-item">
         <% if /^back$/i =~ crumb.name %>
-          <%= link_to crumb.name, '', class: 'govuk-back-link' %>
+          <%= link_to crumb.name, crumb.url, class: 'govuk-back-link' %>
         <% elsif crumb.current? %>
           <%= crumb.name %>
-        <% elsif /^back$/i =~ crumb.name %>
-          <%= link_to crumb.name, '', class: 'govuk-back-link' %>
         <% else %>
           <%= link_to crumb.name, crumb.url, class: "govuk-breadcrumbs__link" %>
         <% end %>

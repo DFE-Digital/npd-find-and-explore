@@ -64,7 +64,7 @@ private
     breadcrumb leaf, '' if leaf.present?
   end
 
-  def back_breadcrumbs
-    breadcrumb 'Back', ''
+  def back_breadcrumbs(path: nil)
+    breadcrumb 'Back', (path || '#')
   end
 end

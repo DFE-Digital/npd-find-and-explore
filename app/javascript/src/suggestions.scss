@@ -12,10 +12,16 @@
     width: inherit !important;
     min-width: 200px !important;
     left: 2px !important;
+    top: 2em !important;
     word-break: keep-all;
 
-    .tt-suggestion:hover, .tt-suggestion.tt-selected {
-      background-color: govuk-colour('mid-grey') !important;
+    .tt-suggestion {
+      height: 2em !important;
+      padding-top: 0.3em !important;
+
+      &:hover, &.tt-selected {
+        background-color: govuk-colour('mid-grey') !important;
+      }
     }
   }
 }
