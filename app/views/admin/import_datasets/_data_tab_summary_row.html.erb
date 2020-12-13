@@ -3,7 +3,7 @@
     <h3 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-5 float-left">
       <%= data_tab.tab_name %>
     </h3>
-    <% unless data_tab.dataset.present? -%>
+    <% if data_tab.dataset&.imported? -%>
       <strong class="govuk-tag govuk-tag--grey govuk-!-margin-top-5 float-right">
         New
       </strong>
