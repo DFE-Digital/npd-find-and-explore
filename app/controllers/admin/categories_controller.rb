@@ -67,7 +67,7 @@ module Admin
     end
 
     def import
-      trim_inf_arch_uploads(10)
+      trim_inf_arch_uploads(count: 10)
 
       render :import, layout: 'admin/application', locals: { success: nil, errors: [] }
     end

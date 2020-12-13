@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_02_164941) do
+ActiveRecord::Schema.define(version: 2020_12_12_221558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_164941) do
     t.string "tab_regex"
     t.string "headers_regex"
     t.string "first_row_regex"
+    t.boolean "imported", default: false
   end
 
   create_table "inf_arch_tabs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

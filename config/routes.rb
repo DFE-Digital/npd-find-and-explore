@@ -31,12 +31,24 @@ Rails.application.routes.draw do
     resource :data_elements, only: [] do
       get  :orphaned
       post :orphaned, to: 'data_elements#assign_orphaned'
-      get  :import
-      post :preprocess
-      post :import, to: 'data_elements#do_import'
-      post :abort_import
     end
     resources :data_elements, only: %i[index show]
+    resource :import_datasets, only: [] do
+      get  'import(/:id)',       to: 'import_datasets#import',
+                                 as: :import
+      post :preprocess
+      get  'recognised/:id',     to: 'import_datasets#recognised',
+                                 as: :recognised
+      post 'recognised/:id',     to: 'import_datasets#preprocess_recognised'
+      get  'unrecognised/:id',   to: 'import_datasets#unrecognised',
+                                 as: :unrecognised
+      post 'unrecognised/:id',   to: 'import_datasets#preprocess_unrecognised'
+      get  'summary/:id',        to: 'import_datasets#summary',
+                                 as: :summary
+      post 'import/:id',         to: 'import_datasets#do_import'
+      get  'abort_import(/:id)', to: 'import_datasets#abort_import',
+                                 as: :abort_import
+    end
     resources :datasets, except: %i[destroy]
     resources :admin_users
     resource :admin_user, only: [] do

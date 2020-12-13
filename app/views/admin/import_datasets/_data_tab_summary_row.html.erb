@@ -1,0 +1,29 @@
+<tr class="govuk-table__row">
+  <th colspan="2" class="govuk-table__header govuk-!-padding-left-0" scope="col">
+    <h3 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-5 float-left">
+      <%= data_tab.tab_name %>
+    </h3>
+    <% unless data_tab.dataset.present? -%>
+      <strong class="govuk-tag govuk-tag--grey govuk-!-margin-top-5 float-right">
+        New
+      </strong>
+    <%- end %>
+  </th>
+</tr>
+<tr>
+  <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-four-tenths govuk-!-font-size-19">
+    <%= t('admin.data_tables.dataset') %>
+  </td>
+  <td data-label="Datasets" class="govuk-table__cell govuk-!-font-size-19">
+    <%= data_tab.dataset&.name %>
+  </td>
+</tr>
+<tr>
+  <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-font-size-19">
+    <%= t('admin.data_tables.unique_alias') %>
+  </td>
+  <td data-label="Datasets" class="govuk-table__cell govuk-!-font-size-19">
+    <%= data_tab.dataset&.headers_regex&.gsub('.?', ' ') %>
+  </td>
+</tr>
+

@@ -5,6 +5,9 @@ module DataTable
     belongs_to :data_table_upload, class_name: 'DataTable::Upload', inverse_of: :data_table_rows
     belongs_to :data_table_tab,    class_name: 'DataTable::Tab',    inverse_of: :data_table_rows
 
+    scope :selected, -> { includes(:data_table_tab).where(data_table_tabs: { selected: true }) }
+    scope :importable, -> { where.not(unique_alias: :nil) }
+
     def to_data_element_hash
       {
         id: id,

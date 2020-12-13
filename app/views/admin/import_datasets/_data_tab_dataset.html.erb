@@ -1,0 +1,100 @@
+<div class="govuk-grid-row govuk-!-margin-top-3 govuk-!-padding-bottom-5 govuk-border-bottom soft-paginate-item">
+  <div class="govuk-grid-column-full">
+    <div id="form-group-<%= data_tab.id %>" class="govuk-form-group">
+      <p class="govuk-heading-s">
+        <%= data_tab.tab_name %>
+      </p>
+
+      <div class="error-message hidden">
+        <li data-reference="choice-error-<%= data_tab.id %>" class="hidden">
+          <a href="#choice-error-<%= data_tab.id %>"><%= data_tab.tab_name %>: You must select an option.</a>
+        </li>
+
+        <p id="choice-error-<%= data_tab.id %>" class="govuk-error-message govuk-!-margin-top-2">
+          <span class="govuk-visually-hidden">Error:</span>
+          <span class="message">You must select an option.</span>
+        </p>
+      </div>
+
+      <div class="govuk-radios">
+        <%= hidden_field_tag "data_tab[#{ data_tab.id }][data_tab_id]", data_tab.id, class: %i[data_tab_id] %>
+        <%= hidden_field_tag "data_tab[#{ data_tab.id }][data_tab_name]", data_tab.tab_name, class: %i[data_tab_name] %>
+        <div class="radio-expand-group">
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input dataset-choice-radio"
+                   id="data_tab_<%= data_tab.id %>_action_match"
+                   name="data_tab[<%= data_tab.id %>][action]" type="radio"
+                   value="match" required="true">
+            <label class="govuk-label govuk-radios__label" for="data_tab_<%= data_tab.id %>_action_match">
+              <%= t('admin.data_tables.import.unrecognised.match') %>
+            </label>
+          </div>
+          <div class="radio-expand-hidden govuk-inset-text govuk-inset-text--thin-band govuk-!-margin-left-3 govuk-!-margin-top-0" style="display:none">
+            <div class="govuk-!-margin-left-4">
+              <label class="govuk-label" for="data_tab_<%= data_tab.id %>_match_dataset_name">
+                <%= t('admin.data_tables.import.unrecognised.existing_dataset_name') %>
+              </label>
+              <%= select_tag "data_tab[#{data_tab.id}][match_dataset_name]",
+                             options_from_collection_for_select(datasets, :id, :name),
+                             { multiple: false, include_blank: false, class: 'govuk-select',
+                               data: { filter: true, js_validate_input: true } } %>
+            </div>
+          </div>
+        </div>
+        <div class="radio-expand-group">
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input dataset-choice-radio"
+                   id="data_tab_<%= data_tab.id %>_action_create"
+                   name="data_tab[<%= data_tab.id %>][action]" type="radio"
+                   value="create" required="true">
+            <label class="govuk-label govuk-radios__label" for="data_tab_<%= data_tab.id %>_action_create">
+              <%= t('admin.data_tables.import.unrecognised.create') %>
+            </label>
+          </div>
+          <div class="radio-expand-hidden govuk-inset-text govuk-inset-text--thin-band govuk-!-margin-left-3 govuk-!-margin-top-0" style="display:none">
+            <div class="govuk-!-margin-left-4">
+              <div>
+                <label class="govuk-label" for="data_tab_<%= data_tab.id%>_new_dataset_name">
+                  <%= t('admin.data_tables.import.unrecognised.new_dataset_name') %>
+                </label>
+                <%= text_field_tag "data_tab[#{data_tab.id}][new_dataset_name]", '',
+                                   class: %i[govuk-input],
+                                   data: { js_validate_input: true } %>
+              </div>
+              <div>
+                <label class="govuk-label" for="data_tab_<%= data_tab.id%>_new_dataset_desc">
+                  <%= t('admin.data_tables.import.unrecognised.new_dataset_description') %>
+                </label>
+                <%= text_area_tag "data_tab[#{data_tab.id}][new_dataset_desc]", '',
+                                  class: %i[govuk-input],
+                                  data: { js_validate_input: true } %>
+              </div>
+              <div>
+                <label class="govuk-label" for="data_tab_<%= data_tab.id %>_new_dataset_alias">
+                  <%= t('admin.data_tables.import.unrecognised.new_dataset_alias') %>
+                </label>
+                <%= text_field_tag "data_tab[#{data_tab.id}][new_dataset_alias]", '',
+                                   class: %i[govuk-input typeahead-suggestions],
+                                   data: { suggestions: alias_fields, js_validate_input: true } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="govuk-!-padding-left-2">
+          <%= t('forms.or') %>
+        </p>
+        <div class="radio-expand-group">
+          <div class="govuk-radios__item">
+            <input class="govuk-radios__input dataset-choice-radio"
+                   id="data_tab_<%= data_tab.id %>_action_ignore"
+                   name="data_tab[<%= data_tab.id %>][action]" type="radio"
+                   value="ignore" required="true">
+            <label class="govuk-label govuk-radios__label" for="data_tab_<%= data_tab.id %>_action_ignore">
+              <%= t('admin.data_tables.import.unrecognised.ignore') %>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

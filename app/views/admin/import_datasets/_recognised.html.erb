@@ -1,0 +1,34 @@
+<%= form_with url: recognised_admin_import_datasets_path, method: :post, local: true,
+              class: %w[loader-on-submit], multipart: true, id: 'upload-form' do |f| -%>
+  <div class="govuk-grid-row govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+    <div class="govuk-grid-column-full govuk-!-margin-top-3">
+      <table class="govuk-table govuk-!-font-size-16 govuk-!-margin-bottom-0">
+        <thead class="govuk-table__head">
+          <%= render partial: 'data_tab_header' %>
+        </thead>
+        <tbody class="govuk-table__body">
+          <%= render partial: 'data_tab_row',
+                     collection: loader.data_table_tabs.recognised, as: :data_tab %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+    <div class="govuk-grid-column-full govuk-!-margin-top-3">
+      <button type="submit" class="govuk-button govuk-!-margin-bottom-3" id="submit-unrecognised"
+              name="submit" value="unrecognised" data-submit="unrecognised">
+        <%= t('admin.data_tables.import.recognised.continue_to_unrecognised') %>
+      </button>
+      <button type="submit" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-3" id="submit-cancel"
+              name="submit" value="cancel" data-submit="cancel">
+        <%= t('admin.data_tables.import.cancel') %>
+      </button>
+      <br />
+      <button type="submit" class="govuk-button govuk-button--link govuk-button--link-blue" id="submit-summary"
+              name="submit" value="summary" data-submit="summary">
+        <%= t('admin.data_tables.import.recognised.import_recognised_only') %>
+      </button>
+    </div>
+  </div>
+<%- end %>

@@ -4,6 +4,8 @@
 class Dataset < ApplicationRecord
   include SanitizeSpace
 
+  before_save :loosen_regexps
+
   has_and_belongs_to_many :data_elements,
                           -> { order(unique_alias: :asc) },
                           inverse_of: :datasets, dependent: :nullify
@@ -12,5 +14,11 @@ class Dataset < ApplicationRecord
 
   def friendly_headers_regex
     headers_regex.gsub('.?', ' ')
+  end
+
+private
+
+  def loosen_regexps
+    self.headers_regex = (headers_regex || '').gsub(/[^a-zA-Z0-9]/, '.?')
   end
 end

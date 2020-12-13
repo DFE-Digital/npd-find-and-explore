@@ -17,12 +17,16 @@ module DataTable
     attr_reader :sheet, :labels
 
     def initialize(args)
-      table = args.delete(:workbook)
+      workbook = args.delete(:workbook)
       super({ headers: {}, process_warnings: [], process_errors: [] }.merge(args))
 
       @labels = nil
-      if check_tab_name(table)
-        find_sheet(table)
+      restore_sheet(workbook: workbook)
+    end
+
+    def restore_sheet(workbook:)
+      if check_tab_name(workbook)
+        find_sheet(workbook)
         find_dataset
       end
     end
@@ -33,23 +37,23 @@ module DataTable
       /census/
     end
 
-    def check_tab_name(table)
+    def check_tab_name(workbook)
       unless tab_name
         process_warnings.push('No tab name provided')
         return false
       end
-      return true if table.sheets.include?(tab_name)
+      return true if workbook.sheets.include?(tab_name)
 
       process_warnings.push("Can't find tab #{tab_name} in the uploaded file")
       self.tab_name = nil
     end
 
-    def find_sheet(table)
-      @sheet = table.sheet_for(tab_name)
+    def find_sheet(workbook)
+      @sheet = workbook.sheet_for(tab_name)
     end
 
     def find_dataset
-      self.dataset = Dataset.where('? ~* tab_regex', tab_name).first
+      self.dataset ||= Dataset.where('tab_regex != \'\' AND ? ~* tab_regex', tab_name).first
     end
   end
 end

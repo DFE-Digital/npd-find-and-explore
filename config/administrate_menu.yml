@@ -98,7 +98,7 @@ default: &default
         - controller: admin/uploads
           actions:
             - index
-        - controller: admin/data_elements
+        - controller: admin/import_datasets
           actions:
             - import
         - controller: admin/categories
@@ -111,9 +111,9 @@ default: &default
         url_params:
           - import
           - admin
-          - data_elements
+          - import_datasets
         conditions:
-          - controller: admin/data_elements
+          - controller: admin/import_datasets
             actions:
               - import
       - import_categories_and_concepts:

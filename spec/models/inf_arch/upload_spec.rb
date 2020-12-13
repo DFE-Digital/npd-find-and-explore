@@ -107,6 +107,7 @@ RSpec.describe InfArch::Upload, type: :model do
 
   it 'Will assign a real concept to data elements' do
     de_loader.preprocess
+    de_loader.data_table_tabs.update_all(selected: true)
     de_loader.process
 
     data_element = DataElement.find_by(unique_alias: 'KS4_ACTYRGRP')

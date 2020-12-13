@@ -15,6 +15,7 @@ class DatasetDashboard < Administrate::BaseDashboard
     name: Field::String,
     tab_name: Field::String,
     description: Field::Text,
+    headers_regex: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -47,7 +48,9 @@ class DatasetDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     name
+    tab_name
     description
+    headers_regex
   ].freeze
 
   # COLLECTION_FILTERS

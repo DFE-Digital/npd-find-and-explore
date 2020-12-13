@@ -1,0 +1,38 @@
+<% content_for(:title) do %>
+  <%= t('admin.data_tables.import.summary.title') %>
+<% end %>
+
+<% content_for(:additional_tags) do %>
+<% end %>
+
+<header role="banner" class="govuk-!-margin-top-7">
+  <p class="govuk-caption-xl">
+    <%= t('admin.data_tables.import.title') %>
+  </p>
+  <h1 class="govuk-heading-xl main-content__page-title" id="page-title">
+    <%= content_for(:title) %>
+  </h1>
+
+  <div class="govuk-grid-row govuk-!-margin-0">
+    <div class="govuk-grid-column-two-thirds govuk-!-margin-left-0 govuk-!-padding-left-0">
+      <p class="govuk-!-font-size-19">
+        <%= t('admin.data_tables.import.summary.description') %>
+      </p>
+    </div>
+  </div>
+
+  <div class="govuk-error-summary hidden" aria-labelledby="error-summary-title"
+    role="alert" tabindex="-1" data-module="govuk-error-summary">
+    <h2 class="govuk-error-summary__title" id="error-summary-title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+      </ul>
+    </div>
+  </div>
+</header>
+
+<fieldset class="govuk-fieldset govuk-!-margin-0" id="upload-file-container" aria-describedby="upload-file-hint upload-file-error" role="group">
+  <%= render partial: 'summary', locals: { loader: loader } %>
+</fieldset>
