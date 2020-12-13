@@ -24,7 +24,8 @@ function validateForm(event) {
       });
 
       $('.govuk-error-summary').removeClass('hidden');
-      $('.govuk-error-summary').find('li').removeClass('hidden')
+      $('body,html').animate({ scrollTop: $('.govuk-error-summary').offset().top }, 800);
+      $('.govuk-error-summary').find('li').removeClass('hidden');
     }
   }
 }
