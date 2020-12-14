@@ -1,0 +1,18 @@
+<tr class="govuk-table__row" id="data-elements-header">
+  <th data-label="Select All" class="govuk-table__header govuk-!-padding-0" scope="col">
+    <div class="govuk-checkboxes govuk-checkboxes--small fixed-checkbox">
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="select-all" name="selectAll" type="checkbox" value="all">
+        <%= check_box_tag 'data_tabs[]', 'all', false,
+          id: 'data-tab-all', class: %w[govuk-checkboxes__input basket-checkbox-all],
+          data: { check_all: true, check_class: 'basket-checkbox' } %>
+        <%= label_tag 'data-tab-all', class: %w[govuk-label govuk-checkboxes__label] do %>
+          &nbsp;
+          <%= tag.span 'All', class: %w[govuk-checkboxes__label-hidden] %>
+        <% end %>
+      </div>
+    </div>
+  </th>
+  <th data-label="Tab Name" class="govuk-table__header govuk-table__cell--50 govuk-!-font-size-19 govuk-!-padding-top-0 govuk-!-padding-bottom-0" scope="col">Tab name</th>
+  <th data-label="Dataset Name" class="govuk-table__header govuk-!-padding-0 govuk-!-font-size-19" scope="col">Dataset name</th>
+</tr>

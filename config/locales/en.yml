@@ -158,10 +158,53 @@ en:
         errors:
           missing_data: Can't assign data items to concept if the data items or the concept are missing.
           refused: Action cancelled by the user, data items not assigned.
+    data_tables:
+      dataset: Dataset name
+      unique_alias: Unique alias column
+      import:
+        title: Import datasets
+        cancel: Cancel import
+        import:
+          title: Choose a file to upload
+          label: File to upload
+        recognised:
+          title: Recognised datasets
+          description: 'The following datasets have been recognised; select the datasets you wish to import:'
+          continue_to_unrecognised: Continue to unrecognised datasets
+          import_recognised_only: Import recognised datasets only
+        unrecognised:
+          title: Unrecognised datasets
+          description: The following datasets have not been matched and require your attention
+          match: Match to an existing dataset
+          create: Create a new dataset
+          ignore: Ignore and do not import or match
+          selected: 'Selected unrecognised datasets:'
+          existing_dataset_name: Name of the existing dataset
+          new_dataset_name: New dataset name
+          new_dataset_description: New dataset description
+        summary:
+          title: Confirm import
+          description: The following datasets will be imported
+          proceed_question: Proceed with import?
+          proceed_yes: Yes, proceed with chosen datasets
+          proceed_no: No, do not proceed with chosen datasets
+        success:
+          title: Import has been successful
+          description: 'The following datasets have been successfully imported'
+        cancelled:
+          title: Import cancelled
+          description: 'The following datasets have not been imported due to the import having been cancelled:'
+          continue: 'Continue to "Choose a file to upload"'
+        errors:
+          refused: Action cancelled by the user, datasets not imported.
+          generic: An error has occurred.
+          none_selected: No datasets were selected for import.
   forms:
     continue: Continue
+    confirm: Confirm
     confirm_and_continue: Confirm and continue
     cancel: Cancel
+    or: or
 
   date:
     formats:

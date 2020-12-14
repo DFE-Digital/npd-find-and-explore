@@ -1,0 +1,22 @@
+<tr class="govuk-table__row">
+  <td class="govuk-table__header govuk-!-padding-left-0" scope="col">
+    <div class="govuk-checkboxes govuk-checkboxes--small">
+      <div class="govuk-checkboxes__item">
+        <%= check_box_tag 'data_tabs[]', data_tab.id, false,
+          id: "data-element-#{data_tab.id}",
+          class: %w[govuk-checkboxes__input basket-checkbox check-all-target],
+          data: { save_to_local_storage: 'orphanedDataElementsList' } %>
+        <%= label_tag "data-element-#{data_tab.id}", class: %w[govuk-label govuk-checkboxes__label] do %>
+          <%= tag.span data_tab.tab_name, class: %w[govuk-checkboxes__label-hidden] %>
+        <% end %>
+      </div>
+    </div>
+  </td>
+  <td data-label="Data element" class="govuk-table__cell govuk-table__cell--50 govuk-!-font-size-19">
+    <%= data_tab.tab_name %>
+  </td>
+  <td data-label="Datasets" class="govuk-table__cell govuk-!-font-size-19">
+    <%= data_tab.dataset&.name %>
+  </td>
+</tr>
+

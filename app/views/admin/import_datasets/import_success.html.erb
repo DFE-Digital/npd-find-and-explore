@@ -1,0 +1,46 @@
+<% content_for(:title) do %>
+  <%= t('admin.data_tables.import.success.title') %>
+<% end %>
+
+<header role="banner" class="govuk-!-margin-top-7">
+  <div class="govuk-grid-row govuk-!-margin-0">
+    <div class="govuk-grid-column-two-thirds govuk-!-margin-left-0 govuk-!-padding-left-0">
+      <div class="govuk-panel govuk-panel--confirmation">
+        <h1 class="govuk-panel__title">
+          <%= content_for(:title) %>
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-0">
+    <div class="govuk-grid-column-two-thirds govuk-!-margin-left-0 govuk-!-padding-left-0">
+      <p class="govuk-!-font-size-19">
+        <%= t('admin.data_tables.import.success.description') %>
+      </p>
+    </div>
+  </div>
+</header>
+
+<fieldset class="govuk-fieldset govuk-!-margin-0" role="group">
+
+  <div class="govuk-grid-row govuk-!-margin-top-0 govuk-!-margin-bottom-0">
+    <div class="govuk-grid-column-two-thirds govuk-!-margin-top-3">
+      <ul class="govuk-list govuk-list--bullet">
+        <% loader.data_table_tabs.selected.each do |tab| -%>
+          <li>
+            <%= tab.tab_name %>
+          </td>
+        <%- end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+    <div class="govuk-grid-column-two-thirds govuk-!-margin-top-3 govuk-!-margin-bottom-5">
+      <%= link_to t('forms.continue'),
+                  :admin_root,
+                  class: %i[govuk-!-font-size-19] %>
+    </div>
+  </div>
+</fieldset>

@@ -10,3 +10,5 @@ tail = { select: require('tail.select') }
 
 require('../src/administrate')
 require('../src/timeout')
+require('../src/submit')
+require('../src/back-link')

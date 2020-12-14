@@ -6,7 +6,7 @@ module ProcessRows
   extend ActiveSupport::Concern
 
   included do
-    attr_accessor :current_table_name, :current_headers, :tab_name
+    attr_accessor :current_table_name, :current_headers
 
     def preprocess
       rows = (1..sheet.last_row).map do |idx|
@@ -21,7 +21,6 @@ module ProcessRows
   private
 
     HEADERS = {
-      # 'unique_alias' => /(NPDAlias|NPD Alias)/,
       'field_reference' => /(Field Reference|FieldReference|NPD Field Reference)/i,
       'old_alias' => /(OldAlias|Old Alias)/,
       'former_name' => /FormerName/,

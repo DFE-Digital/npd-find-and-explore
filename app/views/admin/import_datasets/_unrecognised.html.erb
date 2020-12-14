@@ -1,0 +1,29 @@
+<%= form_with url: unrecognised_admin_import_datasets_path, method: :post, local: true,
+              class: %w[loader-on-submit], multipart: true, id: 'upload-form',
+              data: { js_validate: true } do |f| -%>
+  <div class="govuk-grid-row govuk-!-margin-top-0 govuk-!-margin-bottom-0">
+    <div class="govuk-grid-column-full govuk-!-margin-top-3 soft-paginate-container"
+         data-per-page="6">
+      <%= render partial: 'shared/soft_pagination_links' %>
+
+      <%= render partial: 'data_tab_dataset',
+                 collection: loader.data_table_tabs.unrecognised, as: :data_tab,
+                 locals: { datasets: datasets, alias_fields: alias_fields } %>
+
+      <%= render partial: 'shared/soft_pagination_links' %>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+    <div class="govuk-grid-column-full govuk-!-margin-top-3">
+      <button type="submit" class="govuk-button govuk-!-margin-bottom-3" id="submit-summary"
+              name="submit" value="summary" data-submit="summary">
+        <%= t('forms.continue') %>
+      </button>
+      <button type="submit" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-3" id="submit-cancel"
+              name="submit" value="cancel" data-submit="cancel" data-skip-validation="true">
+        <%= t('admin.data_tables.import.cancel') %>
+      </button>
+    </div>
+  </div>
+<%- end %>

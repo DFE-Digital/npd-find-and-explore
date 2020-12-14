@@ -38,5 +38,15 @@ module Admin
 
       nil
     end
+
+    def trim_inf_arch_uploads(count: 5)
+      InfArch::Upload.where.not(successful: true).reorder(created_at: :desc).offset(count).destroy_all
+      InfArch::Upload.where(successful: true).reorder(created_at: :desc).offset(count).destroy_all
+    end
+
+    def trim_data_table_uploads(count: 5)
+      DataTable::Upload.where.not(successful: true).reorder(created_at: :desc).offset(count).destroy_all
+      DataTable::Upload.where(successful: true).reorder(created_at: :desc).offset(count).destroy_all
+    end
   end
 end

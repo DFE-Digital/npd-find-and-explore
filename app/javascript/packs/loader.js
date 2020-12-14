@@ -4,26 +4,17 @@ import $ from 'jquery'
 
 window.loader = new GOVUK.Loader()
 
-$(document).on('ajax:send', function() {
-  $('#submit-upload').attr('disabled', true)
-  $('#cancel-upload').attr('disabled', true)
+$(document).ready(function() {
+  $('.loader-on-submit').submit(function(event) {
+    $(event.currentTarget).parents('.govuk-form-group').removeClass('govuk-form-group--error');
+    $(event.currentTarget).find('.govuk-error-message').hide();
+    $('button').attr('disabled', true);
+    $('#govuk-box-message').show();
 
-  if (/(import|preprocess)/.test(event.target.action)) {
-    $('.govuk-form-group').removeClass('govuk-form-group--error')
-    $('#upload-file-error').remove()
-    $('#upload-file-success').remove()
-    $('#govuk-box-message').show()
     window.loader.init({
       container: 'govuk-box-message',
       label: true,
       labelText: 'We are processing the file you uploaded, please wait'
-    })
-  }
-})
-
-$(document).on('ajax:complete', function() {
-  setTimeout(function() {
-    $('#govuk-box-message').hide()
-    window.loader.stop()
-  }, 500)
-})
+    });
+  });
+});

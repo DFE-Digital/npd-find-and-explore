@@ -31,6 +31,10 @@ table td .tooltip {
   overflow-wrap: normal;
 }
 
+.govuk-table__cell--50 {
+  width: 55%;
+}
+
 @include govuk-media-query($until: tablet) {
   table thead {
     border: 0;

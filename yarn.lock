@@ -8960,6 +8960,11 @@ type-is@~1.6.17, type-is@~1.6.18:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
+typeahead-standalone@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/typeahead-standalone/-/typeahead-standalone-2.2.0.tgz#e4ba2328a8de7e68b91ed9f3987d5810727b1903"
+  integrity sha512-0Dmar2ot/pxHjWFU0sLRh7XJUjmAwBlGlyp3KGsiaKCvgeAoAYRU0OtCwMvQQCkWXMhce+hUgIKj59uZVe5BWA==
+
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"

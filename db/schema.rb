@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_16_123334) do
+ActiveRecord::Schema.define(version: 2020_12_12_221558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 2020_11_16_123334) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "dataset_id"
+    t.boolean "selected", default: false
     t.index ["data_table_upload_id"], name: "index_data_table_tabs_on_data_table_upload_id"
     t.index ["dataset_id"], name: "index_data_table_tabs_on_dataset_id"
   end
@@ -177,6 +178,7 @@ ActiveRecord::Schema.define(version: 2020_11_16_123334) do
     t.string "tab_regex"
     t.string "headers_regex"
     t.string "first_row_regex"
+    t.boolean "imported", default: false
   end
 
   create_table "inf_arch_tabs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

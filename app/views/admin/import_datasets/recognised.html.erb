@@ -1,0 +1,29 @@
+<% content_for(:title) do %>
+  <%= t('admin.data_tables.import.recognised.title') %>
+<% end %>
+
+<% content_for(:additional_tags) do %>
+  <%= stylesheet_pack_tag 'loader' %>
+  <%= javascript_pack_tag 'loader' %>
+  <%= javascript_pack_tag 'data_element_upload' %>
+<% end %>
+
+<div class="govuk-grid-row govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
+    <header role="banner" class="govuk-!-margin-top-3">
+      <p class="govuk-caption-xl">
+        <%= t('admin.data_tables.import.title') %>
+      </p>
+      <h1 class="govuk-heading-xl main-content__page-title" id="page-title">
+        <%= content_for(:title) %>
+      </h1>
+      <p class="govuk-!-font-size-19">
+      <%= t('admin.data_tables.import.recognised.description') %>
+      </p>
+    </header>
+
+    <fieldset class="govuk-fieldset govuk-!-margin-0" id="upload-file-container" aria-describedby="upload-file-hint upload-file-error" role="group">
+      <%= render partial: 'recognised', locals: { loader: loader } %>
+    </fieldset>
+  </div>
+</div>

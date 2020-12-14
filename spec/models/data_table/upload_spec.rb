@@ -65,6 +65,7 @@ RSpec.describe DataTable::Upload, type: :model do
 
   it 'Will process the data elements' do
     loader.preprocess
+    loader.data_table_tabs.update_all(selected: true)
     expect { loader.process }
       .to change(DataElement, :count)
       .by(274)
@@ -72,54 +73,66 @@ RSpec.describe DataTable::Upload, type: :model do
 
   it 'Will add the appropriate data elements' do
     loader.preprocess
+    loader.data_table_tabs.update_all(selected: true)
     loader.process
     add_loader.preprocess
+    add_loader.data_table_tabs.update_all(selected: true)
     expect { add_loader.process }
       .to change(DataElement, :count)
       .by(3)
   end
 
-  it 'Will remove the appropriate data elements' do
+  it 'Will not remove data elements' do
     loader.preprocess
+    loader.data_table_tabs.update_all(selected: true)
     loader.process
     del_loader.preprocess
+    del_loader.data_table_tabs.update_all(selected: true)
     expect { del_loader.process }
-      .to change(DataElement, :count)
-      .by(-3)
+      .not_to change(DataElement, :count)
   end
 
   it 'Will know which new elements will be created' do
     loader.preprocess
+    loader.data_table_tabs.update_all(selected: true)
     loader.process
     add_loader.preprocess
+    add_loader.data_table_tabs.update_all(selected: true)
     expect(add_loader.new_rows.count).to eq(3)
   end
 
   it 'Will get a list of elements to be created below 1ms' do
     loader.preprocess
+    loader.data_table_tabs.update_all(selected: true)
     loader.process
     add_loader.preprocess
+    add_loader.data_table_tabs.update_all(selected: true)
     expect { add_loader.new_rows }
       .to perform_under(1).ms.sample(10)
   end
 
   it 'Will know which elements will be deleted' do
     loader.preprocess
+    loader.data_table_tabs.update_all(selected: true)
     loader.process
     del_loader.preprocess
+    del_loader.data_table_tabs.update_all(selected: true)
     expect(del_loader.del_rows.count).to eq(3)
   end
 
   it 'Will get a list of elements to be deleted below 1ms' do
     loader.preprocess
+    loader.data_table_tabs.update_all(selected: true)
     loader.process
     del_loader.preprocess
+    del_loader.data_table_tabs.update_all(selected: true)
     expect { del_loader.del_rows }
       .to perform_under(1).ms.sample(10)
   end
 
   it 'will destroy itself below 6ms' do
     loader.preprocess
+    loader.data_table_tabs.update_all(selected: true)
     expect { loader.destroy }
       .to perform_under(4).ms.sample(10)
   end
@@ -150,6 +163,7 @@ RSpec.describe DataTable::Upload, type: :model do
 
     it 'Will process the data elements' do
       loader.preprocess
+      loader.data_table_tabs.update_all(selected: true)
       expect { loader.process }
         .to change(DataElement, :count)
         .by(279)

@@ -6,10 +6,6 @@ module Admin
 
     include BreadcrumbBuilder
 
-    # ==========================================================================
-    # Orphaned Data Elements
-    # ==========================================================================
-
     def orphaned
       all_resources, datasets = extract_resources
       resources = order.apply(all_resources).page(params[:page]).per(records_per_page)
@@ -55,61 +51,31 @@ module Admin
     end
 
     # ==========================================================================
-    # Import Data Elements
+    # Unfortunately there's a glitch: sometimes, when swapping prod and
+    # staging, there's a glitch and the indexing gets lost.
+    # This is a utility page, not listed in the menu, that will let you trigger
+    # a re-index easily.
+    # TODO: Find the reason behind the glitch, fix it and get rid of this
+    # functionality completely.
     # ==========================================================================
-
-    def import
-      @last_import = DataTable::Upload.where(successful: true).order(created_at: :asc).last
-      render :import, layout: 'admin/application', locals: { success: nil, error: '' }
+    def reindex
+      render :reindex, layout: 'admin/application', locals: { success: nil, errors: [] }
     end
 
-    def preprocess
-      @last_import = DataTable::Upload.where(successful: true).order(created_at: :asc).last
-      check_input_file
-      loader = DataTable::Upload.create(admin_user: current_admin_user,
-                                        file_name: params['file-upload'].original_filename,
-                                        data_table: params['file-upload'])
-      loader.data_table.attach(params['file-upload'])
-      loader.preprocess
+    def do_reindex
+      DataElement.rebuild_pg_search_documents
 
-      render partial: 'preprocess', layout: false, locals: { loader: loader }
-    rescue ArgumentError => e
-      Rails.logger.error(e)
-      render partial: 'import_form', layout: false, locals: { success: false, error: e.message }
+      render :reindex,
+             layout: 'admin/application',
+             locals: { success: true, errors: [] }
     rescue StandardError => e
       Rails.logger.error(e)
-      render partial: 'import_form', layout: false, locals: { success: false, error: 'An error occourred while uploading the data tables' }
-    end
-
-    def do_import
-      @last_import = DataTable::Upload.where(successful: true).order(created_at: :asc).last
-      load_tables
-      render partial: 'import_form', layout: false, locals: { success: true, error: '' }
-    rescue ArgumentError => e
-      Rails.logger.error(e)
-      render partial: 'import_form', layout: false, locals: { success: false, error: e.message }
-    rescue StandardError => e
-      Rails.logger.error(e)
-      render partial: 'import_form', layout: false, locals: { success: false, error: e.message[0, 1000] }
-    end
-
-    def abort_import
-      loader = DataTable::Upload.find(params['loader_id'])
-      loader.destroy
-
-      render partial: 'import_form', layout: false, locals: { success: false, error: 'The upload has been cancelled by the user' }
+      render :reindex,
+             layout: 'admin/application',
+             locals: { success: false, errors: ['There has been an error while reindexing the data items'] }
     end
 
   private
-
-    def load_tables
-      loader = DataTable::Upload.find(params['loader_id'])
-      loader.process
-
-      loader.update(successful: true)
-
-      @last_import = DataTable::Upload.where(successful: true).order(created_at: :asc).last
-    end
 
     def extract_resources
       misplaced = DataElement.misplaced.includes(:datasets)

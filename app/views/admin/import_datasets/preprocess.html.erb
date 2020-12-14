@@ -1,0 +1,22 @@
+<% content_for(:title) do %>
+  <%= t('admin.data_tables.import.import.title') %>
+<% end %>
+
+<% content_for(:additional_tags) do %>
+  <%= stylesheet_pack_tag 'loader' %>
+  <%= javascript_pack_tag 'loader' %>
+  <%= javascript_pack_tag 'data_element_upload' %>
+<% end %>
+
+<header role="banner" class="govuk-!-margin-top-7">
+  <p class="govuk-caption-xl">
+    <%= t('admin.data_tables.import.title') %>
+  </p>
+  <h1 class="govuk-heading-xl main-content__page-title" id="page-title">
+    <%= content_for(:title) %>
+  </h1>
+</header>
+
+<fieldset class="govuk-fieldset govuk-!-margin-0" id="upload-file-container" aria-describedby="upload-file-hint upload-file-error" role="group">
+  <%= render partial: 'preprocess', locals: { loader: loader } %>
+</fieldset>
