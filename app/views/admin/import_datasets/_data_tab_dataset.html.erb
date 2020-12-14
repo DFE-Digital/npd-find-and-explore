@@ -30,7 +30,18 @@
             </label>
           </div>
           <div class="radio-expand-hidden govuk-inset-text govuk-inset-text--thin-band govuk-!-margin-left-3 govuk-!-margin-top-0" style="display:none">
-            <div class="govuk-!-margin-left-4">
+            <div class="govuk-!-margin-left-4 govuk-form-group">
+              <div class="error-message hidden">
+                <li data-reference="choice-match-error-<%= data_tab.id %>" class="hidden">
+                  <a href="#choice-match-error-<%= data_tab.id %>"><%= data_tab.tab_name %>: You must select a dataset.</a>
+                </li>
+
+                <p id="choice-match-error-<%= data_tab.id %>" class="govuk-error-message govuk-!-margin-top-2">
+                  <span class="govuk-visually-hidden">Error:</span>
+                  <span class="message">You must select a dataset.</span>
+                </p>
+              </div>
+
               <label class="govuk-label" for="data_tab_<%= data_tab.id %>_match_dataset_name">
                 <%= t('admin.data_tables.import.unrecognised.existing_dataset_name') %>
               </label>
@@ -52,7 +63,19 @@
             </label>
           </div>
           <div class="radio-expand-hidden govuk-inset-text govuk-inset-text--thin-band govuk-!-margin-left-3 govuk-!-margin-top-0" style="display:none">
-            <div class="govuk-!-margin-left-4">
+            <div class="govuk-!-margin-left-4 govuk-form-group">
+              <div class="error-message hidden">
+                <li data-reference="choice-new-error-<%= data_tab.id %>" class="hidden">
+                  <a href="#choice-new-error-<%= data_tab.id %>"><%= data_tab.tab_name %>: You must specify the new dataset fields.</a>
+                </li>
+
+                <p id="choice-new-error-<%= data_tab.id %>" class="govuk-error-message govuk-!-margin-top-2">
+                  <span class="govuk-visually-hidden">Error:</span>
+                  <span class="message">You must specify the new dataset fields.</span>
+                </p>
+              </div>
+
+
               <div>
                 <label class="govuk-label" for="data_tab_<%= data_tab.id%>_new_dataset_name">
                   <%= t('admin.data_tables.import.unrecognised.new_dataset_name') %>

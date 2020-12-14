@@ -50,6 +50,31 @@ module Admin
       end
     end
 
+    # ==========================================================================
+    # Unfortunately there's a glitch: sometimes, when swapping prod and
+    # staging, there's a glitch and the indexing gets lost.
+    # This is a utility page, not listed in the menu, that will let you trigger
+    # a re-index easily.
+    # TODO: Find the reason behind the glitch, fix it and get rid of this
+    # functionality completely.
+    # ==========================================================================
+    def reindex
+      render :reindex, layout: 'admin/application', locals: { success: nil, errors: [] }
+    end
+
+    def do_reindex
+      DataElement.rebuild_pg_search_documents
+
+      render :reindex,
+             layout: 'admin/application',
+             locals: { success: true, errors: [] }
+    rescue StandardError => e
+      Rails.logger.error(e)
+      render :reindex,
+             layout: 'admin/application',
+             locals: { success: false, errors: ['There has been an error while reindexing the data items'] }
+    end
+
   private
 
     def extract_resources

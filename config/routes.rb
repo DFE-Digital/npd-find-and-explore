@@ -31,6 +31,8 @@ Rails.application.routes.draw do
     resource :data_elements, only: [] do
       get  :orphaned
       post :orphaned, to: 'data_elements#assign_orphaned'
+      get  :reindex
+      post :reindex, to: 'data_elements#do_reindex'
     end
     resources :data_elements, only: %i[index show]
     resource :import_datasets, only: [] do

@@ -108,6 +108,7 @@ module Admin
 
     def summary
       loader = DataTable::Upload.find(params['id'])
+      back_breadcrumbs path: unrecognised_admin_import_datasets_path(id: loader.id)
 
       if loader.data_table_tabs.selected.any?
         render :summary, locals: { loader: loader }
