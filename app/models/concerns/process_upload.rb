@@ -6,44 +6,19 @@ module ProcessUpload
   extend ActiveSupport::Concern
 
   included do
-    SHEETS = [
-      DataTable::ScPupil,
-      DataTable::ScAddresses,
-      DataTable::PruCensus,
-      DataTable::EarlyYearsCensus,
-      DataTable::AltProvision,
-      DataTable::ApAddresses,
-      DataTable::Eyfsp,
-      DataTable::Phonics,
-      DataTable::Ks1,
-      DataTable::Ks2,
-      DataTable::Year7,
-      DataTable::Ks3,
-      DataTable::Ks4,
-      DataTable::Ks5,
-      DataTable::Cin,
-      DataTable::Cla,
-      DataTable::Absence,
-      DataTable::ExclusionsUpTo2005,
-      DataTable::ExclusionsFrom2005,
-      DataTable::Plams,
-      DataTable::Nccis,
-      DataTable::Isp,
-      DataTable::Ypmad
-    ].freeze
-
-    attr_accessor :tab_name
-
     def preprocess
       save
       rows = []
       upload_errors = []
       upload_warnings = []
-      tabs_to_process.each do |tab|
+      tabs_to_process.compact.each do |tab|
+        next if tab.dataset.nil?
+
         tab_rows = tab.preprocess do |el|
           el.merge('data_table_tab_id' => tab.id, 'data_table_upload_id' => id,
                    'concept_id' => no_concept.id)
         end
+
         rows.concat(tab_rows.uniq { |r| r[:npd_alias] || r['npd_alias'] })
         upload_errors.concat(tab.process_errors) if tab.process_errors&.any?
         upload_warnings.concat(tab.process_warnings) if tab.process_warnings&.any?
@@ -73,7 +48,10 @@ module ProcessUpload
   private
 
     def tabs_to_process
-      @tabs_to_process ||= SHEETS.map { |tab| tab.create(data_table_upload: self, workbook: workbook) }
+      @tabs_to_process ||= workbook.sheets.map do |tab|
+        DataTable::Tab.create!(data_table_upload: self,
+                               workbook: workbook, tab_name: tab)
+      end
     end
 
     def no_concept

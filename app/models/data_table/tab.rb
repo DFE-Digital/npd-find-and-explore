@@ -5,9 +5,13 @@ module DataTable
     include ProcessRows
 
     belongs_to :data_table_upload, class_name: 'DataTable::Upload', inverse_of: :data_table_tabs
+    belongs_to :dataset, optional: true
     has_many :data_table_rows,
              class_name: 'DataTable::Row', inverse_of: :data_table_tab,
              foreign_key: :data_table_tab_id, dependent: :destroy
+
+    scope :recognised, -> { where('dataset_id IS NOT NULL') }
+    scope :unrecognised, -> { where('dataset_id IS NULL') }
 
     attr_reader :sheet, :labels
 
@@ -16,35 +20,35 @@ module DataTable
       super({ headers: {}, process_warnings: [], process_errors: [] }.merge(args))
 
       @labels = nil
-      find_name(table.sheets)
-      find_sheet(table)
+      if check_tab_name(table)
+        find_sheet(table)
+        find_dataset
+      end
     end
 
   private
-
-    def tab_label
-      'Tab'
-    end
-
-    def regex
-      /tab/i
-    end
-
-    def headers_regex
-      /(NPDAlias|NPD Alias)/i
-    end
 
     def first_row_regex
       /census/
     end
 
-    def find_name(tab_names)
-      self.tab_name = tab_names.select { |s| /#{regex}/.match? s }.first
-      process_warnings.push("Can't find tab #{tab_label} in the uploaded file") if tab_name.blank?
+    def check_tab_name(table)
+      unless tab_name
+        process_warnings.push('No tab name provided')
+        return false
+      end
+      return true if table.sheets.include?(tab_name)
+
+      process_warnings.push("Can't find tab #{tab_name} in the uploaded file")
+      self.tab_name = nil
     end
 
     def find_sheet(table)
       @sheet = table.sheet_for(tab_name)
+    end
+
+    def find_dataset
+      self.dataset = Dataset.where('? ~* tab_regex', tab_name).first
     end
   end
 end

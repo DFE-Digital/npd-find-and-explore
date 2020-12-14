@@ -45,6 +45,14 @@ RSpec.describe InfArch::Upload, type: :model do
     DataElement.destroy_all
     Concept.destroy_all
     Category.destroy_all
+    Rails.configuration.datasets.each do |dataset|
+      Dataset.find_or_create_by!(tab_name: dataset['tab_name'],
+                                 name: dataset['name'],
+                                 description: dataset['description'],
+                                 tab_regex: dataset['tab_regex'],
+                                 headers_regex: dataset['headers_regex'],
+                                 first_row_regex: dataset['first_row_regex'])
+    end
   end
 
   it 'Will preprocess under 175ms' do

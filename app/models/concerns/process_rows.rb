@@ -59,12 +59,13 @@ module ProcessRows
     def check_headers_for_errors
       return if tab_name.blank?
 
-      process_errors << "Can't find a column with header 'NPD Alias' or 'NPDAlias' for tab '#{tab_name}'" if headers.empty?
+      process_errors << "Can't find a column with header '#{dataset&.friendly_headers_regex}' for tab '#{tab_name}'" if headers.empty?
     end
 
     def extract_header_row(idx, row)
-      return set_headers(idx, row) if headers_regex.match?(row[0])
-      return set_table_name(idx, row) if first_row_regex.match?(row[0])
+      return false unless dataset
+      return set_headers(idx, row) if Regexp.new(dataset.headers_regex).match?(row[0].to_s)
+      return set_table_name(idx, row) if Regexp.new(dataset.first_row_regex).match?(row[0].to_s)
 
       false
     end

@@ -9,4 +9,8 @@ class Dataset < ApplicationRecord
                           inverse_of: :datasets, dependent: :nullify
 
   default_scope -> { order(name: :asc) }
+
+  def friendly_headers_regex
+    headers_regex.gsub('.?', ' ')
+  end
 end

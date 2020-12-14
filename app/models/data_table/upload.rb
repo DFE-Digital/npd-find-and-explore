@@ -34,8 +34,8 @@ module DataTable
 
     def del_datasets
       invalid_tabs = DataTable::Tab.where('data_table_upload_id = ? AND process_warnings IS NOT NULL AND ' \
-                                          'json_array_length(process_warnings) > 0', id).pluck(:type)
-      Dataset.where(tab_type: invalid_tabs)
+                                          'json_array_length(process_warnings) > 0', id).pluck(:dataset_id)
+      Dataset.where(id: invalid_tabs)
     end
   end
 end

@@ -145,7 +145,6 @@ ActiveRecord::Schema.define(version: 2020_11_16_123334) do
   end
 
   create_table "data_table_tabs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "type"
     t.uuid "data_table_upload_id"
     t.string "tab_name"
     t.json "headers"
@@ -153,7 +152,9 @@ ActiveRecord::Schema.define(version: 2020_11_16_123334) do
     t.json "process_warnings"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "dataset_id"
     t.index ["data_table_upload_id"], name: "index_data_table_tabs_on_data_table_upload_id"
+    t.index ["dataset_id"], name: "index_data_table_tabs_on_dataset_id"
   end
 
   create_table "data_table_uploads", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -169,11 +170,13 @@ ActiveRecord::Schema.define(version: 2020_11_16_123334) do
 
   create_table "datasets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "tab_name", null: false
-    t.string "tab_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
     t.text "description"
+    t.string "tab_regex"
+    t.string "headers_regex"
+    t.string "first_row_regex"
   end
 
   create_table "inf_arch_tabs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -215,6 +218,7 @@ ActiveRecord::Schema.define(version: 2020_11_16_123334) do
   add_foreign_key "data_table_rows", "concepts"
   add_foreign_key "data_table_rows", "data_table_uploads"
   add_foreign_key "data_table_tabs", "data_table_uploads"
+  add_foreign_key "data_table_tabs", "datasets"
   add_foreign_key "data_table_uploads", "admin_users"
   add_foreign_key "inf_arch_tabs", "inf_arch_uploads"
   add_foreign_key "inf_arch_uploads", "admin_users"
