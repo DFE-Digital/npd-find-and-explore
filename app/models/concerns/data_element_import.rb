@@ -15,9 +15,9 @@ module DataElementImport
                  data_type educational_phase updated_at].freeze
 
     def conflict_target(import_model)
-      return %i[data_table_tab_id npd_alias] if import_model == DataTable::Row
+      return %i[data_table_tab_id unique_alias] if import_model == DataTable::Row
 
-      %i[npd_alias]
+      %i[unique_alias]
     end
 
     def import_elements(import_model, elements)
@@ -38,7 +38,7 @@ module DataElementImport
         INSERT INTO data_elements_datasets (data_element_id, dataset_id)
         SELECT data_elements.id, datasets.id
         FROM data_table_rows
-        LEFT OUTER JOIN data_elements ON data_table_rows.npd_alias = data_elements.npd_alias
+        LEFT OUTER JOIN data_elements ON data_table_rows.unique_alias = data_elements.unique_alias
         LEFT OUTER JOIN data_table_tabs ON data_table_rows.data_table_tab_id = data_table_tabs.id
         LEFT OUTER JOIN datasets ON data_table_tabs.dataset_id = datasets.id
         WHERE data_table_rows.data_table_upload_id = #{conn.quote(upload_id)}

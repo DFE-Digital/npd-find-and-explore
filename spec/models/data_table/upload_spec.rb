@@ -123,4 +123,36 @@ RSpec.describe DataTable::Upload, type: :model do
     expect { loader.destroy }
       .to perform_under(4).ms.sample(10)
   end
+
+  context 'With a SLD Alias dataset' do
+    before do
+      Dataset.find_or_create_by!(tab_name: 'SLD-KS2_PT_05-06_to_15-16',
+                                 name: 'SLD-KS2 PT 05-06 to 15-16',
+                                 description: 'This is the Key Stage 2 school-level publication file.',
+                                 tab_regex: '^SLD.?KS2.?PT.?\d{2}.?\d{2}.?to.?15.?16',
+                                 headers_regex: 'SLD.?Alias',
+                                 first_row_regex: '---')
+    end
+
+    it 'Will recognise the datasets in the system' do
+      loader.preprocess
+      upload = DataTable::Upload.first
+      expect(upload.data_table_tabs.count).to eq(48)
+      expect(upload.data_table_tabs.recognised.count).to eq(24)
+      expect(upload.data_table_tabs.unrecognised.count).to eq(24)
+    end
+
+    it 'Will preprocess the data elements' do
+      expect { loader.preprocess }
+        .to change(DataTable::Row, :count)
+        .by(284)
+    end
+
+    it 'Will process the data elements' do
+      loader.preprocess
+      expect { loader.process }
+        .to change(DataElement, :count)
+        .by(279)
+    end
+  end
 end

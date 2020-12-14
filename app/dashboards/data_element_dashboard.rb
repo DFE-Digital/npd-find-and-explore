@@ -26,7 +26,7 @@ class DataElementDashboard < Administrate::BaseDashboard
     collection_terms: Field::String,
     values: Field::Text,
     description: Field::Text,
-    npd_alias: Field::String,
+    unique_alias: Field::String,
     data_type: Field::String,
     educational_phase: Field::String,
     datasets: HasManySortedField.with_options(order: %i[name]),
@@ -40,7 +40,7 @@ class DataElementDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     dataset
-    npd_alias
+    unique_alias
     concept
     datasets
   ].freeze
@@ -49,7 +49,7 @@ class DataElementDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    npd_alias
+    unique_alias
     source_table_name
     source_attribute_name
     description
@@ -73,7 +73,7 @@ class DataElementDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    npd_alias
+    unique_alias
     source_table_name
     source_attribute_name
     identifiability
@@ -94,6 +94,6 @@ class DataElementDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(data_element)
-    [data_element.dataset, data_element.npd_alias].compact.join('.')
+    [data_element.dataset, data_element.unique_alias].compact.join('.')
   end
 end

@@ -10,7 +10,7 @@ RSpec.describe DataElement, type: :model do
   it 'will compose the title from table name and attribute name' do
     data_element = DataElement.first
 
-    expect(data_element.title).to eq([data_element.datasets.first.tab_name, data_element.npd_alias].join('.'))
+    expect(data_element.title).to eq([data_element.datasets.first.tab_name, data_element.unique_alias].join('.'))
   end
 
   it 'will print its own breadcrumb' do

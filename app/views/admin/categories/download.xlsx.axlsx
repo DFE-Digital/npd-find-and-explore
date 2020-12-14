@@ -24,7 +24,7 @@ title = wb.styles.add_style(b: true)
     category.concepts.each do |concept|
       sheet.add_row [l0n, l0d, l1n, l1d, l2n, l2d, l3n, l3d,
                      concept.name, concept.description,
-                     concept.data_elements.map(&:npd_alias)].flatten
+                     concept.data_elements.map(&:unique_alias)].flatten
       l0n, l0d = ''
     end
 
@@ -35,7 +35,7 @@ title = wb.styles.add_style(b: true)
       level1.concepts.each do |concept|
         sheet.add_row [l0n, l0d, l1n, l1d, l2n, l2d, l3n, l3d,
                        concept.name, concept.description,
-                       concept.data_elements.map(&:npd_alias)].flatten
+                       concept.data_elements.map(&:unique_alias)].flatten
         l0n, l0d, l1n, l1d = ''
       end
 
@@ -46,7 +46,7 @@ title = wb.styles.add_style(b: true)
         level2.concepts.each do |concept|
           sheet.add_row [l0n, l0d, l1n, l1d, l2n, l2d, l3n, l3d,
                          concept.name, concept.description,
-                         concept.data_elements.map(&:npd_alias)].flatten
+                         concept.data_elements.map(&:unique_alias)].flatten
           l0n, l0d, l1n, l1d, l2n, l2d = ''
         end
 
@@ -57,7 +57,7 @@ title = wb.styles.add_style(b: true)
           level3.concepts.each do |concept|
             sheet.add_row [l0n, l0d, l1n, l1d, l2n, l2d, l3n, l3d,
                            concept.name, concept.description,
-                           concept.data_elements.map(&:npd_alias)].flatten
+                           concept.data_elements.map(&:unique_alias)].flatten
             l0n, l0d, l1n, l1d, l2n, l2d, l3n, l3d = ''
           end
         end

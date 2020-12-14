@@ -10,7 +10,7 @@ class DataElementsController < ApplicationController
                     .includes(%i[concept datasets])
                     .find(params.require(:id))
 
-    @title = @data_element.npd_alias
+    @title = @data_element.unique_alias
     @description = @data_element.description
     @skip_shared_header = true
     back_breadcrumbs

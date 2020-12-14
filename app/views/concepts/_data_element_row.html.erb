@@ -2,20 +2,20 @@
   <td class="govuk-table__header" scope="col">
     <div class="govuk-checkboxes govuk-checkboxes--small">
       <div class="govuk-checkboxes__item">
-        <%= check_box_tag 'data_element[]', data_element_row.npd_alias, false,
+        <%= check_box_tag 'data_element[]', data_element_row.unique_alias, false,
           id: "data-element-#{data_element_row.id}", class: %w[govuk-checkboxes__input basket-checkbox],
           data: { id: data_element_row.id, name: data_element_row.source_attribute_name,
                   table: data_element_row.source_table_name, datasets: data_element_row.datasets.pluck(:tab_name),
-                  npd_alias: data_element_row.npd_alias, origin: "/concepts/#{@concept.id}" } %>
+                  unique_alias: data_element_row.unique_alias, origin: "/concepts/#{@concept.id}" } %>
         <%= label_tag "data-element-#{data_element_row.id}", class: %w[govuk-label govuk-checkboxes__label] do %>
           &nbsp;
-          <%= tag.span data_element_row.npd_alias, class: %w[govuk-checkboxes__label-hidden] %>
+          <%= tag.span data_element_row.unique_alias, class: %w[govuk-checkboxes__label-hidden] %>
         <% end %>
       </div>
     </div>
   </td>
   <th data-label="Name" class="govuk-table__header govuk-table__cell--break" scope="row">
-    <%= link_to data_element_row.npd_alias, data_element_row %>
+    <%= link_to data_element_row.unique_alias, data_element_row %>
   </th>
   <td data-label="Old name" class="govuk-table__cell govuk-table__cell--numeric">
     <%= [data_element_row.source_old_attribute_name].join(', ') %>

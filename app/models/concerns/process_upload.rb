@@ -19,7 +19,7 @@ module ProcessUpload
                    'concept_id' => no_concept.id)
         end
 
-        rows.concat(tab_rows.uniq { |r| r[:npd_alias] || r['npd_alias'] })
+        rows.concat(tab_rows.uniq { |r| r[:unique_alias] || r['unique_alias'] })
         upload_errors.concat(tab.process_errors) if tab.process_errors&.any?
         upload_warnings.concat(tab.process_warnings) if tab.process_warnings&.any?
       end
@@ -31,7 +31,7 @@ module ProcessUpload
       Rails.logger.info "Uploading #{file_name}"
       DataElement.skip_indexing = true
 
-      import_elements(DataElement, data_table_rows.map(&:to_data_element_hash).uniq { |r| r[:npd_alias] })
+      import_elements(DataElement, data_table_rows.map(&:to_data_element_hash).uniq { |r| r[:unique_alias] })
       DataElement.where(id: del_rows.pluck(:id)).destroy_all
       del_datasets.each { |ds| ds.data_elements.clear }
       import_datasets(id)

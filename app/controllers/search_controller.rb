@@ -45,7 +45,7 @@ private
     {
       published: { created_at: :desc },
       updated: { updated_at: :desc },
-      az: { npd_alias: :asc }
+      az: { unique_alias: :asc }
     }[par]
   end
 

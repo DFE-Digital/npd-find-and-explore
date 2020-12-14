@@ -29,7 +29,7 @@ RSpec.describe 'Saved Items page', type: :system do
       visit '/saved_items'
 
       concept.data_elements.each do |element|
-        expect(page).to have_text(element.npd_alias)
+        expect(page).to have_text(element.unique_alias)
         expect(page).to have_text(element.description)
       end
     end
@@ -43,7 +43,7 @@ RSpec.describe 'Saved Items page', type: :system do
       visit '/saved_items'
       find("[id='#{data_element.id}']").click
 
-      expect(page).not_to have_text(data_element.npd_alias)
+      expect(page).not_to have_text(data_element.unique_alias)
     end
   end
 end

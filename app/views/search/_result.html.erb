@@ -2,20 +2,20 @@
   <td rowspan="4" class="govuk-table__header" scope="col">
     <div class="govuk-checkboxes govuk-checkboxes--small">
       <div class="govuk-checkboxes__item">
-        <%= check_box_tag 'data_element[]', result.npd_alias, false,
+        <%= check_box_tag 'data_element[]', result.unique_alias, false,
           id: "data-element-#{result.id}", class: %w[govuk-checkboxes__input basket-checkbox],
           data: { id: result.id, name: result.source_attribute_name,
                   table: result.source_table_name, datasets: result.datasets.pluck(:tab_name),
-                  npd_alias: result.npd_alias, origin: "/concepts/#{result.concept.id}" } %>
+                  unique_alias: result.unique_alias, origin: "/concepts/#{result.concept.id}" } %>
         <%= label_tag "data-element-#{result.id}", class: %w[govuk-label govuk-checkboxes__label] do %>
           &nbsp;
-          <%= tag.span result.npd_alias, class: %w[govuk-checkboxes__label-hidden] %>
+          <%= tag.span result.unique_alias, class: %w[govuk-checkboxes__label-hidden] %>
         <% end %>
       </div>
     </div>
   </td>
   <td data-label="Name" class="govuk-table__header govuk-table__cell--break govuk-!-border-none" scope="row">
-    <%= link_to result.npd_alias, result %>
+    <%= link_to result.unique_alias, result %>
   </td>
 </tr>
 <tr class="govuk-table__row">

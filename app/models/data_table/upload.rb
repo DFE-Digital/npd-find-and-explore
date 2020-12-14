@@ -25,11 +25,11 @@ module DataTable
     end
 
     def new_rows
-      DataTable::Row.where('data_table_upload_id = ? AND npd_alias NOT IN (SELECT npd_alias FROM data_elements)', id)
+      DataTable::Row.where('data_table_upload_id = ? AND unique_alias NOT IN (SELECT unique_alias FROM data_elements)', id)
     end
 
     def del_rows
-      DataElement.where('npd_alias NOT IN (SELECT npd_alias FROM data_table_rows WHERE data_table_upload_id = ?)', id)
+      DataElement.where('unique_alias NOT IN (SELECT unique_alias FROM data_table_rows WHERE data_table_upload_id = ?)', id)
     end
 
     def del_datasets

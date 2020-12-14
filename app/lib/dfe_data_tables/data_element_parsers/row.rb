@@ -26,7 +26,7 @@ module DfEDataTables
 
         # Post-process to add structure
         data_element[:collection_term] = data_element[:collection_term]&.split(', ')
-        data_element[:npd_alias] = data_element[:npd_alias]&.split("\n")&.map(&:strip)&.select(&:present?)
+        data_element[:unique_alias] = data_element[:unique_alias]&.split("\n")&.map(&:strip)&.select(&:present?)
         data_element[:years_populated] = process_years(data_element[:years_populated])
 
         invalid?(data_element) ? nil : data_element_params(data_element)
@@ -55,13 +55,15 @@ module DfEDataTables
       end
 
       def invalid?(data_element)
-        data_element.empty? || data_element[:npd_alias].nil? ||
-          data_element[:field_reference].nil?
+        data_element.empty? || data_element[:unique_alias].nil? ||
+          (data_element[:field_reference].blank? &&
+           data_element[:identification_risk].blank? &&
+           data_element[:sensitivity].blank?)
       end
 
       def data_element_params(data_element)
         {
-          npd_alias: data_element.dig(:npd_alias, 0),
+          unique_alias: data_element.dig(:unique_alias, 0),
           source_table_name: data_element.dig(:table_name),
           source_attribute_name: data_element.dig(:field_reference),
           source_old_attribute_name: [data_element.dig(:old_alias), data_element.dig(:former_name)].flatten.compact,

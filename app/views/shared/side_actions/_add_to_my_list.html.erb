@@ -8,7 +8,7 @@
       id: "data-element-#{@data_element.id}", class: %w[govuk-checkboxes__input basket-checkbox],
       data: { id: @data_element.id, name: @data_element.source_attribute_name,
               table: @data_element.source_table_name, datasets: @data_element.datasets.pluck(:tab_name),
-              npd_alias: @data_element.npd_alias, origin: "/data_element/#{@data_element.id}" } %>
+              unique_alias: @data_element.unique_alias, origin: "/data_element/#{@data_element.id}" } %>
             <%= label_tag "data-element-#{@data_element.id}", class: %w[govuk-label govuk-checkboxes__label] do %>
               <%= tag.span @data_element.title, class: %w[govuk-checkboxes__label-hidden] %>
               <%= tag.span class: %w[govuk-checkboxes__label-visible] do -%>
