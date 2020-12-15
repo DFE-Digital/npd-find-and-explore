@@ -43,10 +43,10 @@
                 </p>
               </div>
 
-              <label class="govuk-label" for="data_tab_<%= data_tab.id %>_match_dataset_name">
+              <label class="govuk-label" for="data_tab_<%= data_tab.id %>_match_dataset_id">
                 <%= t('admin.data_tables.import.unrecognised.existing_dataset_name') %>
               </label>
-              <%= select_tag "data_tab[#{data_tab.id}][match_dataset_name]",
+              <%= select_tag "data_tab[#{data_tab.id}][match_dataset_id]",
                              options_from_collection_for_select(datasets, :id, :name),
                              { multiple: false, include_blank: false, class: 'govuk-select',
                                data: { filter: true, js_validate_input: true } } %>
