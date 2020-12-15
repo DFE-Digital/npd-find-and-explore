@@ -23,8 +23,9 @@
           <div class="govuk-radios__item">
             <input class="govuk-radios__input dataset-choice-radio"
                    id="data_tab_<%= data_tab.id %>_action_match"
-                   name="data_tab[<%= data_tab.id %>][action]" type="radio"
-                   value="match" required="true">
+                   name="data_tab[<%= data_tab.id %>][action]"
+                   type="radio" value="match" required="true"
+                   data-js-validate-input="true">
             <label class="govuk-label govuk-radios__label" for="data_tab_<%= data_tab.id %>_action_match">
               <%= t('admin.data_tables.import.unrecognised.match') %>
             </label>
@@ -56,8 +57,9 @@
           <div class="govuk-radios__item">
             <input class="govuk-radios__input dataset-choice-radio"
                    id="data_tab_<%= data_tab.id %>_action_create"
-                   name="data_tab[<%= data_tab.id %>][action]" type="radio"
-                   value="create" required="true">
+                   name="data_tab[<%= data_tab.id %>][action]"
+                   type="radio" value="create" required="true"
+                   data-js-validate-input="true">
             <label class="govuk-label govuk-radios__label" for="data_tab_<%= data_tab.id %>_action_create">
               <%= t('admin.data_tables.import.unrecognised.create') %>
             </label>
@@ -110,8 +112,9 @@
           <div class="govuk-radios__item">
             <input class="govuk-radios__input dataset-choice-radio"
                    id="data_tab_<%= data_tab.id %>_action_ignore"
-                   name="data_tab[<%= data_tab.id %>][action]" type="radio"
-                   value="ignore" required="true">
+                   name="data_tab[<%= data_tab.id %>][action]"
+                   type="radio" value="ignore" required="true"
+                   data-js-validate-input="true">
             <label class="govuk-label govuk-radios__label" for="data_tab_<%= data_tab.id %>_action_ignore">
               <%= t('admin.data_tables.import.unrecognised.ignore') %>
             </label>

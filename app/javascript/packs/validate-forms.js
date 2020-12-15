@@ -10,16 +10,25 @@ function validateForm(event) {
     if (!form.checkValidity()) {
       event.preventDefault();
 
-      form.querySelectorAll('input').forEach(function(element) {
-        if (!element.checkValidity()) {
-          const errorMessage = $(element).parents('.govuk-form-group').children('.error-message');
-          const errorField = errorMessage.children('.govuk-error-message').attr('id');
-          const point = errorMessage.children('li')[0];
+      form.querySelectorAll('[data-js-validate-input="true"]')
+        .forEach(function(element) {
+        let $parentGroup = $($(element).parents('.govuk-form-group')[0]);
+        let errorMessage = $parentGroup.children('.error-message');
+        let id = errorMessage.find('.govuk-error-message').attr('id');
+        let bulletPoint = $(errorMessage.children('li')[0]).clone();
 
-          $(element).parents('.govuk-form-group').addClass('govuk-form-group--error');
+        if (!element.checkValidity()) {
+          $parentGroup.addClass('govuk-form-group--error');
           errorMessage.removeClass('hidden');
-          $('.govuk-error-summary__list')
-            .append(point);
+          if ($('.govuk-error-summary__list').find('[data-reference="' + id + '"]').length == 0) {
+            $('.govuk-error-summary__list').append(bulletPoint);
+          }
+          $('.govuk-error-summary__list').find('[data-reference="' + id + '"]').show();
+        } else if ((element.required && element.checkValidity()) ||
+                   (element.dataset.jsValidateInput && !element.required)) {
+          $parentGroup.removeClass('govuk-form-group--error');
+          if (errorMessage.length) { errorMessage.addClass('hidden'); }
+          if (id) { $('.govuk-error-summary__list').find('[data-reference="' + id + '"]').remove(); }
         }
       });
 
@@ -33,23 +42,23 @@ function validateForm(event) {
 function revalidateItem(event) {
   const element = event.currentTarget;
   const form = element.form;
-  const errorMessage = $(element).parents('.govuk-form-group').children('.error-message');
+  const $parentGroup = $($(element).parents('.govuk-form-group')[0]);
+  const errorMessage = $parentGroup.children('.error-message');
   const id = errorMessage.find('.govuk-error-message').attr('id');
+  const bulletPoint = $(errorMessage.children('li')[0]).clone();
 
-  if (element.checkValidity()) {
-    $(element).parents('.govuk-form-group').removeClass('govuk-form-group--error');
-    if (errorMessage.length) { errorMessage.addClass('hidden'); }
-    if (id) { $('[data-reference="' + id + '"]').remove(); }
-  } else {
-    const errorField = errorMessage.children('.govuk-error-message').attr('id');
-    const point = errorMessage.children('li')[0];
-
-    $(element).parents('.govuk-form-group').addClass('govuk-form-group--error');
+  if (!element.checkValidity()) {
+    $parentGroup.addClass('govuk-form-group--error');
     errorMessage.removeClass('hidden');
-    if ($('[data-reference="' + id + '"]').length == 0) {
-      $('.govuk-error-summary__list')
-        .append(point);
+    if ($('.govuk-error-summary__list').find('[data-reference="' + id + '"]').length == 0) {
+      $('.govuk-error-summary__list').append(bulletPoint);
     }
+    $('.govuk-error-summary__list').find('[data-reference="' + id + '"]').show();
+  } else if ((element.required && element.checkValidity()) ||
+             (element.dataset.jsValidateInput && !element.required == false)) {
+    $parentGroup.removeClass('govuk-form-group--error');
+    if (errorMessage.length) { errorMessage.addClass('hidden'); }
+    if (id) { $('.govuk-error-summary__list').find('[data-reference="' + id + '"]').remove(); }
   }
 
   $('.govuk-error-summary').find('li').removeClass('hidden')
@@ -67,7 +76,7 @@ $(document).ready(function() {
     document.querySelector('[data-js-validate=true]').querySelectorAll('submit,button').forEach(function(element) {
       element.addEventListener('click', validateForm);
     });
-    document.querySelector('[data-js-validate=true]').querySelectorAll('input[required]').forEach(function(element) {
+    document.querySelector('[data-js-validate=true]').querySelectorAll('input,select,textarea').forEach(function(element) {
       element.addEventListener('change', revalidateItem);
     });
   }
