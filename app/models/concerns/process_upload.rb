@@ -23,7 +23,7 @@ module ProcessUpload
       rows = []
 
       workbook = Roo::Spreadsheet.open(
-        ActiveStorage::Blob.service.send(:path_for, data_table.key),
+        StringIO.new(data_table.download),
         extension: File.extname(data_table.record.file_name).gsub(/^\./, '').to_sym
       )
 
