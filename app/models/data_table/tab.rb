@@ -10,9 +10,12 @@ module DataTable
              class_name: 'DataTable::Row', inverse_of: :data_table_tab,
              foreign_key: :data_table_tab_id, dependent: :destroy
 
-    scope :recognised, -> { where('dataset_id IS NOT NULL') }
-    scope :unrecognised, -> { where('dataset_id IS NULL') }
+    default_scope -> { order(created_at: :asc) }
+
+    scope :recognised, -> { where(recognised: true) }
+    scope :unrecognised, -> { where(recognised: false) }
     scope :selected, -> { where(selected: true) }
+    scope :unselected, -> { where.not(selected: true) }
 
     attr_reader :sheet, :labels
 

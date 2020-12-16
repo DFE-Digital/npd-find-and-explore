@@ -25,7 +25,7 @@
                    id="data_tab_<%= data_tab.id %>_action_match"
                    name="data_tab[<%= data_tab.id %>][action]"
                    type="radio" value="match" required="true"
-                   data-js-validate-input="true">
+                   data-js-validate-input="true"<%= data_tab.dataset&.imported? ? '' : ' checked="checked"' %>>
             <label class="govuk-label govuk-radios__label" for="data_tab_<%= data_tab.id %>_action_match">
               <%= t('admin.data_tables.import.unrecognised.match') %>
             </label>
@@ -47,7 +47,7 @@
                 <%= t('admin.data_tables.import.unrecognised.existing_dataset_name') %>
               </label>
               <%= select_tag "data_tab[#{data_tab.id}][match_dataset_id]",
-                             options_from_collection_for_select(datasets, :id, :name),
+                             options_from_collection_for_select(datasets, :id, :name, data_tab.dataset_id),
                              { multiple: false, include_blank: false, class: 'govuk-select',
                                data: { filter: true, js_validate_input: true } } %>
             </div>
@@ -59,7 +59,7 @@
                    id="data_tab_<%= data_tab.id %>_action_create"
                    name="data_tab[<%= data_tab.id %>][action]"
                    type="radio" value="create" required="true"
-                   data-js-validate-input="true">
+                   data-js-validate-input="true"<%= data_tab.dataset&.imported? ? ' checked="checked"' : '' %>>
             <label class="govuk-label govuk-radios__label" for="data_tab_<%= data_tab.id %>_action_create">
               <%= t('admin.data_tables.import.unrecognised.create') %>
             </label>
@@ -82,7 +82,8 @@
                 <label class="govuk-label" for="data_tab_<%= data_tab.id%>_new_dataset_name">
                   <%= t('admin.data_tables.import.unrecognised.new_dataset_name') %>
                 </label>
-                <%= text_field_tag "data_tab[#{data_tab.id}][new_dataset_name]", '',
+                <%= text_field_tag "data_tab[#{data_tab.id}][new_dataset_name]",
+                                   data_tab.dataset&.name,
                                    class: %i[govuk-input],
                                    data: { js_validate_input: true } %>
               </div>
@@ -90,7 +91,8 @@
                 <label class="govuk-label" for="data_tab_<%= data_tab.id%>_new_dataset_desc">
                   <%= t('admin.data_tables.import.unrecognised.new_dataset_description') %>
                 </label>
-                <%= text_area_tag "data_tab[#{data_tab.id}][new_dataset_desc]", '',
+                <%= text_area_tag "data_tab[#{data_tab.id}][new_dataset_desc]",
+                                  data_tab.dataset&.description,
                                   class: %i[govuk-input],
                                   data: { js_validate_input: true } %>
               </div>
@@ -98,7 +100,8 @@
                 <label class="govuk-label" for="data_tab_<%= data_tab.id %>_new_dataset_alias">
                   <%= t('admin.data_tables.import.unrecognised.new_dataset_alias') %>
                 </label>
-                <%= text_field_tag "data_tab[#{data_tab.id}][new_dataset_alias]", '',
+                <%= text_field_tag "data_tab[#{data_tab.id}][new_dataset_alias]",
+                                   data_tab.dataset&.friendly_headers_regex,
                                    class: %i[govuk-input typeahead-suggestions],
                                    data: { suggestions: alias_fields, js_validate_input: true } %>
               </div>
@@ -114,7 +117,7 @@
                    id="data_tab_<%= data_tab.id %>_action_ignore"
                    name="data_tab[<%= data_tab.id %>][action]"
                    type="radio" value="ignore" required="true"
-                   data-js-validate-input="true">
+                   data-js-validate-input="true"<%= data_tab.dataset.nil? ? ' checked="checked"' : '' %>>
             <label class="govuk-label govuk-radios__label" for="data_tab_<%= data_tab.id %>_action_ignore">
               <%= t('admin.data_tables.import.unrecognised.ignore') %>
             </label>

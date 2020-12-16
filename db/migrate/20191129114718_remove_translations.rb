@@ -55,8 +55,10 @@ class RemoveTranslations < ActiveRecord::Migration[5.2]
     # 2020-01-28 moved here from the previous migration following the removal of
     # the Globalize gem
     Rails.configuration.datasets.each do |dataset|
+      Dataset.skip_adaptations = true
       Dataset.find_or_create_by!(name: dataset['name'], tab_name: dataset['tab_name'],
                                  tab_type: dataset['type'], description: dataset['description'])
+      Dataset.skip_adaptations = nil
     end
 
     # remove translation tables

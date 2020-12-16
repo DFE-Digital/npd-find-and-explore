@@ -27,15 +27,5 @@ module DataTable
     def new_rows
       DataTable::Row.where('data_table_upload_id = ? AND unique_alias NOT IN (SELECT unique_alias FROM data_elements)', id)
     end
-
-    def del_rows
-      DataElement.where('unique_alias NOT IN (SELECT unique_alias FROM data_table_rows WHERE data_table_upload_id = ?)', id)
-    end
-
-    def del_datasets
-      invalid_tabs = DataTable::Tab.where('data_table_upload_id = ? AND process_warnings IS NOT NULL AND ' \
-                                          'json_array_length(process_warnings) > 0', id).pluck(:dataset_id)
-      Dataset.where(id: invalid_tabs)
-    end
   end
 end

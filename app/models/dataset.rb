@@ -4,7 +4,8 @@
 class Dataset < ApplicationRecord
   include SanitizeSpace
 
-  before_save :loosen_regexps
+  mattr_accessor :skip_adaptations
+  before_save :loosen_regexps, unless: :skip_adaptations
 
   has_and_belongs_to_many :data_elements,
                           -> { order(unique_alias: :asc) },

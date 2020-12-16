@@ -111,26 +111,7 @@ RSpec.describe DataTable::Upload, type: :model do
       .to perform_under(1).ms.sample(10)
   end
 
-  it 'Will know which elements will be deleted' do
-    loader.preprocess
-    loader.data_table_tabs.update_all(selected: true)
-    loader.process
-    del_loader.preprocess
-    del_loader.data_table_tabs.update_all(selected: true)
-    expect(del_loader.del_rows.count).to eq(3)
-  end
-
-  it 'Will get a list of elements to be deleted below 1ms' do
-    loader.preprocess
-    loader.data_table_tabs.update_all(selected: true)
-    loader.process
-    del_loader.preprocess
-    del_loader.data_table_tabs.update_all(selected: true)
-    expect { del_loader.del_rows }
-      .to perform_under(1).ms.sample(10)
-  end
-
-  it 'will destroy itself below 6ms' do
+  it 'will destroy itself below 4ms' do
     loader.preprocess
     loader.data_table_tabs.update_all(selected: true)
     expect { loader.destroy }

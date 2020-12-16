@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_12_221558) do
+ActiveRecord::Schema.define(version: 2020_12_16_202037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 2020_12_12_221558) do
     t.datetime "updated_at", null: false
     t.uuid "dataset_id"
     t.boolean "selected", default: false
+    t.boolean "recognised", default: false
     t.index ["data_table_upload_id"], name: "index_data_table_tabs_on_data_table_upload_id"
     t.index ["dataset_id"], name: "index_data_table_tabs_on_dataset_id"
   end
