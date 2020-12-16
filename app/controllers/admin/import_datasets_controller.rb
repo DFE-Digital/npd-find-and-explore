@@ -92,6 +92,8 @@ module Admin
 
     def preprocess_unrecognised
       loader = DataTable::Upload.find(params['id'])
+      datasets = Dataset.where.not(id: loader.data_table_tabs.recognised.selected.pluck(:dataset_id))
+      alias_fields = Dataset.pluck(:headers_regex).uniq.map { |el| (el || '').gsub('.?', ' ') }
       back_breadcrumbs path: recognised_admin_import_datasets_path(id: loader.id)
 
       if params.permit(:submit).dig(:submit) == 'cancel'
@@ -103,7 +105,9 @@ module Admin
       end
     rescue ArgumentError => e
       Rails.logger.error(e)
-      render :unrecognised, locals: { success: false, error: e.message }
+      render :unrecognised,
+             locals: { loader: loader, datasets: datasets, alias_fields: alias_fields,
+                       success: false, error: e.message }
     end
 
     def summary
