@@ -9,6 +9,8 @@ class Dataset < ApplicationRecord
   has_and_belongs_to_many :data_elements,
                           -> { order(unique_alias: :asc) },
                           inverse_of: :datasets, dependent: :nullify
+  has_many :data_table_tabs,
+           class_name: 'DataTable::Tab'
 
   default_scope -> { order(name: :asc) }
 

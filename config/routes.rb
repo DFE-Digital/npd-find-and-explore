@@ -51,7 +51,7 @@ Rails.application.routes.draw do
       get  'abort_import(/:id)', to: 'import_datasets#abort_import',
                                  as: :abort_import
     end
-    resources :datasets, except: %i[destroy]
+    resources :datasets
     resources :admin_users
     resource :admin_user, only: [] do
       put ':id/deactivate', to: 'admin_users#deactivate', as: :deactivate
