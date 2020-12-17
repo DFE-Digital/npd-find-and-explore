@@ -13,6 +13,7 @@ module ProcessUpload
       tabs_to_process.compact.each do |tab|
         next if tab.dataset.nil?
 
+        tab.update(recognised: true)
         rows.concat(preprocess_tab(tab))
       end
 
@@ -27,6 +28,10 @@ module ProcessUpload
         extension: File.extname(data_table.record.file_name).gsub(/^\./, '').to_sym
       )
 
+      form_params.select { |_k, v| v[:action] == 'ignore' }.each do |key, _tab_params|
+        tab = data_table_tabs.find_by(id: key)
+        tab.update(selected: false)
+      end
       form_params
         .select { |_k, v| %w[create match].include?(v[:action]) }
         .each do |key, tab_params|
@@ -56,6 +61,10 @@ module ProcessUpload
 
       Rails.logger.info "Uploaded #{file_name}"
       update(successful: true)
+      unused_datasets = Dataset.where(id: data_table_tabs.unselected.pluck(:dataset_id)).where(imported: true)
+      Dataset.where(id: data_table_tabs.selected.pluck(:dataset_id)).update_all(imported: false)
+      fast_cleanup
+      unused_datasets.destroy_all
 
       true
     end

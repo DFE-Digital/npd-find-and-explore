@@ -24,6 +24,7 @@ RSpec.describe DataTable::Upload, type: :model do
   end
 
   before do
+    Dataset.delete_all
     Rails.configuration.datasets.each do |dataset|
       Dataset.find_or_create_by!(tab_name: dataset['tab_name'],
                                  name: dataset['name'],
@@ -34,9 +35,9 @@ RSpec.describe DataTable::Upload, type: :model do
     end
   end
 
-  it 'Will preprocess under 275ms' do
+  it 'Will preprocess under 350ms' do
     expect { loader.preprocess }
-      .to perform_under(275).ms.sample(10)
+      .to perform_under(350).ms.sample(10)
   end
 
   it 'Will process under 300ms' do
@@ -111,26 +112,7 @@ RSpec.describe DataTable::Upload, type: :model do
       .to perform_under(1).ms.sample(10)
   end
 
-  it 'Will know which elements will be deleted' do
-    loader.preprocess
-    loader.data_table_tabs.update_all(selected: true)
-    loader.process
-    del_loader.preprocess
-    del_loader.data_table_tabs.update_all(selected: true)
-    expect(del_loader.del_rows.count).to eq(3)
-  end
-
-  it 'Will get a list of elements to be deleted below 1ms' do
-    loader.preprocess
-    loader.data_table_tabs.update_all(selected: true)
-    loader.process
-    del_loader.preprocess
-    del_loader.data_table_tabs.update_all(selected: true)
-    expect { del_loader.del_rows }
-      .to perform_under(1).ms.sample(10)
-  end
-
-  it 'will destroy itself below 6ms' do
+  it 'will destroy itself below 4ms' do
     loader.preprocess
     loader.data_table_tabs.update_all(selected: true)
     expect { loader.destroy }
@@ -142,8 +124,8 @@ RSpec.describe DataTable::Upload, type: :model do
       Dataset.find_or_create_by!(tab_name: 'SLD-KS2_PT_05-06_to_15-16',
                                  name: 'SLD-KS2 PT 05-06 to 15-16',
                                  description: 'This is the Key Stage 2 school-level publication file.',
-                                 tab_regex: '^SLD.?KS2.?PT.?\d{2}.?\d{2}.?to.?15.?16',
-                                 headers_regex: 'SLD.?Alias',
+                                 tab_regex: 'SLD-KS2_PT_05-06_to_15-16',
+                                 headers_regex: 'SLD Alias',
                                  first_row_regex: '---')
     end
 

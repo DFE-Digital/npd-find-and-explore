@@ -45,8 +45,14 @@ module Admin
     end
 
     def trim_data_table_uploads(count: 5)
-      DataTable::Upload.where.not(successful: true).reorder(created_at: :desc).offset(count).destroy_all
-      DataTable::Upload.where(successful: true).reorder(created_at: :desc).offset(count).destroy_all
+      DataTable::Upload.where.not(successful: true).reorder(created_at: :desc).offset(count).each do |upload|
+        upload&.fast_cleanup
+        upload&.destroy
+      end
+      DataTable::Upload.where(successful: true).reorder(created_at: :desc).offset(count).each do |upload|
+        upload&.fast_cleanup
+        upload&.destroy
+      end
     end
   end
 end

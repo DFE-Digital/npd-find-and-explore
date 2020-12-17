@@ -42,7 +42,7 @@ module ProcessRows
     }.freeze
 
     def headers_match
-      { 'unique_alias' => Regexp.new(dataset.headers_regex) }.merge(HEADERS)
+      { 'unique_alias' => Regexp.new(dataset.headers_regex, Regexp::IGNORECASE) }.merge(HEADERS)
     end
 
     def process_row(idx)
@@ -67,8 +67,8 @@ module ProcessRows
 
     def extract_header_row(idx, row)
       return false unless dataset
-      return set_headers(idx, row) if Regexp.new(dataset.headers_regex).match?(row[0].to_s)
-      return set_table_name(idx, row) if Regexp.new(dataset.first_row_regex).match?(row[0].to_s)
+      return set_headers(idx, row) if Regexp.new(dataset.headers_regex, Regexp::IGNORECASE).match?(row[0].to_s)
+      return set_table_name(idx, row) if Regexp.new(dataset.first_row_regex, Regexp::IGNORECASE).match?(row[0].to_s)
 
       false
     end

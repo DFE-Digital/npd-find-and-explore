@@ -7,7 +7,7 @@ module Admin
     include BreadcrumbBuilder
 
     def import
-      trim_data_table_uploads(count: 10)
+      trim_data_table_uploads(count: 5)
 
       custom_breadcrumbs_for(admin: true,
                              steps: [{ name: 'Manage dataset import and export', path: admin_uploads_path }],
@@ -52,7 +52,12 @@ module Admin
       render :recognised, locals: { loader: loader }
     rescue ArgumentError => e
       Rails.logger.error(e)
-      render :import_start, locals: { success: false, error: e.message }
+      @title = t('admin.data_tables.import.errors.generic')
+      render :import_failure, locals: { tabs: [], loader: loader }
+    rescue StandardError => e
+      Rails.logger.error(e)
+      @title = t('admin.data_tables.import.errors.generic')
+      render :import_failure, locals: { tabs: [], loader: loader }
     end
 
     def preprocess_recognised
@@ -77,7 +82,12 @@ module Admin
       end
     rescue ArgumentError => e
       Rails.logger.error(e)
-      render :recognised, locals: { success: false, error: e.message }
+      @title = t('admin.data_tables.import.errors.generic')
+      render :import_failure, locals: { tabs: [], loader: loader }
+    rescue StandardError => e
+      Rails.logger.error(e)
+      @title = t('admin.data_tables.import.errors.generic')
+      render :import_failure, locals: { tabs: [], loader: loader }
     end
 
     def unrecognised
@@ -92,8 +102,6 @@ module Admin
 
     def preprocess_unrecognised
       loader = DataTable::Upload.find(params['id'])
-      datasets = Dataset.where.not(id: loader.data_table_tabs.recognised.selected.pluck(:dataset_id))
-      alias_fields = Dataset.pluck(:headers_regex).uniq.map { |el| (el || '').gsub('.?', ' ') }
       back_breadcrumbs path: recognised_admin_import_datasets_path(id: loader.id)
 
       if params.permit(:submit).dig(:submit) == 'cancel'
@@ -105,14 +113,17 @@ module Admin
       end
     rescue ArgumentError => e
       Rails.logger.error(e)
-      render :unrecognised,
-             locals: { loader: loader, datasets: datasets, alias_fields: alias_fields,
-                       success: false, error: e.message }
+      @title = t('admin.data_tables.import.errors.generic')
+      render :import_failure, locals: { tabs: [], loader: loader }
+    rescue StandardError => e
+      Rails.logger.error(e)
+      @title = t('admin.data_tables.import.errors.generic')
+      render :import_failure, locals: { tabs: [], loader: loader }
     end
 
     def summary
       loader = DataTable::Upload.find(params['id'])
-      back_breadcrumbs path: unrecognised_admin_import_datasets_path(id: loader.id)
+      back_breadcrumbs
 
       if loader.data_table_tabs.selected.any?
         render :summary, locals: { loader: loader }
@@ -121,6 +132,10 @@ module Admin
         flash[:error] = t('admin.data_tables.import.errors.none_selected')
         render :import_failure, locals: { tabs: [], loader: loader }
       end
+    rescue StandardError => e
+      Rails.logger.error(e)
+      @title = t('admin.data_tables.import.errors.generic')
+      render :import_failure, locals: { tabs: [], loader: loader }
     end
 
     def do_import
@@ -153,7 +168,10 @@ module Admin
         @title = t('admin.data_tables.import.cancelled.title')
         @description = t('admin.data_tables.import.cancelled.description')
         tabs = loader.data_table_tabs.pluck(:tab_name)
+        unused_datasets = Dataset.where(id: loader.data_table_tabs.unselected.pluck(:dataset_id)).where(imported: true)
+        loader&.fast_cleanup
         loader&.destroy
+        unused_datasets.destroy_all
 
         flash[:error] = t('admin.data_tables.import.errors.refused')
         render :import_failure, locals: { tabs: tabs }
