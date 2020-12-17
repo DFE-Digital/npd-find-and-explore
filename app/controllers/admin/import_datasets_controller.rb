@@ -7,7 +7,7 @@ module Admin
     include BreadcrumbBuilder
 
     def import
-      trim_data_table_uploads(count: 10)
+      trim_data_table_uploads(count: 5)
 
       custom_breadcrumbs_for(admin: true,
                              steps: [{ name: 'Manage dataset import and export', path: admin_uploads_path }],
@@ -169,6 +169,7 @@ module Admin
         @description = t('admin.data_tables.import.cancelled.description')
         tabs = loader.data_table_tabs.pluck(:tab_name)
         unused_datasets = Dataset.where(id: loader.data_table_tabs.unselected.pluck(:dataset_id)).where(imported: true)
+        loader&.fast_cleanup
         loader&.destroy
         unused_datasets.destroy_all
 

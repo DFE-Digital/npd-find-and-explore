@@ -63,7 +63,7 @@ module ProcessUpload
       update(successful: true)
       unused_datasets = Dataset.where(id: data_table_tabs.unselected.pluck(:dataset_id)).where(imported: true)
       Dataset.where(id: data_table_tabs.selected.pluck(:dataset_id)).update_all(imported: false)
-      data_table_tabs.destroy_all
+      fast_cleanup
       unused_datasets.destroy_all
 
       true
