@@ -64,7 +64,7 @@ en:
         content: The data in some or all of these variables has an <strong>identification risk of 1 or 2</strong>. As a researcher, this data is only available if you meet one or more of %{link} following a successful application.
       sensitivity:
         label: Sensitivity
-        tooltip: Data is given a sensitivity scale. Elements are rated from A to E with A being highly sensitive and E being low.
+        tooltip: Data is given a sensitivity scale. Items are rated from A to E with A being highly sensitive and E being low.
       identifiability:
         label: Identifiability
         tooltip: Data is scored on identifiability scale from 1 to 5, the lower the number the higher the identifiability.
@@ -99,12 +99,12 @@ en:
     panel: View My List
     counter:
       contains: contains
-      elements_saved: elements saved
+      elements_saved: items saved
     my_list:
       title: My List
       description: You can export this list of data items into a .xlsx or .ods file.
       link: applying for access
-      no_elements: You currently have no elements saved in your list
+      no_elements: You currently have no items saved in your list
       additional_notes: Additional notes
       from_my_list: from my list
     button: Save to my list
@@ -132,6 +132,15 @@ en:
           other: "Showing all %{count} results"
       more_pages:
         display_entries: "Showing %{first} &ndash; %{last} of %{total} results"
+    label:
+      concept:
+        data_element: Data Item
+        data_elements: Data Items
+      dataset:
+        data_element: Data Item
+        data_elements: Data Items
+      data_element:
+        title: Data Item
   admin:
     links:
       log_out: Log out
@@ -141,8 +150,9 @@ en:
         success: Tree updated
         error: Error while updating the tree
     data_elements:
+      title: Data Items
       orphaned:
-        title: Orphaned Data Elements
+        title: Orphaned Data Items
         actions: Actions to perform
         assign_to_concept:
           title: Assign to concept

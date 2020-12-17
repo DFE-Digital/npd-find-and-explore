@@ -64,7 +64,7 @@ RSpec.describe DataTable::Upload, type: :model do
     expect(upload.data_table_tabs.unrecognised.count).to eq(25)
   end
 
-  it 'Will process the data elements' do
+  it 'Will process the data items' do
     loader.preprocess
     loader.data_table_tabs.update_all(selected: true)
     expect { loader.process }
@@ -72,7 +72,7 @@ RSpec.describe DataTable::Upload, type: :model do
       .by(274)
   end
 
-  it 'Will add the appropriate data elements' do
+  it 'Will add the appropriate data items' do
     loader.preprocess
     loader.data_table_tabs.update_all(selected: true)
     loader.process
@@ -83,7 +83,7 @@ RSpec.describe DataTable::Upload, type: :model do
       .by(3)
   end
 
-  it 'Will not remove data elements' do
+  it 'Will not remove data items' do
     loader.preprocess
     loader.data_table_tabs.update_all(selected: true)
     loader.process
@@ -93,7 +93,7 @@ RSpec.describe DataTable::Upload, type: :model do
       .not_to change(DataElement, :count)
   end
 
-  it 'Will know which new elements will be created' do
+  it 'Will know which new items will be created' do
     loader.preprocess
     loader.data_table_tabs.update_all(selected: true)
     loader.process
@@ -102,7 +102,7 @@ RSpec.describe DataTable::Upload, type: :model do
     expect(add_loader.new_rows.count).to eq(3)
   end
 
-  it 'Will get a list of elements to be created below 1ms' do
+  it 'Will get a list of items to be created below 1ms' do
     loader.preprocess
     loader.data_table_tabs.update_all(selected: true)
     loader.process
@@ -137,13 +137,13 @@ RSpec.describe DataTable::Upload, type: :model do
       expect(upload.data_table_tabs.unrecognised.count).to eq(24)
     end
 
-    it 'Will preprocess the data elements' do
+    it 'Will preprocess the data items' do
       expect { loader.preprocess }
         .to change(DataTable::Row, :count)
         .by(284)
     end
 
-    it 'Will process the data elements' do
+    it 'Will process the data items' do
       loader.preprocess
       loader.data_table_tabs.update_all(selected: true)
       expect { loader.process }

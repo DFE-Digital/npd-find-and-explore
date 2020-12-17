@@ -28,7 +28,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page).to have_link('data.sharing@education.gov.uk')
   end
 
-  it 'Doesn\'t show the data type when no data element has data type' do
+  it 'Doesn\'t show the data type when no data item has data type' do
     concept.data_elements.all.first.update(data_type: '')
     concept.data_elements.all.second.update(data_type: '')
     concept.data_elements.all.last.update(data_type: '')
@@ -81,7 +81,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page).to have_text("#{collected_from} - #{(collected_from + 1).to_s[2, 2]}")
   end
 
-  it 'Shows the elements names' do
+  it 'Shows the items names' do
     visit concept_path(concept)
 
     concept.data_elements.all.each do |element|
@@ -89,7 +89,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     end
   end
 
-  it 'Shows the elements old attribute names' do
+  it 'Shows the items old attribute names' do
     visit concept_path(concept)
 
     concept.data_elements.all.each do |element|
@@ -97,7 +97,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     end
   end
 
-  it 'Shows the elements collection years' do
+  it 'Shows the items collection years' do
     visit concept_path(concept)
 
     concept.data_elements.all.each do |element|
@@ -110,7 +110,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     end
   end
 
-  xit 'Shows the elements collection terms' do
+  xit 'Shows the items collection terms' do
     visit concept_path(concept)
 
     concept.data_elements.all.each do |element|
@@ -120,7 +120,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     end
   end
 
-  it 'Shows the elements values' do
+  it 'Shows the items values' do
     visit concept_path(concept)
 
     expect(page).not_to have_link('Allowed Values')
@@ -155,7 +155,7 @@ RSpec.describe 'Category hierarchy', type: :system do
     expect(page).to have_text(element.values)
   end
 
-  it 'Shows the elements descriptions' do
+  it 'Shows the items descriptions' do
     visit concept_path(concept)
 
     concept.data_elements.all.each do |element|

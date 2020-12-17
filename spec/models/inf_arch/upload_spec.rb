@@ -105,7 +105,7 @@ RSpec.describe InfArch::Upload, type: :model do
       .by(347)
   end
 
-  it 'Will assign a real concept to data elements' do
+  it 'Will assign a real concept to data items' do
     de_loader.preprocess
     de_loader.data_table_tabs.update_all(selected: true)
     de_loader.process

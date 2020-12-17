@@ -59,7 +59,7 @@ default: &default
               - childless
   data_elements:
     main:
-      name: Data Elements
+      name: Data Items
       url_params:
         - admin
         - data_elements
@@ -71,7 +71,7 @@ default: &default
             - edit
             - orphaned
     secondary:
-      - name: Orphaned Data Elements
+      - name: Orphaned Data Items
         url_params:
           - orphaned
           - admin

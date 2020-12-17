@@ -141,11 +141,11 @@ We use custom PostgreSQL functions for search. `schema.rb` only supports structu
 
 ### Importing Data Tables
 
-Data Elements are loaded from the Excel Data Tables file, and cannot be edited within the NPD Find & Explore service. When a new version of the Data Tables is produced, this can be uploaded to the admin interface at the `/admin/data_elements/import` page.
+Data Items are loaded from the Excel Data Tables file, and cannot be edited within the NPD Find & Explore service. When a new version of the Data Tables is produced, this can be uploaded to the admin interface at the `/admin/import_datasets/import` page.
 
 To import the file using the CLI, use `DataTable::Upload`, as follows:
 
-> Note that we add `;nil` to the command, otherwise you see a huge dump of all the data elements loaded in that run. We also wrap everything in a transaction so the data flips between old and new, rather than having a period with limited categories available.
+> Note that we add `;nil` to the command, otherwise you see a huge dump of all the data items loaded in that run. We also wrap everything in a transaction so the data flips between old and new, rather than having a period with limited categories available.
 
 ```
 ActiveRecord::Base.transaction do
@@ -158,7 +158,7 @@ end
 
 Categories and concepts should be managed through the Find & Explore admin interface (`/admin`). To manually replace the entire category and concept tree, replacing it with data from the seed Information Architecture document:
 
-> Note that we add `;nil` to the command, otherwise you see a huge dump of all the data elements loaded in that run. We also wrap everything in a transaction so the data flips between old and new, rather than having a period with limited categories available.
+> Note that we add `;nil` to the command, otherwise you see a huge dump of all the data items loaded in that run. We also wrap everything in a transaction so the data flips between old and new, rather than having a period with limited categories available.
 
 ```
 ActiveRecord::Base.transaction do

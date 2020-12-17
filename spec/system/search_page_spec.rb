@@ -12,7 +12,7 @@ RSpec.describe 'Search pages', type: :system do
     create(:category, :with_subcategories_concepts_and_data_elements)
     no_category = Category.find_or_create_by(name: 'No Category')
     Concept.find_or_create_by(name: 'No Concept', category: no_category) do |concept|
-      concept.description = 'This Concept is used to house data elements that are waiting to be categorised'
+      concept.description = 'This Concept is used to house data items that are waiting to be categorised'
     end
     DataElement.rebuild_pg_search_documents
   end
@@ -47,31 +47,6 @@ RSpec.describe 'Search pages', type: :system do
     expect(page).to have_text('No result found')
   end
 
-  it 'Will not find no concept' do
-    concept = Concept.find_by(name: 'No Concept')
-    visit '/categories'
-    fill_in('search', with: concept.name)
-    click_button('Search')
-
-    expect(page).to have_field('search')
-    expect(page).to have_title("Search results for ‘#{concept.name}’ - GOV.UK")
-    expect(page).to have_text("Search results for ‘#{concept.name}’")
-    expect(page).to have_text('No result found')
-  end
-
-  it 'Will find concepts by element' do
-    visit '/categories'
-    fill_in('search', with: DataElement.first.unique_alias)
-    click_button('Search')
-
-    expect(page).to have_field('search')
-    expect(page).to have_title("Search results for ‘#{DataElement.first.unique_alias}’ - GOV.UK")
-    expect(page).to have_text("Search results for ‘#{DataElement.first.unique_alias}’")
-    expect(page).to have_text(DataElement.first.concept.name)
-    expect(page).to have_text(DataElement.first.unique_alias)
-    expect(page).to have_text(DataElement.first.description)
-  end
-
   context 'Filter search results' do
     before do
       datasets = Dataset.limit(6).to_a
@@ -88,7 +63,7 @@ RSpec.describe 'Search pages', type: :system do
       DataElement.rebuild_pg_search_documents
     end
 
-    it 'Will filter data elements by concept' do
+    it 'Will filter data items by concept' do
       concept = Concept.where.not(name: 'No Concept').first
       visit '/categories'
       fill_in('search', with: 'FSM')

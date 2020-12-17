@@ -47,13 +47,13 @@ RSpec.describe 'Saved item list', type: :system do
         expect(page).to have_css('#data-element-all', visible: :all)
       end
 
-      it 'Will have a checkbox for each data element' do
+      it 'Will have a checkbox for each data item' do
         concept.data_elements.each do |element|
           expect(page).to have_css("#data-element-#{element.id}", visible: :all)
         end
       end
 
-      it 'Will change the count when checking an element' do
+      it 'Will change the count when checking an item' do
         element = concept.data_elements.first
 
         find("#data-element-#{element.id}", visible: :all).click
