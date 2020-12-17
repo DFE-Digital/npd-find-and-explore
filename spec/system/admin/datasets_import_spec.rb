@@ -10,6 +10,7 @@ RSpec.describe 'Datasets Import', type: :system do
     DataElement.destroy_all
     Concept.destroy_all
     Category.destroy_all
+    Dataset.destroy_all
 
     Rails.configuration.datasets.each do |dataset|
       Dataset.find_or_create_by!(tab_name: dataset['tab_name'],

@@ -56,7 +56,7 @@ module DataTable
     end
 
     def find_dataset
-      self.dataset ||= Dataset.where('tab_regex != \'\' AND ? ~* tab_regex', tab_name).first
+      self.dataset ||= Dataset.where('tab_regex != \'\' AND ? ~* tab_regex', tab_name.strip).first
     end
   end
 end

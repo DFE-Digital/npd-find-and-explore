@@ -22,7 +22,12 @@ class Dataset < ApplicationRecord
 private
 
   def loosen_regexps
-    self.headers_regex = (headers_regex || '').gsub('.?', ' ').gsub(/[^a-zA-Z0-9]/, '.?')
-    self.tab_regex = (tab_regex || '').gsub('.?', ' ').gsub(/[^a-zA-Z0-9]/, '.?')
+    self.headers_regex = (headers_regex || '').gsub('.?', ' ').gsub(/[^a-zA-Z0-9{}\\]/, '.?')
+    self.tab_regex = (tab_regex || '')
+      .strip
+      .gsub('.?', ' ')
+      .gsub(/^\^/, '')
+      .gsub(/[^a-zA-Z0-9{}\\]/, '.?')
+      .prepend('^')
   end
 end

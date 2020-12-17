@@ -11,7 +11,7 @@ module ProcessCategories
       upload_errors = []
       upload_warnings = []
       workbook.sheets.each do |tab_name|
-        next unless TAB_REGEX =~ tab_name
+        next unless TAB_REGEX =~ tab_name.strip
 
         tab = InfArch::Tab.create(inf_arch_upload: self, workbook: workbook, tab_name: tab_name)
         upload_errors.concat(tab.process_errors)
