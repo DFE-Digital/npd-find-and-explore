@@ -88,6 +88,18 @@ default: &default
         - datasets
       conditions:
         - controller: admin/datasets
+  reindex:
+    main:
+      name: Refresh search index
+      url_params:
+        - reindex
+        - admin
+        - data_elements
+      conditions:
+        - controller: admin/data_elements
+          actions:
+            - reindex
+            - do_reindex
   files:
     main:
       name: Manage Uploads and Downloads

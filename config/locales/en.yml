@@ -151,6 +151,11 @@ en:
         error: Error while updating the tree
     data_elements:
       title: Data Items
+      reindex:
+        title: Refresh Search Index
+        description: "After a new release of Find & Explore to live, the 'Search' function may stop working until the search index is refreshed. Click the button below to start the refresh."
+        action: Start refresh
+        success:  The search index was refreshed correctly
       orphaned:
         title: Orphaned Data Items
         actions: Actions to perform
