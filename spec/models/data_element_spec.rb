@@ -19,16 +19,16 @@ RSpec.describe DataElement, type: :model do
       .to eq([data_element.concept, data_element.concept.category])
   end
 
-  it 'will recognise orphaned data elements - no orphaned data element' do
+  it 'will recognise orphaned data items - no orphaned data item' do
     expect(DataElement.orphaned.count).to eq(0)
   end
 
-  it 'will recognise orphaned data elements - one orphaned data element' do
+  it 'will recognise orphaned data items - one orphaned data item' do
     ActiveRecord::Base.connection.execute("UPDATE data_elements SET concept_id = NULL WHERE id = '#{DataElement.first.id}'")
     expect(DataElement.orphaned.count).to eq(1)
   end
 
-  it 'will move orphaned data elements under "no concept" when the concept is destroyed' do
+  it 'will move orphaned data items under "no concept" when the concept is destroyed' do
     data_element = DataElement.first
     concept = data_element.concept
 
@@ -38,7 +38,7 @@ RSpec.describe DataElement, type: :model do
     expect(data_element.reload.concept.name).to eq('No Concept')
   end
 
-  it 'will move orphaned data elements under "no concept" when the concept is removed' do
+  it 'will move orphaned data items under "no concept" when the concept is removed' do
     data_element = DataElement.first
     concept = data_element.concept
 

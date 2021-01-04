@@ -90,7 +90,7 @@ class DataElementDashboard < Administrate::BaseDashboard
     additional_attributes
   ].freeze
 
-  # Overwrite this method to customize how data elements are displayed
+  # Overwrite this method to customize how data items are displayed
   # across all pages of the admin dashboard.
   #
   def display_resource(data_element)

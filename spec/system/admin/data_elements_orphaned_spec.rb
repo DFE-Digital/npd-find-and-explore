@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Admin Data Elements Orphaned', type: :system do
+RSpec.describe 'Admin Data Items Orphaned', type: :system do
   let(:password) { 'paSSw0rd!' }
   let(:admin_user) { AdminUser.create!(email: 'admin@test.com', password: password) }
 
@@ -20,13 +20,13 @@ RSpec.describe 'Admin Data Elements Orphaned', type: :system do
     click_on('Log in')
   end
 
-  it 'has no orphaned data elements' do
+  it 'has no orphaned data items' do
     visit '/admin/data_elements/orphaned'
 
     expect(page).not_to have_css('[data-url]')
   end
 
-  it 'will show an orphaned data element' do
+  it 'will show an orphaned data item' do
     orphaned_element = DataElement.first
     ActiveRecord::Base.connection.execute("UPDATE data_elements SET concept_id = NULL WHERE id = '#{orphaned_element.id}'")
 

@@ -1,8 +1,7 @@
 import '../src/loader.scss'
 import '../src/loader.js'
 import { getFromLocalStorage } from '../src/local_storage.js'
-import { persistAdditionalNotes, removeAllFromMetadata,
-         removeDatasetFromMetadata, removeFromMetadata, validateDateRange } from '../src/basket.js'
+import { removeAllFromMetadata, removeDatasetFromMetadata, removeFromMetadata } from '../src/basket.js'
 import { initializeOverlays } from '../src/overlay.js'
 import $ from 'jquery'
 

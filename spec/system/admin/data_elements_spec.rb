@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Admin Data Elements', type: :system do
+RSpec.describe 'Admin Data Items', type: :system do
   let(:password) { 'paSSw0rd!' }
   let(:admin_user) { AdminUser.create!(email: 'admin@test.com', password: password) }
 
@@ -23,13 +23,13 @@ RSpec.describe 'Admin Data Elements', type: :system do
   it 'Will display the index' do
     visit '/admin/data_elements'
 
-    expect(page).to have_text('Data Elements')
+    expect(page).to have_text('Data Items')
     expect(page).to have_text('Dataset')
     expect(page).to have_text('Unique Alias')
     expect(page).to have_text('Concept')
   end
 
-  it 'Will display a data element' do
+  it 'Will display a data item' do
     data_element = DataElement.first
     visit "/admin/data_elements/#{data_element.id}"
 

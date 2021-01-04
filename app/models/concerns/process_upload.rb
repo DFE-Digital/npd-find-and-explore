@@ -116,7 +116,7 @@ module ProcessUpload
 
     def no_concept
       @no_concept ||= Concept.find_or_create_by(name: 'No Concept', category: no_category) do |concept|
-        concept.description = 'This Concept is used to house data elements that are waiting to be categorised'
+        concept.description = 'This Concept is used to house data items that are waiting to be categorised'
       end
     end
 
