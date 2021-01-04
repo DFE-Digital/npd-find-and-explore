@@ -10,7 +10,7 @@ gem 'rails', '~> 5.2', '>= 5.2.4.4'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.12', '>= 3.12.4'
-gem 'webpacker', '~> 4.2', '>= 4.2.2'
+gem 'webpacker', '~> 4.3', '>= 4.3.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
@@ -42,17 +42,17 @@ gem 'loaf', '~> 0.8.1'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # ROO gem to handle Excel files
-gem 'roo', '~> 2.8', '>= 2.8.2'
+gem 'roo', '~> 2.8', '>= 2.8.3'
 
 # caxlsx to generate excel files
-gem 'caxlsx', '>= 3.0.1'
+gem 'caxlsx', '>= 3.0.2'
 gem 'caxlsx_rails', '>= 0.6.2'
 
 # rodf to generate odf files
 gem 'rodf'
 
 # Authentication for Rails Admin
-gem 'devise', '~> 4', '>= 4.7.1'
+gem 'devise', '~> 4', '>= 4.7.2'
 
 # Audit changes
 gem 'paper_trail', '~> 10', '>= 10.3.1'
@@ -70,16 +70,16 @@ gem 'activerecord-import', '~>1'
 gem 'azure-storage', require: false
 
 group :development, :test do
-  gem 'dotenv-rails', '~> 2.7', '>= 2.7.5'
+  gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot', '~> 5.0'
-  gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
+  gem 'factory_bot_rails', '~> 5.2', '>= 5.2.0'
   gem 'faker', '~> 1.9'
   gem 'pry', '~> 0.12.2'
   gem 'rspec'
   gem 'rspec-benchmark'
-  gem 'rspec-rails', '~> 3.9', '>= 3.9.0'
+  gem 'rspec-rails', '~> 3.9', '>= 3.9.1'
   gem 'rubocop-govuk', '~> 2'
 end
 
@@ -94,7 +94,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '>= 3.29.0'
+  gem 'capybara', '>= 3.31.0'
   gem 'selenium-webdriver', '~> 3.142'
 
   # Calculate spec coverage
