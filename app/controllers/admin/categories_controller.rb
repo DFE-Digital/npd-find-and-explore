@@ -49,6 +49,9 @@ module Admin
     end
 
     def tree
+      custom_breadcrumbs_for(admin: true,
+                             leaf: 'Categories')
+
       @categories = Category.arrange(order: :position)
     end
 
