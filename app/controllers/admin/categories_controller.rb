@@ -2,6 +2,8 @@
 
 module Admin
   class CategoriesController < Admin::ApplicationController
+    layout :layout_by_resource
+
     helper NestableHelper
     include BreadcrumbBuilder
 
@@ -141,6 +143,14 @@ module Admin
       Category.search(search_term)
               .includes(:concepts)
               .order(:name)
+    end
+
+    def layout_by_resource
+      if params[:action] == 'tree'
+        'admin/wide'
+      else
+        'admin/application'
+      end
     end
 
     def generate_breadcrumbs

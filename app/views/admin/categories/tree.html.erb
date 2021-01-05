@@ -6,33 +6,81 @@
   <%= stylesheet_pack_tag 'nest' %>
 <% end %>
 
-<header class="main-content__header" role="banner">
-  <h1 class="main-content__page-title" id="page-title">
-    <%= content_for(:title) %>
-  </h1>
 
-  <div>
-    <%= link_to(
-      t(
-        "administrate.actions.new_resource",
-        name: 'category'
-      ),
-      [:new, :admin, :category],
-      class: "button",
-    ) if valid_action?(:new) && show_action?(:new, new_resource) %>
+<header class="main-content__header govuk-!-padding-left-0 govuk-!-border-0" role="banner">
+  <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
+    <h1 class="govuk-heading-l govuk-!-margin-top-5 govuk-!-margin-bottom-5" id="page-title">
+      <%= content_for(:title) %>
+    </h1>
   </div>
 </header>
 
 <section id="nestable" class="main-content__body main-content__body--flush">
-  <% if @categories.present? %>
-    <div id="tree_nodes" class="dd" data-update-path="<%= sort_admin_categories_path %>">
-      <ol id="categories" class="list-group nested-sortable dd-list">
-        <%= nested_tree_nodes @categories %>
-      </ol>
+  <div class="govuk-grid-row govuk-!-margin-top-0">
+    <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
+      <% if @categories.present? %>
+        <div id="tree_nodes" class="dd" data-update-path="<%= sort_admin_categories_path %>">
+          <ol id="categories" class="list-group nested-sortable dd-list">
+            <%= nested_tree_nodes @categories %>
+          </ol>
+        </div>
+      <% else %>
+        <h3>There are currently no categories.</h3>
+      <% end %>
     </div>
-  <% else %>
-    <h3>There are currently no categories.</h3>
-  <% end %>
+    <div class="govuk-grid-column-one-third govuk-!-margin-top-5">
+      <!--<div class="govuk-top-border govuk-border-bottom">
+        <p class="govuk-heading-s govuk-!-font-size-19 govuk-!-padding-top-4">
+          <%= t('actions.filters') %>
+        </p>
+      </div> -->
+      <div class="govuk-top-border govuk-border-bottom">
+        <p class="govuk-heading-s govuk-!-font-size-19 govuk-!-padding-top-4">
+          <%= t('actions.actions') %>
+        </p>
+        <p class="govuk-!-padding-0 govuk-!-margin-bottom-1">
+          <%= link_to(t('admin.categories.actions.create'),
+                      [:new, :admin, :category],
+                      class: %w[govuk-!-margin-bottom-1]
+                     ) if valid_action?(:new) && show_action?(:new, Category.new) %>
+        </p>
+        <!-- <p class="govuk-!-padding-0 govuk-!-margin-bottom-1">
+          <%= link_to(t('admin.concepts.actions.create'),
+                      [:new, :admin, :concept],
+                      class: %w[govuk-!-margin-bottom-1]
+                     ) if valid_action?(:new) && show_action?(:new, Concept.new) %>
+        </p> -->
+      </div>
+      <div>
+        <div>
+          <p class="govuk-heading-s govuk-!-font-size-19 govuk-!-padding-top-4">
+            <%= t('actions.change_log') %>
+          </p>
+        </div>
+        <div>
+          <ul class="govuk-list govuk-list--bullet changelog" data-changes-log>
+          </ul>
+        </div>
+        <div class="govuk-form-group govuk-checkboxes govuk-checkboxes--small">
+          <span id="confirm-error" class="govuk-error-message" style="display: none">
+            <span class="govuk-visually-hidden">Error:</span> Please confirm that the changes have been reviewed and approved
+          </span>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="changes-approved" name="changes-approved" type="checkbox" required="true">
+            <label class="govuk-label govuk-checkboxes__label govuk-!-margin-left-5 govuk-!-padding-top-0" for="organisation">
+              <%= t('forms.changes_approved') %>
+            </label>
+          </div>
+        </div>
+        <div>
+          <button type="submit" class="govuk-button" id="confirm-changes"
+                  data-confirm-changes data-validate="#changes-approved"><%= t('forms.confirm') %></button>
+          <button type="submit" class="govuk-button govuk-button--secondary" id="cancel-changes"
+                  data-cancel-changes><%= t('forms.cancel') %></button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <%= javascript_pack_tag 'nest' %>

@@ -13,4 +13,7 @@ import '../src/govuk-frontend.js'
 import '../src/back-link.js'
 import { initCookies } from '../src/cookies.js'
 
+const images = require.context('../images', true)
+const imagePath = (name) => images(name, true)
+
 initCookies()

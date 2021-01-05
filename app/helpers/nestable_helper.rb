@@ -14,7 +14,7 @@ module NestableHelper
         end
 
         content = sub_tree_nodes&.any? ? nested_tree_nodes(sub_tree_nodes) : ''
-        output += content_tag(:ol, content, class: 'list-group nested-sortable dd-list')
+        output += content_tag(:ol, content, class: 'list-group nested-sortable dd-list', 'data-id': tree_node.id)
         output
       end
     end
