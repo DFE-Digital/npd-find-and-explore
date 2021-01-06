@@ -149,7 +149,7 @@ module Admin
     end
 
     def layout_by_resource
-      if params[:action] == 'tree'
+      if %w[tree show edit update].include?(params[:action])
         'admin/wide'
       else
         'admin/application'
@@ -157,7 +157,9 @@ module Admin
     end
 
     def generate_breadcrumbs
-      admin_breadcrumbs_for(category_leaf: requested_resource)
+      custom_breadcrumbs_for(admin: true,
+                             steps: [{ name: 'Categories', path: tree_admin_categories_path }],
+                             leaf: requested_resource.name)
     end
   end
 end

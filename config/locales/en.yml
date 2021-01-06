@@ -232,3 +232,8 @@ en:
   date:
     formats:
       npd: "%d %B %Y"
+      npd_long: "%A, %d %B %Y %H:%M:%S"
+
+  time:
+    formats:
+      npd_long: "%A, %d %B %Y %H:%M:%S"

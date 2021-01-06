@@ -162,6 +162,55 @@ button.dd-collapse {
   box-shadow: 2px 4px 6px 0 rgba(0,0,0,.1);
 }
 
+.dd-label {
+  display: inline-block;
+  height: 1.5em;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  width: 49%;
+}
+
+.dd-extras {
+  display: inline-block;
+  text-align: right;
+  width: 49%;
+  vertical-align: top;
+
+  .dd-count {
+    display: inline-block;
+    font-weight: normal;
+  }
+
+  .dd-link {
+    padding-left: 6px;
+  }
+}
+
+.dd-details {
+  padding-left: 60px;
+
+  .details-row {
+    display: block;
+
+    .title {
+      display: inline-block;
+      font-weight: bold;
+      padding-right: .5em;
+      text-align: right;
+      vertical-align: top;
+      width: 15%;
+    }
+
+    .content {
+      display: inline-block;
+      text-align: left;
+      vertical-align: top;
+      width: 79%;
+    }
+  }
+}
+
 // Nestable Extras
 
 .nestable-lists {
@@ -238,7 +287,6 @@ button.dd-collapse {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   color: $grey-0;
-  display: block;
   font-weight: bold;
   height: 30px;
   margin: 5px 0;

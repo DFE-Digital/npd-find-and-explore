@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Sortable from 'sortablejs';
 
-jQuery(function() {
+function initializeSortable() {
   const nestedSortables = document.querySelectorAll('.nested-sortable');
 
   // Loop through each nested sortable element
@@ -13,7 +13,7 @@ jQuery(function() {
       fallbackOnBody: true,
       swapThreshold: 0.65,
       onSort: function(event) {
-        const text = $($(event.item).find('.dd3-content')[0]).text();
+        const text = $($(event.item).find('.dd3-content .dd-label')[0]).text();
         const sortLog = (localStorage.getItem('sortLog') || '').split('|');
 
         if (text && text != sortLog[sortLog.length - 1]) {
@@ -32,9 +32,8 @@ jQuery(function() {
          */
         get: function (sortable) {
           const parent_id = sortable.el.dataset.id;
-          console.log('Getting ' + parent_id);
-
           const savedSort = localStorage.getItem(['sort', sortable.options.group.name, parent_id].join('-'));
+
           if (savedSort) {
             const order = /^(\(\d+\))(.*)$/.exec(savedSort);
             return order.length == 3 ? order[2].split('|') : [];
@@ -58,7 +57,9 @@ jQuery(function() {
       }
     });
   }
+}
 
+function initializeChangeLog() {
   // Recreate the list of changes
   (localStorage.getItem('sortLog') || '').split('|').forEach(function (text) {
     if (text) {
@@ -66,6 +67,20 @@ jQuery(function() {
         '<li>"' + text + '" moved</li>'
       );
     }
+  });
+}
+
+function initializeCommitChanges() {
+  // Set up the "cancel" button action
+  $('[data-cancel-changes]').click(function (event) {
+    // Clear the order saved into localStorage
+    const sortKeys = Object.keys(localStorage).filter(function(val) { return /^sort-[a-z]+-.*$/.test(val) });
+    sortKeys.forEach(function (key) { localStorage.removeItem(key) });
+    localStorage.setItem('sequence', '0')
+    localStorage.removeItem('sortLog')
+
+    // Fastest way to reset the tree
+    window.location.reload();
   });
 
   // Set up the "confirm" button action
@@ -131,16 +146,26 @@ jQuery(function() {
       $('[data-changes-log]').empty();
     }
   });
+}
 
-  // Set up the "cancel" button action
-  $('[data-cancel-changes]').click(function (event) {
-    // Clear the order saved into localStorage
-    const sortKeys = Object.keys(localStorage).filter(function(val) { return /^sort-[a-z]+-.*$/.test(val) });
-    sortKeys.forEach(function (key) { localStorage.removeItem(key) });
-    localStorage.setItem('sequence', '0')
-    localStorage.removeItem('sortLog')
-
-    // Fastest way to reset the tree
-    window.location.reload();
+function initializeViewDetails() {
+  $('.view-detail').click(function (event) {
+    event.preventDefault();
+    const link = $(event.currentTarget);
+    const details = link.parents('.dd3-content').siblings('.dd-details');
+    if (details.hasClass('hidden')) {
+      details.removeClass('hidden');
+      link.text('Hide details');
+    } else {
+      details.addClass('hidden');
+      link.text('View details');
+    }
   });
+}
+
+jQuery(function() {
+  initializeSortable();
+  initializeChangeLog();
+  initializeCommitChanges();
+  initializeViewDetails();
 })
