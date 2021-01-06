@@ -154,9 +154,11 @@ en:
     categories:
       actions:
         create: Create a new category
+        expand_all: Expand all categories
     concepts:
       actions:
         create: Create a new concept
+        expand_all: Expand all concepts
     data_elements:
       title: Data Items
       reindex:

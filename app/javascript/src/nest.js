@@ -170,6 +170,13 @@ function initializeCollapsible() {
   $('[data-action="expand"]').click(function (event) {
     $(event.currentTarget).parent('.dd-item').removeClass('dd-collapsed');
   });
+  $('#expand-categories').change(function (event) {
+    if (event.currentTarget.checked) {
+      $('.dd-item').removeClass('dd-collapsed');
+    } else {
+      $('.dd-item').addClass('dd-collapsed');
+    }
+  });
 }
 
 jQuery(function() {
