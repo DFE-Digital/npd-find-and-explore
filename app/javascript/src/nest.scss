@@ -26,6 +26,8 @@
 }
 
 button.dd-expand, button.dd-collapse {
+  border: 1px solid govuk-colour('mid-grey');
+
   &:before {
     color: govuk-colour('dark-grey');
   }
@@ -162,28 +164,34 @@ button.dd-collapse {
   box-shadow: 2px 4px 6px 0 rgba(0,0,0,.1);
 }
 
-.dd-label {
-  display: inline-block;
-  height: 1.5em;
-  overflow: hidden;
-  text-align: left;
-  text-overflow: ellipsis;
-  width: 49%;
-}
+.dd-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
-.dd-extras {
-  display: inline-block;
-  text-align: right;
-  width: 49%;
-  vertical-align: top;
-
-  .dd-count {
+  .dd-label {
     display: inline-block;
-    font-weight: normal;
+    height: 1.5em;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    width: 49%;
   }
 
-  .dd-link {
-    padding-left: 6px;
+  .dd-extras {
+    display: inline-block;
+    text-align: right;
+    width: 39%;
+    vertical-align: top;
+
+    .dd-count {
+      display: inline-block;
+      font-weight: normal;
+    }
+
+    .dd-link {
+      padding-left: 6px;
+    }
   }
 }
 

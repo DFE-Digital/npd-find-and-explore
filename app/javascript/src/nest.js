@@ -163,9 +163,19 @@ function initializeViewDetails() {
   });
 }
 
+function initializeCollapsible() {
+  $('[data-action="collapse"]').click(function (event) {
+    $(event.currentTarget).parent('.dd-item').addClass('dd-collapsed');
+  });
+  $('[data-action="expand"]').click(function (event) {
+    $(event.currentTarget).parent('.dd-item').removeClass('dd-collapsed');
+  });
+}
+
 jQuery(function() {
   initializeSortable();
   initializeChangeLog();
   initializeCommitChanges();
   initializeViewDetails();
+  initializeCollapsible();
 })
