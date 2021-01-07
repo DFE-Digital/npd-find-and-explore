@@ -13,8 +13,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resource :categories, only: [] do
+      get  '', to: 'categories#tree'
       get  :childless
-      get  :tree
       post :sort
       get  :import
       post :preprocess
@@ -23,11 +23,11 @@ Rails.application.routes.draw do
       get  :export
       get  :download
     end
-    resources :categories
+    resources :categories, except: %i[index]
     resource :concepts, only: [] do
       get  :childless
     end
-    resources :concepts
+    resources :concepts, except: %i[index]
     resource :data_elements, only: [] do
       get  :orphaned
       post :orphaned, to: 'data_elements#assign_orphaned'
@@ -59,7 +59,7 @@ Rails.application.routes.draw do
     end
     resources :uploads, only: %i[index]
 
-    root to: 'categories#index'
+    root to: 'categories#tree'
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -24,7 +24,7 @@ module Admin
       else
         flash[:error] = requested_resource.errors.full_messages.join('<br/>')
       end
-      redirect_to action: :index
+      redirect_to admin_root_path
     rescue ActiveRecord::NotNullViolation => e
       flash[:error] = e.message
       redirect_to action: :index

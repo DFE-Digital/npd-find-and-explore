@@ -21,7 +21,7 @@ RSpec.describe 'Categories Import', type: :system do
   end
 
   it 'Will show the sort page', javascript: true do
-    visit 'admin/categories/tree'
+    visit 'admin/categories'
 
     expect(page).to have_text('Sort Categories')
     Category.roots.each do |root|

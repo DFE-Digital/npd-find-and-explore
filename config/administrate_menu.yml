@@ -1,7 +1,7 @@
 default: &default
   categories:
     main:
-      name: Categories
+      name: Sort Categories and Concepts
       url_params:
         - admin
         - categories
@@ -12,7 +12,6 @@ default: &default
             - show
             - edit
             - childless
-            - tree
             - sort
     secondary:
       - name: Childless Categories
@@ -24,30 +23,6 @@ default: &default
           - controller: admin/categories
             actions:
               - childless
-      - sort:
-        name: Sort Categories
-        url_params:
-          - tree
-          - admin
-          - categories
-        conditions:
-          - controller: admin/categories
-            actions:
-              - tree
-  concepts:
-    main:
-      name: Concepts
-      url_params:
-        - admin
-        - concepts
-      conditions:
-        - controller: admin/concepts
-          actions:
-            - index
-            - show
-            - edit
-            - childless
-    secondary:
       - name: Childless Concepts
         url_params:
           - childless
