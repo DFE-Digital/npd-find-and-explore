@@ -40,7 +40,9 @@ en:
       dataset: Datasets
   staging_warning: You are currently on the Find and Explore staging environment
   actions:
-    title: Actions to perform
+    actions: Actions to perform
+    filter: Filter
+    change_log: Change log
   beta_banner:
     text: This is a new service – we are improving how the metadata from the NPD Data Tables can be displayed and therefore the content might change. Your %{link} will help us to improve it.
     link: feedback
@@ -149,6 +151,12 @@ en:
       nestable:
         success: Tree updated
         error: Error while updating the tree
+    categories:
+      actions:
+        create: Create a new category
+    concepts:
+      actions:
+        create: Create a new concept
     data_elements:
       title: Data Items
       reindex:
@@ -158,7 +166,6 @@ en:
         success:  The search index was refreshed correctly
       orphaned:
         title: Orphaned Data Items
-        actions: Actions to perform
         assign_to_concept:
           title: Assign to concept
           subtitle: Enter concept name to be assigned
@@ -220,6 +227,7 @@ en:
     confirm_and_continue: Confirm and continue
     cancel: Cancel
     or: or
+    changes_approved: Changes have been approved
 
   date:
     formats:
