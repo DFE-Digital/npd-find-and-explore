@@ -41,6 +41,12 @@
             <%= t('admin.categories.actions.expand_all') %>
           </label>
         </div>
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="expand-concepts" name="expand-concepts" type="checkbox" required="true">
+          <label class="govuk-label govuk-checkboxes__label govuk-!-margin-left-5 govuk-!-padding-top-0" for="expand-concepts">
+            <%= t('admin.concepts.actions.expand_all') %>
+          </label>
+        </div>
       </div>
     </div>
     <div class="govuk-border-bottom">
@@ -53,12 +59,12 @@
                     class: %w[govuk-!-margin-bottom-1]
                    ) if valid_action?(:new) && show_action?(:new, Category.new) %>
       </p>
-      <!-- <p class="govuk-!-padding-0 govuk-!-margin-bottom-1">
+      <p class="govuk-!-padding-0 govuk-!-margin-bottom-1">
         <%= link_to(t('admin.concepts.actions.create'),
                     [:new, :admin, :concept],
                     class: %w[govuk-!-margin-bottom-1]
                    ) if valid_action?(:new) && show_action?(:new, Concept.new) %>
-                 </p> -->
+      </p>
     </div>
     <div>
       <div>

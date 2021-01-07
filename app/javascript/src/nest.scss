@@ -207,7 +207,7 @@ button.dd-collapse {
       padding-right: .5em;
       text-align: right;
       vertical-align: top;
-      width: 15%;
+      width: 19%;
     }
 
     .content {
@@ -307,11 +307,35 @@ button.dd-collapse {
   color: govuk-colour('light-blue');
 }
 
-.dd-dragel > .dd3-item > .dd3-content {
+.dd4-content {
+  background: -webkit-gradient(linear, left top, left bottom, from($light-yellow), to(govuk-colour('yellow')));
+  background: -webkit-linear-gradient(top, $light-yellow 0%, govuk-colour('yellow') 100%);
+  background: -o-linear-gradient(top, $light-yellow 0%, govuk-colour('yellow') 100%);
+  background: linear-gradient(to bottom, $light-yellow 0%, govuk-colour('yellow') 100%);
+  background: $light-yellow;
+  border: 1px solid govuk-colour('yellow');
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: $grey-0;
+  font-weight: bold;
+  height: 30px;
+  margin: 5px 0;
+  padding: 5px 10px 5px 40px;
+  text-decoration: none;
+}
+
+.dd4-content:hover {
+  background: $light-yellow;
+  color: govuk-colour('dark-grey');
+}
+
+.dd-dragel > .dd3-item > .dd3-content, .dd-dragel > .dd4-item > .dd4-content {
   margin: 0;
 }
 
-.dd3-item > button {
+.dd3-item > button, .dd4-item > button {
   margin-left: 30px;
 }
 
@@ -335,7 +359,27 @@ button.dd-collapse {
   width: 30px;
 }
 
-.dd3-handle:before {
+.dd4-handle {
+  background: -webkit-gradient(linear, left top, left bottom, from($light-yellow), to(govuk-colour('yellow')));
+  background: -webkit-linear-gradient(top, $light-yellow 0%, govuk-colour('yellow') 100%);
+  background: -o-linear-gradient(top, $light-yellow 0%, govuk-colour('yellow') 100%);
+  background: linear-gradient(to bottom, $light-yellow 0%, govuk-colour('yellow') 100%);
+  background: $light-yellow;
+  border: 1px solid govuk-colour('yellow');
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  cursor: pointer;
+  left: 0;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  text-indent: 100px;
+  white-space: nowrap;
+  width: 30px;
+}
+
+.dd3-handle:before, .dd4-handle:before {
   color: govuk-colour('dark-grey');
   content: url('../images/IconReorder.svg');
   display: block;
@@ -354,24 +398,29 @@ button.dd-collapse {
   background: govuk-colour('light-grey');
 }
 
-.dd3-content .links {
+.dd4-handle:hover {
+  background: govuk-colour('yellow');
+}
+
+
+.dd3-content .links, .dd4-content .links {
   width: auto;
 }
 
-.dd3-content ul.inline.actions {
+.dd3-content ul.inline.actions, .dd4-content ul.inline.actions {
   margin: 0;
   padding: 0;
   list-style: none;
   display: block;
 }
 
-.dd3-content ul.inline.actions li a {
+.dd3-content ul.inline.actions li a, .dd4-content ul.inline.actions li a {
   width: 14px;
   height: 16px;
   text-decoration: none;
 }
 
-.dd3-content ul.inline.actions li a:hover {
+.dd3-content ul.inline.actions li a:hover, .dd4-content ul.inline.actions li a:hover {
   text-decoration: none;
 }
 

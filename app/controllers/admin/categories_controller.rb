@@ -7,7 +7,7 @@ module Admin
     helper NestableHelper
     include BreadcrumbBuilder
 
-    before_action :generate_breadcrumbs, only: %i[show edit]
+    before_action :generate_breadcrumbs, only: %i[new create show edit update]
 
     # To customize the behavior of this controller,
     # you can overwrite any of the RESTful actions. For example:
@@ -52,7 +52,8 @@ module Admin
       custom_breadcrumbs_for(admin: true,
                              leaf: 'Categories')
 
-      @categories = Category.arrange(order: :position)
+      # @categories = Category.includes(concepts: :data_elements }).arrange(order: :position)
+      @categories = Category.roots.includes(concepts: :data_elements)
     end
 
     def sort
@@ -149,7 +150,7 @@ module Admin
     end
 
     def layout_by_resource
-      if %w[tree show edit update].include?(params[:action])
+      if %w[tree new create show edit update].include?(params[:action])
         'admin/wide'
       else
         'admin/application'
@@ -159,7 +160,7 @@ module Admin
     def generate_breadcrumbs
       custom_breadcrumbs_for(admin: true,
                              steps: [{ name: 'Categories', path: tree_admin_categories_path }],
-                             leaf: requested_resource.name)
+                             leaf: params[:id].present? ? requested_resource.name : params[:action].titleize)
     end
   end
 end

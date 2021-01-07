@@ -5,7 +5,7 @@ function initializeSortable() {
   const nestedSortables = document.querySelectorAll('.nested-sortable');
 
   // Loop through each nested sortable element
-  for (var i = 0; i < nestedSortables.length; i++) {
+  for (let i = 0; i < nestedSortables.length; i++) {
     new Sortable(nestedSortables[i], {
       group: 'nested',
       handle: '.dd-handle',
@@ -172,7 +172,17 @@ function initializeCollapsible() {
   });
   $('#expand-categories').change(function (event) {
     if (event.currentTarget.checked) {
+      $('.dd-item:not(.dd-concept)').removeClass('dd-collapsed');
+    } else {
+      $('.dd-item:not(.dd-concept)').addClass('dd-collapsed');
+    }
+  });
+  $('#expand-concepts').change(function (event) {
+    if (event.currentTarget.checked) {
+      document.getElementById('expand-categories').checked = true;
       $('.dd-item').removeClass('dd-collapsed');
+    } else if (document.getElementById('expand-categories').checked) {
+      $('.dd-item.dd-concept').addClass('dd-collapsed');
     } else {
       $('.dd-item').addClass('dd-collapsed');
     }

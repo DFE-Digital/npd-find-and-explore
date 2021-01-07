@@ -19,6 +19,7 @@ class Category < ApplicationRecord
   before_destroy :reassign_concepts, prepend: true
   before_create :sort_categories
 
+  default_scope { order(position: :asc) }
   scope :real, -> { where.not(name: 'No Category') }
 
   has_ancestry orphan_strategy: :rootify
