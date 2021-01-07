@@ -175,13 +175,12 @@ button.dd-collapse {
     overflow: hidden;
     text-align: left;
     text-overflow: ellipsis;
-    width: 49%;
   }
 
   .dd-extras {
     display: inline-block;
     text-align: right;
-    width: 39%;
+    min-width: max-content;
     vertical-align: top;
 
     .dd-count {
@@ -215,6 +214,30 @@ button.dd-collapse {
       text-align: left;
       vertical-align: top;
       width: 79%;
+    }
+  }
+}
+
+.legend {
+  display: block;
+  width: 100%;
+
+  .legend-entry {
+    padding-left: 0px;
+    padding-right: 30px;
+
+    .legend-icon {
+      border: 1px solid govuk-colour('dark-grey');
+      display: inline-block;
+      height: 25px;
+      margin-right: 10px;
+      width: 25px;
+    }
+    .legend-icon-grey {
+      background-color: govuk-colour('light-grey');
+    }
+    .legend-icon-yellow {
+      background-color: $light-yellow;
     }
   }
 }

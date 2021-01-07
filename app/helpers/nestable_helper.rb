@@ -14,7 +14,7 @@ module NestableHelper
         output = content_tag :div, 'drag', class: %w[dd-handle dd3-handle]
         output += button_tag '+', class: %w[dd-expand], data: { action: 'expand' }
         output += button_tag '-', class: %w[dd-collapse], data: { action: 'collapse' }
-        output += content_tag :div, class: %w[dd3-content] do
+        output += content_tag :div, class: %w[dd-content dd3-content] do
           content_tag :div, class: %w[dd-flex] do
             content = content_tag :div, object_label(category), class: %w[dd-label]
             content += content_tag :div, class: %w[dd-extras] do
@@ -43,9 +43,9 @@ module NestableHelper
     nodes = category.concepts.map do |concept|
       li_classes = %w[list-group-item dd-item dd4-item dd-collapsed dd-concept]
 
-      content_tag :li, class: li_classes, 'data-id': concept.id do
+      content_tag :li, class: li_classes, 'data-id': "concept-#{concept.id}" do
         output = content_tag :div, 'drag', class: %w[dd-handle dd4-handle]
-        output += content_tag :div, class: %w[dd4-content] do
+        output += content_tag :div, class: %w[dd-content dd4-content] do
           content_tag :div, class: %w[dd-flex] do
             content = content_tag :div, object_label(concept), class: %w[dd-label]
             content += content_tag :div, class: %w[dd-extras] do

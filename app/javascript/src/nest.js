@@ -13,7 +13,7 @@ function initializeSortable() {
       fallbackOnBody: true,
       swapThreshold: 0.65,
       onSort: function(event) {
-        const text = $($(event.item).find('.dd3-content .dd-label')[0]).text();
+        const text = $($(event.item).find('.dd-content .dd-label')[0]).text();
         const sortLog = (localStorage.getItem('sortLog') || '').split('|');
 
         if (text && text != sortLog[sortLog.length - 1]) {
