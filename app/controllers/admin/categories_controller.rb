@@ -7,7 +7,7 @@ module Admin
     helper NestableHelper
     include BreadcrumbBuilder
 
-    before_action :generate_breadcrumbs, only: %i[show edit]
+    before_action :generate_breadcrumbs, only: %i[new create show edit update]
 
     # To customize the behavior of this controller,
     # you can overwrite any of the RESTful actions. For example:
@@ -52,16 +52,25 @@ module Admin
       custom_breadcrumbs_for(admin: true,
                              leaf: 'Categories')
 
-      @categories = Category.arrange(order: :position)
+      # @categories = Category.includes(concepts: :data_elements }).arrange(order: :position)
+      @categories = Category.roots.includes(concepts: :data_elements)
     end
 
     def sort
       render plain: '' && return unless request.post? && params['tree_nodes'].present?
 
       begin
-        update = -> { update_tree(params[:tree_nodes], params[:parent]) }
+        concepts, categories = params[:tree_nodes].partition { |node| /^concept-/ =~ node }
+        if categories.any?
+          update = -> { update_tree(categories, params[:parent]) }
+          ActiveRecord::Base.transaction { update.call }
+        end
 
-        ActiveRecord::Base.transaction { update.call }
+        if concepts.any?
+          category = Category.find(params[:parent])
+          category.concept_ids = concepts.map { |id| id.gsub(/^concept-/, '') }
+          category.save!
+        end
 
         message = "<strong>#{I18n.t('admin.actions.nestable.success')}!</strong>"
       rescue StandardError => e
@@ -149,7 +158,7 @@ module Admin
     end
 
     def layout_by_resource
-      if params[:action] == 'tree'
+      if %w[tree new create show edit update].include?(params[:action])
         'admin/wide'
       else
         'admin/application'
@@ -157,7 +166,9 @@ module Admin
     end
 
     def generate_breadcrumbs
-      admin_breadcrumbs_for(category_leaf: requested_resource)
+      custom_breadcrumbs_for(admin: true,
+                             steps: [{ name: 'Categories', path: tree_admin_categories_path }],
+                             leaf: params[:id].present? ? requested_resource.name : params[:action].titleize)
     end
   end
 end

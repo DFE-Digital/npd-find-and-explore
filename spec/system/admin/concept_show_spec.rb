@@ -20,14 +20,4 @@ RSpec.describe 'Admin Concepts Show', type: :system do
     fill_in('admin_user_password', with: password)
     click_on('Log in')
   end
-
-  it 'Will have the breadcrumbs' do
-    concept = Concept.first
-    breadcrumbs = ['Home', concept.category.ancestors.map(&:name).reverse, concept.category.name]
-                  .flatten
-                  .join("\n")
-
-    visit "/admin/concepts/#{concept.id}"
-    expect(page).to have_text(breadcrumbs)
-  end
 end

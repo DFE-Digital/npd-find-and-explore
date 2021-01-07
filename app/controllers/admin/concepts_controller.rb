@@ -2,9 +2,11 @@
 
 module Admin
   class ConceptsController < Admin::ApplicationController
+    layout :layout_by_resource
+
     include BreadcrumbBuilder
 
-    before_action :generate_breadcrumbs, only: %i[show edit]
+    before_action :generate_breadcrumbs, only: %i[new create show edit update]
 
     # To customize the behavior of this controller,
     # you can overwrite any of the RESTful actions. For example:
@@ -47,6 +49,14 @@ module Admin
 
   private
 
+    def layout_by_resource
+      if %w[new create show edit update].include?(params[:action])
+        'admin/wide'
+      else
+        'admin/application'
+      end
+    end
+
     def find_resources(search_term = nil)
       return Concept.all.order(:name) if search_term.blank?
 
@@ -56,7 +66,9 @@ module Admin
     end
 
     def generate_breadcrumbs
-      admin_breadcrumbs_for(category_leaf: requested_resource.category, concept: requested_resource)
+      custom_breadcrumbs_for(admin: true,
+                             steps: [{ name: 'Concepts', path: tree_admin_categories_path }],
+                             leaf: params[:id].present? ? requested_resource.name : params[:action].titleize)
     end
   end
 end

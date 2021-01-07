@@ -26,6 +26,8 @@
 }
 
 button.dd-expand, button.dd-collapse {
+  border: 1px solid govuk-colour('mid-grey');
+
   &:before {
     color: govuk-colour('dark-grey');
   }
@@ -162,6 +164,84 @@ button.dd-collapse {
   box-shadow: 2px 4px 6px 0 rgba(0,0,0,.1);
 }
 
+.dd-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .dd-label {
+    display: inline-block;
+    height: 1.5em;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+  }
+
+  .dd-extras {
+    display: inline-block;
+    text-align: right;
+    min-width: max-content;
+    vertical-align: top;
+
+    .dd-count {
+      display: inline-block;
+      font-weight: normal;
+    }
+
+    .dd-link {
+      padding-left: 6px;
+    }
+  }
+}
+
+.dd-details {
+  padding-left: 60px;
+
+  .details-row {
+    display: block;
+
+    .title {
+      display: inline-block;
+      font-weight: bold;
+      padding-right: .5em;
+      text-align: right;
+      vertical-align: top;
+      width: 19%;
+    }
+
+    .content {
+      display: inline-block;
+      text-align: left;
+      vertical-align: top;
+      width: 79%;
+    }
+  }
+}
+
+.legend {
+  display: block;
+  width: 100%;
+
+  .legend-entry {
+    padding-left: 0px;
+    padding-right: 30px;
+
+    .legend-icon {
+      border: 1px solid govuk-colour('dark-grey');
+      display: inline-block;
+      height: 25px;
+      margin-right: 10px;
+      width: 25px;
+    }
+    .legend-icon-grey {
+      background-color: govuk-colour('light-grey');
+    }
+    .legend-icon-yellow {
+      background-color: $light-yellow;
+    }
+  }
+}
+
 // Nestable Extras
 
 .nestable-lists {
@@ -238,7 +318,6 @@ button.dd-collapse {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   color: $grey-0;
-  display: block;
   font-weight: bold;
   height: 30px;
   margin: 5px 0;
@@ -251,11 +330,35 @@ button.dd-collapse {
   color: govuk-colour('light-blue');
 }
 
-.dd-dragel > .dd3-item > .dd3-content {
+.dd4-content {
+  background: -webkit-gradient(linear, left top, left bottom, from($light-yellow), to(govuk-colour('yellow')));
+  background: -webkit-linear-gradient(top, $light-yellow 0%, govuk-colour('yellow') 100%);
+  background: -o-linear-gradient(top, $light-yellow 0%, govuk-colour('yellow') 100%);
+  background: linear-gradient(to bottom, $light-yellow 0%, govuk-colour('yellow') 100%);
+  background: $light-yellow;
+  border: 1px solid govuk-colour('yellow');
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: $grey-0;
+  font-weight: bold;
+  height: 30px;
+  margin: 5px 0;
+  padding: 5px 10px 5px 40px;
+  text-decoration: none;
+}
+
+.dd4-content:hover {
+  background: $light-yellow;
+  color: govuk-colour('dark-grey');
+}
+
+.dd-dragel > .dd3-item > .dd3-content, .dd-dragel > .dd4-item > .dd4-content {
   margin: 0;
 }
 
-.dd3-item > button {
+.dd3-item > button, .dd4-item > button {
   margin-left: 30px;
 }
 
@@ -279,7 +382,27 @@ button.dd-collapse {
   width: 30px;
 }
 
-.dd3-handle:before {
+.dd4-handle {
+  background: -webkit-gradient(linear, left top, left bottom, from($light-yellow), to(govuk-colour('yellow')));
+  background: -webkit-linear-gradient(top, $light-yellow 0%, govuk-colour('yellow') 100%);
+  background: -o-linear-gradient(top, $light-yellow 0%, govuk-colour('yellow') 100%);
+  background: linear-gradient(to bottom, $light-yellow 0%, govuk-colour('yellow') 100%);
+  background: $light-yellow;
+  border: 1px solid govuk-colour('yellow');
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  cursor: pointer;
+  left: 0;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  text-indent: 100px;
+  white-space: nowrap;
+  width: 30px;
+}
+
+.dd3-handle:before, .dd4-handle:before {
   color: govuk-colour('dark-grey');
   content: url('../images/IconReorder.svg');
   display: block;
@@ -298,24 +421,29 @@ button.dd-collapse {
   background: govuk-colour('light-grey');
 }
 
-.dd3-content .links {
+.dd4-handle:hover {
+  background: govuk-colour('yellow');
+}
+
+
+.dd3-content .links, .dd4-content .links {
   width: auto;
 }
 
-.dd3-content ul.inline.actions {
+.dd3-content ul.inline.actions, .dd4-content ul.inline.actions {
   margin: 0;
   padding: 0;
   list-style: none;
   display: block;
 }
 
-.dd3-content ul.inline.actions li a {
+.dd3-content ul.inline.actions li a, .dd4-content ul.inline.actions li a {
   width: 14px;
   height: 16px;
   text-decoration: none;
 }
 
-.dd3-content ul.inline.actions li a:hover {
+.dd3-content ul.inline.actions li a:hover, .dd4-content ul.inline.actions li a:hover {
   text-decoration: none;
 }
 

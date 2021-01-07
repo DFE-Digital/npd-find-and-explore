@@ -154,9 +154,11 @@ en:
     categories:
       actions:
         create: Create a new category
+        expand_all: Expand all categories
     concepts:
       actions:
         create: Create a new concept
+        expand_all: Expand all concepts
     data_elements:
       title: Data Items
       reindex:
@@ -232,3 +234,8 @@ en:
   date:
     formats:
       npd: "%d %B %Y"
+      npd_long: "%A, %d %B %Y %H:%M:%S"
+
+  time:
+    formats:
+      npd_long: "%A, %d %B %Y %H:%M:%S"

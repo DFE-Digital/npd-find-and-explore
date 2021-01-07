@@ -20,13 +20,12 @@ RSpec.describe 'Categories Import', type: :system do
     click_on('Log in')
   end
 
-  it 'Will show the sort page' do
+  it 'Will show the sort page', javascript: true do
     visit 'admin/categories/tree'
 
     expect(page).to have_text('Sort Categories')
     Category.roots.each do |root|
       expect(page).to have_text(root.name)
     end
-    expect(page).to have_css('li div.dd3-content + ol.dd-list')
   end
 end
