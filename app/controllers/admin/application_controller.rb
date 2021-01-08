@@ -24,13 +24,21 @@ module Admin
       else
         flash[:error] = requested_resource.errors.full_messages.join('<br/>')
       end
-      redirect_to admin_root_path
+      redirect_to redirect_after_destroy
     rescue ActiveRecord::NotNullViolation => e
       flash[:error] = e.message
-      redirect_to action: :index
+      redirect_to redirect_after_destroy
     end
 
   private
+
+    def redirect_after_destroy
+      if params[:controller] == 'admin/concepts'
+        admin_categories_path
+      else
+        { action: :index }
+      end
+    end
 
     def check_input_file
       raise(ArgumentError, 'Please upload a file') if params['file-upload'].blank?
