@@ -44,6 +44,7 @@ en:
     filter: Filter
     change_log: Change log
     destroy: "Delete %{name}"
+    destroy: "Edit %{name}"
   beta_banner:
     text: This is a new service – we are improving how the metadata from the NPD Data Tables can be displayed and therefore the content might change. Your %{link} will help us to improve it.
     link: feedback

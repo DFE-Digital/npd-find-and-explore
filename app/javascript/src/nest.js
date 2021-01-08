@@ -144,6 +144,7 @@ function initializeCommitChanges() {
       localStorage.setItem('sequence', '0')
       localStorage.removeItem('sortLog')
       $('[data-changes-log]').empty();
+      $('#changes-approved')[0].checked = false;
     }
   });
 }
@@ -152,7 +153,7 @@ function initializeViewDetails() {
   $('.view-detail').click(function (event) {
     event.preventDefault();
     const link = $(event.currentTarget);
-    const details = link.parents('.dd3-content').siblings('.dd-details');
+    const details = link.parents('.dd-content').siblings('.dd-details');
     if (details.hasClass('hidden')) {
       details.removeClass('hidden');
       link.text('Hide details');

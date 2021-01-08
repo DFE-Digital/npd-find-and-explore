@@ -1,9 +1,12 @@
 <% content_for(:title) do %>
-  Sort Categories
+  Sort Categories and Concepts
 <% end %>
 
 <% content_for(:additional_tags) do %>
+  <%= stylesheet_pack_tag 'loader' %>
   <%= stylesheet_pack_tag 'nest' %>
+  <%= javascript_pack_tag 'loader' %>
+  <%= javascript_pack_tag 'nest' %>
 <% end %>
 
 
@@ -24,9 +27,12 @@
             <span class="legend-entry"><span class="legend-icon legend-icon-grey">&nbsp;</span>Categories</span>
             <span class="legend-entry"><span class="legend-icon legend-icon-yellow">&nbsp;</span>Concepts</span>
           </div>
+          <div class="govuk-box govuk-!-margin-3" id="govuk-box-message" aria-busy="true"></div>
+
           <ol id="categories" class="list-group nested-sortable dd-list">
             <%= nested_tree_nodes @categories %>
           </ol>
+
         </div>
       <% else %>
         <h3>There are currently no categories.</h3>
@@ -100,5 +106,3 @@
     </div>
   </div>
 </div>
-
-<%= javascript_pack_tag 'nest' %>
