@@ -67,9 +67,9 @@ module Admin
         end
 
         if concepts.any?
-          category = Category.find(params[:parent])
-          category.concept_ids = concepts.map { |id| id.gsub(/^concept-/, '') }
-          category.save!
+          Concept
+            .where(id: concepts.map { |id| id.gsub(/^concept-/, '') })
+            .update_all(category_id: params[:parent])
         end
 
         message = "<strong>#{I18n.t('admin.actions.nestable.success')}!</strong>"

@@ -144,6 +144,7 @@ function initializeCommitChanges() {
       localStorage.setItem('sequence', '0')
       localStorage.removeItem('sortLog')
       $('[data-changes-log]').empty();
+      $('#changes-approved')[0].checked = false;
     }
   });
 }
