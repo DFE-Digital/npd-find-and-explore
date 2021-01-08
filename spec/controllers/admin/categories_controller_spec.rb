@@ -56,5 +56,12 @@ RSpec.describe Admin::CategoriesController, type: :controller do
       expect(Category.roots.count).to eq(1)
       expect(root2.root).to eq(root1)
     end
+
+    it 'Doesn\'t complian when missing sorted changes' do
+      sign_in admin_user
+      post :sort, params: {}
+
+      expect(response).to be_successful
+    end
   end
 end

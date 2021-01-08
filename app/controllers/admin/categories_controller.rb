@@ -46,13 +46,15 @@ module Admin
     end
 
     def sort
-      render plain: "<strong>#{I18n.t('admin.actions.nestable.success')}</strong>" &&
-        return unless request.post? && params['sorted_changes'].present?
+      unless request.post? && params['sorted_changes'].present?
+        render plain: "<strong>#{I18n.t('admin.actions.nestable.success')}</strong>"
+        return
+      end
 
       sorted_changes = params.permit(sorted_changes: {}).dig(:sorted_changes).to_h
 
       begin
-        sorted_changes.each do |id, change_log|
+        sorted_changes.each do |_id, change_log|
           parent = change_log[0]
           concepts, categories = change_log[1].split('|').partition { |node| /^concept-/ =~ node }
 
