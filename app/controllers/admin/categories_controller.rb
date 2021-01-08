@@ -50,7 +50,7 @@ module Admin
 
     def tree
       custom_breadcrumbs_for(admin: true,
-                             leaf: 'Categories')
+                             leaf: 'Sort Categories and Concepts')
 
       # @categories = Category.includes(concepts: :data_elements }).arrange(order: :position)
       @categories = Category.roots.includes(concepts: :data_elements)
@@ -167,7 +167,7 @@ module Admin
 
     def generate_breadcrumbs
       custom_breadcrumbs_for(admin: true,
-                             steps: [{ name: 'Categories', path: admin_categories_path }],
+                             steps: [{ name: 'Sort Categories and Concepts', path: admin_categories_path }],
                              leaf: params[:id].present? ? requested_resource.name : params[:action].titleize)
     end
   end
