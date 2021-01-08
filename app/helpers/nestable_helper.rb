@@ -20,7 +20,7 @@ module NestableHelper
             content += content_tag :div, class: %w[dd-extras] do
               extras = children_count(category)
               extras += link_to 'Edit', edit_admin_category_path(category.id), class: %w[dd-link]
-              extras += link_to 'View detail', '#', class: %w[dd-link view-detail]
+              extras += link_to 'View details', '#', class: %w[dd-link view-detail]
               extras
             end
             content
@@ -51,7 +51,7 @@ module NestableHelper
             content += content_tag :div, class: %w[dd-extras] do
               extras = content_tag :span, "#{concept.data_elements.count} data items", class: %w[dd-count]
               extras += link_to 'Edit', edit_admin_concept_path(concept.id), class: %w[dd-link]
-              extras += link_to 'View detail', '#', class: %w[dd-link view-detail]
+              extras += link_to 'View details', '#', class: %w[dd-link view-detail]
               extras
             end
             content
