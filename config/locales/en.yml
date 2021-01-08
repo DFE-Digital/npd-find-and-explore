@@ -242,4 +242,5 @@ en:
 
   time:
     formats:
+      npd: "%d %B %Y"
       npd_long: "%A, %d %B %Y %H:%M:%S"
