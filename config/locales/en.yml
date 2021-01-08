@@ -43,6 +43,7 @@ en:
     actions: Actions to perform
     filter: Filter
     change_log: Change log
+    destroy: "Delete %{name}"
   beta_banner:
     text: This is a new service – we are improving how the metadata from the NPD Data Tables can be displayed and therefore the content might change. Your %{link} will help us to improve it.
     link: feedback
@@ -155,10 +156,12 @@ en:
       actions:
         create: Create a new category
         expand_all: Expand all categories
+      confirm_delete: This category will be deleted permanently. Are you sure?
     concepts:
       actions:
         create: Create a new concept
         expand_all: Expand all concepts
+      confirm_delete: This concept will be deleted permanently. Are you sure?
     data_elements:
       title: Data Items
       reindex:

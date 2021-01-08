@@ -167,7 +167,7 @@ module Admin
 
     def generate_breadcrumbs
       custom_breadcrumbs_for(admin: true,
-                             steps: [{ name: 'Categories', path: tree_admin_categories_path }],
+                             steps: [{ name: 'Categories', path: admin_categories_path }],
                              leaf: params[:id].present? ? requested_resource.name : params[:action].titleize)
     end
   end
