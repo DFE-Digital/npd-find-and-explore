@@ -1,6 +1,34 @@
 import $ from 'jquery';
 import Sortable from 'sortablejs';
 
+window.loader = new GOVUK.Loader();
+
+function importTree(message = 'Your data is being loaded') {
+  $('#govuk-box-message').show();
+  window.loader.init({
+    container: 'govuk-box-message',
+    label: true,
+    labelText: message
+  })
+
+  $.ajax({
+    type: 'GET',
+    url: '/admin/categories/tree',
+    dataType: 'html',
+    success: function(response, status, xhr) {
+      setTimeout(function() {
+        $('#govuk-box-message').hide()
+        window.loader.stop()
+
+        $('#tree-container').html(response);
+        initializeSortable();
+        initializeViewDetails();
+        initializeCollapsible();
+      }, 500)
+    }
+  })
+}
+
 function initializeSortable() {
   const nestedSortables = document.querySelectorAll('.nested-sortable');
 
@@ -99,52 +127,52 @@ function initializeCommitChanges() {
       for (let i = 0; i < sortKeys.length; i++) {
         let order = /^\((\d+)\)(.*)$/.exec(localStorage.getItem(sortKeys[i]));
         if (order && order.length == 3) {
-          sortedChanges[order[1]] = [sortKeys[i], order[2]];
+          sortedChanges[order[1]] = [sortKeys[i].replace(/sort-[a-z]+-/, ''), order[2]];
         }
       }
-
       const ids = Object.keys(sortedChanges);
-      for (let i = 0; i < ids.length; i++) {
-        let parent_id = sortedChanges[ids[i]][0].replace(/sort-[a-z]+-/, '');
-        let order = sortedChanges[ids[i]][1].split('|');
 
-        console.log('parent_id ' + parent_id);
-        if (parent_id) {
-          /**
-           * Send the order of elements to the backend
-           */
-          $.ajax({
-            url: path,
-            type: 'POST',
-            data: {
-              parent: parent_id,
-              tree_nodes: order
-            },
-            headers: {
-              'x-csrf-token': $('meta[name="csrf-token"]').attr('content')
-            },
-            success(data) {
-              localStorage.removeItem(sortedChanges[ids[i]][0]);
-              const $flash = $('<div>')
-                .addClass('nestable-flash alert alert-success')
-                .append( $('<button>').addClass('close').data('dismiss', 'alert').html('&times;') )
-                .append( $('<span>').addClass('body').html( data ) )
+      /**
+       * Send the order of elements to the backend
+       */
+      $.ajax({
+        url: path,
+        type: 'POST',
+        data: {
+          sorted_changes: sortedChanges
+        },
+        headers: {
+          'x-csrf-token': $('meta[name="csrf-token"]').attr('content')
+        },
+        success(data) {
+          for (let i = 0; i < ids.length; i++) {
+            localStorage.removeItem(sortedChanges[ids[i]][0]);
+          }
+          localStorage.setItem('sequence', '0');
+          localStorage.removeItem('sortLog');
+          $('[data-changes-log]').empty();
+          $('#changes-approved')[0].checked = false;
 
-              $('#nestable')
-                .append( $flash )
+          setTimeout(function() {
+            $('#tree-container').html('');
+            importTree(data);
+          }, 500)
+        },
+        error(jqXHR, textStatus, errorThrown) {
+          const $flash = $('<div>')
+            .addClass('nestable-flash alert alert-error')
+            .append($('<button>').addClass('close').data('dismiss', 'alert').html('&times;'))
+            .append($('<span>').addClass('body').html('There has been an error. Please try again.'));
 
-              return $flash.fadeIn(200)
-                .delay(2000).fadeOut(200, function() {
-                  return $(this).remove()
-                })
-            }
-          });
+          $('#nestable')
+            .append($flash);
+
+          return $flash.fadeIn(200)
+            .delay(2000).fadeOut(200, function() {
+              return $(this).remove();
+            });
         }
-      }
-      localStorage.setItem('sequence', '0')
-      localStorage.removeItem('sortLog')
-      $('[data-changes-log]').empty();
-      $('#changes-approved')[0].checked = false;
+      });
     }
   });
 }
@@ -190,10 +218,5 @@ function initializeCollapsible() {
   });
 }
 
-jQuery(function() {
-  initializeSortable();
-  initializeChangeLog();
-  initializeCommitChanges();
-  initializeViewDetails();
-  initializeCollapsible();
-})
+export { initializeSortable, initializeChangeLog, initializeCommitChanges,
+         initializeViewDetails, initializeCollapsible, importTree }

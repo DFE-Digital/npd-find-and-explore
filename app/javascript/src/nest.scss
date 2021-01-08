@@ -480,3 +480,13 @@ button.dd-collapse {
   border: 1px solid govuk-colour('blue');
   color: govuk-colour('blue');
 }
+
+.alert-error {
+  background-color: govuk-colour('white');
+  border: 1px solid govuk-colour('red');
+  color: govuk-colour('red');
+
+  .close {
+    background-color: govuk-colour('red');
+  }
+}

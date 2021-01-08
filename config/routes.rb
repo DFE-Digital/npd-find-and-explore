@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resource :categories, only: [] do
-      get  '', to: 'categories#tree'
+      get  :tree
       get  :childless
       post :sort
       get  :import
@@ -23,7 +23,7 @@ Rails.application.routes.draw do
       get  :export
       get  :download
     end
-    resources :categories, except: %i[index]
+    resources :categories
     resource :concepts, only: [] do
       get  :childless
     end

@@ -151,7 +151,7 @@ en:
       public_site: Public Site
     actions:
       nestable:
-        success: Tree updated
+        success: Tree updated! Reloading the page to reflect your changes.
         error: Error while updating the tree
     categories:
       actions:
