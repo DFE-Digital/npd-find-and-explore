@@ -17,6 +17,7 @@ class Concept < ApplicationRecord
 
   validates :name, uniqueness: { scope: :category }
   before_destroy :reassign_data_elements, prepend: true
+  default_scope { order(name: :asc) }
 
   pg_search_scope :search,
                   against: %i[name description]

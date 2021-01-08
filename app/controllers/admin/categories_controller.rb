@@ -13,19 +13,10 @@ module Admin
     # you can overwrite any of the RESTful actions. For example:
     #
     def index
-      search_term = params[:search].to_s.strip
-      resources = find_resources(search_term)
-      resources = apply_collection_includes(resources)
-      resources = order.apply(resources)
-      resources = resources.page(params[:page]).per(records_per_page)
-      page = Administrate::Page::Collection.new(dashboard, order: order)
+      custom_breadcrumbs_for(admin: true,
+                             leaf: 'Sort Categories and Concepts')
 
-      render locals: {
-        resources: resources,
-        search_term: search_term,
-        page: page,
-        show_search_bar: show_search_bar?
-      }
+      @categories = Category.roots
     end
 
     # Define a custom finder by overriding the `find_resource` method:
@@ -49,35 +40,40 @@ module Admin
     end
 
     def tree
-      custom_breadcrumbs_for(admin: true,
-                             leaf: 'Sort Categories and Concepts')
-
-      # @categories = Category.includes(concepts: :data_elements }).arrange(order: :position)
       @categories = Category.roots.includes(concepts: :data_elements)
+
+      render layout: false
     end
 
     def sort
-      render plain: '' && return unless request.post? && params['tree_nodes'].present?
-
-      begin
-        concepts, categories = params[:tree_nodes].partition { |node| /^concept-/ =~ node }
-        if categories.any?
-          update = -> { update_tree(categories, params[:parent]) }
-          ActiveRecord::Base.transaction { update.call }
-        end
-
-        if concepts.any?
-          Concept
-            .where(id: concepts.map { |id| id.gsub(/^concept-/, '') })
-            .update_all(category_id: params[:parent])
-        end
-
-        message = "<strong>#{I18n.t('admin.actions.nestable.success')}!</strong>"
-      rescue StandardError => e
-        message = "<strong>#{I18n.t('admin.actions.nestable.error')}</strong>: #{e}"
+      unless request.post? && params['sorted_changes'].present?
+        render plain: "<strong>#{I18n.t('admin.actions.nestable.success')}</strong>"
+        return
       end
 
-      render plain: message
+      sorted_changes = params.permit(sorted_changes: {}).dig(:sorted_changes).to_h
+
+      begin
+        sorted_changes.each do |_id, change_log|
+          parent = change_log[0]
+          concepts, categories = change_log[1].split('|').partition { |node| /^concept-/ =~ node }
+
+          if categories.any?
+            update = -> { update_tree(categories, parent) }
+            ActiveRecord::Base.transaction { update.call }
+          end
+
+          if concepts.any?
+            Concept
+              .where(id: concepts.map { |id| id.gsub(/^concept-/, '') })
+              .update_all(category_id: parent)
+          end
+        end
+
+        render plain: "<strong>#{I18n.t('admin.actions.nestable.success')}</strong>"
+      rescue StandardError => e
+        render plain: "<strong>#{I18n.t('admin.actions.nestable.error')}</strong>: #{e}", status: 500
+      end
     end
 
     def import
@@ -158,7 +154,7 @@ module Admin
     end
 
     def layout_by_resource
-      if %w[tree new create show edit update].include?(params[:action])
+      if %w[index new create show edit update].include?(params[:action])
         'admin/wide'
       else
         'admin/application'

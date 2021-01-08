@@ -20,8 +20,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
 
       sign_in admin_user
       post :sort, params: {
-        parent: root1.id,
-        tree_nodes: [root1.children.first.id, root2.children.first.id]
+        sorted_changes: { '0': [root1.id, [root1.children.first.id, root2.children.first.id].join('|')] }
       }
 
       expect(response).to be_successful
@@ -34,8 +33,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
 
       sign_in admin_user
       post :sort, params: {
-        parent: nil,
-        tree_nodes: [root2.children.first.id, root1.id, root2.id]
+        sorted_changes: { '0': [nil, [root2.children.first.id, root1.id, root2.id].join('|')] }
       }
 
       expect(response).to be_successful
@@ -49,8 +47,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
 
       sign_in admin_user
       post :sort, params: {
-        parent: root1.id,
-        tree_nodes: [root1.children.first.id, root2.id]
+        sorted_changes: { '0': [root1.id, [root1.children.first.id, root2.id].join('|')] }
       }
 
       expect(response).to be_successful
@@ -58,6 +55,13 @@ RSpec.describe Admin::CategoriesController, type: :controller do
       expect(root2.reload.children.count).to eq(1)
       expect(Category.roots.count).to eq(1)
       expect(root2.root).to eq(root1)
+    end
+
+    it 'Doesn\'t complian when missing sorted changes' do
+      sign_in admin_user
+      post :sort, params: {}
+
+      expect(response).to be_successful
     end
   end
 end
