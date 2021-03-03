@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.1'
 
 gem 'pg', '~> 1.0'
-gem 'rails', '~> 5.2', '>= 5.2.4.4'
+gem 'rails', '~> 6.0', '>= 6.0.3.5'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.12', '>= 3.12.4'
@@ -19,7 +19,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'high_voltage', '~> 3.1'
 
 # Nested tree for categories
-gem 'ancestry', '~> 3.0'
+gem 'ancestry', '~> 3.0', '>= 3.0.7'
 
 # Lightweight admin functionality
 gem 'administrate', '~> 0.14', '>= 0.14.0'
@@ -52,20 +52,20 @@ gem 'caxlsx_rails', '>= 0.6.2'
 gem 'rodf'
 
 # Authentication for Rails Admin
-gem 'devise', '~> 4', '>= 4.7.2'
+gem 'devise', '~> 4', '>= 4.7.3'
 
 # Audit changes
 gem 'paper_trail', '~> 10', '>= 10.3.1'
 
 # Full Text Search
-gem 'pg_search', '~> 2.1'
+gem 'pg_search', '~> 2.3', '>= 2.3.0'
 
 # Pagination
 gem 'kaminari', '~> 1.2', '>= 1.2.1'
 
 # Bulk import and ActiveRecord extensions
-gem 'active_record_extended', '~>1'
-gem 'activerecord-import', '~>1'
+gem 'active_record_extended', '~> 1', '>= 1.4.0'
+gem 'activerecord-import', '~> 1', '>= 1.0.3'
 
 gem 'azure-storage', require: false
 
