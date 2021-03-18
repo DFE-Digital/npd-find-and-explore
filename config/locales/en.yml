@@ -153,6 +153,36 @@ en:
       nestable:
         success: Tree updated! Reloading the page to reflect your changes.
         error: Error while updating the tree
+    home:
+      title: '"Find and Explore" NPD Admin tool'
+      menu:
+        categories:
+          title: Categories and concepts
+          links:
+            sort: Sort categories and concepts
+            childless_categories: Childless categories
+            childless_concepts: Childless concepts
+        data_items:
+          title: Data items
+          links:
+            all: All data items
+            orphaned: Orphaned data items
+        datasets:
+          title: Datasets
+          links:
+            all: All datasets
+        import_export:
+          title: Manage uploads and downloads
+          links:
+            recent: Recent uploads
+            import_data_tables: Import data tables
+            import_ia_file: Import categories and concepts backup file
+            export_ia_file: Create categories and concepts backup file
+        admin:
+          title: Admin tasks
+          links:
+            users: Manage admin users
+            search_index: Start search index refresh
     categories:
       actions:
         create: Create a new category
