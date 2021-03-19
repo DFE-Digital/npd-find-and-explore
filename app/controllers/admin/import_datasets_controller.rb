@@ -2,15 +2,14 @@
 
 module Admin
   class ImportDatasetsController < Admin::ApplicationController
-    layout 'admin/wide'
-
     include BreadcrumbBuilder
+
+    layout 'admin/application'
 
     def import
       trim_data_table_uploads(count: 5)
 
       custom_breadcrumbs_for(admin: true,
-                             steps: [{ name: 'Manage dataset import and export', path: admin_uploads_path }],
                              leaf: 'Import datasets')
 
       render :import_start, locals: { success: nil, error: '' }

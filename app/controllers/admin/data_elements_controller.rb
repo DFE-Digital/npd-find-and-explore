@@ -59,19 +59,19 @@ module Admin
     # functionality completely.
     # ==========================================================================
     def reindex
-      render :reindex, layout: 'admin/application', locals: { success: nil, errors: [] }
+      render :reindex, layout: layout_by_resource, locals: { success: nil, errors: [] }
     end
 
     def do_reindex
       DataElement.rebuild_pg_search_documents
 
       render :reindex,
-             layout: 'admin/application',
+             layout: layout_by_resource,
              locals: { success: true, errors: [] }
     rescue StandardError => e
       Rails.logger.error(e)
       render :reindex,
-             layout: 'admin/application',
+             layout: layout_by_resource,
              locals: { success: false, errors: ['There has been an error while reindexing the data items'] }
     end
 
@@ -93,9 +93,9 @@ module Admin
 
     def layout_by_resource
       if orphaned_actions?
-        'admin/wide'
-      else
         'admin/application'
+      else
+        'admin/side_menu'
       end
     end
   end

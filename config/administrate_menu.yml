@@ -1,4 +1,10 @@
 default: &default
+  home:
+    main:
+      name: Home
+      url_params:
+        - admin
+        - root
   categories:
     main:
       name: Sort Categories and Concepts

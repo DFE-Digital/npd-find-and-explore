@@ -51,9 +51,9 @@ module Admin
 
     def layout_by_resource
       if %w[new create show edit update].include?(params[:action])
-        'admin/wide'
-      else
         'admin/application'
+      else
+        'admin/side_menu'
       end
     end
 

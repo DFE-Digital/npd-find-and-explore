@@ -8,13 +8,10 @@
       <%= content_for(:title) || 'Dashboard' %> -
       <%= Rails.application.class.parent_name.titlecase %>
     </title>
-    <%= javascript_pack_tag 'check_all' %>
-    <%= javascript_pack_tag 'validate-forms' %>
-    <%= javascript_pack_tag 'save_to_local_storage' %>
     <%= javascript_pack_tag 'administrate', 'data-turbolinks-track': 'reload' %>
-    <%= render 'administrate/application/stylesheet' %>
+    <%= stylesheet_pack_tag 'administrate' %>
     <%= stylesheet_pack_tag 'application' %>
-    <%= stylesheet_pack_tag 'selectize_govuk' %>
+    <%= render 'administrate/application/stylesheet' %>
     <%= csrf_meta_tags %>
     <%= yield :additional_tags %>
     <meta name="turbolinks-root" content="/admin">
@@ -27,7 +24,11 @@
     <div class="govuk-width-container">
       <%= render 'shared/staging' unless Rails.env.production? %>
       <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
+        <div class="govuk-grid-column-one-quarter">
+          <%= render 'layouts/admin/navigation' %>
+        </div>
+        <div class="govuk-grid-column-three-quarters">
+          <%= render 'administrate/application/flashes' %>
           <%= render "shared/breadcrumbs" %>
           <%= yield %>
         </div>

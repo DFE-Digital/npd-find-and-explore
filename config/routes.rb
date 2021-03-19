@@ -59,7 +59,7 @@ Rails.application.routes.draw do
     end
     resources :uploads, only: %i[index]
 
-    root to: 'admin_users#index'
+    root to: 'home#index'
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -2,10 +2,10 @@
 
 module Admin
   class CategoriesController < Admin::ApplicationController
-    layout :layout_by_resource
-
     helper NestableHelper
     include BreadcrumbBuilder
+
+    layout :layout_by_resource
 
     before_action :generate_breadcrumbs, only: %i[new create show edit update]
 
@@ -79,7 +79,7 @@ module Admin
     def import
       trim_inf_arch_uploads(count: 10)
 
-      render :import, layout: 'admin/application', locals: { success: nil, errors: [] }
+      render :import, layout: layout_by_resource, locals: { success: nil, errors: [] }
     end
 
     def preprocess
@@ -155,9 +155,9 @@ module Admin
 
     def layout_by_resource
       if %w[index new create show edit update].include?(params[:action])
-        'admin/wide'
-      else
         'admin/application'
+      else
+        'admin/side_menu'
       end
     end
 
