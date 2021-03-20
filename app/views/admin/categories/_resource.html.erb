@@ -1,0 +1,41 @@
+<tr class="govuk-table__row">
+  <th colspan="3" class="govuk-table__header govuk-!-padding-left-0" scope="col">
+    <h3 class="govuk-heading-s govuk-!-margin-bottom-0 govuk-!-margin-top-5 float-left">
+      <%= resource.name %>
+    </h3>
+  </th>
+  <td class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third" scope="col">
+    <p class="govuk-!-margin-top-5 govuk-!-margin-bottom-1 float-right">
+      <% if valid_action? :show, collection_presenter.resource_name %>
+        <%= link_to t('admin.actions.view_details'), polymorphic_path([namespace, resource]) %>
+      <% end %>
+      <% if valid_action?(:edit, collection_presenter.resource_name) && show_action?(:edit, resource) %>
+        <%= link_to t('admin.actions.edit'), [:edit, namespace, resource]%>
+      <% end %>
+    </p>
+  </td>
+</tr>
+<tr>
+  <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+    <%= t('admin.categories.description') %>
+  </td>
+  <td colspan="3" data-label="Category" class="govuk-table__cell govuk-body">
+    <%= resource.description %>
+  </td>
+</tr>
+<tr>
+  <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+    <%= t('admin.categories.concepts') %>
+  </td>
+  <td colspan="3" data-label="Concepts" class="govuk-table__cell govuk-body">
+    <%= resource.concepts.any? ? resource.concepts.count : 'None' %>
+  </td>
+</tr>
+<tr>
+  <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+    <%= t('admin.categories.child_categories') %>
+  </td>
+  <td colspan="3" data-label="Child Categories" class="govuk-table__cell govuk-body">
+    <%= resource.children.any? ? resource.children.count : 'None' %>
+  </td>
+</tr>

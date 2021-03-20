@@ -150,6 +150,8 @@ en:
       log_out: Log out
       public_site: Public Site
     actions:
+      view_details: View details
+      edit: Edit
       nestable:
         success: Tree updated! Reloading the page to reflect your changes.
         error: Error while updating the tree

@@ -33,6 +33,9 @@ module Admin
       resources = resources.page(params[:page]).per(records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)
 
+      custom_breadcrumbs_for(admin: true,
+                             leaf: t('admin.home.menu.categories.links.childless_categories'))
+
       render locals: {
         resources: resources,
         page: page
@@ -133,6 +136,10 @@ module Admin
       render xlsx: 'download.xlsx.axlsx', disposition: :inline, filename: filename
     end
 
+    def records_per_page
+      5
+    end
+
   private
 
     def update_tree(tree_nodes, parent = nil)
@@ -154,7 +161,7 @@ module Admin
     end
 
     def layout_by_resource
-      if %w[index new create show edit update].include?(params[:action])
+      if %w[index new create show edit update childless].include?(params[:action])
         'admin/application'
       else
         'admin/side_menu'
