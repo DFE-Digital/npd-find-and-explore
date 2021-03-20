@@ -188,8 +188,15 @@ en:
     categories:
       actions:
         create: Create a new category
+        edit: Edit category
+        delete: Delete category
         expand_all: Expand all categories
       confirm_delete: This category will be deleted permanently. Are you sure?
+      id: ID
+      description: Description
+      parent: Parent
+      concepts: Concepts
+      child_categories: Child categories
     concepts:
       actions:
         create: Create a new concept

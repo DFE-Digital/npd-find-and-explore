@@ -7,25 +7,15 @@ module Admin
 
     layout :layout_by_resource
 
-    before_action :generate_breadcrumbs, only: %i[new create show edit update]
+    before_action :generate_breadcrumbs, only: %i[new create edit update]
+    before_action :generate_back_breadcrumbs, only: %i[show]
 
-    # To customize the behavior of this controller,
-    # you can overwrite any of the RESTful actions. For example:
-    #
     def index
       custom_breadcrumbs_for(admin: true,
                              leaf: 'Sort Categories and Concepts')
 
       @categories = Category.roots
     end
-
-    # Define a custom finder by overriding the `find_resource` method:
-    # def find_resource(param)
-    #   Category.find_by!(slug: param)
-    # end
-
-    # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
-    # for more information
 
     def childless
       resources = Category.childless
@@ -172,6 +162,10 @@ module Admin
       custom_breadcrumbs_for(admin: true,
                              steps: [{ name: 'Sort Categories and Concepts', path: admin_categories_path }],
                              leaf: params[:id].present? ? requested_resource.name : params[:action].titleize)
+    end
+
+    def generate_back_breadcrumbs
+      back_breadcrumbs
     end
   end
 end
