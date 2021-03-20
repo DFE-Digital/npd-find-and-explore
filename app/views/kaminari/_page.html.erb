@@ -10,7 +10,7 @@
 <li class="pagination__item page">
   <% if page.current? -%>
     <%= tag.span page,
-      class: %w[pagination__link govuk-body-s current],
+      class: %w[pagination__link current],
       aria: { current: page.current? } %>
   <% else -%>
     <%= link_to page, url,

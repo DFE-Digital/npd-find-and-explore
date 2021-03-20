@@ -106,7 +106,7 @@ private
     active_search = filtered_search.map(&:id).uniq.sort
     sorted_search.each do |data_element|
       is_active = active_search.include?(data_element.id)
-      concepts.push(concept: data_element.concept, active: is_active)
+      concepts.push(concept: data_element.concept, active: is_active) if data_element.concept
     end
     concepts.uniq { |c| c[:concept] }.sort { |a, b| a[:concept].name <=> b[:concept].name }
   end
