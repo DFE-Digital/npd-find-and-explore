@@ -32,6 +32,12 @@
             </td>
             <td colspan="3" data-label="Category" class="govuk-table__cell govuk-body">
               <% if resource.category.present? -%>
+                <% resource.category.ancestors.each do |category| -%>
+                  <%= link_to category.name, polymorphic_path([namespace, category]),
+                    class: %w[govuk-!-padding-right-1] %>
+                  <span>&gt;</span>
+                <%- end %>
+
                 <%= link_to resource.category.name, polymorphic_path([namespace, resource.category]),
                   class: %w[govuk-!-padding-right-2] %>
               <%- else -%>
