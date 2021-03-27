@@ -1,0 +1,83 @@
+<% resource = page.resource %>
+<% content_for(:title) do %>
+  <%= page.resource.name %>
+<% end %>
+
+<div class="govuk-grid-row govuk-!-margin-top-0">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+    <%= render 'shared/admin/header' %>
+
+    <section class="main-content__body main-content__body--flush">
+      <table aria-labelledby="<%= resource.name %>" class="govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+        <tbody>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.concepts.id') %>
+            </td>
+            <td colspan="3" data-label="Id" class="govuk-table__cell govuk-body">
+              <%= resource.id %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.concepts.description') %>
+            </td>
+            <td colspan="3" data-label="Description" class="govuk-table__cell govuk-body">
+              <%= resource.description %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.concepts.category') %>
+            </td>
+            <td colspan="3" data-label="Category" class="govuk-table__cell govuk-body">
+              <% if resource.category.present? -%>
+                <%= link_to resource.category.name, polymorphic_path([namespace, resource.category]),
+                  class: %w[govuk-!-padding-right-2] %>
+              <%- else -%>
+                N/A
+              <%- end %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.concepts.data_items') %>
+            </td>
+            <td colspan="3" data-label="Data Items" class="govuk-table__cell govuk-body">
+              <%= resource.data_elements.any? ? resource.data_elements.count : 'None' %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.categories.created_at') %>
+            </td>
+            <td colspan="3" data-label="Created At" class="govuk-table__cell govuk-body">
+              <%= I18n.localize(resource.created_at.in_time_zone('GB'), format: :default ) %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.categories.updated_at') %>
+            </td>
+            <td colspan="3" data-label="Updated At" class="govuk-table__cell govuk-body">
+              <%= I18n.localize(resource.updated_at.in_time_zone('GB'), format: :default ) %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <div class="govuk-grid-column-one-third govuk-!-margin-top-9">
+    <div class="govuk-top-border">
+      <p class="govuk-heading-s govuk-!-font-size-19 govuk-!-padding-top-4">
+        <%= t('actions.actions') %>
+      </p>
+      <p class="govuk-!-padding-0 govuk-!-margin-bottom-1">
+        <% if valid_action?(:edit, 'concept') && show_action?(:edit, resource) %>
+          <%= link_to t('admin.concepts.actions.edit'), [:edit, namespace, resource]%>
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>

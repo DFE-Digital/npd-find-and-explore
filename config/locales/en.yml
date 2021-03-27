@@ -195,6 +195,9 @@ en:
         edit: Edit category
         delete: Delete category
         expand_all: Expand all categories
+      titles:
+        childless: Childless Categories
+      no_childless_categories: No childless categories found
       confirm_delete: This category will be deleted permanently. Are you sure?
       id: ID
       description: Description
@@ -204,8 +207,16 @@ en:
     concepts:
       actions:
         create: Create a new concept
+        edit: Edit concept
         expand_all: Expand all concepts
+      titles:
+        childless: Childless Concepts
+      no_childless_concepts: No childless concepts found
       confirm_delete: This concept will be deleted permanently. Are you sure?
+      id: ID
+      description: Description
+      category: Category
+      data_items: Data items
     data_elements:
       title: Data Items
       reindex:

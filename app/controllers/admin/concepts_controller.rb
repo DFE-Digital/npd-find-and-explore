@@ -2,9 +2,10 @@
 
 module Admin
   class ConceptsController < Admin::ApplicationController
-    layout :layout_by_resource
+    layout 'admin/application'
 
-    before_action :generate_breadcrumbs, only: %i[new create show edit update]
+    before_action :generate_breadcrumbs, only: %i[new create update]
+    before_action :generate_back_breadcrumbs, only: %i[show edit]
 
     # To customize the behavior of this controller,
     # you can overwrite any of the RESTful actions. For example:
@@ -39,21 +40,20 @@ module Admin
       resources = resources.page(params[:page]).per(records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)
 
+      custom_breadcrumbs_for(admin: true,
+                             leaf: t('admin.home.menu.categories.links.childless_concepts'))
+
       render locals: {
         resources: resources,
         page: page
       }
     end
 
-  private
-
-    def layout_by_resource
-      if %w[new create show edit update].include?(params[:action])
-        'admin/application'
-      else
-        'admin/side_menu'
-      end
+    def records_per_page
+      5
     end
+
+  private
 
     def find_resources(search_term = nil)
       return Concept.all.order(:name) if search_term.blank?
