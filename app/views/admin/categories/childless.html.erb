@@ -7,18 +7,22 @@
 <section class="main-content__body main-content__body--flush">
   <div class="govuk-grid-row govuk-!-margin-top-0 govuk-!-margin-bottom-0">
     <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0 govuk-!-margin-bottom-5">
-      <%= render 'shared/admin/flexible_pagination', resources: resources %>
+      <% if resources.any? -%>
+        <%= render 'shared/admin/flexible_pagination', resources: resources %>
 
-      <%= render(
-        "collection",
-        collection_presenter: page,
-        collection_field_name: resource_name,
-        page: page,
-        resources: resources,
-        table_title: "page-title"
-      ) %>
+        <%= render(
+          "collection",
+          collection_presenter: page,
+          collection_field_name: resource_name,
+          page: page,
+          resources: resources,
+          table_title: "page-title"
+        ) %>
 
-      <%= render 'shared/admin/flexible_pagination', resources: resources %>
+        <%= render 'shared/admin/flexible_pagination', resources: resources %>
+      <%- else -%>
+        <p>No childless categories found</p>
+      <%- end %>
     </div>
   </div>
 </section>

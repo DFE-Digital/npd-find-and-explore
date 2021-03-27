@@ -3,12 +3,11 @@
 module Admin
   class CategoriesController < Admin::ApplicationController
     helper NestableHelper
-    include BreadcrumbBuilder
 
     layout :layout_by_resource
 
-    before_action :generate_breadcrumbs, only: %i[new create edit update]
-    before_action :generate_back_breadcrumbs, only: %i[show]
+    before_action :generate_breadcrumbs, only: %i[new create update]
+    before_action :generate_back_breadcrumbs, only: %i[show edit]
 
     def index
       custom_breadcrumbs_for(admin: true,
@@ -162,10 +161,6 @@ module Admin
       custom_breadcrumbs_for(admin: true,
                              steps: [{ name: 'Sort Categories and Concepts', path: admin_categories_path }],
                              leaf: params[:id].present? ? requested_resource.name : params[:action].titleize)
-    end
-
-    def generate_back_breadcrumbs
-      back_breadcrumbs
     end
   end
 end

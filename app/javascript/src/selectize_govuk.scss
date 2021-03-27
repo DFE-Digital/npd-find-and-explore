@@ -121,7 +121,7 @@
 .tail-select-container{
   box-sizing: border-box;
   max-width: 100%;
-  height: 40px;
+  min-height: 40px;
   padding: govuk-spacing(1);
 }
 .tail-select-container .select-handle{

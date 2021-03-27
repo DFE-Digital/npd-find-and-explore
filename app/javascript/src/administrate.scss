@@ -1,0 +1,38 @@
+@import "node_modules/tail.select/css/default/tail.select-light";
+
+.navigation__link--secondary {
+  font-size: small;
+  margin-left: 1em !important;
+}
+
+.main-content__header {
+  .button {
+    color: white;
+  }
+}
+
+.govuk--field-unit {
+  display: block;
+  padding-bottom: 1em;
+
+  .field-unit__label {
+    margin-bottom: .5em;
+    margin-left: 0;
+    text-align: left;
+    width: 100%;
+  }
+
+  .field-unit__field {
+    margin-left: 0;
+    width: 100% !important;
+
+    input, textarea, select {
+      border: 2px solid black;
+      border-style: solid !important;
+    }
+  }
+}
+
+.govuk--form-actions {
+  margin-left: 0;
+}

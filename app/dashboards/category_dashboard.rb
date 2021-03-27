@@ -12,7 +12,7 @@ class CategoryDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::String.with_options(searchable: false),
     name: Field::String,
-    description: Field::String,
+    description: Field::Text,
     concepts: HasManySortedField.with_options(order: :name),
     created_at: Field::DateTime.with_options(timezone: 'GB'),
     updated_at: Field::DateTime.with_options(timezone: 'GB'),

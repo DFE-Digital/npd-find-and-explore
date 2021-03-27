@@ -2,8 +2,6 @@
 
 module Admin
   class ImportDatasetsController < Admin::ApplicationController
-    include BreadcrumbBuilder
-
     layout 'admin/application'
 
     def import

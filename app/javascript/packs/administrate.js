@@ -3,10 +3,11 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+import '../src/administrate.scss'
+
 require('@rails/ujs').start()
 require('@rails/activestorage').start()
 require('jquery')
-tail = { select: require('tail.select') }
 
 require('../src/administrate')
 require('../src/timeout')

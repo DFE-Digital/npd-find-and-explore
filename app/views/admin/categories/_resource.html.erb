@@ -29,7 +29,7 @@
     <%= t('admin.categories.concepts') %>
   </td>
   <td colspan="3" data-label="Concepts" class="govuk-table__cell govuk-body">
-    <%= resource.concepts.any? ? resource.concepts.count : 'None' %>
+    <%= resource.concepts.count %>
   </td>
 </tr>
 <tr>
@@ -37,6 +37,6 @@
     <%= t('admin.categories.child_categories') %>
   </td>
   <td colspan="3" data-label="Child Categories" class="govuk-table__cell govuk-body">
-    <%= resource.children.any? ? resource.children.count : 'None' %>
+    <%= resource.children.count %>
   </td>
 </tr>

@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       post :abort_import
       get  :export
       get  :download
+      get  ':id/delete_confirmation', to: 'categories#delete_confirmation',
+        as: :delete_confirmation
     end
     resources :categories
     resource :concepts, only: [] do

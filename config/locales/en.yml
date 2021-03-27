@@ -155,6 +155,10 @@ en:
       nestable:
         success: Tree updated! Reloading the page to reflect your changes.
         error: Error while updating the tree
+    shared:
+      destroy_confirmation: "Delete %{name}?"
+      destroy_confirmation_yes: "Yes, delete %{name}"
+      destroy_confirmation_no: "No, do not delete %{name}"
     home:
       title: '"Find and Explore" NPD Admin tool'
       menu:

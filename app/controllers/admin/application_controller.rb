@@ -13,17 +13,32 @@ module Admin
 
     helper AdministrateMenuHelper
     include AdminControllerHelper
+    include BreadcrumbBuilder
     # Override this value to specify the number of elements to display at a time
     # on index pages. Defaults to 20.
     # def records_per_page
     #   params[:per_page] || 20
     # end
 
+    def delete_confirmation
+      requested_resource
+
+      render :delete_confirmation,
+        layout: 'admin/application',
+        locals: {
+        page: Administrate::Page::Form.new(dashboard, requested_resource)
+      }
+    end
+
     def destroy
-      if requested_resource.destroy
-        flash[:notice] = translate_with_resource('destroy.success')
+      if params.dig(:delete) && params.dig(:delete) == 'no'
+        flash[:notice] = translate_with_resource('destroy.aborted')
       else
-        flash[:error] = requested_resource.errors.full_messages.join('<br/>')
+        if requested_resource.destroy
+          flash[:notice] = translate_with_resource('destroy.success')
+        else
+          flash[:error] = requested_resource.errors.full_messages.join('<br/>')
+        end
       end
       redirect_to redirect_after_destroy
     rescue ActiveRecord::NotNullViolation => e
@@ -61,6 +76,14 @@ module Admin
       DataTable::Upload.where(successful: true).reorder(created_at: :desc).offset(count).each do |upload|
         upload&.fast_cleanup
         upload&.destroy
+      end
+    end
+
+    def generate_back_breadcrumbs
+      if params[:action] == 'show' && request.referrer.present? && %r{/edit} =~ request.referrer
+        back_breadcrumbs path: url_for(controller: params[:controller], action: :index)
+      else
+        back_breadcrumbs
       end
     end
   end

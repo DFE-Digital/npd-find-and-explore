@@ -4,8 +4,6 @@ module Admin
   class ConceptsController < Admin::ApplicationController
     layout :layout_by_resource
 
-    include BreadcrumbBuilder
-
     before_action :generate_breadcrumbs, only: %i[new create show edit update]
 
     # To customize the behavior of this controller,

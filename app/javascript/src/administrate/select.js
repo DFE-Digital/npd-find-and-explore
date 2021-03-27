@@ -1,3 +1,5 @@
+var tail = { select: require('tail.select') }
+
 $(document).ready(function() {
   tail.select('select', {
     deselect: true,
