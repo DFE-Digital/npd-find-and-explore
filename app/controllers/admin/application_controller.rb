@@ -49,8 +49,8 @@ module Admin
   private
 
     def redirect_after_destroy
-      if params[:controller] == 'admin/concepts'
-        admin_categories_path
+      if %w[admin/categories admin/concepts].include? params[:controller]
+        { action: :childless }
       else
         { action: :index }
       end
@@ -81,7 +81,7 @@ module Admin
 
     def generate_back_breadcrumbs
       if params[:action] == 'show' && request.referrer.present? && %r{/edit} =~ request.referrer
-        back_breadcrumbs path: url_for(controller: params[:controller], action: :index)
+        back_breadcrumbs path: redirect_after_destroy
       else
         back_breadcrumbs
       end
