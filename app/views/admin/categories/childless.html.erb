@@ -1,5 +1,5 @@
 <% content_for(:title) do %>
-  Childless Categories
+  <%= t('admin.categories.titles.childless') %>
 <% end %>
 
 <%= render 'shared/admin/header' %>
@@ -21,7 +21,7 @@
 
         <%= render 'shared/admin/flexible_pagination', resources: resources %>
       <%- else -%>
-        <p>No childless categories found</p>
+        <p><%= t('admin.categories.no_childless_categories') %></p>
       <%- end %>
     </div>
   </div>
