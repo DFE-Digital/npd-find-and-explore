@@ -23,10 +23,10 @@ RSpec.describe 'Admin Data Items', type: :system do
   it 'Will display the index' do
     visit '/admin/data_elements'
 
-    expect(page).to have_text('Data Items')
     expect(page).to have_text('Dataset')
-    expect(page).to have_text('Unique Alias')
+    expect(page).to have_text('Unique alias')
     expect(page).to have_text('Concept')
+    expect(page).to have_text('Datasets')
   end
 
   it 'Will display a data item' do

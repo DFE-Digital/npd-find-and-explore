@@ -7,14 +7,7 @@
   <%= javascript_pack_tag 'select-to-link' %>
 <% end %>
 
-<header class="main-content__header govuk-!-padding-left-0 govuk-!-border-0" role="banner">
-  <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
-    <h1 class="govuk-heading-l govuk-!-margin-top-5 govuk-!-margin-bottom-5" id="page-title">
-      <%= content_for(:title) %>
-    </h1>
-    <%= render 'admin/application/flashes' %>
-  </div>
-</header>
+<%= render 'shared/admin/header' %>
 
 <section class="main-content__body main-content__body--flush">
   <%= form_with url: orphaned_admin_data_elements_path,

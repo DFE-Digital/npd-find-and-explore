@@ -150,6 +150,7 @@ en:
       log_out: Log out
       public_site: Public Site
     actions:
+      search: "Search %{name}"
       view_details: View details
       edit: Edit
       nestable:
@@ -219,6 +220,12 @@ en:
       data_items: Data items
     data_elements:
       title: Data Items
+      all_data_items: All data items
+      dataset: Dataset
+      unique_alias: Unique alias
+      concept: Concept
+      datasets: Datasets
+      no_data_items: No data items found
       reindex:
         title: Refresh Search Index
         description: "After a new release of Find & Explore to live, the 'Search' function may stop working until the search index is refreshed. Click the button below to start the refresh."

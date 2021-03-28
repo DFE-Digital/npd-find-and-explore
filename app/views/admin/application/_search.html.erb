@@ -1,0 +1,17 @@
+<form class="govuk-!-margin-0" role="search">
+  <div class="govuk-form-group govuk-!-width-full govuk-!-margin-bottom-0">
+    <div>
+      <label class="govuk-label" for="search">
+        <%= t('admin.actions.search', name: resource_name) %>
+      </label>
+    </div>
+    <div class="govuk-flex-search">
+      <input class="search__input govuk-input govuk-!-width-two-thirds"
+             id="search"
+             name="search"
+             type="search"
+             value="<%= search_term %>">
+      <button type="submit" class="govuk-button govuk-button-search">Search</button>
+    </div>
+  </div>
+</form>
