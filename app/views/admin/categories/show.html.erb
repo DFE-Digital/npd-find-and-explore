@@ -80,7 +80,7 @@
       <% if resource.concepts.any? -%>
         <div class="govuk-grid-row govuk-!-margin-0">
           <div class="govuk-grid-column-full govuk-!-margin-top-0 govuk-!-margin-bottom-3">
-            <h2 class="govuk-heading-m">Concepts</h2>
+            <h2 class="govuk-heading-m"><%= t('admin.categories.concepts') %></h2>
             <% records_per_page = 5 %>
             <% concepts = resource.concepts.page(params[:page]).per(records_per_page) %>
 
@@ -94,6 +94,26 @@
               table_title: "page-title" %>
 
             <%= render 'shared/admin/flexible_pagination', resources: concepts %>
+          </div>
+        </div>
+      <%- end %>
+      <% if resource.children.any? -%>
+        <div class="govuk-grid-row govuk-!-margin-0">
+          <div class="govuk-grid-column-full govuk-!-margin-top-0 govuk-!-margin-bottom-3">
+            <h2 class="govuk-heading-m"><%= t('admin.categories.child_categories') %></h2>
+            <% records_per_page = 5 %>
+            <% categories = resource.children.page(params[:page]).per(records_per_page) %>
+
+            <%= render 'shared/admin/flexible_pagination', resources: categories %>
+
+            <%= render 'admin/categories/collection',
+              collection_presenter: page,
+              collection_field_name: 'category',
+              page: page,
+              resources: categories,
+              table_title: "page-title" %>
+
+            <%= render 'shared/admin/flexible_pagination', resources: categories %>
           </div>
         </div>
       <%- end %>
