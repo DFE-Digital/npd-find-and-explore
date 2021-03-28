@@ -221,11 +221,26 @@ en:
     data_elements:
       title: Data Items
       all_data_items: All data items
-      dataset: Dataset
+      id: ID
+      description: Description
       unique_alias: Unique alias
+      source_table_name: Source table name
+      source_attribute_name: Source attribute name
       concept: Concept
+      dataset: Dataset
       datasets: Datasets
+      identifiability: Identifiability
+      sensitivity: Sensitivity
+      source_old_attribute_name: Source old attribute name
+      academic_year_collected_from: Academic year collected from
+      academic_year_collected_to: Academic year collected to
+      collection_terms: Collection terms
+      data_type: Data type
+      educational_phase: Educational phase
       no_data_items: No data items found
+      additional_attributes: Additional attributes
+      created_at: Created at
+      updated_at: Updated at
       reindex:
         title: Refresh Search Index
         description: "After a new release of Find & Explore to live, the 'Search' function may stop working until the search index is refreshed. Click the button below to start the refresh."

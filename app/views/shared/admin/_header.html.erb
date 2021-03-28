@@ -3,6 +3,11 @@
     <h1 class="govuk-heading-l govuk-!-margin-top-0 govuk-!-margin-bottom-1" id="page-title">
       <%= content_for(:title) %>
     </h1>
+    <% if content_for?(:subtitle) %>
+      <p class="govuk-body govuk-!-margin-top-5">
+        <%= content_for(:subtitle) %>
+      </p>
+    <% end %>
     <%= render 'admin/application/flashes' %>
   </div>
 </header>
