@@ -24,21 +24,19 @@ module Admin
       requested_resource
 
       render :delete_confirmation,
-        layout: 'admin/application',
-        locals: {
-        page: Administrate::Page::Form.new(dashboard, requested_resource)
+             layout: 'admin/application',
+             locals: {
+             page: Administrate::Page::Form.new(dashboard, requested_resource)
       }
     end
 
     def destroy
       if params.dig(:delete) && params.dig(:delete) == 'no'
         flash[:notice] = translate_with_resource('destroy.aborted')
+      elsif requested_resource.destroy
+        flash[:notice] = translate_with_resource('destroy.success')
       else
-        if requested_resource.destroy
-          flash[:notice] = translate_with_resource('destroy.success')
-        else
-          flash[:error] = requested_resource.errors.full_messages.join('<br/>')
-        end
+        flash[:error] = requested_resource.errors.full_messages.join('<br/>')
       end
       redirect_to redirect_after_destroy
     rescue ActiveRecord::NotNullViolation => e
