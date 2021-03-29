@@ -1,0 +1,19 @@
+<tr class="govuk-table__row" scope="row">
+  <td data-label="<%= t('admin.datasets.name') %>" class="govuk-table__cell left govuk-!-padding-left-0" scope="col">
+    <%= resource.name %>
+  </td>
+  <td data-label="<%= t('admin.datasets.tab_name') %>" class="govuk-table__cell" scope="col">
+    <%= resource.tab_name %>
+  </td>
+  <td data-label="<%= t('admin.datasets.data_items') %>" class="govuk-table__cell govuk-!-width-one-sixth right" scope="col">
+    <%= resource.data_elements.count %>
+  </td>
+  <td data-label="<%= t('admin.actions.view_details') %>" class="govuk-table__cell govuk-!-width-one-fifth govuk-!-padding-right-0 right" scope="col">
+    <%= link_to t('admin.actions.view_details'),
+                [:admin, resource],
+                { class: 'action-show' } %>
+    <%= link_to t('admin.actions.edit'),
+                [:edit, :admin, resource]%>
+  </td>
+</tr>
+

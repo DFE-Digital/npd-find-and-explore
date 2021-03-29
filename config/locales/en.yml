@@ -262,6 +262,17 @@ en:
         errors:
           missing_data: Can't assign data items to concept if the data items or the concept are missing.
           refused: Action cancelled by the user, data items not assigned.
+    datasets:
+      title: All datasets
+      datasets: Datasets
+      no_datasets: No datasets found
+      name: Name
+      tab_name: Tab name
+      data_items: Data items
+      actions:
+        create: Create a new dataset
+        edit: Edit dataset
+        delete: Delete dataset
     data_tables:
       dataset: Dataset name
       unique_alias: Unique alias column
