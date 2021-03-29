@@ -3,6 +3,8 @@
 module Admin
   class DataElementsController < Admin::ApplicationController
     layout :layout_by_resource
+    before_action :generate_breadcrumbs, only: %i[index]
+    before_action :generate_back_breadcrumbs, only: %i[show]
 
     def orphaned
       all_resources, datasets = extract_resources
@@ -90,11 +92,16 @@ module Admin
     end
 
     def layout_by_resource
-      if orphaned_actions?
+      if orphaned_actions? || %w[index show].include?(params[:action])
         'admin/application'
       else
         'admin/side_menu'
       end
+    end
+
+    def generate_breadcrumbs
+      custom_breadcrumbs_for(admin: true,
+                             leaf: t('admin.home.menu.data_items.links.all'))
     end
   end
 end

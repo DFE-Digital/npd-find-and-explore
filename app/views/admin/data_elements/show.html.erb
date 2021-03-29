@@ -1,0 +1,165 @@
+<% resource = page.resource %>
+<% content_for(:title) do %>
+  <%= resource.unique_alias %>
+<% end %>
+<% content_for(:subtitle) do %>
+  <%= resource.description %>
+<% end %>
+
+<div class="govuk-grid-row govuk-!-margin-top-0">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+    <%= render 'shared/admin/header' %>
+
+    <section class="main-content__body main-content__body--flush">
+      <table aria-labelledby="<%= resource.unique_alias %>" class="govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+        <tbody>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.id') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.id') %>" class="govuk-table__cell govuk-body">
+              <%= resource.id %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.source_table_name') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.source_table_name') %>" class="govuk-table__cell govuk-body">
+              <%= resource.source_table_name %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.source_attribute_name') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.source_attribute_name') %>" class="govuk-table__cell govuk-body">
+              <%= resource.source_attribute_name %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.concept') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.concept') %>" class="govuk-table__cell govuk-body">
+              <% if resource.concept.present? -%>
+                <%= link_to resource.concept.name, polymorphic_path([namespace, resource.concept]),
+                  class: %w[govuk-!-padding-right-2] %>
+              <%- else -%>
+                N/A
+              <%- end %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.datasets') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.datasets') %>" class="govuk-table__cell govuk-body">
+              <% if resource.datasets.any? -%>
+                <% links = resource.datasets.map do |dataset| %>
+                  <%= link_to dataset.name, polymorphic_path([namespace, dataset]),
+                    class: %w[govuk-!-padding-right-2] %>
+                <% end %>
+                <%= links.join(', ') %>
+              <%- else -%>
+                N/A
+              <%- end %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.identifiability') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.identifiability') %>" class="govuk-table__cell govuk-body">
+              <%= resource.identifiability %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.sensitivity') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.sensitivity') %>" class="govuk-table__cell govuk-body">
+              <%= resource.sensitivity %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.source_old_attribute_name') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.source_old_attribute_name') %>" class="govuk-table__cell govuk-body">
+              <%= resource.source_old_attribute_name %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.academic_year_collected_from') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.academic_year_collected_from') %>" class="govuk-table__cell govuk-body">
+              <%= resource.academic_year_collected_from || 'N/A' %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.academic_year_collected_to') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.academic_year_collected_to') %>" class="govuk-table__cell govuk-body">
+              <%= resource.academic_year_collected_to || 'N/A' %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.collection_terms') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.collection_terms') %>" class="govuk-table__cell govuk-body">
+              <%= resource.collection_terms || 'N/A' %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.data_type') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.data_type') %>" class="govuk-table__cell govuk-body">
+              <%= resource.data_type %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.educational_phase') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.educational_phase') %>" class="govuk-table__cell govuk-body">
+              <%= resource.educational_phase || 'N/A' %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.created_at') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.created_at') %>" class="govuk-table__cell govuk-body">
+              <%= I18n.localize(resource.created_at.in_time_zone('GB'), format: :default ) %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.updated_at') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.updated_at') %>" class="govuk-table__cell govuk-body">
+              <%= I18n.localize(resource.updated_at.in_time_zone('GB'), format: :default ) %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.data_elements.additional_attributes') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.data_elements.additional_attributes') %>" class="govuk-table__cell govuk-body">
+              <%= resource.additional_attributes %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <div class="govuk-grid-column-one-third govuk-!-margin-top-9">
+    &nbsp;
+  </div>
+</div>

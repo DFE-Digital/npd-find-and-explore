@@ -18,3 +18,11 @@
   display: block;
   text-decoration: underline;
 }
+
+.govuk-flex-search {
+  display: flex;
+
+  .govuk-button-search {
+    margin-left: .5em;
+  }
+}

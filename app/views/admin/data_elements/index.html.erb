@@ -1,0 +1,38 @@
+<% content_for(:title) do %>
+  <%= t('admin.data_elements.all_data_items') %>
+<% end %>
+
+<%= render 'shared/admin/header' %>
+
+<section class="main-content__body main-content__body--flush">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full govuk-!-margin-bottom-2">
+      <%= render(
+        'search',
+        search_term: search_term,
+        resource_name: t('admin.data_elements.title').downcase
+      ) %>
+    </div>
+  </div>
+  <div class="govuk-grid-row govuk-!-margin-top-2 govuk-!-margin-bottom-7">
+    <div class="govuk-grid-column-full govuk-!-margin-top-5">
+      <% if resources.any? -%>
+        <%= render 'shared/admin/flexible_pagination', resources: resources %>
+
+        <table class="govuk-table govuk-!-font-size-16 govuk-!-margin-bottom-0">
+          <thead class="govuk-table__head">
+            <%= render partial: 'data_elements_head' %>
+          </thead>
+          <tbody class="govuk-table__body">
+            <%= render partial: 'data_element',
+                       collection: resources, as: :data_element %>
+          </tbody>
+        </table>
+
+        <%= render 'shared/admin/flexible_pagination', resources: resources %>
+      <%- else -%>
+        <p class="govuk-body"><%= t('admin.data_elements.no_data_items') %></p>
+      <%- end %>
+    </div>
+  </div>
+</section>

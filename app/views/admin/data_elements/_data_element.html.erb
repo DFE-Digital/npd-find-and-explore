@@ -1,0 +1,19 @@
+<tr class="govuk-table__row" scope="row">
+  <td data-label="<%= t('admin.data_elements.dataset') %>" class="govuk-table__cell left govuk-!-padding-left-0" scope="col">
+    <%= data_element.dataset %>
+  </td>
+  <td data-label="<%= t('admin.data_elements.unique_alias') %>" class="govuk-table__cell" scope="col">
+    <%= data_element.unique_alias %>
+  </td>
+  <td data-label="<%= t('admin.data_elements.concept') %>" class="govuk-table__cell" scope="col">
+    <%= data_element.concept&.name %>
+  </td>
+  <td data-label="<%= t('admin.data_elements.datasets') %>" class="govuk-table__cell right" scope="col">
+    <%= data_element.datasets.count %>
+  </td>
+  <td data-label="<%= t('admin.actions.view_details') %>" class="govuk-table__cell govuk-!-padding-right-0 right" scope="col">
+    <%= link_to t('admin.actions.view_details'),
+                [:admin, data_element],
+                { class: 'action-show' } %>
+  </td>
+</tr>
