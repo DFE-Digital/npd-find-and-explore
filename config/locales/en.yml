@@ -150,9 +150,15 @@ en:
       log_out: Log out
       public_site: Public Site
     actions:
+      view_details: View details
+      edit: Edit
       nestable:
         success: Tree updated! Reloading the page to reflect your changes.
         error: Error while updating the tree
+    shared:
+      destroy_confirmation: "Delete %{name}?"
+      destroy_confirmation_yes: "Yes, delete %{name}"
+      destroy_confirmation_no: "No, do not delete %{name}"
     home:
       title: '"Find and Explore" NPD Admin tool'
       menu:
@@ -186,8 +192,15 @@ en:
     categories:
       actions:
         create: Create a new category
+        edit: Edit category
+        delete: Delete category
         expand_all: Expand all categories
       confirm_delete: This category will be deleted permanently. Are you sure?
+      id: ID
+      description: Description
+      parent: Parent
+      concepts: Concepts
+      child_categories: Child categories
     concepts:
       actions:
         create: Create a new concept

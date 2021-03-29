@@ -7,10 +7,11 @@
       display: inline-block;
 
       a {
-        color: govuk-colour("blue");
+        color: govuk-colour('blue');
         display: inline-block;
-        padding: 15px 5px 10px 5px;
+        margin-bottom: 0;
         margin-right: 15px;
+        padding: 15px 5px 10px 5px;
         text-decoration: none;
 
         &:focus {
@@ -32,7 +33,6 @@
 .pagination__item {
   display: inline-block;
   list-style: none;
-  padding-top: 15px;
 }
 
 .page.gap {
@@ -70,5 +70,18 @@
 
   @media (min-width: 642px) {
     float: left;
+  }
+}
+
+.flex-pagination {
+  display: flex;
+  justify-content: space-between;
+
+  .paginate-resources {
+    display: inline-block;
+  }
+
+  .page-entries-info {
+    padding-top: 6px;
   }
 }

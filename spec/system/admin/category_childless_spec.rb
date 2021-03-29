@@ -23,14 +23,14 @@ RSpec.describe 'Admin Categories Childless', type: :system do
   it 'has no empty categories' do
     visit '/admin/categories/childless'
 
-    expect(page).not_to have_css('[data-url]')
+    expect(page).not_to have_link('View details')
   end
 
   it 'will show an empty category' do
     empty_category = create(:category)
     visit '/admin/categories/childless'
 
-    expect(page).to have_css('[data-url]')
+    expect(page).to have_link('View details')
     expect(page).to have_text(empty_category.name)
   end
 end

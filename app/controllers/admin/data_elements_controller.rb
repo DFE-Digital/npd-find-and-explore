@@ -4,8 +4,6 @@ module Admin
   class DataElementsController < Admin::ApplicationController
     layout :layout_by_resource
 
-    include BreadcrumbBuilder
-
     def orphaned
       all_resources, datasets = extract_resources
       resources = order.apply(all_resources).page(params[:page]).per(records_per_page)

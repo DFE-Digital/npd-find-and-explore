@@ -3,15 +3,12 @@
 module Admin
   class CategoriesController < Admin::ApplicationController
     helper NestableHelper
-    include BreadcrumbBuilder
 
     layout :layout_by_resource
 
-    before_action :generate_breadcrumbs, only: %i[new create show edit update]
+    before_action :generate_breadcrumbs, only: %i[new create update]
+    before_action :generate_back_breadcrumbs, only: %i[show edit]
 
-    # To customize the behavior of this controller,
-    # you can overwrite any of the RESTful actions. For example:
-    #
     def index
       custom_breadcrumbs_for(admin: true,
                              leaf: 'Sort Categories and Concepts')
@@ -19,19 +16,14 @@ module Admin
       @categories = Category.roots
     end
 
-    # Define a custom finder by overriding the `find_resource` method:
-    # def find_resource(param)
-    #   Category.find_by!(slug: param)
-    # end
-
-    # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
-    # for more information
-
     def childless
       resources = Category.childless
       resources = order.apply(resources)
       resources = resources.page(params[:page]).per(records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)
+
+      custom_breadcrumbs_for(admin: true,
+                             leaf: t('admin.home.menu.categories.links.childless_categories'))
 
       render locals: {
         resources: resources,
@@ -133,6 +125,10 @@ module Admin
       render xlsx: 'download.xlsx.axlsx', disposition: :inline, filename: filename
     end
 
+    def records_per_page
+      5
+    end
+
   private
 
     def update_tree(tree_nodes, parent = nil)
@@ -154,7 +150,7 @@ module Admin
     end
 
     def layout_by_resource
-      if %w[index new create show edit update].include?(params[:action])
+      if %w[index new create show edit update childless].include?(params[:action])
         'admin/application'
       else
         'admin/side_menu'

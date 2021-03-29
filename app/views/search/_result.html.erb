@@ -6,7 +6,8 @@
           id: "data-element-#{result.id}", class: %w[govuk-checkboxes__input basket-checkbox],
           data: { id: result.id, name: result.source_attribute_name,
                   table: result.source_table_name, datasets: result.datasets.pluck(:tab_name),
-                  unique_alias: result.unique_alias, origin: "/concepts/#{result.concept.id}" } %>
+                  unique_alias: result.unique_alias,
+                  origin: result.concept.present? ? "/concepts/#{result.concept.id}" : "/datasets/#{result.datasets.first.id}" } %>
         <%= label_tag "data-element-#{result.id}", class: %w[govuk-label govuk-checkboxes__label] do %>
           &nbsp;
           <%= tag.span result.unique_alias, class: %w[govuk-checkboxes__label-hidden] %>

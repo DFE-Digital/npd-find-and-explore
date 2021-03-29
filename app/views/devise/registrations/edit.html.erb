@@ -2,70 +2,86 @@
   Edit <%= resource_name.to_s.humanize %>
 <% end %>
 
-<header class="main-content__header" role="banner">
-  <h1 class="main-content__page-title" id="page-title">
-    <%= content_for(:title) %>
-  </h1>
-</header>
-
-<fieldset class="govuk-fieldset govuk-grid-row govuk-!-margin-2">
-  <div class="govuk-grid-column-two-thirds">
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
-      <%= render 'devise/shared/flash_messages' %>
-
-      <div class="govuk-form-group">
-        <%= f.label :email, class: 'govuk-label' %>
-        <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'govuk-input', disabled: true %>
-        <% if f.object.errors[:email].present? %>
-          <span class="govuk-error-message">
-            <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:email].map(&:capitalize).join(', ') %>
-          </span>
-        <% end %>
-      </div>
-
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-      <% end %>
-
-      <div class="govuk-form-group">
-        <%= f.label :password, class: 'govuk-label' %>
-        <div class="govuk-hint">(leave blank if you don't want to change it)</div>
-        <%= f.password_field :password, autocomplete: 'new-password', class: 'govuk-input' %>
-        <% if @minimum_password_length %>
-          <div class="govuk-hint"><%= t('devise.passwords.format', length: @minimum_password_length) %></div>
-        <% end %>
-        <% if f.object.errors[:password].present? %>
-          <span class="govuk-error-message">
-            <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:password].map(&:capitalize).join(', ') %>
-          </span>
-        <% end %>
-      </div>
-
-      <div class="govuk-form-group">
-        <%= f.label :password_confirmation, class: 'govuk-label' %>
-        <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: 'govuk-input' %>
-        <% if f.object.errors[:password_confirmation].present? %>
-          <span class="govuk-error-message">
-            <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:password_confirmation].map(&:capitalize).join(', ') %>
-          </span>
-        <% end %>
-      </div>
-
-      <div class="govuk-form-group">
-        <%= f.label :current_password, class: 'govuk-label' %>
-        <div class="govuk-hint">(we need your current password to confirm your changes)</div>
-        <%= f.password_field :current_password, autocomplete: 'current-password', class: 'govuk-input' %>
-        <% if f.object.errors[:current_password].present? %>
-          <span class="govuk-error-message">
-            <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:current_password].map(&:capitalize).join(', ') %>
-          </span>
-        <% end %>
-      </div>
-
-      <div class="govuk-form-group actions">
-        <%= f.submit 'Update', class: 'govuk-button' %>
-      </div>
-    <% end %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-breadcrumbs">
+      <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <%= link_to 'Home', admin_root_url, class: 'govuk-back-link' %>
+        </li>
+      </ol>
+    </div>
   </div>
-</fieldset>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <header class="main-content__header" role="banner">
+      <h1 class="main-content__page-title" id="page-title">
+        <%= content_for(:title) %>
+      </h1>
+    </header>
+
+    <fieldset class="govuk-fieldset govuk-grid-row govuk-!-margin-2">
+      <div class="govuk-grid-column-two-thirds">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+          <%= render 'devise/shared/flash_messages' %>
+
+          <div class="govuk-form-group">
+            <%= f.label :email, class: 'govuk-label' %>
+            <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'govuk-input', disabled: true %>
+            <% if f.object.errors[:email].present? %>
+              <span class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:email].map(&:capitalize).join(', ') %>
+              </span>
+            <% end %>
+          </div>
+
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
+
+          <div class="govuk-form-group">
+            <%= f.label :password, class: 'govuk-label' %>
+            <div class="govuk-hint">(leave blank if you don't want to change it)</div>
+            <%= f.password_field :password, autocomplete: 'new-password', class: 'govuk-input' %>
+            <% if @minimum_password_length %>
+              <div class="govuk-hint"><%= t('devise.passwords.format', length: @minimum_password_length) %></div>
+            <% end %>
+            <% if f.object.errors[:password].present? %>
+              <span class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:password].map(&:capitalize).join(', ') %>
+              </span>
+            <% end %>
+          </div>
+
+          <div class="govuk-form-group">
+            <%= f.label :password_confirmation, class: 'govuk-label' %>
+            <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: 'govuk-input' %>
+            <% if f.object.errors[:password_confirmation].present? %>
+              <span class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:password_confirmation].map(&:capitalize).join(', ') %>
+              </span>
+            <% end %>
+          </div>
+
+          <div class="govuk-form-group">
+            <%= f.label :current_password, class: 'govuk-label' %>
+            <div class="govuk-hint">(we need your current password to confirm your changes)</div>
+            <%= f.password_field :current_password, autocomplete: 'current-password', class: 'govuk-input' %>
+            <% if f.object.errors[:current_password].present? %>
+              <span class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:current_password].map(&:capitalize).join(', ') %>
+              </span>
+            <% end %>
+          </div>
+
+          <div class="govuk-form-group actions">
+            <%= f.submit 'Update', class: 'govuk-button' %>
+          </div>
+        <% end %>
+      </div>
+    </fieldset>
+  </div>
+</div>
