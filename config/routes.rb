@@ -28,6 +28,8 @@ Rails.application.routes.draw do
     resources :categories
     resource :concepts, only: [] do
       get  :childless
+      get  ':id/delete_confirmation', to: 'concepts#delete_confirmation',
+        as: :delete_confirmation
     end
     resources :concepts, except: %i[index]
     resource :data_elements, only: [] do

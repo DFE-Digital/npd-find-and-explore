@@ -1,30 +1,28 @@
 <% content_for(:title) do %>
-  Childless Concepts
+  <%= t('admin.concepts.titles.childless') %>
 <% end %>
 
-<header class="main-content__header" role="banner">
-  <h1 class="main-content__page-title" id="page-title">
-    <%= content_for(:title) %>
-  </h1>
-</header>
+<%= render 'shared/admin/header' %>
 
 <section class="main-content__body main-content__body--flush">
-  <%= paginate resources %>
-  <span class="govuk-body govuk-!-font-size-14 float-right govuk-!-margin-top-5">
-    <%= page_entries_info resources %>
-  </span>
+  <div class="govuk-grid-row govuk-!-margin-top-0 govuk-!-margin-bottom-0">
+    <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+      <% if resources.any? -%>
+        <%= render 'shared/admin/flexible_pagination', resources: resources %>
 
-  <%= render(
-    "collection",
-    collection_presenter: page,
-    collection_field_name: resource_name,
-    page: page,
-    resources: resources,
-    table_title: "page-title"
-  ) %>
+        <%= render(
+          "collection",
+          collection_presenter: page,
+          collection_field_name: resource_name,
+          page: page,
+          resources: resources,
+          table_title: "page-title"
+        ) %>
 
-  <%= paginate resources %>
-  <span class="govuk-body govuk-!-font-size-14 float-right govuk-!-margin-top-5">
-    <%= page_entries_info resources %>
-  </span>
+        <%= render 'shared/admin/flexible_pagination', resources: resources %>
+      <%- else -%>
+        <p><%= t('admin.concepts.no_childless_concepts') %></p>
+      <%- end %>
+    </div>
+  </div>
 </section>

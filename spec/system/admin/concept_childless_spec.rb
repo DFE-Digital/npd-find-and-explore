@@ -25,14 +25,14 @@ RSpec.describe 'Admin Concepts Childless', type: :system do
     concept
     visit '/admin/concepts/childless'
 
-    expect(page).not_to have_css('[data-url]')
+    expect(page).not_to have_link('View details')
   end
 
   it 'will show an empty concept' do
     empty_concept
     visit '/admin/concepts/childless'
 
-    expect(page).to have_css('[data-url]')
+    expect(page).to have_link('View details')
     expect(page).to have_text(empty_concept.name)
   end
 end
