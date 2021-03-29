@@ -5,6 +5,7 @@ module Admin
     layout :layout_by_resource
 
     before_action :generate_breadcrumbs, only: %i[index]
+    before_action :generate_back_breadcrumbs, only: %i[show]
 
     def destroy
       requested_resource.data_table_tabs.destroy_all
@@ -24,7 +25,7 @@ module Admin
   private
 
     def layout_by_resource
-      if %w[index].include?(params[:action])
+      if %w[index show].include?(params[:action])
         'admin/application'
       else
         'admin/side_menu'

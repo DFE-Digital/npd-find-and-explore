@@ -266,9 +266,13 @@ en:
       title: All datasets
       datasets: Datasets
       no_datasets: No datasets found
+      id: ID
       name: Name
       tab_name: Tab name
+      description: Description
       data_items: Data items
+      created_at: Created at
+      updated_at: Updated at
       actions:
         create: Create a new dataset
         edit: Edit dataset

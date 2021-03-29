@@ -1,0 +1,94 @@
+<% resource = page.resource %>
+<% content_for(:title) do %>
+  <%= page.resource.name %>
+<% end %>
+
+<div class="govuk-grid-row govuk-!-margin-top-0">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+    <%= render 'shared/admin/header' %>
+
+    <section class="main-content__body main-content__body--flush">
+      <div class="govuk-grid-row govuk-!-margin-0">
+        <div class="govuk-grid-column-full govuk-!-margin-top-0 govuk-!-margin-bottom-3">
+          <table aria-labelledby="<%= resource.name %>" class="govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+            <tbody>
+              <tr>
+                <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+                  <%= t('admin.datasets.id') %>
+                </td>
+                <td colspan="3" data-label="<%= t('admin.datasets.id') %>" class="govuk-table__cell govuk-body">
+                  <%= resource.id %>
+                </td>
+              </tr>
+              <tr>
+                <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+                  <%= t('admin.datasets.tab_name') %>
+                </td>
+                <td colspan="3" data-label="<%= t('admin.datasets.tab_name') %>" class="govuk-table__cell govuk-body">
+                  <%= resource.tab_name %>
+                </td>
+              </tr>
+              <tr>
+                <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+                  <%= t('admin.datasets.description') %>
+                </td>
+                <td colspan="3" data-label="<%= t('admin.datasets.description') %>" class="govuk-table__cell govuk-body">
+                  <%= resource.description %>
+                </td>
+              </tr>
+              <tr>
+                <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+                  <%= t('admin.datasets.created_at') %>
+                </td>
+                <td colspan="3" data-label="<%= t('admin.datasets.created_at') %>" class="govuk-table__cell govuk-body">
+                  <%= I18n.localize(resource.created_at.in_time_zone('GB'), format: :default ) %>
+                </td>
+              </tr>
+              <tr>
+                <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+                  <%= t('admin.datasets.updated_at') %>
+                </td>
+                <td colspan="3" data-label="<%= t('admin.datasets.updated_at') %>" class="govuk-table__cell govuk-body">
+                  <%= I18n.localize(resource.updated_at.in_time_zone('GB'), format: :default ) %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <% if resource.data_elements.any? -%>
+        <div class="govuk-grid-row govuk-!-margin-0">
+          <div class="govuk-grid-column-full govuk-!-margin-top-0 govuk-!-margin-bottom-3">
+            <h2 class="govuk-heading-m"><%= t('admin.datasets.data_items') %></h2>
+            <% records_per_page = 5 %>
+            <% data_items = resource.data_elements.page(params[:page]).per(records_per_page) %>
+
+            <%= render 'shared/admin/flexible_pagination', resources: data_items %>
+
+            <%= render 'admin/data_elements/collection',
+              collection_presenter: page,
+              collection_field_name: 'data_item',
+              page: page,
+              resources: data_items,
+              table_title: "page-title" %>
+
+            <%= render 'shared/admin/flexible_pagination', resources: data_items %>
+          </div>
+        </div>
+      <%- end %>
+    </section>
+  </div>
+
+  <div class="govuk-grid-column-one-third govuk-!-margin-top-9">
+    <div class="govuk-top-border">
+      <p class="govuk-heading-s govuk-!-font-size-19 govuk-!-padding-top-4">
+        <%= t('actions.actions') %>
+      </p>
+      <p class="govuk-!-padding-0 govuk-!-margin-bottom-1">
+        <% if valid_action?(:edit, 'dataset') && show_action?(:edit, resource) %>
+          <%= link_to t('admin.datasets.actions.edit'), [:edit, namespace, resource]%>
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>

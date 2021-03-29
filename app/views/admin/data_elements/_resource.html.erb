@@ -1,7 +1,7 @@
 <tr class="govuk-table__row">
   <th colspan="3" class="govuk-table__header govuk-!-padding-left-0" scope="col">
     <h3 class="govuk-heading-s govuk-!-margin-bottom-0 govuk-!-margin-top-5 float-left">
-      <%= resource.name %>
+      <%= resource.unique_alias %>
     </h3>
   </th>
   <td class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-quarter" scope="col">
@@ -10,33 +10,30 @@
         <%= link_to t('admin.actions.view_details'), polymorphic_path([namespace, resource]),
           class: %w[govuk-!-padding-right-2] %>
       <% end %>
-      <% if valid_action?(:edit, collection_presenter.resource_name) && show_action?(:edit, resource) %>
-        <%= link_to t('admin.actions.edit'), [:edit, namespace, resource]%>
-      <% end %>
     </p>
   </td>
 </tr>
 <tr>
   <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-quarter govuk-body govuk-!-font-weight-bold">
-    <%= t('admin.categories.description') %>
+    <%= t('admin.data_elements.dataset') %>
   </td>
-  <td colspan="3" data-label="<%= t('admin.categories.description') %>" class="govuk-table__cell govuk-body">
-    <%= resource.description %>
-  </td>
-</tr>
-<tr>
-  <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-quarter govuk-body govuk-!-font-weight-bold">
-    <%= t('admin.categories.concepts') %>
-  </td>
-  <td colspan="3" data-label="<%= t('admin.categories.concepts') %>" class="govuk-table__cell govuk-body">
-    <%= resource.concepts.count %>
+  <td colspan="3" data-label="<%= t('admin.data_elements.dataset') %>" class="govuk-table__cell govuk-body">
+    <%= resource.dataset %>
   </td>
 </tr>
 <tr>
   <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-quarter govuk-body govuk-!-font-weight-bold">
-    <%= t('admin.categories.child_categories') %>
+    <%= t('admin.data_elements.concept') %>
   </td>
-  <td colspan="3" data-label="<%= t('admin.categories.child_categories') %>" class="govuk-table__cell govuk-body">
-    <%= resource.children.count %>
+  <td colspan="3" data-label="<%= t('admin.data_elements.concept') %>" class="govuk-table__cell govuk-body">
+    <%= resource.concept&.name || 'N/A' %>
+  </td>
+</tr>
+<tr>
+  <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-quarter govuk-body govuk-!-font-weight-bold">
+    <%= t('admin.data_elements.datasets') %>
+  </td>
+  <td colspan="3" data-label="<%= t('admin.data_elements.datasets') %>" class="govuk-table__cell govuk-body">
+    <%= resource.datasets.count %>
   </td>
 </tr>
