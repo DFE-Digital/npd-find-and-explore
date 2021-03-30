@@ -1,14 +1,13 @@
 <% content_for(:title) do %>
-  Manage Uploaded Files
+  <%= t('admin.uploads.title') %>
 <% end %>
 
-<header class="main-content__header" role="banner">
-  <h1 class="main-content__page-title" id="page-title">
-    <%= content_for(:title) %>
-  </h1>
-</header>
+<%= render 'shared/admin/header' %>
 
 <section class="main-content__body main-content__body--flush">
-  <%= render 'collection' %>
-
+  <div class="govuk-grid-row govuk-!-margin-top-0 govuk-!-margin-bottom-0">
+    <div class="govuk-grid-column-full govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+      <%= render 'collection' %>
+    </div>
+  </div>
 </section>

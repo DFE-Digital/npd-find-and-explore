@@ -318,6 +318,11 @@ en:
           refused: Action cancelled by the user, datasets not imported.
           generic: An error has occurred.
           none_selected: No datasets were selected for import.
+    uploads:
+      title: Recent uploads
+      data_tables: Data Table Uploads
+      information_architecture: Categories and Concepts Uploads
+      breadcrumbs: Recent uploads
   forms:
     continue: Continue
     confirm: Confirm
