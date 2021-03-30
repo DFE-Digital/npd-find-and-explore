@@ -38,7 +38,7 @@
           class: %w[govuk-!-padding-right-2] %>
       <% end %>
       <% if resource.category.present? && valid_action?(:edit, 'category') && show_action?(:edit, 'category') %>
-        <%= link_to t('admin.actions.edit'), [:edit, namespace, resource]%>
+        <%= link_to t('admin.actions.edit'), [:edit, namespace, resource.category]%>
       <% end %>
     </p>
   </td>

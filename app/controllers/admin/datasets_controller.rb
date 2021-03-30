@@ -2,10 +2,10 @@
 
 module Admin
   class DatasetsController < Admin::ApplicationController
-    layout :layout_by_resource
+    layout 'admin/application'
 
     before_action :generate_breadcrumbs, only: %i[index]
-    before_action :generate_back_breadcrumbs, only: %i[show]
+    before_action :generate_back_breadcrumbs, only: %i[show new edit create update]
 
     def destroy
       requested_resource.data_table_tabs.destroy_all
@@ -23,14 +23,6 @@ module Admin
     end
 
   private
-
-    def layout_by_resource
-      if %w[index show].include?(params[:action])
-        'admin/application'
-      else
-        'admin/side_menu'
-      end
-    end
 
     def generate_breadcrumbs
       custom_breadcrumbs_for(admin: true,
