@@ -71,6 +71,9 @@ module Admin
     def import
       trim_inf_arch_uploads(count: 10)
 
+      custom_breadcrumbs_for(admin: true,
+                             leaf: t('admin.home.menu.import_export.links.import_ia_file'))
+
       render :import, layout: layout_by_resource, locals: { success: nil, errors: [] }
     end
 
@@ -150,7 +153,7 @@ module Admin
     end
 
     def layout_by_resource
-      if %w[index new create show edit update childless].include?(params[:action])
+      if %w[index new create show edit update childless import].include?(params[:action])
         'admin/application'
       else
         'admin/side_menu'

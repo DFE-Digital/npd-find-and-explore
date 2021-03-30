@@ -205,6 +205,9 @@ en:
       parent: Parent
       concepts: Concepts
       child_categories: Child categories
+      import:
+        title: Import categories and concepts backup file
+        label: Categories and concepts backup file to import
     concepts:
       actions:
         create: Create a new concept
@@ -330,6 +333,7 @@ en:
     cancel: Cancel
     or: or
     changes_approved: Changes have been approved
+    upload_successful: The file was processed and uploaded successfully
 
   date:
     formats:
