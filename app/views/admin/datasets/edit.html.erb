@@ -1,5 +1,5 @@
 <% content_for(:title) do %>
-  <%= t('admin.categories.actions.edit') %>
+  <%= t('admin.datasets.actions.edit') %>
 <% end %>
 
 <div class="govuk-grid-row govuk-!-margin-top-0">
@@ -19,7 +19,7 @@
       <p class="govuk-!-padding-0 govuk-!-margin-bottom-1">
         <%= link_to(
           t('actions.destroy', name: page.resource.class.name),
-          [:delete_confirmation, :admin, :categories, id: page.resource.id],
+          [:delete_confirmation, :admin, :datasets, id: page.resource.id],
           class: 'govuk-button govuk-button--warning'
         ) if show_action? :destroy, page.resource %>
       </p>

@@ -158,9 +158,54 @@
   background-color: govuk-colour('light-grey');
 }
 
+.govuk-\!-width-one-fifth {
+  width: 20% !important;
+}
+
+.govuk-\!-width-two-fifths {
+  width: 40% !important;
+}
+
+.govuk-\!-width-three-fifths {
+  width: 60% !important;
+}
+
+.govuk-\!-width-four-fifths {
+  width: 80% !important;
+}
+
+.govuk-\!-width-five-fifths {
+  width: 100% !important;
+}
+
+.govuk-\!-width-one-sixth {
+  width: 16% !important;
+}
+
+.govuk-\!-width-two-sixths {
+  width: 33% !important;
+}
+
+.govuk-\!-width-three-sixths {
+  width: 49% !important;
+}
+
+.govuk-\!-width-four-sixths {
+  width: 66% !important;
+}
+
+.govuk-\!-width-five-sixths {
+  width: 83% !important;
+}
+
+.govuk-\!-width-six-sixths {
+  width: 100% !important;
+}
+
 .govuk-\!-width-one-tenth {
   width: 10% !important;
 }
+
 
 .govuk-\!-width-two-tenths {
   width: 20% !important;
@@ -192,6 +237,10 @@
 
 .govuk-\!-width-nine-tenths {
   width: 90% !important;
+}
+
+.govuk-\!-width-ten-tenths {
+  width: 100% !important;
 }
 
 .govuk-border-bottom {

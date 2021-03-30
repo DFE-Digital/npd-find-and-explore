@@ -55,6 +55,10 @@ Rails.application.routes.draw do
       get  'abort_import(/:id)', to: 'import_datasets#abort_import',
                                  as: :abort_import
     end
+    resource :datasets, only: [] do
+      get  ':id/delete_confirmation', to: 'datasets#delete_confirmation',
+        as: :delete_confirmation
+    end
     resources :datasets
     resources :admin_users
     resource :admin_user, only: [] do

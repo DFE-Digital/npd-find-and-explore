@@ -9,7 +9,7 @@
     <section class="main-content__body main-content__body--flush">
       <div class="govuk-grid-row govuk-!-margin-top-3 govuk-!-padding-bottom-5">
         <div class="govuk-grid-column-full">
-          <%= form_with url: :admin_category, method: :delete, local: true,
+          <%= form_with url: [:admin, page.resource], method: :delete, local: true,
             id: 'confirm-delete-form', data: { js_validate: true } do |f| -%>
             <div id="form-group-delete" class="govuk-form-group">
 

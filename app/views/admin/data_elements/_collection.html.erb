@@ -1,7 +1,7 @@
 <table aria-labelledby="<%= table_title %>" class="govuk-!-margin-top-0 govuk-!-margin-bottom-5">
   <tbody>
     <% resources.each do |resource| %>
-      <%= render 'admin/categories/resource', resource: resource, collection_presenter: collection_presenter %>
+      <%= render 'admin/data_elements/resource', resource: resource, collection_presenter: collection_presenter %>
     <% end %>
   </tbody>
 </table>

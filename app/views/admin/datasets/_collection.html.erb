@@ -1,0 +1,23 @@
+<table aria-labelledby="<%= table_title %>" class="govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+  <thead>
+    <tr class="govuk-table__row" id="data-elements-header">
+      <th data-label="<%= t('admin.datasets.name') %>" class="govuk-table__header govuk-!-padding-left-0" scope="col">
+        <%= t('admin.datasets.name') %>
+      </th>
+      <th data-label="<%= t('admin.datasets.tab_name') %>" class="govuk-table__header" scope="col">
+        <%= t('admin.datasets.tab_name') %>
+      </th>
+      <th data-label="<%= t('admin.datasets.data_items') %>" class="govuk-table__header govuk-table__cell--no-break" scope="col">
+        <%= t('admin.datasets.data_items') %>
+      </th>
+      <th data-label="<%= t('admin.actions.view_details') %>" class="govuk-table__header govuk-!-padding-right-0 right" scope="col">
+        &nbsp;
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% resources.each do |resource| %>
+      <%= render 'resource', resource: resource, collection_presenter: collection_presenter %>
+    <% end %>
+  </tbody>
+</table>
