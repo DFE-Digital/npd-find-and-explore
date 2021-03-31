@@ -160,6 +160,7 @@ en:
       destroy_confirmation: "Delete %{name}?"
       destroy_confirmation_yes: "Yes, delete %{name}"
       destroy_confirmation_no: "No, do not delete %{name}"
+      destroy_aborted: "%{name} not deleted. Action cancelled by user."
     home:
       title: '"Find and Explore" NPD Admin tool'
       menu:

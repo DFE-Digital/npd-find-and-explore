@@ -32,7 +32,7 @@ module Admin
 
     def destroy
       if params.dig(:delete) && params.dig(:delete) == 'no'
-        flash[:notice] = translate_with_resource('destroy.aborted')
+        flash[:notice] = I18n.translate('admin.shared.destroy_aborted', name: requested_resource.class.name)
       elsif requested_resource.destroy
         flash[:notice] = translate_with_resource('destroy.success')
       else
