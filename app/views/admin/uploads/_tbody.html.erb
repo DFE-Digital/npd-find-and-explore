@@ -1,18 +1,18 @@
 <tbody>
   <% resources.each do |resource| %>
-    <tr class="js-table-row" tabindex="0">
-      <td class="cell-data cell-data--<%#= attribute.html_class %>">
+    <tr class="js-table-rowgovuk-table__row" scope="row" tabindex="0">
+      <td class="govuk-table__cell cell-data cell-data--<%#= attribute.html_class %> govuk-!-padding-left-0" scope="col">
         <%= resource.file_name %>
       </td>
-      <td class="cell-data cell-data--<%#= attribute.html_class %>">
+      <td class="govuk-table__cell cell-data cell-data--<%#= attribute.html_class %>" scope="col">
         <%= resource.admin_user&.email %>
       </td>
-      <td class="cell-data cell-data--<%#= attribute.html_class %>">
+      <td class="govuk-table__cell cell-data cell-data--<%#= attribute.html_class %>" scope="col">
         <%= I18n.localize(resource.created_at.in_time_zone('GB'), format: :default ) %>
       </td>
-      <td>
+      <td class="govuk-table__cell" scope="col">
         <% if resource.data_table.attached? %>
-          <%= link_to 'Download', url_for(resource.data_table), class: 'govuk-button' %>
+          <%= link_to 'Download', url_for(resource.data_table), class: 'govuk-button govuk-!-margin-bottom-0' %>
         <% end %>
       </td>
     </tr>
