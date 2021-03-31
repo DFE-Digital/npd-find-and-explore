@@ -1,5 +1,5 @@
 <% content_for(:title) do %>
-  Reset Categories and Concepts from an Excel Architecture Information Table
+  <%= t('admin.categories.import.title') %>
 <% end %>
 
 <% content_for(:additional_tags) do %>
@@ -8,11 +8,7 @@
   <%= javascript_pack_tag 'category_upload' %>
 <% end %>
 
-<header class="main-content__header" role="banner">
-  <h1 class="main-content__page-title" id="page-title">
-    <%= content_for(:title) %>
-  </h1>
-</header>
+<%= render 'shared/admin/header' %>
 
 <fieldset class="govuk-fieldset govuk-!-margin-2" aria-describedby="upload-file-hint upload-file-error" role="group">
   <%= render partial: 'import_form', locals: { success: success, errors: errors } %>

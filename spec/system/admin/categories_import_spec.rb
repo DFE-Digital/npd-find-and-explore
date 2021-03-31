@@ -27,7 +27,7 @@ RSpec.describe 'Categories Import', type: :system do
 
   it 'Will error if no file uploaded' do
     visit 'admin/categories/import'
-    click_on('Upload')
+    click_on('Continue')
 
     expect(page).to have_css('#file-upload:invalid')
   end
@@ -35,7 +35,7 @@ RSpec.describe 'Categories Import', type: :system do
   it 'Will error if wrong file format uploaded' do
     visit 'admin/categories/import'
     attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'k01.jpg'))
-    click_on('Upload')
+    click_on('Continue')
 
     expect(page).to have_text('Wrong format. Please upload an Excel spreadsheet')
   end
@@ -43,7 +43,7 @@ RSpec.describe 'Categories Import', type: :system do
   it 'Will error if a tab does not have the right headers' do
     visit 'admin/categories/import'
     attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'reduced_categories_table_no_headers.xlsx'))
-    click_on('Upload')
+    click_on('Continue')
 
     expect(page).to have_text("Can't find a header row for tab 'IA_Demographics'.")
   end
@@ -51,7 +51,7 @@ RSpec.describe 'Categories Import', type: :system do
   it 'Will error if a tab is missing' do
     visit 'admin/categories/import'
     attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'reduced_categories_table_missing_tab.xlsx'))
-    click_on('Upload')
+    click_on('Continue')
 
     expect(page).to have_text("Can't find any suitable tab in the worksheet.")
   end
@@ -59,7 +59,7 @@ RSpec.describe 'Categories Import', type: :system do
   it 'Will error if a header column is missing' do
     visit 'admin/categories/import'
     attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'reduced_categories_table_missing_header.xlsx'))
-    click_on('Upload')
+    click_on('Continue')
 
     expect(page).to have_text("Can't find a column with header 'Category L3 Description' for tab 'IA_Demographics'")
   end
@@ -67,7 +67,7 @@ RSpec.describe 'Categories Import', type: :system do
   it 'Will upload a file' do
     visit 'admin/categories/import'
     attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'reduced_categories_table.xlsx'))
-    click_on('Upload')
+    click_on('Continue')
     find_button('Confirm Upload', wait: 5)
     click_on('Confirm Upload')
 
@@ -77,14 +77,14 @@ RSpec.describe 'Categories Import', type: :system do
   it 'Will have a Go Back button' do
     visit 'admin/categories/import'
     attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'reduced_categories_table.xlsx'))
-    click_on('Upload')
+    click_on('Continue')
     expect(page).to have_button('Go Back', wait: 5)
   end
 
   it 'Will abort the upload' do
     visit 'admin/categories/import'
     attach_file('file-upload', Rails.root.join('spec', 'fixtures', 'files', 'reduced_categories_table.xlsx'))
-    click_on('Upload')
+    click_on('Continue')
     find_button('Go Back', wait: 5)
     click_on('Go Back')
 
