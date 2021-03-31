@@ -4,7 +4,7 @@ module Admin
   class CategoriesController < Admin::ApplicationController
     helper NestableHelper
 
-    layout :layout_by_resource
+    layout 'admin/application'
 
     before_action :generate_breadcrumbs, only: %i[new create update]
     before_action :generate_back_breadcrumbs, only: %i[show edit]
@@ -74,7 +74,12 @@ module Admin
       custom_breadcrumbs_for(admin: true,
                              leaf: t('admin.home.menu.import_export.links.import_ia_file'))
 
-      render :import, layout: layout_by_resource, locals: { success: nil, errors: [] }
+      render :import, layout: 'admin/application', locals: { success: nil, errors: [] }
+    end
+
+    def export
+      custom_breadcrumbs_for(admin: true,
+                             leaf: t('admin.home.menu.import_export.links.export_ia_file'))
     end
 
     def preprocess
@@ -150,14 +155,6 @@ module Admin
       Category.search(search_term)
               .includes(:concepts)
               .order(:name)
-    end
-
-    def layout_by_resource
-      if %w[index new create show edit update childless import].include?(params[:action])
-        'admin/application'
-      else
-        'admin/side_menu'
-      end
     end
 
     def generate_breadcrumbs

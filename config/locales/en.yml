@@ -209,6 +209,10 @@ en:
       import:
         title: Import categories and concepts backup file
         label: Categories and concepts backup file to import
+      export:
+        title: Create categories and concepts backup file
+        subtitle: Create new categories and concepts backup file
+        creating: Creating categories and concepts<br/>backup file
     concepts:
       actions:
         create: Create a new concept

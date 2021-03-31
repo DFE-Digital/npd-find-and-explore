@@ -6,6 +6,7 @@ $(document).on('ajax:success', function(event) {
   var data = detail[0], status = detail[1], xhr = detail[2]
 
   setTimeout(function() {
+    $('#govuk-box-container').hide();
     document.querySelector('#form-group').outerHTML = detail[0].body.innerHTML
     document.getElementById('submit-upload').removeAttribute('disabled')
   }, 500)
