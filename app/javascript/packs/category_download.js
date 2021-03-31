@@ -32,6 +32,7 @@ $(document).ready(function() {
     $('#download-link').removeAttr('disabled')
     window.loader.stop()
     $('#govuk-box-container').hide();
+    $('#govuk-box-success').show();
     window.clearInterval(downloadTimer);
     document.cookie = document.cookie.replace(/download=download-ia-table/, 'download=download-ia-table;path=/;max-age=1');
   }
