@@ -209,6 +209,13 @@ en:
       import:
         title: Import categories and concepts backup file
         label: Categories and concepts backup file to import
+      export:
+        title: Create categories and concepts backup file
+        subtitle: Create new categories and concepts backup file
+        creating: Creating categories and concepts<br/>backup file
+        created:
+          title: Backup file successfully created
+          subtitle: The categories and concepts backup file has been successfully created.
     concepts:
       actions:
         create: Create a new concept
@@ -335,6 +342,7 @@ en:
     or: or
     changes_approved: Changes have been approved
     upload_successful: The file was processed and uploaded successfully
+    continue_to_home: 'Continue to "NPD Admin" home'
 
   date:
     formats:

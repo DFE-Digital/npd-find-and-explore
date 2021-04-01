@@ -1,5 +1,8 @@
 <% content_for(:title) do %>
-  Generate new IA document
+  <%= t('admin.categories.export.title') %>
+<% end %>
+<% content_for(:subtitle) do %>
+  <%= t('admin.categories.export.subtitle') %>
 <% end %>
 
 <% content_for(:additional_tags) do %>
@@ -7,13 +10,29 @@
   <%= javascript_pack_tag 'category_download' %>
 <% end %>
 
-<header class="main-content__header" role="banner">
-  <h1 class="main-content__page-title" id="page-title">
-    <%= content_for(:title) %>
-  </h1>
-</header>
+<%= render 'shared/admin/header' %>
 
-<fieldset class="govuk-fieldset govuk-!-margin-2" aria-describedby="download-file-hint download-file-error" role="group">
-  <%= link_to 'Download', download_admin_categories_path, class: 'govuk-button', id: 'download-link' %>
+<fieldset class="govuk-fieldset govuk-!-margin-0" aria-describedby="download-file-hint download-file-error" role="group">
+  <%= link_to t('forms.continue'), download_admin_categories_path, class: 'govuk-button govuk-!-margin-left-0', id: 'download-link' %>
 </fieldset>
-<div class="govuk-box govuk-!-margin-3" id="govuk-box-message" aria-busy="true"></div>
+<div id="govuk-box-container">
+  <h2 class="govuk-heading-l govuk-align-center"><%= t('admin.categories.export.creating').html_safe %></h2>
+  <div class="govuk-box govuk-!-margin-3" id="govuk-box-message" aria-busy="true"></div>
+</div>
+<div id="govuk-box-success">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-panel govuk-panel--confirmation">
+        <h2 class="govuk-panel__title">
+          <%= t('admin.categories.export.created.title').html_safe %>
+        </h2>
+      </div>
+      <p class="govuk-body">
+        <%= t('admin.categories.export.created.subtitle').html_safe %>
+      </p>
+      <p class="govuk-body">
+        <%= link_to t('forms.continue_to_home'), admin_root_path %>
+      </p>
+    </div>
+  </div>
+</div>

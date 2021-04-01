@@ -8,13 +8,19 @@ window.loader = new GOVUK.Loader()
 $(document).ready(function() {
   var downloadTimer;
 
-  $('#download-link').on('click', function() {
+  $('#download-link').on('click', function(event) {
+    if ($(event.currentTarget).attr('disabled')) {
+      return;
+    }
+
     $('#download-link').attr('disabled', true)
+    $('#govuk-box-container').show();
 
     window.loader.init({
       container: 'govuk-box-message',
       label: true,
-      labelText: 'We are generating the file you requested, please wait'
+      labelText: '',
+      size: '175px',
     })
 
     downloadTimer = window.setInterval(function() {
@@ -25,6 +31,8 @@ $(document).ready(function() {
   var finishDownload = function() {
     $('#download-link').removeAttr('disabled')
     window.loader.stop()
+    $('#govuk-box-container').hide();
+    $('#govuk-box-success').show();
     window.clearInterval(downloadTimer);
     document.cookie = document.cookie.replace(/download=download-ia-table/, 'download=download-ia-table;path=/;max-age=1');
   }

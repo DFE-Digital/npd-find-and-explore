@@ -1,3 +1,20 @@
+@import "node_modules/govuk-frontend/govuk/helpers/colour";
+
+#govuk-box-container, #govuk-box-success {
+  background-color: govuk-colour('white');
+  display: none;
+  height: 280px;
+  left: auto;
+  position: fixed;
+  top: 170px;
+  width: 100%;
+  z-index: 1000;
+}
+
+#govuk-box-container {
+  left: 0;
+}
+
 .govuk-c-loader {
   line-height: 0;
   position: relative;
