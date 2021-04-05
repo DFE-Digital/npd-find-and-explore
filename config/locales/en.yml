@@ -363,6 +363,7 @@ en:
       previous_sign_in_ip: Previous sign in IP
       created_at: Created at
       updated_at: Updated at
+      password: Password
       password_and_hint: Password (leave blank if you don't want to change it)
       password_confirmation: Password confirmation
       current_password: Password
