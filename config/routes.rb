@@ -62,7 +62,11 @@ Rails.application.routes.draw do
     resources :datasets
     resources :admin_users
     resource :admin_user, only: [] do
+      get  ':id/deactivate_confirmation', to: 'admin_users#deactivate_confirmation',
+        as: :deactivate_confirmation
       put ':id/deactivate', to: 'admin_users#deactivate', as: :deactivate
+      get  ':id/reactivate_confirmation', to: 'admin_users#reactivate_confirmation',
+        as: :reactivate_confirmation
       put ':id/reactivate', to: 'admin_users#reactivate', as: :reactivate
     end
     resources :uploads, only: %i[index]
