@@ -341,11 +341,22 @@ en:
       show: View admin user
       actions:
         create: Create a new admin user
+        edit: Edit admin user
+        deactivate: Deactivate admin user
+        reactivate: Reactivate admin user
       active: Active Admin Users
       inactive: Inactive Admin Users
+      id: ID
+      deactivated_at: Deactivated at
       sign_in_count: Sign in count
       last_sign_in_at: Last sign in at
       last_sign_in_ip: Last sign in IP
+      latest_sign_in_at: Latest sign in at
+      latest_sign_in_ip: Latest sign in IP
+      previous_sign_in_at: Previous sign in at
+      previous_sign_in_ip: Previous sign in IP
+      created_at: Created at
+      updated_at: Updated at
       no_admin_users: No admin users. How are you even seeing this page?
   forms:
     continue: Continue
