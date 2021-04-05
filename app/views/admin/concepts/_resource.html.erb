@@ -1,11 +1,11 @@
 <tr class="govuk-table__row">
-  <th colspan="4" class="govuk-table__header govuk-!-padding-left-0" scope="col">
+  <th colspan="3" class="govuk-table__header govuk-!-padding-left-0" scope="col">
     <h3 class="govuk-heading-s govuk-!-margin-bottom-0 govuk-!-margin-top-5 float-left">
       <%= resource.name %>
     </h3>
   </th>
   <td class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-quarter" scope="col">
-    <p class="govuk-!-margin-top-5 govuk-!-margin-bottom-1 float-right govuk-body">
+    <p class="govuk-!-margin-top-5 govuk-!-margin-bottom-1 float-right govuk-body no-break">
       <% if valid_action? :show, collection_presenter.resource_name %>
         <%= link_to t('admin.actions.view_details'), polymorphic_path([namespace, resource]),
           class: %w[govuk-!-padding-right-2] %>
@@ -16,19 +16,11 @@
     </p>
   </td>
 </tr>
-<!-- <tr>
-  <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-quarter govuk-body govuk-!-font-weight-bold">
-    <%= t('admin.categories.description') %>
-  </td>
-  <td colspan="4" data-label="<%= t('admin.categories.description') %>" class="govuk-table__cell govuk-body">
-    <%= resource.description %>
-  </td>
-</tr> -->
 <tr>
-  <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-quarter govuk-body govuk-!-font-weight-bold">
+  <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-sixth govuk-body govuk-!-font-weight-bold">
     <%= t('admin.concepts.category') %>
   </th>
-  <td colspan="3" class="govuk-table__header govuk-!-padding-left-0" scope="col">
+  <td colspan="2" class="govuk-table__header govuk-!-padding-left-0" scope="col">
     <span class="govuk-body"><%= resource.category&.name %></span>
   </td>
   <td class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-quarter" scope="col">
@@ -44,10 +36,10 @@
   </td>
 </tr>
 <tr>
-  <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-quarter govuk-body govuk-!-font-weight-bold">
+  <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-sixth govuk-body govuk-!-font-weight-bold">
     <%= t('admin.concepts.data_items') %>
   </td>
-  <td colspan="4" data-label="<%= t('admin.concepts.data_items') %>" class="govuk-table__cell govuk-body">
+  <td colspan="3" data-label="<%= t('admin.concepts.data_items') %>" class="govuk-table__cell govuk-body">
     <%= resource.data_elements.count %>
   </td>
 </tr>
