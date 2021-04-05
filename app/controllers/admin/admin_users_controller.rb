@@ -2,15 +2,9 @@
 
 module Admin
   class AdminUsersController < Admin::ApplicationController
-    # To customize the behavior of this controller,
-    # you can overwrite any of the RESTful actions. For example:
-    #
-    # def index
-    #   super
-    #   @resources = AdminUser.
-    #     page(params[:page]).
-    #     per(10)
-    # end
+    layout 'admin/application'
+    before_action :generate_back_breadcrumbs, only: %i[show edit create update]
+    before_action :generate_breadcrumbs, only: %i[index]
 
     def edit
       if requested_resource == current_admin_user
@@ -38,12 +32,11 @@ module Admin
       redirect_to action: :index
     end
 
-    # Define a custom finder by overriding the `find_resource` method:
-    # def find_resource(param)
-    #   AdminUser.find_by!(slug: param)
-    # end
+  private
 
-    # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
-    # for more information
+    def generate_breadcrumbs
+      custom_breadcrumbs_for(admin: true,
+                             leaf: I18n.t('admin.home.menu.admin.links.users'))
+    end
   end
 end

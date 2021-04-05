@@ -1,0 +1,51 @@
+<% content_for(:title) do %>
+  <%= t('admin.admin_users.title') %>
+<% end %>
+
+<%= render 'shared/admin/header' %>
+
+<section class="main-content__body main-content__body--flush">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-2">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full govuk-!-margin-bottom-2">
+          <%= render(
+            'search',
+            search_term: search_term,
+            resource_name: t('admin.admin_users.element').downcase
+          ) %>
+        </div>
+      </div>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+          <% if resources.any? -%>
+            <%= render(
+              "collection",
+              collection_presenter: page,
+              collection_field_name: resource_name,
+              page: page,
+              resources: resources,
+              table_title: "page-title"
+            ) %>
+          <%- else -%>
+            <p><%= t('admin.admin_users.no_admin_users') %></p>
+          <%- end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="govuk-grid-column-one-third govuk-!-margin-top-9">
+      <div class="govuk-top-border">
+        <p class="govuk-heading-s govuk-!-font-size-19 govuk-!-padding-top-4">
+          <%= t('actions.actions') %>
+        </p>
+        <p class="govuk-!-padding-0 govuk-!-margin-bottom-1">
+          <%= link_to(t('admin.admin_users.actions.create'),
+                      [:new, :admin, :admin_user],
+                      class: %w[govuk-!-margin-bottom-1]
+                     ) if valid_action?(:new) && show_action?(:new, AdminUser.new) %>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
