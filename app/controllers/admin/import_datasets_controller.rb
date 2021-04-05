@@ -2,8 +2,6 @@
 
 module Admin
   class ImportDatasetsController < Admin::ApplicationController
-    layout 'admin/application'
-
     def import
       trim_data_table_uploads(count: 5)
 

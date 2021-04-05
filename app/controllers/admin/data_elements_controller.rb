@@ -2,7 +2,6 @@
 
 module Admin
   class DataElementsController < Admin::ApplicationController
-    layout :layout_by_resource
     before_action :generate_breadcrumbs, only: %i[index]
     before_action :generate_back_breadcrumbs, only: %i[show]
 
@@ -59,19 +58,24 @@ module Admin
     # functionality completely.
     # ==========================================================================
     def reindex
-      render :reindex, layout: layout_by_resource, locals: { success: nil, errors: [] }
+      custom_breadcrumbs_for(admin: true,
+                             leaf: 'Start search index refresh')
+
+      render :reindex, layout: 'admin/application', locals: { success: nil, errors: [] }
     end
 
     def do_reindex
       DataElement.rebuild_pg_search_documents
 
-      render :reindex,
-             layout: layout_by_resource,
-             locals: { success: true, errors: [] }
+      render :do_reindex
     rescue StandardError => e
       Rails.logger.error(e)
+
+      custom_breadcrumbs_for(admin: true,
+                             leaf: 'Start search index refresh')
+
       render :reindex,
-             layout: layout_by_resource,
+             layout: 'admin/application',
              locals: { success: false, errors: ['There has been an error while reindexing the data items'] }
     end
 
@@ -88,14 +92,6 @@ module Admin
         elements.where(datasets: { id: dataset_id })
       else
         elements
-      end
-    end
-
-    def layout_by_resource
-      if orphaned_actions? || %w[index show].include?(params[:action])
-        'admin/application'
-      else
-        'admin/side_menu'
       end
     end
 

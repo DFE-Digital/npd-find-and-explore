@@ -2,8 +2,6 @@
 
 module Admin
   class UploadsController < Admin::ApplicationController
-    layout 'admin/application'
-
     def index
       custom_breadcrumbs_for(admin: true,
                              leaf: I18n.translate('admin.uploads.breadcrumbs'))

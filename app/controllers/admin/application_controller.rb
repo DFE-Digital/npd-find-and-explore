@@ -8,7 +8,8 @@
 # you're free to overwrite the RESTful controller actions.
 module Admin
   class ApplicationController < Administrate::ApplicationController
-    layout 'admin/side_menu'
+    layout 'admin/application'
+
     before_action :authenticate_admin_user!
 
     helper AdministrateMenuHelper

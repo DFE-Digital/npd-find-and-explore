@@ -2,8 +2,6 @@
 
 module Admin
   class DatasetsController < Admin::ApplicationController
-    layout 'admin/application'
-
     before_action :generate_breadcrumbs, only: %i[index]
     before_action :generate_back_breadcrumbs, only: %i[show new edit create update]
 

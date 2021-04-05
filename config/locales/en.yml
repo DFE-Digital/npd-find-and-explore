@@ -254,10 +254,12 @@ en:
       created_at: Created at
       updated_at: Updated at
       reindex:
-        title: Refresh Search Index
+        title: Start search index refresh
         description: "After a new release of Find & Explore to live, the 'Search' function may stop working until the search index is refreshed. Click the button below to start the refresh."
         action: Start refresh
-        success:  The search index was refreshed correctly
+        success:
+          title: Search index refresh was successful
+          subtitle: The search index was refreshed successfully
       orphaned:
         title: Orphaned Data Items
         assign_to_concept:
