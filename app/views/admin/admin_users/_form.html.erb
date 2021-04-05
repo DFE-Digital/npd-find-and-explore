@@ -27,7 +27,11 @@
   </div>
 
   <div class="govuk-form-group">
-    <%= f.label :password, t('admin.admin_users.password_and_hint'), class: 'govuk-label' %>
+    <% if page.resource.persisted? -%>
+      <%= f.label :password, t('admin.admin_users.password_and_hint'), class: 'govuk-label' %>
+    <%- else -%>
+      <%= f.label :password, t('admin.admin_users.password'), class: 'govuk-label' %>
+    <%- end %>
     <% if @minimum_password_length %>
       <div class="govuk-hint"><%= t('devise.passwords.format', length: @minimum_password_length) %></div>
     <% end %>
@@ -49,16 +53,18 @@
     <% end %>
   </div>
 
-  <div class="govuk-form-group">
-    <%= f.label :current_password, t('admin.admin_users.current_password'), class: 'govuk-label' %>
-    <div class="govuk-hint"><%= t('admin.admin_users.current_password_hint') %></div>
-    <%= f.password_field :current_password, autocomplete: 'current-password', class: 'govuk-input' %>
-    <% if f.object.errors[:current_password].present? %>
-      <span class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:current_password].map(&:capitalize).join(', ') %>
-      </span>
-    <% end %>
-  </div>
+  <% if page.resource.persisted? -%>
+    <div class="govuk-form-group">
+      <%= f.label :current_password, t('admin.admin_users.current_password'), class: 'govuk-label' %>
+      <div class="govuk-hint"><%= t('admin.admin_users.current_password_hint') %></div>
+      <%= f.password_field :current_password, autocomplete: 'current-password', class: 'govuk-input' %>
+      <% if f.object.errors[:current_password].present? %>
+        <span class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> <%= f.object.errors[:current_password].map(&:capitalize).join(', ') %>
+        </span>
+      <% end %>
+    </div>
+  <%- end %>
 
   <div class="form-actions govuk--form-actions">
     <%= f.button type: :submit, class: %w[govuk-button] %>
