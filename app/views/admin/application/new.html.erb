@@ -5,12 +5,12 @@
   ) %>
 <% end %>
 
-<header class="main-content__header" role="banner">
-  <h1 class="main-content__page-title">
-    <%= content_for(:title) %>
-  </h1>
-</header>
+<div class="govuk-grid-row govuk-!-margin-top-0">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+    <%= render 'shared/admin/header' %>
 
-<section class="main-content__body">
-  <%= render 'form', page: page %>
-</section>
+    <section class="main-content__body main-content__body--flush">
+      <%= render "form", page: page %>
+    </section>
+  </div>
+</div>

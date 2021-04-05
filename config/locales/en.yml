@@ -357,6 +357,10 @@ en:
       previous_sign_in_ip: Previous sign in IP
       created_at: Created at
       updated_at: Updated at
+      password_and_hint: Password (leave blank if you don't want to change it)
+      password_confirmation: Password confirmation
+      current_password: Password
+      current_password_hint: We need your current password to confirm your changes
       no_admin_users: No admin users. How are you even seeing this page?
   forms:
     continue: Continue
