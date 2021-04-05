@@ -2,8 +2,6 @@
 
 module Admin
   class ConceptsController < Admin::ApplicationController
-    layout 'admin/application'
-
     before_action :generate_breadcrumbs, only: %i[new create update]
     before_action :generate_back_breadcrumbs, only: %i[show edit]
 
