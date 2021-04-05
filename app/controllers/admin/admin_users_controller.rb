@@ -5,6 +5,7 @@ module Admin
     layout 'admin/application'
     before_action :generate_back_breadcrumbs, only: %i[show edit create update]
     before_action :generate_breadcrumbs, only: %i[index]
+    before_action :set_minimum_password_length, only: %i[new edit create update]
 
     def edit
       if requested_resource == current_admin_user
@@ -37,6 +38,10 @@ module Admin
     def generate_breadcrumbs
       custom_breadcrumbs_for(admin: true,
                              leaf: I18n.t('admin.home.menu.admin.links.users'))
+    end
+
+    def set_minimum_password_length
+      @minimum_password_length = Devise.password_length&.min
     end
   end
 end
