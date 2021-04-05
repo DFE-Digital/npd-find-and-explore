@@ -104,26 +104,6 @@
           <%= link_to t('admin.admin_users.actions.edit'), [:edit, namespace, resource]%>
         <% end %>
       </p>
-      <p class="govuk-!-padding-0 govuk-!-margin-bottom-1">
-        <% if resource.account_active? %>
-          <%= link_to(
-            t('admin.admin_users.actions.deactivate'),
-            [:deactivate, namespace, resource],
-            class: "text-color-red",
-            method: :put,
-            data: { confirm: t("administrate.actions.confirm") }
-          ) if show_action? :deactivate, resource %>
-        <% end %>
-        <% if !resource.account_active? %>
-          <%= link_to(
-            t('admin.admin_users.actions.reactivate'),
-            [:reactivate, namespace, resource],
-            class: "text-color-red",
-            method: :put,
-            data: { confirm: t("administrate.actions.confirm") }
-          ) if show_action? :reactivate, resource %>
-        <% end %>
-      </p>
     </div>
   </div>
 </div>

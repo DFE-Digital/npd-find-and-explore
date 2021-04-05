@@ -344,6 +344,12 @@ en:
         edit: Edit admin user
         deactivate: Deactivate admin user
         reactivate: Reactivate admin user
+        deactivate_confirmation: "Deactivate %{name}?"
+        deactivate_confirmation_yes: "Yes, deactivate %{name}"
+        deactivate_confirmation_no: "No, do not deactivate %{name}"
+        reactivate_confirmation: "Reactivate %{name}?"
+        reactivate_confirmation_yes: "Yes, reactivate %{name}"
+        reactivate_confirmation_no: "No, do not reactivate %{name}"
       active: Active Admin Users
       inactive: Inactive Admin Users
       id: ID
@@ -362,6 +368,8 @@ en:
       current_password: Password
       current_password_hint: We need your current password to confirm your changes
       no_admin_users: No admin users. How are you even seeing this page?
+      deactivate_aborted: "%{name} not deactivated. Action cancelled by user."
+      reactivate_aborted: "%{name} not reactivated. Action cancelled by user."
   forms:
     continue: Continue
     confirm: Confirm

@@ -1,0 +1,59 @@
+<% content_for(:title) do %>
+  <%= t('admin.admin_users.actions.reactivate_confirmation', name: 'user') %>
+<% end %>
+
+<div class="govuk-grid-row govuk-!-margin-top-0">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+    <%= render 'shared/admin/header' %>
+
+    <section class="main-content__body main-content__body--flush">
+      <div class="govuk-grid-row govuk-!-margin-top-3 govuk-!-padding-bottom-5">
+        <div class="govuk-grid-column-full">
+          <%= form_with url: [:reactivate, :admin, :admin_user], method: :put, local: true,
+            id: 'confirm-reactivate-form', data: { js_validate: true } do |f| -%>
+            <div id="form-group-reactivate" class="govuk-form-group">
+
+              <div class="error-message hidden">
+                <li data-reference="choice-error-reactivate" class="hidden">
+                  <a href="#choice-error-reactivate">You must select an option.</a>
+                </li>
+
+                <p id="choice-error-reactivate" class="govuk-error-message govuk-!-margin-top-2">
+                  <span class="govuk-visually-hidden">Error:</span>
+                  <span class="message">You must select an option.</span>
+                </p>
+              </div>
+
+              <div class="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input dataset-choice-radio"
+                         id="reactivate_yes"
+                         name="reactivate"
+                         type="radio" value="yes" required="true"
+                         data-js-validate-input="true">
+                  <label class="govuk-label govuk-radios__label" for="reactivate_yes">
+                    <%= t('admin.admin_users.actions.reactivate_confirmation_yes', name: page.resource.email) %>
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input dataset-choice-radio"
+                         id="reactivate_no"
+                         name="reactivate"
+                         type="radio" value="no" required="true"
+                         data-js-validate-input="true">
+                  <label class="govuk-label govuk-radios__label" for="reactivate_no">
+                    <%= t('admin.admin_users.actions.reactivate_confirmation_no', name: page.resource.email) %>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="govuk-button govuk-!-margin-bottom-3" id="submit-summary"
+                    name="submit" value="summary" data-submit="summary">
+              <%= t('forms.continue') %>
+            </button>
+          <%- end %>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
