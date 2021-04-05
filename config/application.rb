@@ -29,7 +29,6 @@ module NpdFindAndExplore
       g.orm :active_record, primary_key_type: :uuid
     end
 
-    config.administrate_menu = config_for(:administrate_menu)
     config.datasets = config_for(:datasets)
     config.outgoing_links = config_for(:outgoing_links)
 

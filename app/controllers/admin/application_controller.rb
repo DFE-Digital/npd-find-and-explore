@@ -12,7 +12,6 @@ module Admin
 
     before_action :authenticate_admin_user!
 
-    helper AdministrateMenuHelper
     include AdminControllerHelper
     include BreadcrumbBuilder
     # Override this value to specify the number of elements to display at a time
