@@ -2,7 +2,6 @@
 
 module Admin
   class AdminUsersController < Admin::ApplicationController
-    layout 'admin/application'
     before_action :generate_back_breadcrumbs, only: %i[show new edit create update]
     before_action :generate_breadcrumbs, only: %i[index]
     before_action :set_minimum_password_length, only: %i[new edit create update]

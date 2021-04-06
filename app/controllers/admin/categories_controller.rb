@@ -4,8 +4,6 @@ module Admin
   class CategoriesController < Admin::ApplicationController
     helper NestableHelper
 
-    layout 'admin/application'
-
     before_action :generate_breadcrumbs, only: %i[new create update]
     before_action :generate_back_breadcrumbs, only: %i[show edit]
 
