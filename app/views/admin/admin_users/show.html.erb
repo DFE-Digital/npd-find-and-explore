@@ -1,0 +1,109 @@
+<% resource = page.resource %>
+<% content_for(:title) do %>
+  <%= t('admin.admin_users.show') %>
+<% end %>
+
+<div class="govuk-grid-row govuk-!-margin-top-0">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+    <%= render 'shared/admin/header' %>
+
+    <section class="main-content__body main-content__body--flush">
+      <table aria-labelledby="<%= resource.email %>" class="govuk-!-margin-top-0 govuk-!-margin-bottom-5">
+        <tbody>
+          <tr class="govuk-table__row">
+            <th colspan="2" class="govuk-table__header govuk-!-padding-left-0" scope="col">
+              <h3 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-5 float-left">
+                <%= resource.email %>
+              </h3>
+            </th>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.admin_users.id') %>
+            </td>
+            <td data-label="<%= t('admin.admin_users.id') %>" class="govuk-table__cell govuk-body">
+              <%= resource.id %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.admin_users.deactivated_at') %>
+            </td>
+            <td data-label="<%= t('admin.admin_users.deactivated_at') %>" class="govuk-table__cell govuk-body">
+              <%= resource.deactivated_at || 'N/A' %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.admin_users.sign_in_count') %>
+            </td>
+            <td data-label="<%= t('admin.admin_users.sign_in_count') %>" class="govuk-table__cell govuk-body">
+              <%= resource.sign_in_count %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.admin_users.latest_sign_in_at') %>
+            </td>
+            <td data-label="<%= t('admin.admin_users.latest_sign_in_at') %>" class="govuk-table__cell govuk-body">
+              <%= resource.current_sign_in_at %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.admin_users.previous_sign_in_at') %>
+            </td>
+            <td data-label="<%= t('admin.admin_users.previous_sign_in_at') %>" class="govuk-table__cell govuk-body">
+              <%= resource.last_sign_in_at %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.admin_users.latest_sign_in_ip') %>
+            </td>
+            <td data-label="<%= t('admin.admin_users.latest_sign_in_ip') %>" class="govuk-table__cell govuk-body">
+              <%= resource.current_sign_in_ip %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.admin_users.previous_sign_in_ip') %>
+            </td>
+            <td data-label="<%= t('admin.admin_users.previous_sign_in_ip') %>" class="govuk-table__cell govuk-body">
+              <%= resource.last_sign_in_ip %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.admin_users.created_at') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.admin_users.created_at') %>" class="govuk-table__cell govuk-body">
+              <%= I18n.localize(resource.created_at.in_time_zone('GB'), format: :default ) %>
+            </td>
+          </tr>
+          <tr>
+            <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-third govuk-body govuk-!-font-weight-bold">
+              <%= t('admin.admin_users.updated_at') %>
+            </td>
+            <td colspan="3" data-label="<%= t('admin.admin_users.updated_at') %>" class="govuk-table__cell govuk-body">
+              <%= I18n.localize(resource.updated_at.in_time_zone('GB'), format: :default ) %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <div class="govuk-grid-column-one-third govuk-!-margin-top-9">
+    <div class="govuk-top-border">
+      <p class="govuk-heading-s govuk-!-font-size-19 govuk-!-padding-top-4">
+        <%= t('actions.actions') %>
+      </p>
+      <p class="govuk-!-padding-0 govuk-!-margin-bottom-1">
+        <% if valid_action?(:edit, 'admin_user') && show_action?(:edit, resource) %>
+          <%= link_to t('admin.admin_users.actions.edit'), [:edit, namespace, resource]%>
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>

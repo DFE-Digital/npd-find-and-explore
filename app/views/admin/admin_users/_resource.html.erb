@@ -1,0 +1,59 @@
+<tr class="govuk-table__row">
+  <th colspan="2" class="govuk-table__header govuk-!-padding-left-0" scope="col">
+    <h3 class="govuk-heading-s govuk-!-margin-bottom-0 govuk-!-margin-top-5 float-left">
+      <%= resource.email %>
+    </h3>
+  </th>
+  <td colspan="1" class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-two-fifths" scope="col">
+    <p class="govuk-!-margin-top-5 govuk-!-margin-bottom-1 float-right govuk-body">
+      <% if valid_action? :show, collection_presenter.resource_name %>
+        <%= link_to t('admin.actions.view_details'), polymorphic_path([namespace, resource]),
+          class: %w[govuk-!-padding-right-2] %>
+      <% end %>
+      <% if valid_action?(:edit, collection_presenter.resource_name) && show_action?(:edit, resource) %>
+        <%= link_to t('admin.actions.edit'), [:edit, namespace, resource],
+          class: %w[govuk-!-padding-right-2] %>
+      <% end %>
+      <% if resource.account_active? && valid_action?(:deactivate, collection_presenter.resource_name) %>
+        <%= link_to(
+          t("administrate.actions.deactivate"),
+          [:deactivate_confirmation, namespace, resource],
+          class: "text-color-red",
+          method: :get
+        ) if show_action? :deactivate, resource %>
+      <% end %>
+      <% if !resource.account_active? && valid_action?(:reactivate, collection_presenter.resource_name) %>
+        <%= link_to(
+          t("administrate.actions.reactivate"),
+          [:reactivate_confirmation, namespace, resource],
+          class: "text-color-red",
+          method: :get
+        ) if show_action? :reactivate, resource %>
+      <% end %>
+    </p>
+  </td>
+</tr>
+<tr>
+  <th colspan="1" class="govuk-table__cell govuk-!-padding-left-0 govuk-body govuk-!-font-weight-bold">
+    <%= t('admin.admin_users.sign_in_count') %>
+  </td>
+  <td colspan="2" data-label="<%= t('admin.admin_users.sign_in_count') %>" class="govuk-table__cell govuk-body">
+    <%= resource.sign_in_count %>
+  </td>
+</tr>
+<tr>
+  <th colspan="1" class="govuk-table__cell govuk-!-padding-left-0 govuk-body govuk-!-font-weight-bold">
+    <%= t('admin.admin_users.last_sign_in_at') %>
+  </td>
+  <td colspan="2" data-label="<%= t('admin.admin_users.last_sign_in_at') %>" class="govuk-table__cell govuk-body">
+    <%= resource.last_sign_in_at %>
+  </td>
+</tr>
+<tr>
+  <th colspan="1" class="govuk-table__cell govuk-!-padding-left-0 govuk-body govuk-!-font-weight-bold">
+    <%= t('admin.admin_users.last_sign_in_ip') %>
+  </td>
+  <td colspan="2" data-label="<%= t('admin.admin_users.last_sign_in_ip') %>" class="govuk-table__cell govuk-body">
+    <%= resource.last_sign_in_ip %>
+  </td>
+</tr>

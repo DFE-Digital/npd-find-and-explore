@@ -198,6 +198,7 @@ en:
         delete: Delete category
         expand_all: Expand all categories
       titles:
+        sort: Sort Categories and Concepts
         childless: Childless Categories
       no_childless_categories: No childless categories found
       confirm_delete: This category will be deleted permanently. Are you sure?
@@ -334,6 +335,42 @@ en:
       data_tables: Data Table Uploads
       information_architecture: Categories and Concepts Uploads
       breadcrumbs: Recent uploads
+    admin_users:
+      element: Admin users
+      title: Manage admin users
+      show: View admin user
+      actions:
+        create: Create a new admin user
+        edit: Edit admin user
+        deactivate: Deactivate admin user
+        reactivate: Reactivate admin user
+        deactivate_confirmation: "Deactivate %{name}?"
+        deactivate_confirmation_yes: "Yes, deactivate %{name}"
+        deactivate_confirmation_no: "No, do not deactivate %{name}"
+        reactivate_confirmation: "Reactivate %{name}?"
+        reactivate_confirmation_yes: "Yes, reactivate %{name}"
+        reactivate_confirmation_no: "No, do not reactivate %{name}"
+      active: Active Admin Users
+      inactive: Inactive Admin Users
+      id: ID
+      deactivated_at: Deactivated at
+      sign_in_count: Sign in count
+      last_sign_in_at: Last sign in at
+      last_sign_in_ip: Last sign in IP
+      latest_sign_in_at: Latest sign in at
+      latest_sign_in_ip: Latest sign in IP
+      previous_sign_in_at: Previous sign in at
+      previous_sign_in_ip: Previous sign in IP
+      created_at: Created at
+      updated_at: Updated at
+      password: Password
+      password_and_hint: Password (leave blank if you don't want to change it)
+      password_confirmation: Password confirmation
+      current_password: Password
+      current_password_hint: We need your current password to confirm your changes
+      no_admin_users: No admin users. How are you even seeing this page?
+      deactivate_aborted: "%{name} not deactivated. Action cancelled by user."
+      reactivate_aborted: "%{name} not reactivated. Action cancelled by user."
   forms:
     continue: Continue
     confirm: Confirm

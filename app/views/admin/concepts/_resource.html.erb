@@ -20,7 +20,7 @@
   <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-quarter govuk-body govuk-!-font-weight-bold">
     <%= t('admin.categories.description') %>
   </td>
-  <td colspan="4" data-label="Description" class="govuk-table__cell govuk-body">
+  <td colspan="4" data-label="<%= t('admin.categories.description') %>" class="govuk-table__cell govuk-body">
     <%= resource.description %>
   </td>
 </tr> -->
@@ -47,7 +47,7 @@
   <th class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-quarter govuk-body govuk-!-font-weight-bold">
     <%= t('admin.concepts.data_items') %>
   </td>
-  <td colspan="4" data-label="Data Items" class="govuk-table__cell govuk-body">
+  <td colspan="4" data-label="<%= t('admin.concepts.data_items') %>" class="govuk-table__cell govuk-body">
     <%= resource.data_elements.count %>
   </td>
 </tr>
