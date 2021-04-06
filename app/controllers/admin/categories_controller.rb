@@ -125,7 +125,7 @@ module Admin
 
     def download
       @categories = Category.roots.includes(concepts: :data_elements)
-      filename = "F&E IA #{DateTime.now.strftime('%d %m %Y %H_%M')}.xlsx"
+      filename = "F&E CC Backup #{DateTime.now.strftime('%d %m %Y %H_%M')}.xlsx"
       cookies['download'] = { value: 'download-ia-table' }
 
       render xlsx: 'download.xlsx.axlsx', disposition: :inline, filename: filename
