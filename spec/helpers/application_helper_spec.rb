@@ -56,7 +56,7 @@ RSpec.describe ApplicationHelper, type: :helper do
 
     it 'Will return the placeholder description if result a concept without a description' do
       concept.update!(description: nil)
-      expect(searchable_description(concept)).to eq(concept.placeholder_description)
+      expect(searchable_description(concept)).to eq('')
     end
   end
 end
