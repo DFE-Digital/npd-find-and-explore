@@ -5,11 +5,12 @@
   <%= t('admin.data_elements.reindex.description') %>
 <% end %>
 
-<%= render 'shared/admin/header' %>
 
 <section class="main-content__body main-content__body--flush">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-2">
+      <%= render 'shared/admin/header' %>
+
       <fieldset class="govuk-fieldset govuk-!-margin-top-5" aria-describedby="reindex-hint reindex-error" role="group">
         <div id="form-group" class="govuk-form-group<%= success == false ? ' govuk-form-group--error' : '' %>">
           <%= form_with url: reindex_admin_data_elements_path, method: :post, id: 'reindex-form', data: { remote: false } do |f| %>

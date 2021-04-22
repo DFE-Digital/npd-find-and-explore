@@ -11,13 +11,7 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-0">
   <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
-    <header class="main-content__header govuk-!-padding-left-0 govuk-!-border-0" role="banner">
-      <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
-        <h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-3" id="page-title">
-          <%= content_for(:title) %>
-        </h1>
-      </div>
-    </header>
+    <%= render 'shared/admin/header' %>
 
     <section id="nestable" class="main-content__body main-content__body--flush">
       <% if @categories.present? %>
