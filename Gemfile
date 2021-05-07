@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.1'
 
 gem 'pg', '~> 1.0'
-gem 'rails', '~> 5.2', '>= 5.2.4.4'
+gem 'rails', '~> 5.2', '>= 5.2.4.6'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.12', '>= 3.12.4'
@@ -52,7 +52,7 @@ gem 'caxlsx_rails', '>= 0.6.2'
 gem 'rodf'
 
 # Authentication for Rails Admin
-gem 'devise', '~> 4', '>= 4.7.2'
+gem 'devise', '~> 4', '>= 4.7.3'
 
 # Audit changes
 gem 'paper_trail', '~> 10', '>= 10.3.1'
