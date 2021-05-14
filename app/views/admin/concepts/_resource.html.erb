@@ -7,7 +7,7 @@
   <td class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-quarter" scope="col">
     <p class="govuk-!-margin-top-5 govuk-!-margin-bottom-1 float-right govuk-body no-break">
       <% if valid_action? :show, collection_presenter.resource_name %>
-        <%= link_to t('admin.actions.view_details'), polymorphic_path([namespace, resource]),
+        <%= link_to t('admin.actions.view_details'), polymorphic_path([namespace.to_sym, resource]),
           class: %w[govuk-!-padding-right-2] %>
       <% end %>
       <% if valid_action?(:edit, collection_presenter.resource_name) && show_action?(:edit, resource) %>
@@ -26,7 +26,7 @@
   <td class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-one-quarter" scope="col">
     <p class="govuk-!-margin-top-0 govuk-!-margin-bottom-0 float-right govuk-body">
       <% if resource.category.present? && valid_action?(:show, 'category') %>
-        <%= link_to t('admin.actions.view_details'), polymorphic_path([namespace, resource.category]),
+        <%= link_to t('admin.actions.view_details'), polymorphic_path([namespace.to_sym, resource.category]),
           class: %w[govuk-!-padding-right-2] %>
       <% end %>
       <% if resource.category.present? && valid_action?(:edit, 'category') && show_action?(:edit, 'category') %>

@@ -34,7 +34,7 @@
                 </td>
                 <td colspan="3" data-label="<%= t('admin.categories.parent') %>" class="govuk-table__cell govuk-body">
                   <% if resource.parent.present? -%>
-                    <%= link_to resource.parent.name, polymorphic_path([namespace, resource.parent]),
+                    <%= link_to resource.parent.name, polymorphic_path([namespace.to_sym, resource.parent]),
                       class: %w[govuk-!-padding-right-2] %>
                   <%- else -%>
                     N/A

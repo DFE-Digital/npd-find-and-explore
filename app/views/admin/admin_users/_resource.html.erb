@@ -7,7 +7,7 @@
   <td colspan="1" class="govuk-table__cell govuk-!-padding-left-0 govuk-!-width-two-fifths" scope="col">
     <p class="govuk-!-margin-top-5 govuk-!-margin-bottom-1 float-right govuk-body no-break">
       <% if valid_action? :show, collection_presenter.resource_name %>
-        <%= link_to t('admin.actions.view_details'), polymorphic_path([namespace, resource]),
+        <%= link_to t('admin.actions.view_details'), polymorphic_path([namespace.to_sym, resource]),
           class: %w[govuk-!-padding-right-2] %>
       <% end %>
       <% if valid_action?(:edit, collection_presenter.resource_name) && show_action?(:edit, resource) %>
