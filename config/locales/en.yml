@@ -209,7 +209,8 @@ en:
       child_categories: Child categories
       import:
         title: Import categories and concepts backup file
-        label: Categories and concepts backup file to import
+        label: Select a categories and concepts backup file to import. Importing this file will overwrite the existing categories and concepts structure.
+        import: Importing categories and concepts<br/>backup file
       export:
         title: Create categories and concepts backup file
         subtitle: Create new categories and concepts backup file
