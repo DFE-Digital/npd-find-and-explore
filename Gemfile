@@ -9,7 +9,7 @@ gem 'pg', '~> 1.0'
 gem 'rails', '~> 5.2', '>= 5.2.4.6'
 
 # Use Puma as the app server
-gem 'puma', '~> 3.12', '>= 3.12.4'
+gem 'puma', '~> 4.3', '>= 4.3.8'
 gem 'webpacker', '~> 4.3', '>= 4.3.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
