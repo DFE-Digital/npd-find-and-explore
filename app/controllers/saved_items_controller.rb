@@ -6,6 +6,11 @@ class SavedItemsController < ApplicationController
   include ActionView::Helpers::UrlHelper
   include ApplicationHelper
 
+  HEADERS_ROW = ['Dataset', 'NPD Alias', 'Date Collected', 'Sensitivity',
+                 'Identifiability', 'Years Required'].freeze
+
+  helper_method :headers_row, :row_cells
+
   def index
     @title = t('saved_data.my_list.title')
     @title_size = 'xl'
@@ -56,21 +61,28 @@ private
     ods = RODF::Spreadsheet.new
     grouped_elements.each do |dataset, elements|
       table = ods.table(dataset.tab_name[0, 31])
-      table.add_rows(['Dataset', 'NPD Alias', 'Date Collected', 'Sensitivity',
-                      'Identifiability', 'Notes'])
+      table.add_rows(HEADERS_ROW)
       elements.each do |element|
-        de = element['object']
-        table.add_rows([
-          dataset.tab_name,
-          de.unique_alias,
-          [academic_year(de.academic_year_collected_from),
-           academic_year(de.academic_year_collected_to)].join(' to '),
-          de.sensitivity,
-          de.identifiability,
-          element['notes']
-        ].flatten)
+        data_item = element['object']
+        table.add_rows(row_cells(dataset, data_item))
       end
     end
     ods.bytes
+  end
+
+  def headers_row
+    HEADERS_ROW
+  end
+
+  def row_cells(dataset, data_item)
+    [
+      dataset.tab_name,
+      data_item.unique_alias,
+      [academic_year(data_item.academic_year_collected_from),
+       academic_year(data_item.academic_year_collected_to)].join(' to '),
+      data_item.sensitivity,
+      data_item.identifiability,
+      ''
+    ].flatten
   end
 end
