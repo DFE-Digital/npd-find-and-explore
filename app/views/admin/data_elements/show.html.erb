@@ -43,7 +43,7 @@
             </td>
             <td colspan="3" data-label="<%= t('admin.data_elements.concept') %>" class="govuk-table__cell govuk-body">
               <% if resource.concept.present? -%>
-                <%= link_to resource.concept.name, polymorphic_path([namespace, resource.concept]),
+                <%= link_to resource.concept.name, polymorphic_path([namespace.to_sym, resource.concept]),
                   class: %w[govuk-!-padding-right-2] %>
               <%- else -%>
                 N/A
@@ -57,7 +57,7 @@
             <td colspan="3" data-label="<%= t('admin.data_elements.datasets') %>" class="govuk-table__cell govuk-body">
               <% if resource.datasets.any? -%>
                 <% links = resource.datasets.map do |dataset| %>
-                  <%= link_to dataset.name, polymorphic_path([namespace, dataset]),
+                  <%= link_to dataset.name, polymorphic_path([namespace.to_sym, dataset]),
                     class: %w[govuk-!-padding-right-2] %>
                 <% end %>
                 <%= links.join(', ') %>
