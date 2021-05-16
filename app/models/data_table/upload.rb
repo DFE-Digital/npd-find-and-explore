@@ -22,6 +22,7 @@ module DataTable
     def initialize(attr)
       @workbook = Roo::Spreadsheet.open(attr.delete(:data_table))
       super(attr)
+      self.data_table.attach(workbook)
     end
 
     def fast_cleanup
