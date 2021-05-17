@@ -5,9 +5,13 @@ require 'rails_helper'
 RSpec.describe 'Saved Items page', type: :system do
   it 'Will show the saved items page' do
     visit '/saved_items'
-    expect(page).to have_text('My List', count: 2)
+    expect(page).to have_text('My List', count: 3)
     expect(page).to have_text(
-      'You can export this list of data items into a .xlsx or .ods file.'
+      'As you explore information about the type of data held in the NPD, ' \
+      'you can create a \'My List\' of data items that are of interest to you. ' \
+      'You can export this list into a .xlsx or .ods file, which may help when ' \
+      'completing the NPD Data Tables that should be submitted when applying to ' \
+      'DfE for NPD data.'
     )
   end
 
