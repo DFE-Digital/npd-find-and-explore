@@ -25,7 +25,7 @@ module ProcessCategories
     end
 
     def process
-      upload(inf_arch_tabs.map(&:tree).flatten)
+      upload(inf_arch_tabs.map(&:tree).flatten.reverse)
 
       update(successful: true)
     end

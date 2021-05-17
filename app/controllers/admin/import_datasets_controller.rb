@@ -18,7 +18,7 @@ module Admin
       loader = DataTable::Upload.create(admin_user: current_admin_user,
                                         file_name: params['file-upload'].original_filename,
                                         data_table: params['file-upload'])
-      loader.data_table.attach(params['file-upload'])
+      loader.data_table.attach(params['file-upload']) unless loader.data_table.attached?
       loader.preprocess
 
       if loader.data_table_tabs.recognised.any?

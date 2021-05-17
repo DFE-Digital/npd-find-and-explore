@@ -25,6 +25,8 @@ module InfArch
   class Tab < ApplicationRecord
     include ProcessCategoryTabs
 
+    default_scope -> { order(created_at: :asc) }
+
     belongs_to :inf_arch_upload, class_name: 'InfArch::Upload', inverse_of: :inf_arch_tabs
 
     attr_reader :sheet, :categories_tree
