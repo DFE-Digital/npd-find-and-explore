@@ -1,5 +1,5 @@
 import $ from 'jquery';
-tail = { select: require('tail.select') }
+var tail = { select: require('tail.select') }
 
 function hideSelect(element) {
   $(element).parent('.select').hide();

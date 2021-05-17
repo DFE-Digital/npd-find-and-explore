@@ -209,7 +209,9 @@ en:
       child_categories: Child categories
       import:
         title: Import categories and concepts backup file
-        label: Categories and concepts backup file to import
+        label: Select a categories and concepts backup file to import. Importing this file will overwrite the existing categories and concepts structure.
+        import: Importing categories and concepts<br/>backup file
+        cancel: Cancelling categories and concepts<br/>backup file import
       export:
         title: Create categories and concepts backup file
         subtitle: Create new categories and concepts backup file
@@ -300,6 +302,7 @@ en:
         import:
           title: Choose a file to upload
           label: File to upload
+          loading: Importing datasets file
         recognised:
           title: Recognised datasets
           description: 'The following datasets have been recognised; select the datasets you wish to import:'

@@ -14,6 +14,9 @@ $(document).ready(function() {
     }
 
     $('#download-link').attr('disabled', true)
+    $('.main-content__header').hide()
+    $('fieldset').hide()
+    $('.govuk-breadcrumbs').hide()
     $('#govuk-box-container').show();
 
     window.loader.init({
