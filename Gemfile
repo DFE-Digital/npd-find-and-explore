@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.1'
 
 gem 'pg', '~> 1.0'
-gem 'rails', '~> 5.2', '>= 5.2.4.6'
+gem 'rails', '~> 5.2', '>= 5.2.6'
 
 # Use Puma as the app server
 gem 'puma', '~> 4.3', '>= 4.3.8'
@@ -22,7 +22,7 @@ gem 'high_voltage', '~> 3.1'
 gem 'ancestry', '~> 3.0'
 
 # Lightweight admin functionality
-gem 'administrate', '~> 0.14', '>= 0.14.0'
+gem 'administrate', '~> 0.16', '>= 0.16.0'
 
 # Breadcrumb navigation
 gem 'loaf', '~> 0.8.1'
@@ -45,14 +45,14 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'roo', '~> 2.8', '>= 2.8.3'
 
 # caxlsx to generate excel files
-gem 'caxlsx', '>= 3.0.2'
+gem 'caxlsx', '>= 3.1.0'
 gem 'caxlsx_rails', '>= 0.6.2'
 
 # rodf to generate odf files
 gem 'rodf'
 
 # Authentication for Rails Admin
-gem 'devise', '~> 4', '>= 4.7.3'
+gem 'devise', '~> 4', '>= 4.8.0'
 
 # Audit changes
 gem 'paper_trail', '~> 10', '>= 10.3.1'
@@ -94,7 +94,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '>= 3.31.0'
+  gem 'capybara', '>= 3.34.0'
   gem 'selenium-webdriver', '~> 3.142'
 
   # Calculate spec coverage
