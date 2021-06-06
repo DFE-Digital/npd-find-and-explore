@@ -35,7 +35,7 @@
           </tbody>
         </table>
 
-        <%= paginate resources %>
+        <%= paginate resources, param_name: '_page' %>
         <span class="govuk-body govuk-!-font-size-14 float-right govuk-!-margin-top-5">
           <%= page_entries_info resources %>
         </span>

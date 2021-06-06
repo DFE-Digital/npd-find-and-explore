@@ -6,6 +6,10 @@ module Admin
     before_action :generate_breadcrumbs, only: %i[index]
     before_action :set_minimum_password_length, only: %i[new edit create update]
 
+    def records_per_page
+      nil
+    end
+
     def edit
       if requested_resource == current_admin_user
         redirect_to edit_admin_user_registration_path(current_admin_user)
