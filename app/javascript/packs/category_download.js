@@ -13,6 +13,7 @@ $(document).ready(function() {
       return;
     }
 
+    document.cookie = document.cookie.replace(/download=download-ia-table/, 'download=download-ia-table;path=/;max-age=1');
     $('#download-link').attr('disabled', true)
     $('.main-content__header').hide()
     $('fieldset').hide()
@@ -28,7 +29,7 @@ $(document).ready(function() {
 
     downloadTimer = window.setInterval(function() {
       if(/download=download-ia-table/.test(document.cookie)) { finishDownload(); }
-    }, 500);
+    }, 150);
   })
 
   var finishDownload = function() {

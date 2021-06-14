@@ -7,7 +7,7 @@ module Admin
 
     def orphaned
       all_resources, datasets = extract_resources
-      resources = order.apply(all_resources).page(params[:page]).per(records_per_page)
+      resources = order.apply(all_resources).page(params[:_page]).per(records_per_page)
       page = Administrate::Page::Collection.new(dashboard, order: order)
 
       custom_breadcrumbs_for(admin: true,
