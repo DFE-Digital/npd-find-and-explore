@@ -4,7 +4,7 @@
   "dependencies": {
     "@rails/activestorage": "^6.0.0-alpha",
     "@rails/ujs": "^6.0.0-alpha",
-    "@rails/webpacker": "5.2.0",
+    "@rails/webpacker": "5.2.2",
     "flatpickr": "^4.5.7",
     "govuk-frontend": "^3.5.0",
     "jquery": "^3.5.0",
