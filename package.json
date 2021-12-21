@@ -9,7 +9,7 @@
     "govuk-frontend": "^3.5.0",
     "jquery": "^3.5.0",
     "postcss-cssnext": "^3.1.0",
-    "snyk": "^1.518.0",
+    "snyk": "^1.611.0",
     "sortablejs": "^1.10.2",
     "tail.select": "^0.5.15",
     "typeahead-standalone": "^2.2.0"
