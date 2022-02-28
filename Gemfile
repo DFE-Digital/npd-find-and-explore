@@ -94,7 +94,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '>= 3.34.0'
+  gem 'capybara', '>= 3.35.3'
   gem 'selenium-webdriver', '~> 3.142'
 
   # Calculate spec coverage
