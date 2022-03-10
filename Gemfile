@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.1'
 
 gem 'pg', '~> 1.0'
-gem 'rails', '~> 5.2', '>= 5.2.6'
+gem 'rails', '~> 5.2', '>= 5.2.6.3'
 
 # Use Puma as the app server
 gem 'puma', '~> 4.3', '>= 4.3.8'
