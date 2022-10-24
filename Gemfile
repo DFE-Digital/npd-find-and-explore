@@ -80,7 +80,7 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-benchmark'
   gem 'rspec-rails', '~> 3.9', '>= 3.9.1'
-  gem 'rubocop-govuk', '~> 2'
+  gem 'rubocop-govuk', '~> 2', '>= 2.0.0'
 end
 
 group :development do
@@ -94,7 +94,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '>= 3.34.0'
+  gem 'capybara', '>= 3.35.3'
   gem 'selenium-webdriver', '~> 3.142'
 
   # Calculate spec coverage
