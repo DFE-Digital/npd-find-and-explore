@@ -6,20 +6,20 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.1'
 
 gem 'pg', '~> 1.0'
-gem 'rails', '~> 5.2', '>= 5.2.6'
+gem 'rails', '~> 6.1', '>= 6.1.7.1'
 
 # Use Puma as the app server
 gem 'puma', '~> 4.3', '>= 4.3.8'
 gem 'webpacker', '~> 4.3', '>= 4.3.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.9', '>= 2.9.1'
 
 # Static pages in Rails
 gem 'high_voltage', '~> 3.1'
 
 # Nested tree for categories
-gem 'ancestry', '~> 3.0'
+gem 'ancestry', '~> 3.0', '>= 3.0.7'
 
 # Lightweight admin functionality
 gem 'administrate', '~> 0.16', '>= 0.16.0'
@@ -58,14 +58,14 @@ gem 'devise', '~> 4', '>= 4.8.0'
 gem 'paper_trail', '~> 10', '>= 10.3.1'
 
 # Full Text Search
-gem 'pg_search', '~> 2.1'
+gem 'pg_search', '~> 2.3', '>= 2.3.0'
 
 # Pagination
 gem 'kaminari', '~> 1.2', '>= 1.2.1'
 
 # Bulk import and ActiveRecord extensions
-gem 'active_record_extended', '~>1'
-gem 'activerecord-import', '~>1'
+gem 'active_record_extended', '~> 2', '>= 2.0.0'
+gem 'activerecord-import', '~> 1', '>= 1.0.3'
 
 gem 'azure-storage', require: false
 
@@ -73,14 +73,14 @@ group :development, :test do
   gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'factory_bot', '~> 5.0'
+  gem 'factory_bot', '~> 5.2', '>= 5.2.0'
   gem 'factory_bot_rails', '~> 5.2', '>= 5.2.0'
   gem 'faker', '~> 1.9'
   gem 'pry', '~> 0.12.2'
   gem 'rspec'
   gem 'rspec-benchmark'
   gem 'rspec-rails', '~> 3.9', '>= 3.9.1'
-  gem 'rubocop-govuk', '~> 2'
+  gem 'rubocop-govuk', '~> 2', '>= 2.0.0'
 end
 
 group :development do
@@ -94,7 +94,7 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '>= 3.34.0'
+  gem 'capybara', '>= 3.35.3'
   gem 'selenium-webdriver', '~> 3.142'
 
   # Calculate spec coverage
